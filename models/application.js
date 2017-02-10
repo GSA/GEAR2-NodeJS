@@ -1,7 +1,7 @@
 /* jshint node:true, esnext: true */
 var mongoose = require('mongoose');
 var tedious = require('tedious');
-var databaseSettings = require('../config').databaseSettings;
+var databaseSettings = require('../.securables/gear-config').databaseSettings;
 var Schema = mongoose.Schema;
 var Connection = tedious.Connection;
 var Request = tedious.Request;
