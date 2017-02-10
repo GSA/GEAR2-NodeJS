@@ -1,21 +1,13 @@
 /* jshint node:true, esnext: true */
-var mongoose = require('mongoose');
 var tedious = require('tedious');
 var databaseSettings = require('../.securables/gear-config').databaseSettings;
-var Schema = mongoose.Schema;
 var Connection = tedious.Connection;
 var Request = tedious.Request;
 var connection;
 
-var ApplicationSchema = new Schema({
-    id: Number,
-    name: String,
-    description: String,
-    displayName: String
-});
+var Application = {};
 
-ApplicationSchema.statics
-    // replaces native find for Tedious
+Application
     .where = function (clause, cb) {
         var resJson = {
             status: 0
@@ -65,4 +57,4 @@ function findAll (cb) {
     connection.execSql(request);
 }
 
-module.exports = mongoose.model('Application', ApplicationSchema);
+module.exports = Application;
