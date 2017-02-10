@@ -3,6 +3,9 @@
 # Compile, bundle, etc. destinations
 */build/
 
+# sensitive data
+*.securables/
+
 # OS-specific
 .DS_Store
 
