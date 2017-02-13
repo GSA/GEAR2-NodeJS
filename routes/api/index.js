@@ -5,6 +5,6 @@ var app = require('./application');
 
 var router = express.Router();
 
-router.use('/app', app);
+router.use('/applications', app);
 
 module.exports = router;
