@@ -31,7 +31,7 @@ Application
 // private methods
 function findAll (cb) {
     var sql =   'SELECT TOP 50 * ' +
-                'FROM [EA_ODS].[SAODS].[Def_Application];';
+                'FROM [' + databaseSettings.connection.options.database + '].[SAODS].[Def_Application];';
     var result = [];
     var request = new Request(sql, function (err) {
         if (err) {
