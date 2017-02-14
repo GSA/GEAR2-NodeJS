@@ -10,7 +10,7 @@ Assumes you have NodeJS (with NPM) installed and appropriate MS SQL configuratio
 
 1. [Clone the repository](#1-clone-the-repository)
 2. [Install Node dependencies](#2-install-node-dependencies)
-3. [Configure the database connection](#3-configure-the-database-connectioin)
+3. [Configure the database connection](#3-configure-the-database-connection)
 4. [Start the server](#4-start-the-server)
 
 
