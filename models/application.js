@@ -23,15 +23,19 @@ Application
             });
           } else {
             console.log('Database Connected');
-            resJson = findAll(cb);
+            resJson = findAll(clause, cb);
           }
         });
     };
 
 // private methods
-function findAll (cb) {
-    var sql =   'SELECT TOP 50 * ' +
-                'FROM [' + databaseSettings.connection.options.database + '].[SAODS].[Def_Application];';
+function findAll (clause, cb) {
+    var sql =   'SELECT * ' +
+                'FROM [' + databaseSettings.connection.options.database +
+                '].[SAODS].[Def_Application]';
+    if (clause) {
+        sql = sql + ' WHERE ' + clause;
+    }
     var result = [];
     var request = new Request(sql, function (err) {
         if (err) {
