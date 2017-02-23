@@ -8,7 +8,7 @@ var connection;
 var Application = {};
 
 Application
-    .where = function (clause, cb) {
+    .query = function (clause, cb) {
         var resJson = {
             status: 0
         };
@@ -23,19 +23,14 @@ Application
             });
           } else {
             console.log('Database Connected');
-            resJson = findAll(clause, cb);
+            resJson = _req(clause, cb);
           }
         });
     };
 
 // private methods
-function findAll (clause, cb) {
-    var sql =   'SELECT * ' +
-                'FROM [' + databaseSettings.connection.options.database +
-                '].[SAODS].[Def_Application]';
-    if (clause) {
-        sql = sql + ' WHERE ' + clause;
-    }
+function _req(clause, cb) {
+    var sql = "SELECT * FROM SAODS.udfAppFullSuite2()";
     var result = [];
     var request = new Request(sql, function (err) {
         if (err) {
@@ -45,10 +40,7 @@ function findAll (clause, cb) {
             });
         } else {
             console.log(result);
-            cb.call(cb, {
-                status: 200,
-                items: result
-            });
+            cb.call(cb, result);
         }
     });
     request.on('row', function(columns) {

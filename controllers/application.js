@@ -1,32 +1,20 @@
 /* jshint node:true */
 
-var App = require('../models/application');
+var App = require('../stores/application');
 
 function findAll(req, res) {
-    var r = App.where(null, function (results) {
+    var r = App.query(null, function (results) {
         res.json(results);
     });
-}
-
-function create(req, res, next) {
 }
 
 function findOne(req, res, next) {
-    App.where('[Identity]=' + req.params.id, function (results) {
+    App.query('[Identity]=' + req.params.id, function (results) {
         res.json(results);
     });
-}
-
-function update(req, res, next) {
-}
-
-function remove(req, res, next) {
 }
 
 module.exports = {
     findAll: findAll,
-    create: create,
-    findOne: findOne,
-    update: update,
-    remove: remove
+    findOne: findOne
 };
