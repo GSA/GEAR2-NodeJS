@@ -13,4 +13,10 @@ router.route('/')
 router.route('/:id')
     .get(appCtrl.findOne);
 
+router.route('/:id/capabilities/')
+    .get(appCtrl.findCapabilities);
+
+router.route('/:id/technologies/')
+    .get(appCtrl.findTechnologies);
+
 module.exports = router;
