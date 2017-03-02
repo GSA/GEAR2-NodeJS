@@ -1,6 +1,6 @@
 /* eslint no-console: ["error", { allow: ["error"] }] */
 const express = require('express');
-// const path = require('path');
+const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -16,6 +16,8 @@ app.use(cookieParser());
 
 // ROUTES (always after bodyParser!)
 app.use('/api/v0', api);
+// STATIC (publicly-available files & folders that don't require view-engine processing)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
