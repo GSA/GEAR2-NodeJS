@@ -17,6 +17,9 @@ const http = require('http');
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+const termbold = '\x1b[1m';
+const termcolor = '\x1b[92m';
+console.warn(`${termcolor}Server running on port ${termbold}${port}\x1b[0m`);
 
 /**
  * Create HTTP server.

@@ -1,0 +1,89 @@
+<!-- The detail view -->
+<section class="row" data-ng-controller="SecurityController" data-ng-init="createFISMADetail()">
+<script>$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+    <div class="col-md-12">
+        <div id="function" class="panel panel-default" style="height: auto;">
+            <div id="functionheader" class="panel-heading">
+                <h3><i class="fa fa-lock fa-fw"></i>&nbsp;{{fisName}} </h3>
+				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
+				data-content="<b>Overview:</b> Contains general properties of the FISMA system.<br>
+				<b>Certified Business Applications:</b> Lists all the business applications that are certified under this FISMA system.<br>
+				">Click to see how to use this report</button>
+			</div>
+                <div class="panel-body" style="margin : 20px">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+							              <li role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Certified Business Applications</a></li>
+                        </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
+						                <br>
+                            <h4>Business Overview</h4>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Value</th>
+                                </tr>
+								                <tr>
+                                    <td><i class="fa fa-sitemap"></i>&nbsp;Responsible Org</td>
+                                    <td>{{relOrgDisplayName}}</td>
+                                </tr>
+								                <tr>
+                                    <td><i class="fa fa-calendar"></i>&nbsp;ATO Date</td>
+                                    <td>{{atodate}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;ATO Type</td>
+                                    <td>{{atotype}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-calendar"></i>&nbsp;Renewal Date</td>
+                                    <td>{{renewaldate}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
+                                    <td>{{fismaSystemIdentifier}}</td>
+                                </tr>
+                            </table>
+              							<br>
+                            <h4>Points Of Contact</h4>
+                            <table class="table table-hover" id="poctable">
+                                <tr>
+									                  <th>Role</th>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+									                  <th>Email</th>
+                                </tr>
+                            </table>
+          						</div>
+          						<div role="tabpanel" class="tab-pane" id="apps">
+          							<h4>Certified Business Applications</h4>
+          							<table id="fismaappstable" style="cursor: pointer;"
+          							data-search="true"
+          							data-advanced-search="true"
+          							data-id-table="appstable"
+          							data-trim-on-search="false"
+          							data-show-columns="true"
+          							data-show-export="true"
+          							data-classes="table table-no-bordered table-hover table-condensed"
+          							data-striped="true"
+          							data-pagination="true"
+          							data-show-pagination-switch="true"
+          							data-sort-name="Name"
+          							data-sort-order="asc"
+          							>
+          							</table>
+          						</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
