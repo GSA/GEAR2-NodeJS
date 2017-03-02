@@ -1,13 +1,11 @@
-var inherits = require('inherits');
-var Store = require('./store');
-var ApplicationModel = require('../models/application');
-var _ = require('underscore')
+const Store = require('./store');
+const ApplicationModel = require('../models/application');
 
-function AppStore() {
-//    Store.call(this);
+class AppStore extends Store {
+  constructor() {
+    super();
     this.model = new ApplicationModel();
-};
-_.extend(AppStore.prototype, Store.prototype)
-//inherits(AppStore, Store);
+  }
+}
 
 module.exports = AppStore;

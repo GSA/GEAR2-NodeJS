@@ -1,12 +1,11 @@
-var inherits = require('inherits');
-var Store = require('./store');
-var CapabilityModel = require('../models/capability');
+const Store = require('./store');
+const CapModel = require('../models/capability');
 
-function CapStore() {
-    Store.call(this);
-    console.log('CapStore')
-};
-
-inherits(CapStore, Store);
+class CapStore extends Store {
+  constructor() {
+    super();
+    this.model = new CapModel();
+  }
+}
 
 module.exports = CapStore;

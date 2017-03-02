@@ -1,45 +1,39 @@
-/* jshint node:true, esnext: true */
-var _ = require('underscore');
+const Model = require('./model');
 
-function Capability() {
+class CapabilityModel extends Model {
+  constructor(f) {
+    super(f);
     this.fields = [
-        {
-            name: 'Id',
-            type: 'string',
-            mapping: function (data) {
-                return data.CapID;
-            }
+      {
+        name: 'Id',
+        type: 'string',
+        mapping(data) {
+          return data.CapID;
         },
-        {
-            name: 'Name',
-            type: 'string',
-            mapping: function (data) {
-                return data.Name;
-            }
+      },
+      {
+        name: 'Name',
+        type: 'string',
+        mapping(data) {
+          return data.Name;
         },
-        {
-            name: 'Description',
-            type: 'string',
-            mapping: function (data) {
-                return data.Description;
-            }
+      },
+      {
+        name: 'Description',
+        type: 'string',
+        mapping(data) {
+          return data.Description;
         },
-        {
-            name: 'Ref',
-            type: 'string',
-            mapping: function (data) {
-                return data.Ref;
-            }
-        }
+      },
+      {
+        name: 'Ref',
+        type: 'string',
+        mapping(data) {
+          return data.Ref;
+        },
+      },
     ];
-};
+  }
+}
 
-Capability.prototype.apply = function (cols) {
-    var obj = {};
-    this.fields.forEach(function (field) {
-        obj[field.name] = field.mapping.call(field.mapping, cols)
-    });
-    return obj;
-};
-
-module.exports = Capability;
+module.exports = CapabilityModel;
