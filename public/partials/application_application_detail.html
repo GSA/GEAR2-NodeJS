@@ -49,7 +49,7 @@
                                 </tr>
 								<tr>
                                     <td><i class="fa fa-sitemap"></i>&nbsp;SSO</td>
-                                    <td>{{ application.SSO_Display_Name }}</td>
+                                    <td>{{ application.SSO }}</td>
                                 </tr>
 								<tr>
                                     <td><i class="fa fa-sitemap"></i>&nbsp;2 Letter Office</td>
@@ -59,10 +59,10 @@
                                     <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
                                     <td>
 										<ul class="list-unstyled" style="margin-bottom: 0">
-											<li ng-repeat="poc in application.DetBusinessPOC">
+											<li ng-repeat="poc in pocs | filter:{Type:'Business'}">
 												<a href="mailto:{{ poc.Email }}">{{ poc.Name }}</a>
 											</li>
-											<li ng-hide="!!application.DetBusinessPOC.length">
+											<li ng-hide="!!application.BusinessPOC.length">
 												None Provided
 											</li>
 										</ul>
@@ -127,7 +127,8 @@
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-user"></i>&nbsp;Technical POC</td>
-                                    <td>
+                                    <td>{{ application.TechnicalPOC }}</td>
+                                    <!-- <td>
 										<ul class="list-unstyled" style="margin-bottom: 0">
 											<li ng-repeat="poc in application.DetTechnicalPOC">
 												<a href="mailto:{{ poc.Email }}">{{ poc.Name }}</a>
@@ -136,7 +137,7 @@
 												None Provided
 											</li>
 										</ul>
-									</td>
+									</td> -->
                                 </tr>
 								 <tr>
                                     <td><i class="fa fa-user"></i>&nbsp;Hosting Provider</td>

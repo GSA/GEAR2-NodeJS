@@ -2,8 +2,8 @@
 'use strict';
 
 // Configure the 'example' module routes
-angular.module('dashboard').config(['$routeProvider',
-	function($routeProvider) {
+angular.module('dashboard').config(['$routeProvider', '$locationProvider',
+	function($routeProvider, $locationProvider) {
 		$routeProvider.
         when('/', {
             templateUrl: 'partials/dashboard.html'
@@ -177,5 +177,7 @@ angular.module('dashboard').config(['$routeProvider',
 		otherwise({
 			redirectTo: '/'
 		});
+
+		// $locationProvider.html5Mode(true);
 	}
 ]);

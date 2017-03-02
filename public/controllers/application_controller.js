@@ -1,9 +1,9 @@
-﻿// Invoke 'strict' JavaScript mode
+// Invoke 'strict' JavaScript mode
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Application', 'System', 'TIME', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
-    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Application, System, TIME, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
+angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'System', 'TIME', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
+    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, System, TIME, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
         $scope.rootPath = '';
         $scope.bstData = [];
         $scope.$bstEl = null;
@@ -19,10 +19,10 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
             if ($.isEmptyObject($routeParams)){
                 // Use the Organization 'query' method to send an appropriate GET request
-                var applications = Application.query();
+                var applications = ApplicationsSrc.query();
             }
             else{
-                var applications = Application.query({sso:$routeParams.applicationSSO});
+                var applications = ApplicationsSrc.query({sso:$routeParams.applicationSSO});
             }
             $scope.applications = applications;
             applications.$promise.then(function (populateData) {
@@ -45,8 +45,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                         $scope.bstData.push({
                             "Name": val.Name,
                             "Description": val.Description,
-                            "SSO": val.SSO_Display_Name,
-                            "Owner": val.Owner,
+                            "SSO": val.SSO,
+                            "Owner": val["Owner"],
                             "System": sys,
                             "BusinessPOC": val.BusinessPOC,
                             "TechnicalPOC": val.TechnicalPOC,
@@ -170,9 +170,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             // note: this :has selector cannot be cached; done this way to get
             // around caching & DOM availabily issues
             if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-                var apppath = row.Id
-				apppath = '/applications/' + apppath.replace(/\//g , "-%")
-
+                var apppath = '/applications/' + row.Id;
 				$location.path(apppath);
 				$route.reload();
 			}
@@ -184,7 +182,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             $scope.hasUsedSearchForm = false;
             $scope.rootPath = '/applications_retired';
             // Use the Organization 'query' method to send an appropriate GET request
-            var apps = Application.query();
+            var apps = ApplicationsSrc.query();
             apps.$promise.then(function (populateData) {
                 $scope.bstData = [];
                 $.each(apps, function (key, val) {
@@ -260,7 +258,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             var parentsystem = '';
             appstime.$promise.then(function (populateTIME) {
                 // Use the Application 'query' method to send an appropriate GET request
-                var apps = Application.query();
+                var apps = ApplicationsSrc.query();
                 apps.$promise.then(function (populateApps) {
                     $scope.bstData = [];
                     $.each(appstime, function (key, val) {
@@ -459,7 +457,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                     $scope.sysURL = val.URL;
                 });
                 // Use the System 'query' method to send an appropriate GET request
-                var apps = Application.query();
+                var apps = ApplicationsSrc.query();
                 apps.$promise.then(function (populateApps) {
                     var appgroup = [];
                     $.each(apps, function (key, val) {
@@ -514,12 +512,15 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                 $('[data-toggle="tooltip"]').tooltip()
             });
 
-            var appId = $routeParams.applicationId.replace(/-%/g , "/"),
-                application = Application.query({ id: appId }),
+            var appId = $routeParams.applicationId,
+                application = ApplicationsSrc.query({ id: appId }),
+                capabilities = AppCapabilitiesSrc.query({ id: appId }),
+                technologies = AppTechnologiesSrc.query({ id: appId }),
+                pocs = AppPOCsSrc.query({ id: appId }),
 			    time = TIME.query({ appId: appId }),
                 interfaces = Interface.query({ appId: appId });
 
-            application.$promise.then(function () {
+            application.$promise.then(function (d) {
                 // rule is multiple URLs are single string, delimited with a comma
                 if(!!application[0].Url && application[0].Url.indexOf(',') > -1) {
                     application[0].Url = application[0].Url.split(',');
@@ -539,41 +540,48 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                     $scope.interfaces = interfaces;
                 });
 
-                //Populate Related Capabilities Table
-                $('#appcaptable').bootstrapTable({
-                    columns: [{
-                        field: 'Name',
-                        title: 'Business Capability',
-                        sortable: true
-                    }, {
-                        field: 'Description',
-                        title: 'Description',
-                        sortable: true
-                    }, {
-						field: 'Id',
-						title: 'Id',
-						visible: false
-                    }],
-                    data: application[0].RelCapabilities
+                pocs.$promise.then(function () {
+                    $scope.pocs = pocs;
                 });
 
-                //Populate Related Technologies Table
-                $('#apptechtable').bootstrapTable({
-                    columns: [{
-                        field: 'Name',
-                        title: 'Technology',
-                        sortable: true
-                    }, {
-                        field: 'Description',
-                        title: 'Description',
-                        sortable: true
-                    }, {
-                        field: 'Status',
-                        title: 'Status',
-                        sortable: true
-                    }],
-                    data: application[0].RelStandards
+				capabilities.$promise.then(function () {
+                    $('#appcaptable').bootstrapTable({
+                        columns: [{
+                            field: 'Name',
+                            title: 'Business Capability',
+                            sortable: true
+                        }, {
+                            field: 'Description',
+                            title: 'Description',
+                            sortable: true
+                        }, {
+    						field: 'Id',
+    						title: 'Id',
+    						visible: false
+                        }],
+                        data: capabilities
+                    });
                 });
+
+				technologies.$promise.then(function () {
+                    $('#apptechtable').bootstrapTable({
+                        columns: [{
+                            field: 'Name',
+                            title: 'Technology',
+                            sortable: true
+                        }, {
+                            field: 'Description',
+                            title: 'Description',
+                            sortable: true
+                        }, {
+                            field: 'Status',
+                            title: 'Status',
+                            sortable: true
+                        }],
+                        data: technologies
+                    });
+                });
+
             });
         }
 
@@ -605,7 +613,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
         $scope.createInterfaceSSOChart = function (appId, orgId) {
             var appid = appId;
             var orgid = orgId;
-            var apps = Application.query();
+            var apps = ApplicationsSrc.query();
             var interfacelist = [];
             var providerid = '';
             var consumerid = '';
