@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["error"] }] */
 const express = require('express');
 // const path = require('path');
 const logger = require('morgan');
@@ -30,7 +31,7 @@ app.use((req, res, next) => {
 if (app.get('env') === 'development') {
   app.use((err, req, res) => {
     res.status(err.status || 500);
-    console.log(err);
+    console.error(err);
     res.json(err);
     // res.render('error', {
     //   message: err.message,

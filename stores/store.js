@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["error"] }] */
 const tedious = require('tedious');
 const databaseSettings = require('../.securables/gear-config').databaseSettings;
 
@@ -22,7 +23,6 @@ class Store {
           error: err,
         });
       } else {
-        console.log('Database Connected');
         const request = new Request(sql, (reqErr) => {
           if (reqErr) {
             cb.call(cb, {
@@ -33,8 +33,6 @@ class Store {
             cb.call(cb, this.data);
           }
         });
-
-        console.log('MY MODEL IS: ', this.model);
 
         request.on('row', (columns) => {
           const obj = {};

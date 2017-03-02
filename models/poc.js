@@ -1,45 +1,39 @@
-/* jshint node:true, esnext: true */
-var _ = require('underscore');
+const Model = require('./model');
 
-function POC() {
+class POCModel extends Model {
+  constructor(f) {
+    super(f);
     this.fields = [
-        {
-            name: 'Id',
-            type: 'string',
-            mapping: function (data) {
-                return data.ObjID;
-            }
+      {
+        name: 'Id',
+        type: 'string',
+        mapping(data) {
+          return data.ObjID;
         },
-        {
-            name: 'Name',
-            type: 'string',
-            mapping: function (data) {
-                return data.Name;
-            }
+      },
+      {
+        name: 'Name',
+        type: 'string',
+        mapping(data) {
+          return data.Name;
         },
-        {
-            name: 'Email',
-            type: 'string',
-            mapping: function (data) {
-                return data.Email;
-            }
+      },
+      {
+        name: 'Email',
+        type: 'string',
+        mapping(data) {
+          return data.Email;
         },
-        {
-            name: 'Type',
-            type: 'string',
-            mapping: function (data) {
-                return data['POC Type'];
-            }
-        }
+      },
+      {
+        name: 'Type',
+        type: 'string',
+        mapping(data) {
+          return data['POC Type'];
+        },
+      },
     ];
-};
+  }
+}
 
-POC.prototype.apply = function (cols) {
-    var obj = {};
-    this.fields.forEach(function (field) {
-        obj[field.name] = field.mapping.call(field.mapping, cols)
-    });
-    return obj;
-};
-
-module.exports = POC;
+module.exports = POCModel;

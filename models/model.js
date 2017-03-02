@@ -1,4 +1,3 @@
-/* jshint node:true, esnext: true */
 class Model {
   constructor(f) {
     this.fields = [
@@ -15,14 +14,12 @@ class Model {
       },
     ];
     if (Array.isArray(f)) {
-      console.log('WE GOT A CONFIG');
       this.fields = this.fields.concat(f);
     }
   }
   apply(data) {
     const obj = {};
     this.fields.forEach((field) => {
-      // console.log(`SWITCH ON: ${typeof field.mapping}`);
       switch (typeof field.mapping) {
         case 'function':
           obj[field.name] = field.mapping.call(field.mapping, data) || null;
