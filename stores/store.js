@@ -23,6 +23,7 @@ class Store {
           error: err,
         });
       } else {
+        this.data = [];
         const request = new Request(sql, (reqErr) => {
           if (reqErr) {
             cb.call(cb, {
@@ -33,7 +34,6 @@ class Store {
             cb.call(cb, this.data);
           }
         });
-
         request.on('row', (columns) => {
           const obj = {};
           columns.forEach((column) => {
