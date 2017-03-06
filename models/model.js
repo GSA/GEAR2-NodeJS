@@ -3,10 +3,7 @@ class Model {
     this.fields = [
       {
         name: 'Id',
-        type: 'string',
-        mapping(d) {
-          return d.ID;
-        },
+        type: 'number',
       },
       {
         name: 'Name',

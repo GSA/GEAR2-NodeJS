@@ -15,7 +15,7 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppFullSuite(${req.params.id})`, (results) => {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppFullSuite() WHERE ID = ${req.params.id}`, (results) => {
     res.json(results);
   });
 }
