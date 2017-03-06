@@ -9,13 +9,13 @@ const techStore = new TechStore();
 const pocStore = new POCStore();
 
 function findAll(req, res) {
-  appStore.query('SELECT * FROM SAODS.udfAppFullSuite2(default)', (results) => {
+  appStore.query('SELECT * FROM SAODS.udfGetAppFullSuite()', (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfAppFullSuite2(${req.params.id})`, (results) => {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppFullSuite() WHERE ID = ${req.params.id}`, (results) => {
     res.json(results);
   });
 }

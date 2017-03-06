@@ -6,111 +6,80 @@ class Application extends Model {
 
     this.fields = this.fields.concat([
       {
-        name: 'Alias',
+        name: 'Description',
         type: 'string',
-        mapping: 'Aliases',
       },
       {
-        name: 'ApplicationType',
+        name: 'SSO',
         type: 'string',
-        mapping(data) {
-          return data['Application Type'];
-        },
+      },
+      {
+        name: 'Owner',
+        type: 'string',
+      },
+      {
+        name: 'System',
+        type: 'string',
       },
       {
         name: 'BusinessPOC',
         type: 'string',
-        mapping(data) {
-          return data['Business POC'];
-        },
+      },
+      {
+        name: 'TechnicalPOC',
+        type: 'string',
       },
       {
         name: 'Cloud',
         type: 'string',
       },
       {
-        name: 'Description',
+        name: 'TechnologyPlatform',
         type: 'string',
-        mapping(data) {
-          return data.Description;
-        },
-      },
-      {
-        name: 'DesktopComponent',
-        type: 'string',
-        mapping(data) {
-          return data['Desktop Component'];
-        },
-      },
-      {
-        name: 'HostingProvider',
-        type: 'string',
-        mapping(data) {
-          return data['Hosting Provider'];
-        },
-      },
-      {
-        name: 'Investment',
-        type: 'string',
-        mapping(data) {
-          return data.Investment;
-        },
-      },
-      {
-        name: 'IsRevenueGenerator',
-        type: 'string',
-        mapping(data) {
-          return data.Revenue;
-        },
-      },
-      {
-        name: 'Owner',
-        type: 'string',
-        mapping(data) {
-          return data['Owning Org'];
-        },
-      },
-      {
-        name: 'RegionClassification',
-        type: 'string',
-        mapping(data) {
-          return data['Region Classification'];
-        },
-      },
-      {
-        name: 'SSO',
-        type: 'string',
-        mapping(data) {
-          return data.SSO;
-        },
       },
       {
         name: 'Status',
         type: 'string',
-        mapping(data) {
-          return data.Status;
-        },
       },
       {
-        name: 'System',
+        name: 'Alias',
         type: 'string',
-        mapping(data) {
-          return data.System;
-        },
       },
       {
-        name: 'TechnicalPOC',
+        name: 'RegionClassification',
         type: 'string',
-        mapping(data) {
-          return data['Technical POC'];
-        },
       },
       {
-        name: 'TechnologyPlatform',
+        name: 'HostingProvider',
         type: 'string',
-        mapping(data) {
-          return data['Technology Platform'];
-        },
+      },
+      {
+        name: 'FISMASystem',
+        type: 'string',
+      },
+      {
+        name: 'Investment',
+        type: 'string',
+      },
+      {
+        name: 'IsRevenueGenerator',
+        type: 'string',
+      },
+      {
+        name: 'DesktopComponent',
+        type: 'string',
+      },
+      {
+        name: 'RetiredYear',
+        type: 'string',
+      },
+      {
+        name: 'Capabilities',
+        type: 'string',
+      },
+      {
+        name: 'Technologies',
+        type: 'string',
       },
     ]);
   }
