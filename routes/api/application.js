@@ -1,19 +1,21 @@
-/* jshint node:true */
+const express = require('express');
+const appCtrl = require('../../controllers/application');
 
-var express = require('express');
-var appCtrl = require('../../controllers/application');
-
-console.log('application routes loaded');
-
-var router = express.Router();
+const router = express.Router();
 
 router.route('/')
-    .post(appCtrl.create)
     .get(appCtrl.findAll);
 
 router.route('/:id')
-    .get(appCtrl.findOne)
-    .put(appCtrl.update)
-    .delete(appCtrl.remove);
+    .get(appCtrl.findOne);
+
+router.route('/:id/capabilities/')
+    .get(appCtrl.findCapabilities);
+
+router.route('/:id/technologies/')
+    .get(appCtrl.findTechnologies);
+
+router.route('/:id/pocs/')
+    .get(appCtrl.findPOCs);
 
 module.exports = router;

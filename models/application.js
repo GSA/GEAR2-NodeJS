@@ -1,64 +1,88 @@
-/* jshint node:true, esnext: true */
-var tedious = require('tedious');
-var databaseSettings = require('../.securables/gear-config').databaseSettings;
-var Connection = tedious.Connection;
-var Request = tedious.Request;
-var connection;
+const Model = require('./model');
 
-var Application = {};
+class Application extends Model {
+  constructor(f) {
+    super(f);
 
-Application
-    .where = function (clause, cb) {
-        var resJson = {
-            status: 0
-        };
-
-        connection = new Connection(databaseSettings.connection);
-        connection.on('connect', function (err) {
-          if (err) {
-            console.error(err);
-            cb.call(cb, {
-                status: 500,
-                error: err
-            });
-          } else {
-            console.log('Database Connected');
-            resJson = findAll(clause, cb);
-          }
-        });
-    };
-
-// private methods
-function findAll (clause, cb) {
-    var sql =   'SELECT * ' +
-                'FROM [' + databaseSettings.connection.options.database +
-                '].[SAODS].[Def_Application]';
-    if (clause) {
-        sql = sql + ' WHERE ' + clause;
-    }
-    var result = [];
-    var request = new Request(sql, function (err) {
-        if (err) {
-            cb.call(cb, {
-                status: 500,
-                error: err
-            });
-        } else {
-            console.log(result);
-            cb.call(cb, {
-                status: 200,
-                items: result
-            });
-        }
-    });
-    request.on('row', function(columns) {
-        var obj = {};
-        columns.forEach(function(column) {
-            obj[column.metadata.colName] = column.value;
-        });
-        result.push(obj);
-    });
-    connection.execSql(request);
+    this.fields = this.fields.concat([
+      {
+        name: 'Description',
+        type: 'string',
+      },
+      {
+        name: 'SSO',
+        type: 'string',
+      },
+      {
+        name: 'Owner',
+        type: 'string',
+      },
+      {
+        name: 'System',
+        type: 'string',
+      },
+      {
+        name: 'BusinessPOC',
+        type: 'string',
+      },
+      {
+        name: 'TechnicalPOC',
+        type: 'string',
+      },
+      {
+        name: 'Cloud',
+        type: 'string',
+      },
+      {
+        name: 'TechnologyPlatform',
+        type: 'string',
+      },
+      {
+        name: 'Status',
+        type: 'string',
+      },
+      {
+        name: 'Alias',
+        type: 'string',
+      },
+      {
+        name: 'RegionClassification',
+        type: 'string',
+      },
+      {
+        name: 'HostingProvider',
+        type: 'string',
+      },
+      {
+        name: 'FISMASystem',
+        type: 'string',
+      },
+      {
+        name: 'Investment',
+        type: 'string',
+      },
+      {
+        name: 'IsRevenueGenerator',
+        type: 'string',
+      },
+      {
+        name: 'DesktopComponent',
+        type: 'string',
+      },
+      {
+        name: 'RetiredYear',
+        type: 'string',
+      },
+      {
+        name: 'Capabilities',
+        type: 'string',
+      },
+      {
+        name: 'Technologies',
+        type: 'string',
+      },
+    ]);
+  }
 }
 
 module.exports = Application;

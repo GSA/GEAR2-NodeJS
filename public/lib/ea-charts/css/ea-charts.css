@@ -1,0 +1,90 @@
+.ea-legend {
+    cursor: pointer;
+    font-size: 12px;
+}
+.ea-legend.ea-active {
+    color: firebrick;
+    font-weight: bolder;
+}
+@media (min-width: 768px) {
+    .ea-legend {
+        font-size: 14px;
+    }
+}
+@media (min-width: 992px) {
+    .ea-legend {
+        font-size: 9.5px;
+    }
+}
+@media (min-width: 1040px) {
+    .ea-legend {
+        font-size: 10px;
+    }
+}
+@media (min-width: 1100px) {
+    .ea-legend {
+        font-size: 11px;
+    }
+}
+@media (min-width: 1200px) {
+    .ea-legend {
+        font-size: 12px;
+    }
+}
+@media (min-width: 1300px) {
+    .ea-legend {
+        font-size: 13px;
+    }
+}
+@media (min-width: 1400px) {
+    .ea-legend {
+        font-size: 13px;
+    }
+}
+.ea-pie-chart.panel {
+    overflow-y: hidden;
+    position: relative;
+}
+.ea-pie path {
+    cursor: pointer;
+}
+.chart-tooltip {
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    line-height: 0;
+}
+.chart-tooltip .label {
+    color: #555;
+    font-size: 0.5em;
+    font-weight: 600;
+    padding: 0;
+}
+.chart-tooltip .count {
+    color: #444;
+    font-size: 1em;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0;
+}
+.load-warning {
+    bottom: 0;
+    color: #666;
+    font-family: inherit;
+    font-size: 18px;
+    height: 80px;
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+    .load-warning:before {
+        display: block;
+        color: orange;
+        font-family: FontAwesome;
+        font-size: 60px;
+    }
+

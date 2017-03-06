@@ -26,6 +26,12 @@
     "express": "~4.14.1",
     "morgan": "~1.7.0",
     "nodemon": "^1.11.0",
-    "tedious": "^1.14.0"
+    "tedious": "^1.14.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0"
   }
 }

@@ -1,9 +1,7 @@
-/* jshint node:true */
+const express = require('express');
+const app = require('./application');
 
-var express = require('express');
-var app = require('./application');
-
-var router = express.Router();
+const router = express.Router();
 
 router.use('/applications', app);
 

@@ -1,32 +1,47 @@
-/* jshint node:true */
+const AppStore = require('../stores/application');
+const CapStore = require('../stores/capability');
+const TechStore = require('../stores/technology');
+const POCStore = require('../stores/poc');
 
-var App = require('../models/application');
+const appStore = new AppStore();
+const capStore = new CapStore();
+const techStore = new TechStore();
+const pocStore = new POCStore();
 
 function findAll(req, res) {
-    var r = App.where(null, function (results) {
-        res.json(results);
-    });
+  appStore.query('SELECT * FROM SAODS.udfGetAppFullSuite()', (results) => {
+    res.json(results);
+  });
 }
 
-function create(req, res, next) {
+function findOne(req, res) {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppFullSuite() WHERE ID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
 }
 
-function findOne(req, res, next) {
-    App.where('[Identity]=' + req.params.id, function (results) {
-        res.json(results);
-    });
+function findCapabilities(req, res) {
+  capStore.query(`SELECT * FROM SAODS.udfGetCapByApp(${req.params.id})`, (results) => {
+    res.json(results);
+  });
 }
 
-function update(req, res, next) {
+function findTechnologies(req, res) {
+  techStore.query(`SELECT * FROM SAODS.udfGetTechByApp(${req.params.id})`, (results) => {
+    res.json(results);
+  });
 }
 
-function remove(req, res, next) {
+function findPOCs(req, res) {
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('a') WHERE ObjID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
 }
 
 module.exports = {
-    findAll: findAll,
-    create: create,
-    findOne: findOne,
-    update: update,
-    remove: remove
+  findCapabilities,
+  findTechnologies,
+  findPOCs,
+  findAll,
+  findOne,
 };

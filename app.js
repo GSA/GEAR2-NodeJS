@@ -1,11 +1,12 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var api = require('./routes/api/index');
+/* eslint no-console: ["error", { allow: ["error"] }] */
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const api = require('./routes/api/index');
 
-var app = express();
+const app = express();
 
 // MIDDLEWARE (These must be first)
 app.use(logger('dev'));
@@ -15,10 +16,12 @@ app.use(cookieParser());
 
 // ROUTES (always after bodyParser!)
 app.use('/api/v0', api);
+// STATIC (publicly-available files & folders that don't require view-engine processing)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -28,9 +31,9 @@ app.use((req, res, next) => {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
-    console.log(err);
+    console.error(err);
     res.json(err);
     // res.render('error', {
     //   message: err.message,
