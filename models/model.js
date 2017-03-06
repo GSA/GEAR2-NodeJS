@@ -16,16 +16,21 @@ class Model {
   }
   apply(data) {
     const obj = {};
+
     this.fields.forEach((field) => {
       switch (typeof field.mapping) {
         case 'function':
           obj[field.name] = field.mapping.call(field.mapping, data) || null;
           break;
         case 'string':
-          obj[field.name] = data[field.mapping] || null;
+          if (Object.hasOwnProperty.call(data, field.mapping)) {
+            obj[field.name] = data[field.mapping];
+          }
           break;
         default:
-          obj[field.name] = data[field.name] || null;
+          if (Object.hasOwnProperty.call(data, field.name)) {
+            obj[field.name] = data[field.name];
+          }
           break;
       }
     });

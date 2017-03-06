@@ -9,7 +9,12 @@ const techStore = new TechStore();
 const pocStore = new POCStore();
 
 function findAll(req, res) {
-  appStore.query('SELECT * FROM SAODS.udfGetAppFullSuite()', (results) => {
+  let fields = '*';
+
+  if (Object.hasOwnProperty.call(req.query, 'fields')) {
+    fields = req.query.fields;
+  }
+  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite()`, (results) => {
     res.json(results);
   });
 }
