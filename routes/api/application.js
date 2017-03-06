@@ -3,6 +3,8 @@ const appCtrl = require('../../controllers/application');
 
 const router = express.Router();
 
+console.log('application routes loaded');
+
 router.route('/')
     .get(appCtrl.findAll);
 
