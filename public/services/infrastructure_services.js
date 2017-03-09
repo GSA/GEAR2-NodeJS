@@ -1,6 +1,12 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+angular.module('dashboard')
+.factory('ITStandardsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/itstandards/:id');
+}])
+
+// Legacy
 // Create the 'IT Standards' service
 angular.module('dashboard').factory('ITStandard', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an IT Standards '$resource' object

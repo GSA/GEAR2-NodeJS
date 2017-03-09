@@ -1,6 +1,12 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+angular.module('dashboard')
+.factory('OrganizationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/organizations/:id');
+}]);
+
+// Legacy
 // Create the 'Organization' service
 angular.module('dashboard').factory('Organization', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an Organization '$resource' object

@@ -2,8 +2,8 @@
 'use strict';
 
 // Create the 'Security' controller
-angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'FISMA', 'FISMAPOC', 'RISSO', 'bstSearchUtils',
-    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMA, FISMAPOC, RISSO, bstSearchUtils) {
+angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'FISMASrc', 'FISMAPOC', 'RISSO', 'bstSearchUtils',
+    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASrc, FISMAPOC, RISSO, bstSearchUtils) {
         $scope.rootPath = '';
         $scope.bstData = [];
         $scope.$bstEl = null;
@@ -17,7 +17,7 @@ angular.module('dashboard').controller('SecurityController', ['$route','$scope',
             $scope.hasUsedSearchForm = false;
             $scope.rootPath = '/FISMA';
 
-            var fsystems = FISMA.query({requestType:'ALL'});
+            var fsystems = FISMASrc.query({requestType:'ALL'});
             fsystems.$promise.then(function (populateData) {
                 $scope.bstData = [];
     			var art = "";
@@ -116,9 +116,7 @@ angular.module('dashboard').controller('SecurityController', ['$route','$scope',
                 // far is to explicitly exclude by column name
                 if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length)
                     && field !== 'Artifacts') {
-        			var fismapath = row.Id;
-        			fismapath = fismapath.replace(/\//g , "-%")
-        			$location.path('/FISMA/' + fismapath);
+        			$location.path('/FISMA/' + row.Id);
         			$scope.$apply();
                 }
     		});
@@ -130,7 +128,7 @@ angular.module('dashboard').controller('SecurityController', ['$route','$scope',
 				$('[data-toggle="tooltip"]').tooltip()
 			});
             // Use the fisma_system 'get' method to send an appropriate GET request
-			var fisma = FISMA.query({requestType:"ALL", id:$routeParams.fismapath});
+			var fisma = FISMASrc.query({requestType:"ALL", id:$routeParams.fismapath});
 			var fismaid = '';
             fisma.$promise.then(function (populateData) {
                 $.each(fisma, function (key, val) {
@@ -243,7 +241,7 @@ angular.module('dashboard').controller('SecurityController', ['$route','$scope',
             $scope.hasUsedSearchForm = false;
             $scope.rootPath = '/FISMA_POC';
 
-            var fpoc = FISMA.query({requestType:'POC'});
+            var fpoc = FISMASrc.query({requestType:'POC'});
             fpoc.$promise.then(function (fisma) {
 				var fisma = [];
 				var issm = '';

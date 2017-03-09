@@ -2,8 +2,8 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'Organization', 'OrgSvc', 'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
-    function ($route,$scope, $http, $routeParams, $filter, $location, $sce, Organization,OrgSvc, BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
+angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'OrganizationsSrc', 'Organization', 'OrgSvc', 'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
+    function ($route,$scope, $http, $routeParams, $filter, $location, $sce, OrganizationsSrc, Organization,OrgSvc, BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
         $scope.rootPath = '';
         $scope.bstData = [];
         $scope.$bstEl = null;
@@ -19,7 +19,7 @@ angular.module('dashboard').controller('BusinessController', ['$route','$scope',
             $scope.rootPath = '/organizations';
 
 			var organs = [];
-            var organizations = Organization.query();
+            var organizations = OrganizationsSrc.query();
             organizations.$promise.then(function (populateData) {
                 $scope.bstData = [];
 				$.each(organizations, function (key, val) {
@@ -74,7 +74,7 @@ angular.module('dashboard').controller('BusinessController', ['$route','$scope',
             var org = $routeParams.organizationName;
 			org = org.replace(/-%/g , "/");
             // Use the ps 'get' method to send an appropriate GET request
-            var organization = Organization.query();
+            var organization = OrganizationsSrc.query();
 			var application = Application.query();
 			var interfaces = Interface.query();
 			var orgname = '';
@@ -285,7 +285,7 @@ angular.module('dashboard').controller('BusinessController', ['$route','$scope',
 
 		// Method for creating the Org Chart view
 		$scope.createOrgChart = function () {
-            var orgs = Organization.query();
+            var orgs = OrganizationsSrc.query();
             var parentorg = 'Office of the Administrator (A)';
             var orgTree = {};
 
