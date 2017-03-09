@@ -8,11 +8,14 @@ angular.module('dashboard')
 .factory('AppCapabilitiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/applications/:id/capabilities');
 }])
+.factory('AppPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/applications/:id/pocs');
+}])
 .factory('AppTechnologiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/applications/:id/technologies');
 }])
-.factory('AppPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-    return $resource('/api/v0/applications/:id/pocs');
+.factory('AppTIMESrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/apptime/:id/');
 }]);
 
 // Legacy...

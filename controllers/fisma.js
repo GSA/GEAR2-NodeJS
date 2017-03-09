@@ -1,10 +1,6 @@
 const FISMAStore = require('../stores/fisma');
-//const CapStore = require('../stores/capability');
-//const TechStore = require('../stores/technology');
-//const POCStore = require('../stores/poc');
 
 const fismaStore = new FISMAStore();
-
 
 function findAll(req, res) {
   fismaStore.query('SELECT * FROM SAODS.udfGetFISMAList()', (results) => {
@@ -13,9 +9,9 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  //appStore.query(`SELECT * FROM SAODS.udfAppFullSuite2(${req.params.id})`, (results) => {
-   // res.json(results);
-  //});
+  fismaStore.query(`SELECT * FROM SAODS.udfGetFISMAList() WHERE FISMAID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
 }
 
 

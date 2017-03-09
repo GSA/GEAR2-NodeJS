@@ -2,8 +2,8 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'System', 'TIME', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
-    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, System, TIME, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
+angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
+    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
         $scope.rootPath = '';
         $scope.bstData = [];
         $scope.$bstEl = null;
@@ -241,7 +241,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             $scope.hasUsedSearchForm = false;
             $scope.rootPath = '/applications_TIME';
             // Use the TIME 'query' method to send an appropriate GET request
-            var appstime = TIME.query();
+            var appstime = AppTIMESrc.query();
             var time = [];
             var appname = '';
             var owner = '';
@@ -517,7 +517,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                 capabilities = AppCapabilitiesSrc.query({ id: appId }),
                 technologies = AppTechnologiesSrc.query({ id: appId }),
                 pocs = AppPOCsSrc.query({ id: appId }),
-			    time = TIME.query({ appId: appId }),
+			    time = AppTIMESrc.query({ id: appId }),
                 interfaces = Interface.query({ appId: appId });
 
             application.$promise.then(function (d) {
@@ -534,6 +534,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
 				time.$promise.then(function () {
                     $scope.time = time;
+                    console.log(time);
                 });
 
                 interfaces.$promise.then(function () {

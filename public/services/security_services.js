@@ -1,6 +1,12 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+angular.module('dashboard')
+.factory('FISMASrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/fisma/:id');
+}])
+
+//Legacy
 // Create the 'FISMA' service
 angular.module('dashboard').factory('FISMA', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an FISMA System '$resource' object
