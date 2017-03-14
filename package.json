@@ -4,11 +4,11 @@
   "description": "GSA EA Analytics and Reporting",
   "main": "./bin/www",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node --use_strict ./bin/www"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ccampbell-gsa/GEAR-NodeJS.git"
+    "url": "git+https://github.com/GSA/GEAR2-NodeJS.git"
   },
   "keywords": [
     "enterprise architecture"
@@ -16,9 +16,9 @@
   "author": "GSA IDRA",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ccampbell-gsa/GEAR-NodeJS/issues"
+    "url": "https://github.com/GSA/GEAR2-NodeJS/issues"
   },
-  "homepage": "https://github.com/ccampbell-gsa/GEAR-NodeJS#readme",
+  "homepage": "https://github.com/GSA/GEAR2-NodeJS#readme",
   "dependencies": {
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
