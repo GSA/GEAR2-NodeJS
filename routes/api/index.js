@@ -5,6 +5,7 @@ const sys = require('./parentsystem');
 const appTIME = require('./apptime');
 const its = require('./itstandards');
 const fisma = require('./fisma');
+const fismapoc = require('./fisma_poc');
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use('/parentsystem', sys);
 router.use('/apptime', appTIME);
 router.use('/itstandards', its);
 router.use('/fisma', fisma);
+router.use('/fismapoc', fismapoc);
 
 module.exports = router;
