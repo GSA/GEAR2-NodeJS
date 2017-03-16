@@ -15,9 +15,9 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-   // testStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id})`, (results) => {
-     // res.json(results);
- //  });
+    fismapocStore.query(`SELECT ID, Name, RelOrgDisplayName, FIPS199, ISSO, ISSM, AO, PM  FROM SAODS.udfGetFISMAList() WHERE ID = ${req.params.id}`, (results) => {
+      res.json(results);
+   });
 }
 
 // function findCapabilities(req, res) {
