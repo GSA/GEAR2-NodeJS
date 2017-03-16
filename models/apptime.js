@@ -12,12 +12,15 @@ class AppTIMEModel extends Model {
         },
       },
       {
+        name: 'AppId',
+        type: 'int',
+        mapping(data) {
+          return data.ID;
+        },
+      },
+      {
         name: 'Alias',
         type: 'string',
-		mapping(data) {
-          return data.Alias;
-        },
-
       },
       {
         name: 'FY14',

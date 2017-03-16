@@ -2,8 +2,8 @@
 'use strict';
 
 // Create the 'Infrastructure' controller
-angular.module('dashboard').controller('InfrastructureController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'ITStandard', 'ITStandardByCat', 'AppTechMap', 'Application', 'bstSearchUtils',
-    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStandard, ITStandardByCat, AppTechMap, Application, bstSearchUtils) {
+angular.module('dashboard').controller('InfrastructureController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'ITStandardsSrc', 'ITStandardByCat', 'AppTechMap', 'Application', 'bstSearchUtils',
+    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStandardsSrc, ITStandardByCat, AppTechMap, Application, bstSearchUtils) {
         $scope.rootPath = '';
         $scope.bstData = [];
         $scope.$bstEl = null;
@@ -20,7 +20,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
 
             var itstandards = [];
             var filteredstands = [];
-			itstandards = ITStandard.query();
+			itstandards = ITStandardsSrc.query();
 			var standcats = ITStandardByCat.query();
 			standcats.$promise.then(function (populateData) {
 				itstandards.$promise.then(function (populateData) {
@@ -214,7 +214,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
             $scope.hasUsedSearchForm = false;
             $scope.rootPath = '/itstandards_goldimage';
 			// Use the Organization 'query' method to send an appropriate GET request
-            var stands = ITStandard.query();
+            var stands = ITStandardsSrc.query();
             stands.$promise.then(function (populateData) {
                 $scope.bstData = [];
                 $.each(stands, function (key, val) {
@@ -275,7 +275,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
             var stand = $routeParams.standpath;
 			stand = stand.replace(/-%/g , "/");
             // Use the Application 'get' method to send an appropriate GET request
-            var standards = ITStandard.query();
+            var standards = ITStandardsSrc.query();
 			var standid = '';
             standards.$promise.then(function (populateData) {
                 $.each(standards, function (key, val) {

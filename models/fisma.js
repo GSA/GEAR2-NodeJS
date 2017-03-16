@@ -12,6 +12,11 @@ class FISMAModel extends Model {
         },
       },
       {
+        name: 'Id',
+        type: 'int',
+        mapping: 'FISMAID',
+      },
+      {
         name: 'Name',
         type: 'string',
 

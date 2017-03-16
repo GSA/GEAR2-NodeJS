@@ -26,6 +26,11 @@ class OrganizationModel extends Model {
         type: 'string',
 
       },
+      {
+        name: 'Parent',
+        type: 'string',
+
+      },
     ];
   }
 }
