@@ -9,7 +9,7 @@ const fismapocStore = new FismapocStore();
  const pocStore = new POCStore();
 
 function findAll(req, res) {
-  fismapocStore.query("SELECT ALL * FROM SAODS.udfGetPOCDetails('f')", (results) => {
+  fismapocStore.query("SELECT ID, Name, RelOrgDisplayName, FIPS199, ISSO, ISSM, AO, PM  FROM SAODS.udfGetFISMAList()", (results) => {
     res.json(results);
   });
 }

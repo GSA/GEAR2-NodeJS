@@ -21,22 +21,34 @@ class Fismapoc extends Model {
         // },
       },
       {
-        name: 'Email',
+        name: 'RelOrgDisplayName',
         type: 'string',
         // mapping(data) {
           // return data.Description;
         // },
       },
-      {
-        name: 'Phone',
+	  {
+        name: 'FIPS199',
         type: 'string',
       },
       {
-        name: 'Type',
+        name: 'ISSO',
         type: 'string',
-         mapping(data) {
-           return data['POC Type'];
-         },
+         // mapping(data) {
+           // return data['POC Type'];
+         // },
+      },
+	        {
+        name: 'ISSM',
+        type: 'string',
+      },
+	        {
+        name: 'AO',
+        type: 'string',
+      },
+	        {
+        name: 'PM',
+        type: 'string',
       },
     ]);
   }
