@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use('/api/v0', api);
 // STATIC (publicly-available files & folders that don't require view-engine processing)
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.listen(process.env.PORT);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
