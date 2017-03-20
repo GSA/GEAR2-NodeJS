@@ -532,7 +532,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
                 $scope.application = application[0];
 
-				time.$promise.then(function () {
+				        time.$promise.then(function () {
                     $scope.time = time;
                     console.log(time);
                 });

@@ -7,10 +7,15 @@ console.log('organization routes loaded');
 
 var router = express.Router();
 
-router.route('/')    
+router.route('/')
     .get(orgCtrl.findAll);
 
 router.route('/:id')
     .get(orgCtrl.findOne);
+
+// children
+router.route('/:id/applications/')
+    .get(orgCtrl.findApplications);
+
 
 module.exports = router;
