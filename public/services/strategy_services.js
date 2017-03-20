@@ -1,10 +1,13 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+// TODO:
+// tbr: 'Investment'
 angular.module('dashboard')
 .factory('InvestmentsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/investments/:id');
 }])
+// Goal is UNUSED, but lets leave references for now 
 
 // Legacy
 // Create the 'Investment' service

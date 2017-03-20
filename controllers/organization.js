@@ -1,9 +1,10 @@
 const OrgStore = require('../stores/organization');
-//const CapStore = require('../stores/capability');
+const AppStore = require('../stores/application');
 //const TechStore = require('../stores/technology');
 //const POCStore = require('../stores/poc');
 
 const orgStore = new OrgStore();
+const appStore = new AppStore();
 
 
 function findAll(req, res) {
@@ -18,9 +19,15 @@ function findOne(req, res) {
   //});
 }
 
+function findApplications(req, res) {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'o')`, (results) => {
+    res.json(results);
+  });
+}
+
 
 module.exports = {
-
+  findApplications,
   findAll,
   findOne,
 };
