@@ -1,10 +1,19 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+// replaces 'FISMA'
 angular.module('dashboard')
 .factory('FISMASrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/fisma/:id');
 }])
+// TODO:
+// tbr 'RISSO'
+.factory('POCSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/pocs/:id');
+}])
+// FISMAPOC is UNUSED. References need to be deleted
+
+
 
 //Legacy
 // Create the 'FISMA' service

@@ -1,10 +1,27 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+// replaces 'Organization'
 angular.module('dashboard')
 .factory('OrganizationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/organizations/:id');
-}]);
+}])
+// replaces 'OrgAppMap'
+.factory('OrgAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/organizations/:id/applications');
+}])
+// TODO:
+// tbr: 'GetOrgSysMap'
+.factory('OrgSysSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/organizations/:id/systems');
+}])
+// replaces 'BusFunction'
+.factory('CapabilitiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/capabilities/:id');
+}])
+// Goal is UNUSED, but lets leave references for now
+
+
 
 // Legacy
 // Create the 'Organization' service
@@ -14,7 +31,6 @@ angular.module('dashboard').factory('Organization', ['$resource', 'WcfConfig', f
         organizationId: '@_id'
     });
 }]);
-
 // Create the 'Function' service
 angular.module('dashboard').factory('BusFunction', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an Organization '$resource' object
@@ -22,7 +38,6 @@ angular.module('dashboard').factory('BusFunction', ['$resource', 'WcfConfig', fu
         brmId: '@_id'
     });
 }]);
-
 // Create the 'Organization to Application Mapping' service
 angular.module('dashboard').factory('OrgAppMap', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an OrgAppMap '$resource' object
@@ -30,7 +45,6 @@ angular.module('dashboard').factory('OrgAppMap', ['$resource', 'WcfConfig', func
         organizationId: '@Name'
     });
 }]);
-
 // Create the 'Organization to System Mapping' service
 angular.module('dashboard').factory('OrgSysMap', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an OrgSysMap '$resource' object
@@ -38,7 +52,6 @@ angular.module('dashboard').factory('OrgSysMap', ['$resource', 'WcfConfig', func
         organizationId: '@Name'
     });
 }]);
-
 // Create the 'Organization to Goal Mapping' service
 angular.module('dashboard').factory('OrgGoalMap', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     // Use the '$resource' service to return an OrgGoalMap '$resource' object

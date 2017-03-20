@@ -1,10 +1,15 @@
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
+// replaces 'ITStandard'
 angular.module('dashboard')
 .factory('ITStandardsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/itstandards/:id');
 }])
+
+// 'ITStandardByCat' unused 
+
+
 
 // Legacy
 // Create the 'IT Standards' service
