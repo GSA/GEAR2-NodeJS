@@ -1,11 +1,7 @@
-/* jshint node:true */
+const express = require('express');
+const orgCtrl = require('../../controllers/organization');
 
-var express = require('express');
-var orgCtrl = require('../../controllers/organization');
-
-console.log('organization routes loaded');
-
-var router = express.Router();
+const router = express.Router();
 
 router.route('/')
     .get(orgCtrl.findAll);

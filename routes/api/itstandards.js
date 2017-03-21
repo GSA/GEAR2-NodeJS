@@ -9,6 +9,7 @@ router.route('/')
 router.route('/:id')
     .get(itsCtrl.findOne);
 
+// children
 router.route('/:id/applications/')
     .get(itsCtrl.findApplications);
 
