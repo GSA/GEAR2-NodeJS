@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Invoke 'strict' JavaScript mode
 'use strict';
 

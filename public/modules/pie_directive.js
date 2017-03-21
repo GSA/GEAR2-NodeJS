@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 dashboard.directive('pie', function ($location) {
     'use strict';
 

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var app = angular.module('dashboard');
 
 app.controller('appsBySsoChartController', function ($scope, Application) {

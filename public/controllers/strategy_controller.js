@@ -1,4 +1,4 @@
-﻿/*globals $, _, d3 */
+/* eslint-disable */
 
 // Invoke 'strict' JavaScript mode
 'use strict';

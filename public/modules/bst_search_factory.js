@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // NOTE: This module is NOT for GEAR v2 consideration and written for the
 //       3rd party Bootstrap Tables plugin and its 4th party extensions.
 //       Ideally, we'll replace Bootstrap Tables with something that suits our
@@ -134,7 +136,6 @@ dashboard.factory('bstSearchUtils', function ($routeParams, $location ) {
                     if (!scope.hasUsedSearchForm) {
                         scope.hasUsedSearchForm = true;
                         if ($routeParams.query) {
-                            console.log('CLEAR');
                             scope.$bstEl.bootstrapTable('filterBy', null);
                         }
                     } else {

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 ﻿// Invoke 'strict' JavaScript mode
 'use strict';
 
@@ -7,7 +9,7 @@ angular.module('dashboard')
 .factory('InvestmentsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/investments/:id');
 }])
-// Goal is UNUSED, but lets leave references for now 
+// Goal is UNUSED, but lets leave references for now
 
 // Legacy
 // Create the 'Investment' service
