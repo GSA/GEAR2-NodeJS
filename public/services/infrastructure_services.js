@@ -6,8 +6,11 @@ angular.module('dashboard')
 .factory('ITStandardsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
     return $resource('/api/v0/itstandards/:id');
 }])
-
-// 'ITStandardByCat' unused 
+// new 'ITStdApplicationsSrc'
+.factory('ITStdApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+    return $resource('/api/v0/itstandards/:id/applications');
+}])
+// 'ITStandardByCat' unused
 
 
 

@@ -40,6 +40,7 @@ class Store {
           columns.forEach((column) => {
             obj[column.metadata.colName] = column.value;
           });
+          console.log(obj);
           this.data.push(this.model.apply(obj));
         });
         connection.execSql(request);

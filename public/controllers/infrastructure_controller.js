@@ -2,8 +2,8 @@
 'use strict';
 
 // Create the 'Infrastructure' controller
-angular.module('dashboard').controller('InfrastructureController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'ITStandardsSrc', 'ITStandardByCat', 'AppTechMap', 'Application', 'bstSearchUtils',
-    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStandardsSrc, ITStandardByCat, AppTechMap, Application, bstSearchUtils) {
+angular.module('dashboard').controller('InfrastructureController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'ITStandardsSrc', 'ITStdApplicationsSrc', 'ITStandardByCat', 'AppTechMap', 'Application', 'bstSearchUtils',
+    function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStandardsSrc, ITStdApplicationsSrc, ITStandardByCat, AppTechMap, Application, bstSearchUtils) {
         $scope.rootPath = '';
         $scope.bstData = [];
         $scope.$bstEl = null;
@@ -51,7 +51,6 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
                 sortable: true,
                 // class: 'col-rpt-varchar',
                 // cellStyle: function (value, row, index, field) {
-                //   console.log(value.length);
                 //   return {
                 //     classes: (value.length > 175)? 'col-rpt-wider' : 'col-rpt-wide',
                 //   };
@@ -153,10 +152,10 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
 
 		// Method for retrieving a single IT Standard's detail
     $scope.createITStandDetail = function() {
+      var currentId = $routeParams.id;
       $('[data-toggle="tooltip"]').tooltip()
-      var itstandards = ITStandardsSrc.query({ id: $routeParams.id });
+      var itstandards = ITStandardsSrc.query({ id: currentId });
       itstandards.$promise.then(function () {
-        console.log(itstandards);
         var std = itstandards[0];
         $scope.standId = std.Id;
         $scope.standName = std.Name;
@@ -168,73 +167,45 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
         $scope.comments = std.Comments||$scope.noITStdCommentsMsg;
         $scope.approvalExpirationDate = std.ApprovalExpirationDate;
 
-        // add related Apps here
+        $scope.applications = ITStdApplicationsSrc.query({ id: currentId });
+        $scope.applications.$promise.then(function () {
+          // add related Apps here
+          $('#standrelapptable').bootstrapTable({
+            columns: [{
+              field: 'Name',
+              title: 'Business Application Name',
+              sortable: true
+            }, {
+              field: 'Description',
+              title: 'Description',
+              sortable: true
+            }, {
+              field: 'SSO',
+              title: 'SSO',
+              sortable: true
+            }, {
+              field: 'Status',
+              title: 'Status',
+              sortable: true
+            }, {
+              field: 'Id',
+              title: 'Id',
+              sortable: true,
+              visible: false
+            }],
+            data: $scope.applications
+          });
+        });
+
       });
     }
-
-		// Method for retrieving a single IT Standard's related Applications
-        $scope.getRelatedApps = function(standId) {
-            // Use the Application 'get' method to send an appropriate GET request
-            var appmap = AppTechMap.query();
-            var applist = [];
-            appmap.$promise.then(function (populateData) {
-                $.each(appmap, function (key, val) {
-                    if ([val.Techid] == standId) {
-                        applist.push(val.Appid);
-                    }
-                });
-                var apps = Application.query();
-                apps.$promise.then(function (populateData) {
-                    var techappnames = [];
-                    for (var i = 0; i < apps.length; i++) {
-                        var tmpappid = applist[i];
-                        for (var ind = 0; ind < apps.length; ind++) {
-                            var tmpstandid = apps[ind].Id;
-                            if (tmpappid === tmpstandid) {
-                                techappnames.push({"Name" : apps[ind].Name, "Description" : apps[ind].Description, "SSO" : apps[ind].SSO_Display_Name, "Status" : apps[ind].Status, "Id" : apps[ind].Id});
-                            }
-                            else {
-                                continue
-                            }
-                        }
-                    }
-					$('#standrelapptable').bootstrapTable({
-						columns: [{
-							field: 'Name',
-							title: 'Business Application Name',
-							sortable: true
-						}, {
-							field: 'Description',
-							title: 'Description',
-							sortable: true
-						}, {
-							field: 'SSO',
-							title: 'SSO',
-							sortable: true
-						}, {
-							field: 'Status',
-							title: 'Status',
-							sortable: true
-						}, {
-							field: 'Id',
-							title: 'Id',
-							sortable: true,
-							visible: false
-						}],
-						data: techappnames
-					});
-                });
-            });
-        }
 
 		// Method for handling click events on the IT Standards app table
 		$('#standrelapptable').on('click-row.bs.table', function (e, row, $element) {
 			// note: this :has selector cannot be cached; done this way to get
             // around caching & DOM availabily issues
             if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-				var apppath = row.Id
-				apppath = apppath.replace(/\//g , "-%")
-				$location.path('/applications/' + apppath);
+				$location.path('/applications/' + row.Id);
 				$route.reload();
 			}
 		});

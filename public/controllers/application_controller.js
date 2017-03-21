@@ -534,7 +534,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
 				        time.$promise.then(function () {
                     $scope.time = time;
-                    console.log(time);
                 });
 
                 interfaces.$promise.then(function () {
@@ -591,9 +590,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             // note: this :has selector cannot be cached; done this way to get
             // around caching & DOM availabily issues
             if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-				var cappath = row.Id
-				cappath = cappath.replace(/\//g , "-%")
-				$location.path('/capability/' + cappath);
+				$location.path('/capability/' + row.Id);
 				$route.reload();
 			}
         });
@@ -603,9 +600,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             // note: this :has selector cannot be cached; done this way to get
             // around caching & DOM availabily issues
             if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-				var techpath = row.Name
-				techpath = techpath.replace(/\//g , "-%")
-				$location.path('/itstandards/' + techpath);
+				$location.path('/itstandards/' + row.Id);
 				$route.reload();
 			}
         });
