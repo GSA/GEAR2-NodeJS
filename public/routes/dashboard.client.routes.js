@@ -138,7 +138,7 @@ angular.module('dashboard').config(['$routeProvider', '$locationProvider',
 		when('/itstandards_ByCategory', {
 			templateUrl: 'partials/infrastructure_itstandardsbycat_report.html'
 		}).
-		when('/itstandards/:standpath', {
+		when('/itstandards/:id', {
 			templateUrl: 'partials/infrastructure_itstandards_detail.html'
 		}).
 

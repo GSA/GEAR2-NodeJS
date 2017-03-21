@@ -12,196 +12,80 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
         $scope.hasUsedSearchForm = false;
         $scope.noITStdCommentsMsg = "No Comments for this Standard";
 
-		// Method for IT Standards table
+        // Method for IT Standards table
         $scope.createITStandardTable = function () {
-            $scope.$bstEl = $('#standtable');
-            $scope.hasUsedSearchForm = false;
-            $scope.rootPath = '/itstandards';
+          $scope.$bstEl = $('#standtable');
+          $scope.hasUsedSearchForm = false;
+          $scope.rootPath = '/itstandards';
 
-            var itstandards = [];
-            var filteredstands = [];
-			itstandards = ITStandardsSrc.query();
-			var standcats = ITStandardByCat.query();
-			standcats.$promise.then(function (populateData) {
-				itstandards.$promise.then(function (populateData) {
-                    $scope.bstData = [];
-					$scope.itstandards = itstandards;
-					var standcat = $routeParams.standardCat;
-					var link = "";
-					var refdoc = "";
-					var description = "";
-					var name = "";
-					var type = "";
-					var category = "";
-					var status = "";
-					var deploymenttype = "";
-					var comments = "";
-					var poc = "";
-					var refdoc = "";
-					var parentcat = "";
-					var approvalExpDate = "";
-					$.each(itstandards, function (key, val) {
-						description = val.Description;
-						name = val.Name;
-						type = val.Type;
-						category = val.Category;
-						status = val.Status;
-						deploymenttype = val.DeploymentType;
-						comments = val.Comments || $scope.noITStdCommentsMsg;
-						poc = val.POC;
-						refdoc = val.ReferenceDocuments;
-						link = "<a href=" + "'" + refdoc + "'" + " target='_blank'>" + refdoc + "</a>";
-						approvalExpDate = val.ApprovalExpirationDate;
-						if ($.isEmptyObject($routeParams) || typeof $routeParams.query !== 'undefined') {
-							$scope.bstData.push({
-								"Name" : name,
-								"Description" : description,
-								"Type" : type,
-								"Category" : category,
-								"Status" : status,
-								"DeploymentType" : deploymenttype,
-								"Comments" : comments,
-								"POC" : poc,
-								"ReferenceDocuments" : link,
-                                Id: val.Id,
-								"ApprovalExpirationDate": approvalExpDate
-							});
-						} else {
-							if (val.Category == standcat) {
-								$scope.bstData.push({
-									"Name" : name,
-									"Description" : description,
-									"Type" : type,
-									"Category" : category,
-									"Status" : status,
-									"DeploymentType" : deploymenttype,
-									"Comments" : comments,
-									"POC" : poc,
-									"ReferenceDocuments" : link,
-                                    Id: val.Id,
-									"ApprovalExpirationDate": approvalExpDate
-								});
-							}
-						}
+          var itstandards = ITStandardsSrc.query();
+          itstandards.$promise.then(function () {
+            $scope.bstData = itstandards;
 
-					});
-					// WHERE IS THIS USED BY THE CLIENT?? Was this an early
-					// attempt to handle the "isEmptyObject" case above?
-					// Perhaps it's used by the heatmap?
-					if ($scope.bstData.length == 0) {
-						$.each(standcats, function (key, val) {
-							if (standcat == val.ParentCategory) {
-								var standname = val.Name;
-								var udescription = '';
-								var uname = '';
-								var utype = '';
-								var ucategory = '';
-								var ustatus = '';
-								var udeploymenttype = '';
-								var ucomments = '';
-								var upoc = val.POC;
-								var urefdoc = '';
-								var ulink = '';
-								$.each(itstandards, function (key, val) {
-									if (standname === val.Name) {
-										udescription = val.Description;
-										uname = val.Name;
-										utype = val.Type;
-										ucategory = val.Category;
-										ustatus = val.Status;
-										udeploymenttype = val.DeploymentType;
-										ucomments = val.Comments;
-										upoc = val.POC;
-										urefdoc = val.ReferenceDocuments;
-										ulink = "<a href=" + "'" + refdoc + "'" + " target='_blank'>" + refdoc + "</a>";
-
-									}
-
-								});
-							}
-							$scope.bstData.push({
-								"Name" : uname,
-								"Description" : udescription,
-								"Type" : utype,
-								"Category" : ucategory,
-								"Status" : ustatus,
-								"DeploymentType" : udeploymenttype,
-								"Comments" : ucomments,
-								"POC" : upoc,
-								"ReferenceDocuments" : ulink,
-								"ApprovalExpirationDate" : val.ApprovalExpirationDate
-							});
-						});
-
-					}
-
-                    bstSearchUtils.checkFilterState($scope);
-					$scope.bsTableConfig = {
-						columns: [{
-							field: 'Name',
-							title: 'Standard Name',
-							sortable: true
-						}, {
-							field: 'Description',
-							title: 'Description',
-							sortable: true
-						},  {
-							field: 'Category',
-							title: 'Category',
-							sortable: true
-						}, {
-							field: 'Status',
-							title: 'Status',
-							sortable: true
-						}, {
-							field: 'DeploymentType',
-							title: 'Deployment Type',
-							sortable: true,
-							visible: false
-						}, {
-							field: 'Comments',
-							title: 'Comments',
-							sortable: true,
-                            // class: 'col-rpt-varchar',
-                            cellStyle: function (value, row, index, field) {
-                                console.log(value.length);
-                                return {
-                                    classes: (value.length > 175)? 'col-rpt-wider' : 'col-rpt-wide',
-                                };
-                            }
-						},  {
-							field: 'POC',
-							title: 'POC',
-							sortable: true,
-							visible: false
-						}, {
-							field: 'ReferenceDocuments',
-							title: 'Reference Documents',
-							sortable: true,
-							visible: false
-						}, {
-							field: 'ApprovalExpirationDate',
-							title: 'Approval Expiration Date',
-							sortable: true,
-							visible: false
-						}],
-						data: $scope.bstData
-					};
-                    bstSearchUtils.updateConfig($scope);
-                    $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
-                    bstSearchUtils.handleSearchState($scope);
-				});
-			});
-        }
+            bstSearchUtils.checkFilterState($scope);
+            $scope.bsTableConfig = {
+              columns: [{
+                field: 'Name',
+                title: 'Standard Name',
+                sortable: true
+              }, {
+                field: 'Description',
+                title: 'Description',
+                sortable: true
+              },  {
+                field: 'Category',
+                title: 'Category',
+                sortable: true
+              }, {
+                field: 'Status',
+                title: 'Status',
+                sortable: true
+              }, {
+                field: 'DeploymentType',
+                title: 'Deployment Type',
+                sortable: true,
+                visible: false
+              }, {
+                field: 'Comments',
+                title: 'Comments',
+                sortable: true,
+                // class: 'col-rpt-varchar',
+                // cellStyle: function (value, row, index, field) {
+                //   console.log(value.length);
+                //   return {
+                //     classes: (value.length > 175)? 'col-rpt-wider' : 'col-rpt-wide',
+                //   };
+                // }
+              },  {
+                field: 'POC',
+                title: 'POC',
+                sortable: true,
+                visible: false
+              }, {
+                field: 'ReferenceDocuments',
+                title: 'Reference Documents',
+                sortable: true,
+                visible: false
+              }, {
+                field: 'ApprovalExpirationDate',
+                title: 'Approval Expiration Date',
+                sortable: true,
+                visible: false
+              }],
+              data: $scope.bstData
+            };
+            bstSearchUtils.updateConfig($scope);
+            $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+            bstSearchUtils.handleSearchState($scope);
+          });
+        }// END Method for IT Standards table
 
 		// Method for handling click events on the IT Standards table
 		$('#standtable').on('click-row.bs.table', function (e, row, $element) {
 			// note: this :has selector cannot be cached; done this way to get
             // around caching & DOM availabily issues
             if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-				var standpath = row.Name
-				standpath = standpath.replace(/\//g , "-%")
-				$location.path('/itstandards/' + standpath);
+				$location.path('/itstandards/' + row.Id);
 				$route.reload();
 			}
 		});
@@ -268,46 +152,25 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
 		});
 
 		// Method for retrieving a single IT Standard's detail
-        $scope.createITStandDetail = function() {
-			$(function () {
-				$('[data-toggle="tooltip"]').tooltip()
-			});
-            var stand = $routeParams.standpath;
-			stand = stand.replace(/-%/g , "/");
-            // Use the Application 'get' method to send an appropriate GET request
-            var standards = ITStandardsSrc.query();
-			var standid = '';
-            standards.$promise.then(function (populateData) {
-                $.each(standards, function (key, val) {
-					if ([val.Name] == stand) {
-						$scope.standId = val.Id;
-						standid = val.Id;
-						$scope.standName = val.Name;
-						$scope.standDescription = val.Description;
-						$scope.cat = val.Category;
-						$scope.poc = val.POC;
-						$scope.status = val.Status;
-						$scope.type = val.Type;
-						$scope.comments = val.Comments||$scope.noITStdCommentsMsg;
-						$scope.approvalExpirationDate = val.ApprovalExpirationDate;
-					}
-				});
-				var appmap = AppTechMap.query();
-				var applist = [];
-				appmap.$promise.then(function (populateData) {
-					$.each(appmap, function (key, val) {
-						if ([val.Techid] == $scope.standId) {
-							applist.push(val.Appid);
-						}
-					});
-					if (applist.length > 0){
-						d3.select("#relapps").style("display", "block");
-					}
-				});
-			});
+    $scope.createITStandDetail = function() {
+      $('[data-toggle="tooltip"]').tooltip()
+      var itstandards = ITStandardsSrc.query({ id: $routeParams.id });
+      itstandards.$promise.then(function () {
+        console.log(itstandards);
+        var std = itstandards[0];
+        $scope.standId = std.Id;
+        $scope.standName = std.Name;
+        $scope.standDescription = std.Description;
+        $scope.cat = std.Category;
+        $scope.poc = std.POC;
+        $scope.status = std.Status;
+        $scope.type = std.Type;
+        $scope.comments = std.Comments||$scope.noITStdCommentsMsg;
+        $scope.approvalExpirationDate = std.ApprovalExpirationDate;
 
-
-        }
+        // add related Apps here
+      });
+    }
 
 		// Method for retrieving a single IT Standard's related Applications
         $scope.getRelatedApps = function(standId) {
