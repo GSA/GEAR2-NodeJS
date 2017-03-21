@@ -1,16 +1,16 @@
 /* eslint-disable */
 
-﻿// Invoke 'strict' JavaScript mode
+// Invoke 'strict' JavaScript mode
 'use strict';
 
 // replaces 'ITStandard'
 angular.module('dashboard')
 .factory('ITStandardsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-    return $resource('/api/v0/itstandards/:id');
+  return $resource('/api/v0/itstandards/:id');
 }])
 // new 'ITStdApplicationsSrc'
 .factory('ITStdApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-    return $resource('/api/v0/itstandards/:id/applications');
+  return $resource('/api/v0/itstandards/:id/applications');
 }])
 // 'ITStandardByCat' unused
 
@@ -19,20 +19,20 @@ angular.module('dashboard')
 // Legacy
 // Create the 'IT Standards' service
 angular.module('dashboard').factory('ITStandard', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-    // Use the '$resource' service to return an IT Standards '$resource' object
-    //return $resource(WcfConfig.urlRoot + 'EAOpen.svc/GetITStandard:itstandardId', {
-	return $resource(WcfConfig.urlRoot + 'EAOpen.svc/it_standards/All', {
-        //itstandardId: '@_id'
-		itstandardId: '@Name'
-    });
+  // Use the '$resource' service to return an IT Standards '$resource' object
+  //return $resource(WcfConfig.urlRoot + 'EAOpen.svc/GetITStandard:itstandardId', {
+  return $resource(WcfConfig.urlRoot + 'EAOpen.svc/it_standards/All', {
+    //itstandardId: '@_id'
+    itstandardId: '@Name'
+  });
 }]);
 
 // Create the 'IT Standards' service
 angular.module('dashboard').factory('ITStandardByCat', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-    // Use the '$resource' service to return an IT Standards '$resource' object
-    //return $resource(WcfConfig.urlRoot + 'EAOpen.svc/GetITStandard:itstandardId', {
-    return $resource(WcfConfig.urlRoot + 'EAOpen.svc/it_standards/ByCategory', {
-        //itstandardId: '@_id'
-        itstandardId: '@Name'
-    });
+  // Use the '$resource' service to return an IT Standards '$resource' object
+  //return $resource(WcfConfig.urlRoot + 'EAOpen.svc/GetITStandard:itstandardId', {
+  return $resource(WcfConfig.urlRoot + 'EAOpen.svc/it_standards/ByCategory', {
+    //itstandardId: '@_id'
+    itstandardId: '@Name'
+  });
 }]);
