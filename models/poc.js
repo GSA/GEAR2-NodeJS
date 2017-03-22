@@ -8,7 +8,7 @@ class POCModel extends Model {
         name: 'Id',
         type: 'string',
         mapping(data) {
-          return data.ObjID;
+          return data.ID;
         },
       },
       {
