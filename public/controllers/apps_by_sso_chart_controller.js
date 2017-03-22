@@ -2,13 +2,26 @@
 
 var app = angular.module('dashboard');
 
-app.controller('appsBySsoChartController', function ($scope, Application) {
+app.controller('appsBySsoChartController', function ($scope, ApplicationsSrc) {
   $scope.transformData = function (d) {
+    console.log(d[0]);
     var active = _.filter(d, function (item) {
-      return item.Type !== 'Website' && item.Status !== 'Retired' && item.SSO_Name !== 'External'
-      && item.SSO_Name.indexOf('Sample Office') < 0;
+      var pass = false;
+      if (typeof item.Type !== 'undefined' && item.Type !== 'Website') {
+        pass = true;
+      }
+      if (typeof item.Status !== 'undefined' && item.Status !== 'Retired') {
+        pass = true;
+      }
+      if (typeof item.SSO !== 'undefined' && item.SSO !== 'External') {
+        pass = true;
+      }
+      if (typeof item.SSO !== 'undefined' && item.SSO.indexOf('Sample Office') < 0) {
+        pass = true;
+      }
+      return pass;
     });
-    var grouped = _.countBy(active, "SSO_Display_Name");
+    var grouped = _.countBy(active, "SSO");
 
     var mapped = _.map(grouped, function (val, lab) {
       return {
@@ -27,10 +40,8 @@ app.controller('appsBySsoChartController', function ($scope, Application) {
     }
     return str;
   };
-  var query = Application.query();
-
-  query.$promise
-  .then(function (res) {
+  var query = ApplicationsSrc.query();
+  query.$promise.then(function (res) {
     $scope.dataset = $scope.transformData(res);
   })
   .catch(function (e) {
