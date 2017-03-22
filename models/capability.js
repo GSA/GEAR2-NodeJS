@@ -20,7 +20,7 @@ class CapabilityModel extends Model {
         type: 'string',
       },
       {
-        name: 'RefNumber',
+        name: 'ReferenceNum',
         type: 'string',
       },
       {

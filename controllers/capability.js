@@ -1,6 +1,8 @@
 const CapabilityStore = require('../stores/capability');
+const AppStore = require('../stores/application');
 
 const capabilityStore = new CapabilityStore();
+const appStore = new AppStore();
 
 function findAll(req, res) {
   let fields = '*';
@@ -19,7 +21,15 @@ function findOne(req, res) {
   });
 }
 
+// children
+function findApplications(req, res) {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'c')`, (results) => {
+    res.json(results);
+  });
+}
+
 module.exports = {
+  findApplications,
   findAll,
   findOne,
 };

@@ -9,4 +9,8 @@ router.route('/')
 router.route('/:id')
     .get(capabilityCtrl.findOne);
 
+// children
+router.route('/:id/applications/')
+    .get(capabilityCtrl.findApplications);
+
 module.exports = router;

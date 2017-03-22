@@ -17,9 +17,13 @@ angular.module('dashboard')
 .factory('OrgSysSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/organizations/:id/systems');
 }])
-// replaces 'BusFunction'
+// replaces 'BusFunction' aka Capabilities
 .factory('CapabilitiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/capabilities/:id');
+}])
+// new CapApplicationsSrc (prev used apps AppFuncMap)
+.factory('CapApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/capabilities/:id/applications');
 }])
 // Goal is UNUSED, but lets leave references for now
 

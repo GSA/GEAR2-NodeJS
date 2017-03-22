@@ -4,8 +4,17 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'OrganizationsSrc', 'Organization', 'OrgSvc', 'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
-function ($route,$scope, $http, $routeParams, $filter, $location, $sce, OrganizationsSrc, Organization,OrgSvc, BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
+angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  // insert new here
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
+  // resume legacy
+  'Organization', 'OrgSvc', 'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
+function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
+  // insert new here
+  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc,
+  // resume legacy
+  Organization, OrgSvc, BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
+
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -156,16 +165,6 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce, Organiza
     });
   }
 
-
-
-
-
-
-
-
-
-
-
   // Method for retrieving a single organization's related Systems
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
@@ -227,69 +226,66 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce, Organiza
       }
     });
 
-    // Method for Business Functions Table
-    $scope.createFuncTable = function () {
-      $scope.$bstEl = $('#capabilitytable');
-      $scope.hasUsedSearchForm = false;
-      $scope.rootPath = '/capabilities';
+  // Method for Business Functions Table
+  $scope.createFuncTable = function () {
+    $scope.$bstEl = $('#capabilitytable');
+    $scope.hasUsedSearchForm = false;
+    $scope.rootPath = '/capabilities';
 
-      var funcs = BusFunction.query();
-      funcs.$promise.then(function (populateData) {
-        $scope.bstData = [];
-        $scope.bstData = funcs;
-        bstSearchUtils.checkFilterState($scope);
-        $scope.bsTableConfig = {
-          columns: [{
-            field: 'ReferenceNum',
-            title: 'Ref Id',
-            sortable: true
-          }, {
-            field: 'Name',
-            title: 'Function Name',
-            sortable: true
-          }, {
-            field: 'Description',
-            title: 'Description',
-            sortable: true
-          }, {
-            field: 'Parent',
-            title: 'Parent',
-            sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
-            sortable: true,
-            visible: false
-          }],
-          data: $scope.bstData
-        };
-        bstSearchUtils.updateConfig($scope);
-        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
-        bstSearchUtils.handleSearchState($scope);
-      });
-    }
-
-    $('#capabilitytable').on('click-row.bs.table', function (e, row, $element) {
-      // note: this :has selector cannot be cached; done this way to get
-      // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-        var cappath = row.Id
-        cappath = cappath.replace(/\//g , "-%")
-        $location.path('/capability/' + cappath);
-        $route.reload();
-      }
+    var capabilities = CapabilitiesSrc.query();
+    capabilities.$promise.then(function (populateData) {
+      $scope.bstData = [];
+      $scope.bstData = capabilities;
+      bstSearchUtils.checkFilterState($scope);
+      $scope.bsTableConfig = {
+        columns: [{
+          field: 'ReferenceNum',
+          title: 'Ref Id',
+          sortable: true
+        }, {
+          field: 'Name',
+          title: 'Function Name',
+          sortable: true
+        }, {
+          field: 'Description',
+          title: 'Description',
+          sortable: true
+        }, {
+          field: 'Parent',
+          title: 'Parent',
+          sortable: true
+        }, {
+          field: 'Id',
+          title: 'Id',
+          sortable: true,
+          visible: false
+        }],
+        data: $scope.bstData
+      };
+      bstSearchUtils.updateConfig($scope);
+      $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+      bstSearchUtils.handleSearchState($scope);
     });
+  }
 
-
-    $scope.removePag = function(){
-      $(".report").attr("data-pagination", false);
+  $('#capabilitytable').on('click-row.bs.table', function (e, row, $element) {
+    // note: this :has selector cannot be cached; done this way to get
+    // around caching & DOM availabily issues
+    if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      $location.path('/capability/' + row.Id);
+      $route.reload();
     }
+  });
 
-    // Method for creating the Org Chart view
-    $scope.createOrgChart = function () {
-      var orgs = OrganizationsSrc.query();
-      var parentorg = 'Office of the Administrator (A)';
-      var orgTree = {};
+  $scope.removePag = function(){
+    $(".report").attr("data-pagination", false);
+  }
+
+  // Method for creating the Org Chart view
+  $scope.createOrgChart = function () {
+    var orgs = OrganizationsSrc.query();
+    var parentorg = 'Office of the Administrator (A)';
+    var orgTree = {};
 
       orgs.$promise.then(function (populateData) {
         // set root node
@@ -557,10 +553,9 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce, Organiza
 });
 }
 
-
 // Method for creating the Capability Tree view
 $scope.createCapabilityTree = function () {
-  var funcs = BusFunction.query();
+  var funcs = CapabilitiesSrc.query();
   var parentfunction = '';
   var parentdesc = '';
   var parentid = '';
@@ -959,15 +954,13 @@ $scope.createCapabilityTree = function () {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
-    var func = $routeParams.capabilityId;
-    func = func.replace(/-%/g , "/");
     // Sending 2 GET requests: BusFunction & TIME, then combining the
     // data using Underscore methods
-    var busFunctionResource = BusFunction.query({ id: func });
+    var capabilities = CapabilitiesSrc.query({ id: $routeParams.id });
+    var applications = CapApplicationsSrc.query({ id: $routeParams.id });
     var timeResource = TIME.query();
-    var funcid = '';
 
-    busFunctionResource.$promise
+    capabilities.$promise
     .then(function () { this.render(); }.bind(this))
     .catch(function (e) {
       throw (e)
@@ -980,102 +973,101 @@ $scope.createCapabilityTree = function () {
 
     this.render = function () {
       // Wait until both queries are resolved before proceding
-      if (timeResource.$resolved && busFunctionResource.$resolved) {
+      // Per MLD: This render() is unnecessary. No need to wait for all $resources to be resolved.
+      if (timeResource.$resolved && capabilities.$resolved) {
+          $scope.capability = capabilities[0];
 
-        $.each(busFunctionResource, function (key, val) {
-          if (val.Id == func) {
-            $scope.funcId = val.Id;
-            funcid = val.Id;
-            $scope.funcName = val.Name;
-            $scope.funcDescription = val.Description;
-            $scope.funcRefNum = val.ReferenceNum;
-            $scope.relapps = _.filter(val.CapApps, function (obj) {
-              return obj.Status.toLowerCase() !== 'retired';
-            });
-          }
-        });
+          applications.$promise.then(function () {
+            if (applications.length > 0) {
+              d3.select("#relappstab").style("display", "block");
 
-        if ($scope.relapps.length > 0) {
-          d3.select("#relappstab").style("display", "block");
+              // LEGACY: adds TIME data to related Apps. Perhaps a new way is needed?
+              // For each related app obj, combine (FY##) properties
+              // from timeResource data, matching on app id.
+              // _.each($scope.relapps, function (appObj, i) {
+              //   var match = _.find(timeResource, function (timeObj) {
+              //     return timeObj.AppId === appObj.Id;
+              //   });
+              //   // Only extend if there's a match. The BS Table
+              //   // plugin will handle the missing props.
+              //   // Duplicate props will be overritten.
+              //   if (typeof match === 'object') {
+              //     // omit Angular-internal props (begin with $)
+              //     var re = /^\$/;
+              //     match = _.omit(match, function (val, key) {
+              //       return re.test(key);
+              //     });
+              //     _.extend(appObj, match);
+              //   }
+              // });
+              //Populate Related Apps Table
+              $('#funcappstable').bootstrapTable({
+                columns: [{
+                  field: 'Owner',
+                  title: '2 Letter Office',
+                  sortable: true,
+                }, {
+                  field: 'Name',
+                  title: 'Business Application Name',
+                  sortable: true
+                }, {
+                  field: 'System',
+                  title: 'Parent System',
+                  sortable: true,
+                  visible: false
+                }, {
+                  field: 'Status',
+                  title: 'Status',
+                  sortable: true
+                }, {
+                  field: 'FY14',
+                  title: 'FY14',
+                  visible: false
+                }, {
+                  field: 'FY15',
+                  title: 'FY15',
+                  visible: false
+                }, {
+                  field: 'FY16',
+                  title: 'FY16',
+                  visible: false
+                }, {
+                  field: 'FY17',
+                  title: 'FY17'
+                }, {
+                  field: 'FY18',
+                  title: 'FY18'
+                }, {
+                  field: 'FY19',
+                  title: 'FY19'
+                }, {
+                  field: 'FY20',
+                  title: 'FY20'
+                }, {
+                  field: 'Id',
+                  title: 'Id',
+                  visible: false
+                }, {
+                  field: 'Notes',
+                  title: 'Notes',
+                  visible: false
 
-          // For each related app obj, combine (FY##) properties
-          // from timeResource data, matching on app id.
-          _.each($scope.relapps, function (appObj, i) {
-            var match = _.find(timeResource, function (timeObj) {
-              return timeObj.AppId === appObj.Id;
-            });
-            // Only extend if there's a match. The BS Table
-            // plugin will handle the missing props.
-            // Duplicate props will be overritten.
-            if (typeof match === 'object') {
-              // omit Angular-internal props (begin with $)
-              var re = /^\$/;
-              match = _.omit(match, function (val, key) {
-                return re.test(key);
+                }],
+                data: applications
               });
-              _.extend(appObj, match);
+              // Method to handle click events on the Capability Applications table
+              $('#funcappstable').on('click-row.bs.table', function (e, row, $element) {
+                // note: this :has selector cannot be cached; done this way to get
+                // around caching & DOM availabily issues
+                if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+                  $location.path('/applications/' + row.Id);
+                  $route.reload();
+                }
+              });
             }
           });
-        }
-
-        //Populate Related Capabilities Table
-        $('#funcappstable').bootstrapTable({
-          columns: [{
-            field: 'Owner',
-            title: '2 Letter Office',
-            sortable: true,
-          }, {
-            field: 'Name',
-            title: 'Business Application Name',
-            sortable: true
-          }, {
-            field: 'System',
-            title: 'Parent System',
-            sortable: true,
-            visible: false
-          }, {
-            field: 'Status',
-            title: 'Status',
-            sortable: true
-          }, {
-            field: 'FY14',
-            title: 'FY14',
-            visible: false
-          }, {
-            field: 'FY15',
-            title: 'FY15',
-            visible: false
-          }, {
-            field: 'FY16',
-            title: 'FY16',
-            visible: false
-          }, {
-            field: 'FY17',
-            title: 'FY17'
-          }, {
-            field: 'FY18',
-            title: 'FY18'
-          }, {
-            field: 'FY19',
-            title: 'FY19'
-          }, {
-            field: 'FY20',
-            title: 'FY20'
-          }, {
-            field: 'Id',
-            title: 'Id',
-            visible: false
-          }, {
-            field: 'Notes',
-            title: 'Notes',
-            visible: false
-
-          }],
-          data: $scope.relapps
-        });
       }
     }
-
   }
 
   // Method for creating word cloud on app home page
@@ -1128,76 +1120,5 @@ $scope.createCapabilityTree = function () {
       }
 
     }
-
-
-    // Method for retrieving a single Business Function's related Applications
-    $scope.getRelatedApps = function (funcId) {
-      // Use the FuncAppMap 'get' method to send an appropriate GET request
-      var funcmap = FuncAppMap.query();
-      var applist = [];
-      var funcappnames = [];
-      var funcapps = [];
-      funcmap.$promise.then(function (populateData) {
-        $.each(funcmap, function (key, val) {
-          if ([val.Funcid] == funcId) {
-            applist.push(val.Appid);
-          }
-        });
-
-        var app = Application.query();
-        app.$promise.then(function (populateData) {
-          for (var i = 0; i < app.length; i++) {
-            var tmpappid = applist[i];
-            for (var ind = 0; ind < app.length; ind++) {
-              var tmpappsid = app[ind].Id;
-              if (tmpappid === tmpappsid) {
-                funcappnames.push({ "SSO" : app[ind].SSO_Display_Name, "Name" : app[ind].Name, "Description" : app[ind].Description, "Status" : app[ind].Status, "Id" : app[ind].Id});
-              }
-              else {
-                continue
-              }
-            }
-          }
-          $scope.appnumber = funcappnames.length;
-          funcapps = funcappnames;
-          $('#funcappstable').bootstrapTable({
-            columns: [{
-              field: 'Name',
-              title: 'Application Name',
-              sortable: true
-            }, {
-              field: 'Description',
-              title: 'Description',
-              sortable: true
-            }, {
-              field: 'SSO',
-              title: 'SSO',
-              sortable: true
-            }, {
-              field: 'Status',
-              title: 'Status',
-              sortable: true
-            }, {
-              field: 'Id',
-              title: 'Id',
-              sortable: true,
-              visible: false
-            }],
-            data: funcapps
-          });
-        });
-      });
-    }
-    // Method to handle click events on the Capability Applications table
-    $('#funcappstable').on('click-row.bs.table', function (e, row, $element) {
-      // note: this :has selector cannot be cached; done this way to get
-      // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-        var apppath = row.Id
-        apppath = apppath.replace(/\//g , "-%")
-        $location.path('/applications/' + apppath);
-        $route.reload();
-      }
-    });
   }
 ]);
