@@ -8,29 +8,24 @@ class CapabilityModel extends Model {
         name: 'Id',
         type: 'string',
         mapping(data) {
-          return data.CapID;
+          return data.CapID || data.ID;
         },
       },
       {
         name: 'Name',
         type: 'string',
-        mapping(data) {
-          return data.Name;
-        },
       },
       {
         name: 'Description',
         type: 'string',
-        mapping(data) {
-          return data.Description;
-        },
       },
       {
-        name: 'Ref',
+        name: 'RefNumber',
         type: 'string',
-        mapping(data) {
-          return data.Ref;
-        },
+      },
+      {
+        name: 'Parent',
+        type: 'string',
       },
     ];
   }
