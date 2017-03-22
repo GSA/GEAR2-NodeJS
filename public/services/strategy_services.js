@@ -3,12 +3,15 @@
 // Invoke 'strict' JavaScript mode
 'use strict';
 
-// TODO:
-// tbr: 'Investment'
+// replaces 'Investment'
 angular.module('dashboard')
 .factory('InvestmentsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/investments/:id');
 }])
+// new
+.factory('InvestmentAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/investments/:id/applications');
+}]);
 // Goal is UNUSED, but lets leave references for now
 
 // Legacy

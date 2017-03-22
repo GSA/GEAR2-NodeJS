@@ -4,8 +4,8 @@
 'use strict';
 
 // Create the 'strategy' controller
-angular.module('dashboard').controller('StrategyController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal', 'Investment', 'Application', 'Utils', 'bstSearchUtils',
-function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal, Investment, Application, Utils, bstSearchUtils) {
+angular.module('dashboard').controller('StrategyController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal', 'InvestmentsSrc', 'Utils', 'bstSearchUtils',
+function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal, InvestmentsSrc, Utils, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -60,27 +60,17 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     $scope.hasUsedSearchForm = false;
     $scope.rootPath = '/investments';
 
-    var investments = Investment.query();
-    var retinvests = [];
+    var investments = InvestmentsSrc.query();
 
-    investments.$promise.then(function (popData) {
+    investments.$promise.then(function () {
       $scope.bstData = [];
       // plain, default, "all-records", etc. report
       if ($.isEmptyObject($routeParams) ||
       (typeof $routeParams.query !== 'undefined' &&
       !$routeParams.hasOwnProperty('investmentType'))){
-        $.each(investments, function (key, val) {
-          if ((val.Active !== 'No')) {
-            $scope.bstData.push({
-              "Id" : val.ID,
-              "Name" : val.Name,
-              "Description" : val.Description,
-              "Type" : val.Type,
-              "PrimarySA" : val.PrimarySA,
-              "SecondarySA" : val.SecondarySA,
-              "InvestmentManager" : val.Manager,
-              UII: val.UII
-            });
+        _.each(investments, function (item) {
+          if ((item.Active !== 'No')) {
+            $scope.bstData.push(item);
           }
         });
       }
@@ -89,31 +79,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         var invtype = '';
         var filteredinv =[];
         invtype = $routeParams.investmentType;
-        $.each(investments, function (key, val) {
-          if ([val.Type] == invtype) {
-            filteredinv.push({
-              "Id" : val.ID,
-              "Name" : val.Name,
-              "Description" : val.Description,
-              "Type" : val.Type,
-              "PrimarySA" : val.PrimarySA,
-              "SecondarySA" : val.SecondarySA,
-              "InvestmentManager" : val.Manager,
-              UII: val.UII
-            });
+        _.each(investments, function (item) {
+          if ([item.Type] == invtype) {
+            filteredinv.push(item);
           }
-          else if ([val.Type] == "") {
+          else if ([item.Type] == "") {
             if (invtype == "Unknown"){
-              filteredinv.push({
-                "Id" : val.ID,
-                "Name" : val.Name,
-                "Description" : val.Description,
-                "Type" : val.Type,
-                "PrimarySA" : val.PrimarySA,
-                "SecondarySA" : val.SecondarySA,
-                "InvestmentManager" : val.Manager,
-                UII: val.UII
-              });
+              filteredinv.push(item);
             }
           }
         });
@@ -134,16 +106,16 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Type',
           sortable: true
         }, {
-          field: 'PrimarySA',
+          field: 'PSA',
           title: 'Primary Service Area',
           sortable: true
         }, {
-          field: 'SecondarySA',
+          field: 'SSA',
           title: 'Secondary Service Area',
           sortable: true,
           visible: false
         }, {
-          field: 'InvestmentManager',
+          field: 'InvManager',
           title: 'Investment Manager',
           sortable: true
         }, {
@@ -165,45 +137,18 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var apppath = row.Name
-      apppath = apppath.replace(/\//g , "-%")
-      $location.path('/investment/' + apppath);
+      $location.path('/investment/' + row.Id);
       $route.reload();
     }
   });
 
   // Method for retrieving a single investment's details
   $scope.createInvDetail = function() {
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    });
-    var inv = $routeParams.investmentName;
-    inv = inv.replace(/-%/g , "/");
-    var investment = Investment.query({ Name: inv });
-    investment.$promise.then(function (populateData) {
+    $('[data-toggle="tooltip"]').tooltip()
+    var investment = InvestmentsSrc.query({ id: $routeParams.id });
+    investment.$promise.then(function () {
       $scope.investment = investment[0];
-    });
-  }
-
-  // Method for a single Investment's Related Apps table
-  $scope.getRelatedApps = function (invName) {
-    var appgroup = [];
-    // Use the Application 'query' method to send an appropriate GET request
-    var apps = Application.query();
-    apps.$promise.then(function (populateApps) {
-      $.each(apps, function (key, val) {
-        // using indexOf 0 to account for trailing spaces in some
-        // names; e.g. "Acquisition Planning Module (APM) "
-        if (val.Investment.indexOf($scope.investment.Name) === 0){
-          appgroup.push({
-            "Name" : val.Name,
-            "Description" : val.Description,
-            "SSO" : val.SSO_Display_Name,
-            "Status" : val.Status,
-            "Id" : val.Id
-          });
-        }
-      });
+      // TODO: add related Apps
       $('#invrelappstable').bootstrapTable({
         columns: [{
           field: 'Name',
@@ -229,37 +174,29 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         }],
         data: appgroup
       });
+      // Method to handle click events on the Investments table
+      $('#invrelappstable').on('click-row.bs.table', function (e, row, $element) {
+        // note: this :has selector cannot be cached; done this way to get
+        // around caching & DOM availabily issues
+        if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+          $location.path('/applications/' + row.Id);
+          $route.reload();
+        }
+      });
     });
-    return appgroup;
   }
-
-  // Method to handle click events on the Investments table
-  $('#invrelappstable').on('click-row.bs.table', function (e, row, $element) {
-    // note: this :has selector cannot be cached; done this way to get
-    // around caching & DOM availabily issues
-    if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var apppath = row.Id
-      apppath = apppath.replace(/\//g , "-%")
-      $location.path('/applications/' + apppath);
-      $route.reload();
-    }
-  });
 
   // Method for creating the Investment Bar chart on the home page
   $scope.investmentBarData = null;
   $scope.createInvestmentBar = function(){
     // Use the Investment 'query' method to send an appropriate GET request
-    var invests = Investment.query();
+    var invests = InvestmentsSrc.query();
     var chartContainerSelector = '#investchart'; // used by d3
     var $chartContainer = $(chartContainerSelector); // used by jQuery
     var $spinner = $chartContainer.append('<i class="load-indicator fa fa-spinner fa-spin fa-2x"></i>');
 
-    invests.$promise.then(function (populateData) {
-      var count = [];
-      $.each(invests, function (key, val) {
-        var item = val.Type;
-        count[item] = count[item] + 1 || 1;
-      });
+    invests.$promise.then(function () {
+      var count = _.countBy(invests, 'Type');
       var result = [];
       for (var i in count) {
         if (i == '') {

@@ -65,7 +65,7 @@ function($routeProvider, $locationProvider) {
 	when('/investments/:investmentType/find/:query*', {
 		templateUrl: 'partials/strategy_investment_report.html'
 	}).
-	when('/investment/:investmentName', {
+	when('/investment/:id', {
 		templateUrl: 'partials/strategy_investment_detail.html'
 	}).
 	when('/strategic_framework', {
