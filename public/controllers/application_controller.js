@@ -4,8 +4,12 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
-function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
+angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
+  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc',
+  'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
+function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
+  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc,
+  System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -399,7 +403,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     $scope.hasUsedSearchForm = false;
     $scope.rootPath = '/systems';
     // Use the System 'query' method to send an appropriate GET request
-    var systems = System.query();
+    var systems = ParentSystemsSrc.query();
     systems.$promise.then(function (populateData) {
       $scope.bstData = systems;
       bstSearchUtils.checkFilterState($scope);
@@ -448,7 +452,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       $('[data-toggle="tooltip"]').tooltip()
     });
     // Use the Application 'get' method to send an appropriate GET request
-    var system = System.query({id:$routeParams.systemId});
+    var system = ParentSystemsSrc.query({ id: $routeParams.id });
     var sysid = '';
     system.$promise.then(function (populateData) {
       $.each(system, function (key, val) {

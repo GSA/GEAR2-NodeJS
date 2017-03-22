@@ -30,7 +30,7 @@ angular.module('dashboard')
   return $resource('/api/v0/interfaces/:id/');
 }])
 // tbr: 'System'
-.factory('SystemSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+.factory('ParentSystemsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/parentsystems/:id/');
 }]);
 

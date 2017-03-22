@@ -113,7 +113,7 @@ function($routeProvider, $locationProvider) {
 	when('/systems', {
 		templateUrl: 'partials/application_system_report.html'
 	}).
-	when('/systems/:systemId', {
+	when('/systems/:id', {
 		templateUrl: 'partials/application_system_detail.html'
 	}).
 	when('/application_interfaces', {
