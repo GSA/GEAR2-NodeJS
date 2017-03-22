@@ -27,8 +27,7 @@
                     <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
                     <li role="presentation">
                         <a href="#technology" aria-controls="technology" role="tab" data-toggle="tab"
-                            ng-show="investment.RelatedApplicationCount > 0"
-                            ng-click="getRelatedApps(inventory.Name)">
+                            ng-show="!!applications.length">
                             <span>Related Business Applications</span>
                         </a>
                     </li>

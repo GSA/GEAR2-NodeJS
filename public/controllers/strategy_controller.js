@@ -4,8 +4,8 @@
 'use strict';
 
 // Create the 'strategy' controller
-angular.module('dashboard').controller('StrategyController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal', 'InvestmentsSrc', 'Utils', 'bstSearchUtils',
-function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal, InvestmentsSrc, Utils, bstSearchUtils) {
+angular.module('dashboard').controller('StrategyController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal', 'InvestmentsSrc', 'InvestmentAppsSrc', 'Utils', 'bstSearchUtils',
+function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal, InvestmentsSrc, InvestmentAppsSrc, Utils, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -148,40 +148,42 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     var investment = InvestmentsSrc.query({ id: $routeParams.id });
     investment.$promise.then(function () {
       $scope.investment = investment[0];
-      // TODO: add related Apps
-      $('#invrelappstable').bootstrapTable({
-        columns: [{
-          field: 'Name',
-          title: 'Business Application Name',
-          sortable: true
-        }, {
-          field: 'Description',
-          title: 'Description',
-          sortable: true
-        }, {
-          field: 'SSO',
-          title: 'SSO',
-          sortable: true
-        }, {
-          field: 'Status',
-          title: 'Status',
-          sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
-        data: appgroup
-      });
-      // Method to handle click events on the Investments table
-      $('#invrelappstable').on('click-row.bs.table', function (e, row, $element) {
-        // note: this :has selector cannot be cached; done this way to get
-        // around caching & DOM availabily issues
-        if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-          $location.path('/applications/' + row.Id);
-          $route.reload();
-        }
+      $scope.applications = InvestmentAppsSrc.query({ id: $routeParams.id });
+      $scope.applications.$promise.then(function () {
+        $('#invrelappstable').bootstrapTable({
+          columns: [{
+            field: 'Name',
+            title: 'Business Application Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'SSO',
+            title: 'SSO',
+            sortable: true
+          }, {
+            field: 'Status',
+            title: 'Status',
+            sortable: true
+          }, {
+            field: 'Id',
+            title: 'Id',
+            sortable: true,
+            visible: false
+          }],
+          data: $scope.applications
+        });
+        // Method to handle click events on the Investments table
+        $('#invrelappstable').on('click-row.bs.table', function (e, row, $element) {
+          // note: this :has selector cannot be cached; done this way to get
+          // around caching & DOM availabily issues
+          if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+            $location.path('/applications/' + row.Id);
+            $route.reload();
+          }
+        });
       });
     });
   }
