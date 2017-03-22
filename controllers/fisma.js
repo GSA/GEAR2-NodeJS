@@ -1,6 +1,8 @@
 const FISMAStore = require('../stores/fisma');
+const POCStore = require('../stores/poc');
 
 const fismaStore = new FISMAStore();
+const pocStore = new POCStore();
 
 function findAll(req, res) {
   fismaStore.query('SELECT * FROM SAODS.udfGetFISMAList()', (results) => {
@@ -14,9 +16,15 @@ function findOne(req, res) {
   });
 }
 
+// children
+function findPOCs(req, res) {
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('f') WHERE ObjID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
+}
 
 module.exports = {
-
+  findPOCs,
   findAll,
   findOne,
 };

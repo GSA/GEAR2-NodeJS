@@ -9,4 +9,8 @@ router.route('/')
 router.route('/:id')
     .get(fismaCtrl.findOne);
 
+// children
+router.route('/:id/pocs')
+    .get(fismaCtrl.findPOCs);
+
 module.exports = router;
