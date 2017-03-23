@@ -555,7 +555,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 
 // Method for creating the Capability Tree view
 $scope.createCapabilityTree = function () {
-  var funcs = CapabilitiesSrc.query();
+  var funcs = BusFunction.query();
   var parentfunction = '';
   var parentdesc = '';
   var parentid = '';

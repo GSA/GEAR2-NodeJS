@@ -4,8 +4,12 @@
 'use strict';
 
 // Create the 'Security' controller
-angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'FISMASrc', 'FISMAPOC', 'RISSO', 'bstSearchUtils',
-function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASrc, FISMAPOC, RISSO, bstSearchUtils) {
+angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  'FISMASrc', 'FISMAPOCsSrc',
+  'FISMAPOC', 'RISSO', 'bstSearchUtils',
+function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
+  FISMASrc, FISMAPOCsSrc,
+  FISMAPOC, RISSO, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -19,7 +23,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASr
     $scope.hasUsedSearchForm = false;
     $scope.rootPath = '/FISMA';
 
-    var fsystems = FISMASrc.query({requestType:'ALL'});
+    var fsystems = FISMASrc.query();
     fsystems.$promise.then(function (populateData) {
       $scope.bstData = [];
       var art = "";
@@ -130,7 +134,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASr
       $('[data-toggle="tooltip"]').tooltip()
     });
     // Use the fisma_system 'get' method to send an appropriate GET request
-    var fisma = FISMASrc.query({requestType:"ALL", id:$routeParams.fismapath});
+    var fisma = FISMASrc.query();
     var fismaid = '';
     fisma.$promise.then(function (populateData) {
       $.each(fisma, function (key, val) {
@@ -243,22 +247,21 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASr
     $scope.hasUsedSearchForm = false;
     $scope.rootPath = '/FISMA_POC';
 
-    var fpoc = FISMASrc.query({requestType:'POC'});
-    fpoc.$promise.then(function (fisma) {
-      var fisma = [];
-      var issm = '';
-      var isso = '';
-      var pm = '';
-      var ao = '';
-      $.each(fpoc, function (key, val) {
-        issm = val.ISSMName + " " +  "<a href=mailto:" + val.ISSMEmail + ">" + val.ISSMEmail + "</a>"+ " " + val.ISSMPhone;
-        isso = val.ISSOName + " " +  "<a href=mailto:" + val.ISSOEmail + ">" + val.ISSOEmail + "</a>"+ " " + val.ISSOPhone;
-        pm = val.PMName + " " +  "<a href=mailto:" + val.PMEmail + ">" + val.PMEmail + "</a>"+ " " + val.PMPhone;
-        ao = val.AOName + " " +  "<a href=mailto:" + val.AOEmail + ">" + val.AOEmail + "</a>"+ " " + val.AOPhone;
-        fisma.push({"RespSSO" : val.RespSSO, "Id" : val.Id, "Name" : val.Name, "FIPS199" : val.FIPS199, "ISSMName" : issm, "ISSOName" : isso, "PMName" : pm, "AOName" : ao});
+    var fismaSrc = FISMASrc.query();
+    fismaSrc.$promise.then(function (wtf) {
+      var pocs = FISMAPOCsSrc.query();
+      pocs.$promise.then(function () {
+        _.each(fismaSrc, function (item) {
+          _.each(_.keys(item), function (key) {
+            var match = _.where(pocs, {Type: key, ParentId: item.Id});
+            if (match.length) {
+              item[key] = match[0].Name + " " +  "<a href=mailto:" + match[0].Email + ">" + match[0].Email + "</a>"+ " " + (match[0].Phone || '');
+            }
+          });
+        });
       });
       $scope.bstData = [];
-      $scope.bstData = _.uniq(fisma, function(item, key, Name) {
+      $scope.bstData = _.uniq(fismaSrc, function(item) {
         return item.Name;
       });
       bstSearchUtils.checkFilterState($scope);
@@ -276,19 +279,19 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASr
           title: 'FIPS Impact Level',
           sortable: true
         }, {
-          field: 'ISSMName',
+          field: 'ISSM',
           title: 'ISSM',
           sortable: true
         }, {
-          field: 'ISSOName',
+          field: 'ISSO',
           title: 'ISSO',
           sortable: true
         }, {
-          field: 'PMName',
+          field: 'PM',
           title: 'Program Manager',
           sortable: true
         }, {
-          field: 'AOName',
+          field: 'AO',
           title: 'Authorizing Official',
           sortable: true
         }, {

@@ -26,6 +26,10 @@ class POCModel extends Model {
         },
       },
       {
+        name: 'Phone',
+        type: 'string',
+      },
+      {
         name: 'Type',
         type: 'string',
         mapping(data) {
