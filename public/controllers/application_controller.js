@@ -391,7 +391,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
       var apppath = row.Id
-      apppath = apppath.replace(/\//g , "-%")
+//      apppath = apppath.replace(/\//g , "-%")
       $location.path('/applications/' + apppath);
       $route.reload();
     }
@@ -440,7 +440,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
       var syspath = row.Id;
-      syspath = syspath.replace(/\//g , "-%")
+ //     syspath = syspath.replace(/\//g , "-%")
       $location.path('/systems/' + syspath);
       $route.reload();
     }
@@ -506,7 +506,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
       var apppath = row.Id;
-      apppath = apppath.replace(/\//g , "-%")
+ //     apppath = apppath.replace(/\//g , "-%")
       $location.path('/applications/' + apppath);
       $route.reload();
     }
