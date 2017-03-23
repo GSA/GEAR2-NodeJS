@@ -4,8 +4,8 @@
 'use strict';
 
 // Create the 'Security' controller
-angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'FISMASrc', 'FISMAPOC', 'RISSO', 'bstSearchUtils',
-function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASrc, FISMAPOC, RISSO, bstSearchUtils) {
+angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'FISMASrc', 'FISMAPOC', 'POCSrc', 'bstSearchUtils',
+function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASrc, FISMAPOC, POCSrc, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -322,14 +322,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, FISMASr
     $scope.hasUsedSearchForm = false;
     $scope.rootPath = '/RISSO_POC';
 
-    var risso = RISSO.query();
+    var risso = POCSrc.query();
 
     risso.$promise.then(function (populateData) {
       $scope.bstData = [];
       $.each(risso, function (key, val) {
-        if ([val.SecurityRole] == 'RISSO'){
-          $scope.bstData.push({"Name" : val.Name, "Organization" : val.Organization, "SecurityRole" : val.SecurityRole, "Region" : val.Region, "PhoneNumber" : val.PhoneNumber, "Email" : "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"});
-        }
+ //       if ([val.SecurityRole] == 'RISSO'){
+          $scope.bstData.push({"Name" : val.Name, "Organization" : val.Organization, "SecurityRole" : "RISSO", "Region" : val.Type, "PhoneNumber" : val.Phone, "Email" : "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"});
+ //       }
       });
       bstSearchUtils.checkFilterState($scope);
       $scope.bsTableConfig = {
