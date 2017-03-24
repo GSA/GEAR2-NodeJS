@@ -22,7 +22,6 @@ function findOne(req, res, next) {
 
 // children
 function findPOCs(req, res) {
-  console.log('FIND POCS');
   const filter = req.params.id ? `WHERE ObjID = ${req.params.id}` : '';
 
   pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('f') ${filter}`, (results) => {

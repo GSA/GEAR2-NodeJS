@@ -4,19 +4,19 @@ var app = angular.module('dashboard');
 
 app.controller('appsBySsoChartController', function ($scope, ApplicationsSrc) {
   $scope.transformData = function (d) {
-    console.log(d[0]);
     var active = _.filter(d, function (item) {
+      // TODO: check if business logic is redundant with new API or if we can remove any if-statements
       var pass = false;
-      if (typeof item.Type !== 'undefined' && item.Type !== 'Website') {
+      if (Object.hasOwnProperty.call(item, 'Type') && item.Type && item.Type !== 'Website') {
         pass = true;
       }
-      if (typeof item.Status !== 'undefined' && item.Status !== 'Retired') {
+      if (Object.hasOwnProperty.call(item, 'Status') && item.Status && item.Status !== 'Retired') {
         pass = true;
       }
-      if (typeof item.SSO !== 'undefined' && item.SSO !== 'External') {
+      if (Object.hasOwnProperty.call(item, 'SSO') && item.SSO && item.SSO !== 'External') {
         pass = true;
       }
-      if (typeof item.SSO !== 'undefined' && item.SSO.indexOf('Sample Office') < 0) {
+      if (Object.hasOwnProperty.call(item, 'SSO') && item.SSO && item.SSO.indexOf('Sample Office') < 0) {
         pass = true;
       }
       return pass;

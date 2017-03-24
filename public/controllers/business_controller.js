@@ -8,12 +8,12 @@ angular.module('dashboard').controller('BusinessController', ['$route','$scope',
   // insert new here
   'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
   // resume legacy
-  'Organization', 'OrgSvc', 'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
+  'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
 function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
   // insert new here
   OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc,
   // resume legacy
-  Organization, OrgSvc, BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
+  BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
 
   $scope.rootPath = '';
   $scope.bstData = [];
