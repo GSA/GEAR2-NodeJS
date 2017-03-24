@@ -146,12 +146,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'FISMA System',
           sortable: true,
           visible: false
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }, {
+        }, 
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
           field: 'Investment',
           title: 'Investment',
           sortable: true,
@@ -335,12 +337,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Status',
             title: 'Status',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
-            visible: false,
-            sortable: true
-          }, {
+          },
+		  // {
+            // field: 'Id',
+            // title: 'Id',
+            // visible: false,
+            // sortable: true
+          // }, 
+		  {
             field: 'Notes',
             title: 'Notes',
             visible: false,
@@ -420,12 +424,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'SSO',
           title: 'SSO',
           sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
+        }
+		// , {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // }
+		],
         data: $scope.bstData
       };
       bstSearchUtils.updateConfig($scope);

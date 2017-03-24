@@ -171,30 +171,31 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
   // Method for retrieving a single organization's related Systems
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
-    var appmap = OrgAppMap.query();
+    var appmap = OrgAppsSrc.query({ id: orgId })//OrgAppMap.query();
     var applist = [];
     appmap.$promise.then(function (populateData) {
-      $.each(appmap, function (key, val) {
-        if ([val.Orgid] == orgId) {
-          applist.push(val.Appid);
-        }
-      });
-      var app = Application.query();
-      app.$promise.then(function (populateData) {
-        var orgappnames = [];
-        for (var i = 0; i < app.length; i++) {
-          var tmpappsid = applist[i];
-          for (var ind = 0; ind < app.length; ind++) {
-            var tmpappid = app[ind].Id;
-            if (tmpappsid === tmpappid
-              && app[ind].Type.toLowerCase() !== 'website') {
-                orgappnames.push({"Name" : app[ind].Name, "Description" : app[ind].Description, "Id" : app[ind].Id});
-              }
-              else {
-                continue
-              }
-            }
-          }
+      // $.each(appmap, function (key, val) {
+        // if ([val.Orgid] == orgId) {
+          // applist.push(val.Appid);
+        // }
+      // });
+      // var app = Application.query();
+	  
+      appmap.$promise.then(function (populateData) {
+        // var orgappnames = [];
+        // for (var i = 0; i < app.length; i++) {
+          // var tmpappsid = applist[i];
+          // for (var ind = 0; ind < app.length; ind++) {
+            // var tmpappid = app[ind].Id;
+            // if (tmpappsid === tmpappid
+              // && app[ind].Type.toLowerCase() !== 'website') {
+                // orgappnames.push({"Name" : app[ind].Name, "Description" : app[ind].Description, "Id" : app[ind].Id});
+              // }
+              // else {
+                // continue
+              // }
+            // }
+          // }
 
           $('#orgapptable').bootstrapTable({
             columns: [{
@@ -257,12 +258,14 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           field: 'Parent',
           title: 'Parent',
           sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
+        }
+		// , {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // }
+		],
         data: $scope.bstData
       };
       bstSearchUtils.updateConfig($scope);
