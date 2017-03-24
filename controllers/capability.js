@@ -15,10 +15,15 @@ function findAll(req, res) {
   });
 }
 
-function findOne(req, res) {
-  capabilityStore.query(`SELECT * FROM SAODS.udfGetBusCapList() WHERE ID = ${req.params.id}`, (results) => {
-    res.json(results);
-  });
+// TODO: make sure we're using next() properly
+function findOne(req, res, next) {
+  if (req.params.id === 'app-counts') {
+    next();
+  } else {
+    capabilityStore.query(`SELECT * FROM SAODS.udfGetBusCapList() WHERE ID = ${req.params.id}`, (results) => {
+      res.json(results);
+    });
+  }
 }
 
 // children
@@ -28,8 +33,17 @@ function findApplications(req, res) {
   });
 }
 
+// special (reports, data viz, etc.)
+function findAppCounts(req, res) {
+  capabilityStore.query('SELECT * FROM SAODS.udfGetCapModel()', (results) => {
+    res.json(results);
+  });
+}
+
+
 module.exports = {
   findApplications,
+  findAppCounts,
   findAll,
   findOne,
 };

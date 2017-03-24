@@ -10,6 +10,7 @@ function findAll(req, res) {
   });
 }
 
+// TODO: make sure we're using next() properly
 function findOne(req, res, next) {
   if (req.params.id === 'pocs') {
     next();

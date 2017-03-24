@@ -6,12 +6,12 @@
 // Create the 'business' controller
 angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'CapAppCountsSrc',
   // resume legacy
   'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
 function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
   // insert new here
-  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc,
+  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc,
   // resume legacy
   BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
 
@@ -555,164 +555,55 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 
 // Method for creating the Capability Tree view
 $scope.createCapabilityTree = function () {
-  var funcs = BusFunction.query();
-  var parentfunction = '';
-  var parentdesc = '';
-  var parentid = '';
-  var parentappnum = '';
-  var parentapparray = [];
-  var l1 = [];
-  var l1apparray = [];
-  var l1name = '';
-  var l1desc = '';
-  var l1id = '';
-  var l1appnum = '';
-  var l2 = [];
-  var l2apparray = [];
-  var l2name = '';
-  var l2desc = '';
-  var l2id = '';
-  var l2appnum = '';
-  var l2size = 25;
-  var l3 = [];
-  var l3apparray = [];
-  var l3name = '';
-  var l3desc = '';
-  var l3id = '';
-  var l3appnum = '';
-  var l3size = 25;
-  var l4 = [];
-  var l4apparray = [];
-  var l4name = '';
-  var l4desc = '';
-  var l4id = '';
-  var l4appnum = '';
-  var l4size = 25;
-  var l5 = [];
-  var l5apparray = [];
-  var l5name = '';
-  var l5id = '';
-  var l5appnum = '';
-  var l5size = 25;
-  funcs.$promise.then(function (populateData) {
-    var appmap = FuncAppMap.query();
-    appmap.$promise.then(function (populateData) {
-      //Get the name of the Parent Function and assign it to the 'parentfunction' variable
-      $.each(funcs, function (key, val) {
-        if ([val.Parent] == "") {
-          parentfunction = val.Name;
-          parentdesc = val.Description;
-          parentid = val.Id
-          $.each(appmap, function (key, val){
-            if ([val.Funcid] == l1id) {
-              parentapparray.push({'appid' : val.Appid});
-            }
-          });
-          parentappnum = parentapparray.length;
-        }
+  var capApps = CapAppCountsSrc.query();
+  capApps.$promise.then(function () {
+    // TODO: make this function shareable--it adds _.tree() feature to underscore.js
+    (function() {
+      var attrEq = function(key, value, input) {
+            return input[key] && input[key] == value;
+          },
+
+          arrayToTree = function(data, rootId, pkName, fkName) {
+            pkName = pkName || 'id';
+            fkName = fkName || 'parent_id';
+            rootId = rootId || (_.first(data) || {})[pkName] || 0;
+
+            var output = _.clone(_.find(data, _.partial(attrEq, pkName, rootId))),
+                childnodes = _.filter(data, _.partial(attrEq, fkName, rootId));
+
+            output.children = _.map(childnodes, function(child) {
+              return arrayToTree(data, child[pkName], pkName, fkName);
+            });
+
+            return output;
+          };
+
+      _.mixin({
+        tree: arrayToTree
       });
 
-      //Populate 'l2' array by finding the children of the 'parentfunction'
-      $.each(funcs, function (key, val) {
-        if ([val.Parent] == parentfunction) {
-          l1name =  val.Name;
-          l1desc = val.Description;
-          l1id = val.Id;
-          $.each(appmap, function (key, val){
-            if ([val.Funcid] == l1id) {
-              l1apparray.push({'appid' : val.Appid});
-            }
-          });
-          l1appnum = l1apparray.length;
-          l1apparray = [];
-          $.each(funcs, function (key, val){
-            if ([val.Parent] == l1name) {
-              l2name = val.Name;
-              l2desc = val.Description;
-              l2id = val.Id;
-              $.each(appmap, function (key, val){
-                if ([val.Funcid] == l2id) {
-                  l2apparray.push({'appid' : val.Appid});
-                }
-              });
-              l2appnum = l2apparray.length;
-              l2apparray = [];
-              $.each(funcs, function (key, val){
-                if ([val.Parent] == l2name) {
-                  l3name = val.Name;
-                  l3desc = val.Description;
-                  l3id = val.Id;
-                  $.each(appmap, function (key, val){
-                    if ([val.Funcid] == l3id) {
-                      l3apparray.push({'appid' : val.Appid});
-                    }
-                  });
-                  l3appnum = l3apparray.length;
-                  l3apparray = [];
-                  $.each(funcs, function (key, val){
-                    if ([val.Parent] == l3name) {
-                      l4name = val.Name;
-                      l4desc = val.Description;
-                      l4id = val.Id;
-                      $.each(appmap, function (key, val){
-                        if ([val.Funcid] == l4id) {
-                          l4apparray.push({'appid' : val.Appid});
-                        }
-                      });
-                      l4appnum = l4apparray.length;
-                      l4apparray = [];
-                      $.each(funcs, function (key, val){
-                        if ([val.Parent] == l4name) {
-                          l5name = val.Name;
-                          $.each(appmap, function (key, val){
-                            if ([val.Funcid] == val.Id) {
-                              l5apparray.push({'appid' : val.Appid});
-                            }
-                          });
-                          l5appnum = l5apparray.length;
-                          l5apparray = [];
-                          l5.push({'name' : l5name, 'id' : l5id, 'value' : 25, 'description' : val.Description, 'appnum' : l5appnum});
-                        }
-                      });
-                      if (l5.length == 0){
-                        l4.push({'name' : l4name, 'id' : l4id, 'value' : 25, 'description' : l4desc, 'appnum' : l4appnum});
-                      }
-                      else{
-                        l4.push({'name' : l4name, 'id' : l4id, 'children' : l5, 'description' : l4desc, 'appnum' : l4appnum});
-                      }
-                      l5 = [];
-                    }
-                  });
-                  if (l4.length == 0){
-                    l3.push({'name' : l3name, 'id' : l3id, 'value' : 25, 'description' : l3desc, 'appnum' : l3appnum});
-                  }
-                  else{
-                    l3.push({'name' : l3name, 'id' : l3id, 'children' : l4, 'description' : l3desc, 'appnum' : l3appnum});
-                  }
-                  l4 = [];
-                }
-              });
-              if (l3.length == 0){
-                l2.push({'name' : l2name, 'id' : l2id, 'value' : 25, 'description' : l2desc, 'appnum' : l2appnum});
-              }
-              else{
-                l2.push({'name' : l2name, 'id' : l2id, 'children' : l3, 'description' : l2desc, 'appnum' : l2appnum});
-              }
-              l3 = [];
-            }
-          });
-          if (l2.length == 0){
-            l1.push({'name' : l1name, 'id' : l1id, 'value' : 25, 'description' : l1desc, 'appnum' : l1appnum});
-          }
-          else{
-            l1.push({'name' : l1name, 'id' : l1id, 'children' : l2, 'description' : l1desc, 'appnum' : l1appnum});
-          }
-          l2 = [];
-        }
-      });
-      var root = {'name' : parentfunction, 'id' : parentid, 'children' : l1, 'description' : parentdesc, 'appnum' : parentappnum};
+    }).call(this);
 
-      //Begin the logic for creating the capability model
+    var rootNode = {
+      Id: 17433,
+      Name: 'Manage GSA',
+      Parent: null,
+      AppCount: 0,
+      RefNum: null,
+      ParRefNum: null,
+    }
+    capApps.unshift(rootNode);
+
+    capApps = _.map(capApps, function (c) {
+      return {
+        id: Number(c.Id),
+        name: c.Name,
+        pname: c.Parent,
+        appnum: Number(c.AppCount)
+      }
+    });
+
+    var root =  _.tree(capApps,'Manage GSA','name', 'pname');
 
       var margin = {top: 20, right: 0, bottom: 0, left: 0},
       width = 960,
@@ -776,6 +667,10 @@ $scope.createCapabilityTree = function () {
       // We also take a snapshot of the original children (_children) to avoid
       // the children being overwritten when when layout is computed.
       function accumulate(d) {
+        if (!d.children.length) {
+          d.value= 25;
+          delete d.children;
+        }
         return (d._children = d.children)
         ? d.value = d.children.reduce(function(p, v) { return p + accumulate(v); }, 0)
         : d.value;
@@ -801,10 +696,6 @@ $scope.createCapabilityTree = function () {
           });
         }
       }
-
-
-
-
       function display(d) {
         grandparent
         .datum(d.parent)
@@ -820,9 +711,7 @@ $scope.createCapabilityTree = function () {
         .data(d._children)
         .enter().append("g")
         .on("contextmenu", function(d){
-          var funcpath = d.id;
-          funcpath = funcpath.replace(/\//g , "-%")
-          $location.path('/capability/' + funcpath);
+          $location.path('/capability/' + d.id);
           $scope.$apply();
         });
 
@@ -945,7 +834,6 @@ $scope.createCapabilityTree = function () {
           : d.name;
         }
       });
-    });
   }
 
 

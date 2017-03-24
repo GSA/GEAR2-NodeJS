@@ -10,7 +10,11 @@ router.route('/:id')
     .get(capabilityCtrl.findOne);
 
 // children
-router.route('/:id/applications/')
+router.route('/:id/applications')
     .get(capabilityCtrl.findApplications);
+
+// special (reports, data viz, etc.)
+router.route('/app-counts')
+    .get(capabilityCtrl.findAppCounts);
 
 module.exports = router;

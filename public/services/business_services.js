@@ -25,6 +25,10 @@ angular.module('dashboard')
 .factory('CapApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/capabilities/:id/applications');
 }])
+// new CapAppCountsSrc
+.factory('CapAppCountsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/capabilities/app-counts');
+}])
 // Goal is UNUSED, but lets leave references for now
 
 

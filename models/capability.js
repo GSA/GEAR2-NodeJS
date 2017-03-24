@@ -27,6 +27,19 @@ class CapabilityModel extends Model {
         name: 'Parent',
         type: 'string',
       },
+      // next 3 fields are used by cap visualization
+      {
+        name: 'AppCount',
+        type: 'string',
+      },
+      {
+        name: 'RefNum',
+        type: 'string',
+      },
+      {
+        name: 'ParRefNum',
+        type: 'string',
+      },
     ];
   }
 }
