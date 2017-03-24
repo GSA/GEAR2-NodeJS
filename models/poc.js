@@ -30,7 +30,11 @@ class POCModel extends Model {
         type: 'string',
         },
       {
-        name: 'Phone',
+        name: 'Owner',
+        type: 'string',
+      },
+	  {
+        name: 'OwnerShort',
         type: 'string',
       },
       {

@@ -5,7 +5,7 @@ class ITStandardsModel extends Model {
     super(f);
     this.fields = [
       {
-        name: 'Id',
+        name: 'ID',
         type: 'int',
         mapping(data) {
           return data.ID;

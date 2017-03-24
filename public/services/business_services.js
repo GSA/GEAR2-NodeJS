@@ -12,7 +12,7 @@ angular.module('dashboard')
 .factory('OrgAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/organizations/:id/applications');
 }])
-// TODO:
+// TODO:// Orphan
 // tbr: 'GetOrgSysMap'
 .factory('OrgSysSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/organizations/:id/systems');

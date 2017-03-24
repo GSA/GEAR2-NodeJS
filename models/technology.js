@@ -8,7 +8,7 @@ class TechnologyModel extends Model {
         name: 'Id',
         type: 'string',
         mapping(data) {
-          return data.TechID;
+          return data.ID;
         },
       },
       {
