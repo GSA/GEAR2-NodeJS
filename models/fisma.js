@@ -27,6 +27,14 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
+        name: 'RelOrgDisplayName',
+        type: 'string',
+      },
+      {
+        name: 'FedContractorLoc',
+        type: 'string',
+      },
+      {
         name: 'Located',
         type: 'string',
       },
@@ -47,7 +55,15 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
+        name: 'RenewalDate',
+        type: 'string',
+      },
+      {
         name: 'Complete',
+        type: 'string',
+      },
+      {
+        name: 'ComplFISMA',
         type: 'string',
       },
       {
@@ -56,6 +72,10 @@ class FISMAModel extends Model {
       },
       {
         name: 'Identifier',
+        type: 'string',
+      },
+      {
+        name: 'FISMASystemIdentifier',
         type: 'string',
       },
       {

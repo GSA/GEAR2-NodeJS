@@ -15,7 +15,7 @@ function findOne(req, res, next) {
   if (req.params.id === 'pocs') {
     next();
   } else {
-    fismaStore.query(`SELECT * FROM SAODS.udfGetFISMAList() WHERE FISMAID = ${req.params.id}`, (results) => {
+    fismaStore.query(`SELECT * FROM SAODS.udfGetFISMAList() WHERE ID = ${req.params.id}`, (results) => {
       res.json(results);
     });
   }
@@ -23,7 +23,7 @@ function findOne(req, res, next) {
 
 // children
 function findPOCs(req, res) {
-  const filter = req.params.id ? `WHERE ObjID = ${req.params.id}` : '';
+  const filter = req.params.id ? `WHERE ID = ${req.params.id}` : '';
 
   pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('f') ${filter}`, (results) => {
     res.json(results);
