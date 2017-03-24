@@ -70,8 +70,8 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var orgpath = row.Name
-      orgpath = orgpath.replace(/\//g , "-%")
+      var orgpath = row.Id
+//      orgpath = orgpath.replace(/\//g , "-%")
       $location.path('/organization/' + orgpath);
       $route.reload();
     }
@@ -82,23 +82,26 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
-    var org = $routeParams.organizationName;
-    org = org.replace(/-%/g , "/");
+    var org = $routeParams.id;
+//    org = org.replace(/-%/g , "/");
     // Use the ps 'get' method to send an appropriate GET request
-    var organization = OrganizationsSrc.query();
+    var organization = OrganizationsSrc.query({ id: $routeParams.id });
+
     var application = Application.query();
     var interfaces = Interface.query();
     var orgname = '';
     var appid = '';
+	
     organization.$promise.then(function (populateData) {
       $.each(organization, function (key, val) {
-        if ([val.Name] == org) {
-          $scope.orgId = val.Id;
+    //    if ([val.Id] == org) {
+		  console.log(val);    
+		  $scope.orgId = val.Id;
           $scope.orgName = val.Name;
           orgname = val.Name;
           $scope.orgDescription = val.Description;
           $scope.orgParent = val.Parent;
-        }
+    //    }
       });
       application.$promise.then(function (populateData) {
         interfaces.$promise.then(function (populateData) {

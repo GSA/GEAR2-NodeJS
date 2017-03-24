@@ -12,7 +12,7 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetOrgList() WHERE Id = ${req.params.id}`, (results) => {
+  appStore.query(`SELECT * FROM SAODS.udfGetOrgList() WHERE ID = ${req.params.id}`, (results) => {
     res.json(results);
   });
 }
