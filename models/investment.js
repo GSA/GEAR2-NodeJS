@@ -5,10 +5,10 @@ class InvestmentModel extends Model {
     super(f);
     this.fields = [
       {
-        name: 'Id',
+        name: 'ID',
         type: 'string',
         mapping(o) {
-          return o.InvID;
+          return o.ID;
         },
       },
       {

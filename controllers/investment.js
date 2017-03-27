@@ -16,7 +16,7 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  investmentStore.query(`SELECT * FROM SAODS.udfGetInvList() WHERE InvID = ${req.params.id}`, (results) => {
+  investmentStore.query(`SELECT * FROM SAODS.udfGetInvList() WHERE ID = ${req.params.id}`, (results) => {
     res.json(results);
   });
 }

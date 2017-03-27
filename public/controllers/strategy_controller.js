@@ -137,7 +137,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      $location.path('/investment/' + row.Id);
+      $location.path('/investment/' + row.ID);
       $route.reload();
     }
   });

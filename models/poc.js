@@ -26,7 +26,11 @@ class POCModel extends Model {
         },
       },
       {
-        name: 'Phone',
+        name: 'Owner',
+        type: 'string',
+      },
+	  {
+        name: 'OwnerShort',
         type: 'string',
       },
       {
