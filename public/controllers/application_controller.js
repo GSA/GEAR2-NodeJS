@@ -62,7 +62,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Alias": val.Alias,
             "RegionClassification": val.RegionClassification,
             "HostingProvider": val.HostingProvider,
-            "FismaSystem": fismasys,
+            "FismaSystem": val.FISMASystem,
             "Id": val.Id,
             "Investment": val.Investment,
             "IsRevenueGenerator": val.IsRevenueGenerator,
