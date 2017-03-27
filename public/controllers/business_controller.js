@@ -6,12 +6,12 @@
 // Create the 'business' controller
 angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'OrgAppsSrc', 
   // resume legacy
   'Organization', 'OrgSvc', 'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
 function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
   // insert new here
-  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc,
+  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, OrgAppsSrc, 
   // resume legacy
   Organization, OrgSvc, BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
 
@@ -70,9 +70,9 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var orgpath = row.Id
+   //   var orgpath =  row.Id;
 //      orgpath = orgpath.replace(/\//g , "-%")
-      $location.path('/organization/' + orgpath);
+      $location.path('/organizations/' + row.Id);
       $route.reload();
     }
   });
@@ -83,25 +83,26 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
       $('[data-toggle="tooltip"]').tooltip()
     });
     var org = $routeParams.id;
+	
 //    org = org.replace(/-%/g , "/");
     // Use the ps 'get' method to send an appropriate GET request
     var organization = OrganizationsSrc.query({ id: $routeParams.id });
-
-    var application = Application.query();
+	
+    var application = OrgAppsSrc.query({ id: $routeParams.id });
     var interfaces = Interface.query();
     var orgname = '';
     var appid = '';
 	
     organization.$promise.then(function (populateData) {
       $.each(organization, function (key, val) {
-    //    if ([val.Id] == org) {
-		  console.log(val);    
+        if ([val.Id] == org) {
+		      
 		  $scope.orgId = val.Id;
           $scope.orgName = val.Name;
           orgname = val.Name;
           $scope.orgDescription = val.Description;
           $scope.orgParent = val.Parent;
-    //    }
+        }
       });
       application.$promise.then(function (populateData) {
         interfaces.$promise.then(function (populateData) {
@@ -122,7 +123,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 
 
   // Method for retrieving a single organization's related goals
-  $scope.getRelatedGoals = function(orgId) {
+ /* $scope.getRelatedGoals = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
     var goalmap = OrgGoalMap.query();
     var goallist = [];
@@ -167,7 +168,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
       });
     });
   }
-
+*/
   // Method for retrieving a single organization's related Systems
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
@@ -212,7 +213,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true,
               visible: false
             }],
-            data: orgappnames
+            data: appmap//orgappnames
           });
         });
       });

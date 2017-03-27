@@ -27,7 +27,7 @@ function($routeProvider, $locationProvider) {
 	when('/organizations', {
 		templateUrl: 'partials/business_organization_report.html'
 	}).
-	when('/organization/:organizationName', {
+	when('/organizations/:id', {
 		templateUrl: 'partials/business_organization_detail.html'
 	}).
 	when('/organization_model', {
