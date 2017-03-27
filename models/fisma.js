@@ -43,11 +43,11 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'ATORenewal',
+        name: 'RenewalDate',
         type: 'string',
       },
       {
-        name: 'Complete',
+        name: 'ComplFISMA',
         type: 'string',
       },
       {
@@ -55,7 +55,7 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'Identifier',
+        name: 'FISMASystemIdentifier',
         type: 'string',
       },
       {
@@ -83,6 +83,14 @@ class FISMAModel extends Model {
         name: 'Program Manager',
         type: 'string',
         mapping: 'PM',
+      },
+      {
+        name: 'RelOrgDisplayName',
+        type: 'string',
+      },
+      {
+        name: 'FedContractorLoc',
+        type: 'string',
       },
     ];
   }

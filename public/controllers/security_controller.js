@@ -49,7 +49,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           "RenewalDate" : val.RenewalDate,
           "ComplFISMA" : val.ComplFISMA,
           "FISMASystemIdentifier" : val.FISMASystemIdentifier,
-          Artifacts: artifacts.join(',<br/>')
+          "Artifacts": val.RelatedArtifacts,// artifacts.join(',<br/>')
         });
       });
       bstSearchUtils.checkFilterState($scope);
@@ -92,12 +92,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         }, {
           field: 'Artifacts',
           title: 'Related Artifacts'
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: false,
-          visible: false
-        }, {
+        }, 
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: false,
+          // visible: false
+        // }, 
+		{
           field: 'FISMASystemIdentifier',
           title: 'FISMA System Identifier',
           sortable: true,
