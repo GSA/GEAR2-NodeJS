@@ -42,7 +42,7 @@ function($routeProvider, $locationProvider) {
 	when('/capability_model', {
 		templateUrl: 'partials/business_function_chart.html'
 	}).
-	when('/capability/:id', {
+	when('/capabilities/:id', {
 		templateUrl: 'partials/business_function_detail.html'
 	}).
 

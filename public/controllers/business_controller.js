@@ -279,7 +279,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      $location.path('/capability/' + row.Id);
+      $location.path('/capabilities/' + row.Id);
       $route.reload();
     }
   });
@@ -965,25 +965,25 @@ $scope.createCapabilityTree = function () {
     // data using Underscore methods
     var capabilities = CapabilitiesSrc.query({ id: $routeParams.id });
     var applications = CapApplicationsSrc.query({ id: $routeParams.id });
-    var timeResource = TIME.query();
+//    var timeResource = TIME.query();
 
     capabilities.$promise
     .then(function () { this.render(); }.bind(this))
     .catch(function (e) {
       throw (e)
     });
-    timeResource.$promise
-    .then(function () { this.render(); }.bind(this))
-    .catch(function (e) {
-      throw (e)
-    });
+//    timeResource.$promise
+//    .then(function () { this.render(); }.bind(this))
+//    .catch(function (e) {
+//      throw (e)
+//    });
 
     this.render = function () {
       // Wait until both queries are resolved before proceding
       // Per MLD: This render() is unnecessary. No need to wait for all $resources to be resolved.
-      if (timeResource.$resolved && capabilities.$resolved) {
+      if (capabilities.$resolved) {//timeResource.$resolved && capabilities.$resolved) {
           $scope.capability = capabilities[0];
-
+			console.log(applications);
           applications.$promise.then(function () {
             if (applications.length > 0) {
               d3.select("#relappstab").style("display", "block");

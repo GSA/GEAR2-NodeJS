@@ -81,6 +81,42 @@ class Application extends Model {
         name: 'Technologies',
         type: 'string',
       },
+      {
+        name: 'FY14',
+        type: 'string',
+
+      },
+      {
+        name: 'FY15',
+        type: 'string',
+
+      },
+	  {
+        name: 'FY16',
+        type: 'string',
+
+      },
+	  {
+        name: 'FY17',
+        type: 'string',
+
+      },
+	  {
+        name: 'FY18',
+        type: 'string',
+
+      },
+	  {
+        name: 'FY19',
+        type: 'string',
+
+      },
+	  {
+        name: 'FY20',
+        type: 'string',
+
+      },
+
     ]);
   }
 }
