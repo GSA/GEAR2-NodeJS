@@ -134,7 +134,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       $('[data-toggle="tooltip"]').tooltip()
     });
     // Use the fisma_system 'get' method to send an appropriate GET request
-    var fisma = FISMASrc.query();
+    var fisma = FISMASrc.query({ id: $routeParams.id });
     var fismaid = '';
     fisma.$promise.then(function (populateData) {
       $.each(fisma, function (key, val) {

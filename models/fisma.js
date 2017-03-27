@@ -4,18 +4,18 @@ class FISMAModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
-      {
-        name: 'FISMAID',
-        type: 'int',
-        mapping(data) {
-          return data.FISMAID || data.ID;
-        },
-      },
+      // {
+        // name: 'FISMAID',
+        // type: 'int',
+        // mapping(data) {
+          // return data.FISMAID || data.ID;
+        // },
+      // },
       {
         name: 'Id',
         type: 'int',
         mapping(data) {
-          return data.FISMAID || data.ID;
+          return data.ID;
         },
       },
       {

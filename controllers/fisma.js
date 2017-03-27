@@ -14,7 +14,7 @@ function findOne(req, res, next) {
   if (req.params.id === 'pocs') {
     next();
   } else {
-    fismaStore.query(`SELECT * FROM SAODS.udfGetFISMAList() WHERE FISMAID = ${req.params.id}`, (results) => {
+    fismaStore.query(`SELECT * FROM SAODS.udfGetFISMAList() WHERE ID = ${req.params.id}`, (results) => {
       res.json(results);
     });
   }
