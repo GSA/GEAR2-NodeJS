@@ -146,7 +146,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
       var standpath = row.Name
-      standpath = standpath.replace(/\//g , "-%")
+ //     standpath = standpath.replace(/\//g , "-%")
       $location.path('/itstandards/' + standpath);
       $route.reload();
     }

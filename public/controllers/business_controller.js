@@ -6,12 +6,12 @@
 // Create the 'business' controller
 angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'CapAppCountsSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'CapAppCountsSrc', 'OrgAppsSrc',
   // resume legacy
   'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
 function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
   // insert new here
-  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc,
+  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc, OrgAppsSrc,
   // resume legacy
   BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
 
@@ -70,9 +70,9 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var orgpath = row.Name
-      orgpath = orgpath.replace(/\//g , "-%")
-      $location.path('/organization/' + orgpath);
+   //   var orgpath =  row.Id;
+//      orgpath = orgpath.replace(/\//g , "-%")
+      $location.path('/organizations/' + row.Id);
       $route.reload();
     }
   });
@@ -82,18 +82,22 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
-    var org = $routeParams.organizationName;
-    org = org.replace(/-%/g , "/");
+    var org = $routeParams.id;
+
+//    org = org.replace(/-%/g , "/");
     // Use the ps 'get' method to send an appropriate GET request
-    var organization = OrganizationsSrc.query();
-    var application = Application.query();
+    var organization = OrganizationsSrc.query({ id: $routeParams.id });
+
+    var application = OrgAppsSrc.query({ id: $routeParams.id });
     var interfaces = Interface.query();
     var orgname = '';
     var appid = '';
+
     organization.$promise.then(function (populateData) {
       $.each(organization, function (key, val) {
-        if ([val.Name] == org) {
-          $scope.orgId = val.Id;
+        if ([val.Id] == org) {
+
+		  $scope.orgId = val.Id;
           $scope.orgName = val.Name;
           orgname = val.Name;
           $scope.orgDescription = val.Description;
@@ -119,7 +123,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 
 
   // Method for retrieving a single organization's related goals
-  $scope.getRelatedGoals = function(orgId) {
+ /* $scope.getRelatedGoals = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
     var goalmap = OrgGoalMap.query();
     var goallist = [];
@@ -164,34 +168,35 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
       });
     });
   }
-
+*/
   // Method for retrieving a single organization's related Systems
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
-    var appmap = OrgAppMap.query();
+    var appmap = OrgAppsSrc.query({ id: orgId })//OrgAppMap.query();
     var applist = [];
     appmap.$promise.then(function (populateData) {
-      $.each(appmap, function (key, val) {
-        if ([val.Orgid] == orgId) {
-          applist.push(val.Appid);
-        }
-      });
-      var app = Application.query();
-      app.$promise.then(function (populateData) {
-        var orgappnames = [];
-        for (var i = 0; i < app.length; i++) {
-          var tmpappsid = applist[i];
-          for (var ind = 0; ind < app.length; ind++) {
-            var tmpappid = app[ind].Id;
-            if (tmpappsid === tmpappid
-              && app[ind].Type.toLowerCase() !== 'website') {
-                orgappnames.push({"Name" : app[ind].Name, "Description" : app[ind].Description, "Id" : app[ind].Id});
-              }
-              else {
-                continue
-              }
-            }
-          }
+      // $.each(appmap, function (key, val) {
+        // if ([val.Orgid] == orgId) {
+          // applist.push(val.Appid);
+        // }
+      // });
+      // var app = Application.query();
+
+      appmap.$promise.then(function (populateData) {
+        // var orgappnames = [];
+        // for (var i = 0; i < app.length; i++) {
+          // var tmpappsid = applist[i];
+          // for (var ind = 0; ind < app.length; ind++) {
+            // var tmpappid = app[ind].Id;
+            // if (tmpappsid === tmpappid
+              // && app[ind].Type.toLowerCase() !== 'website') {
+                // orgappnames.push({"Name" : app[ind].Name, "Description" : app[ind].Description, "Id" : app[ind].Id});
+              // }
+              // else {
+                // continue
+              // }
+            // }
+          // }
 
           $('#orgapptable').bootstrapTable({
             columns: [{
@@ -208,7 +213,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true,
               visible: false
             }],
-            data: orgappnames
+            data: appmap//orgappnames
           });
         });
       });
@@ -254,12 +259,14 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           field: 'Parent',
           title: 'Parent',
           sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
+        }
+		// , {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // }
+		],
         data: $scope.bstData
       };
       bstSearchUtils.updateConfig($scope);
@@ -272,7 +279,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      $location.path('/capability/' + row.Id);
+      $location.path('/capabilities/' + row.Id);
       $route.reload();
     }
   });
@@ -846,25 +853,25 @@ $scope.createCapabilityTree = function () {
     // data using Underscore methods
     var capabilities = CapabilitiesSrc.query({ id: $routeParams.id });
     var applications = CapApplicationsSrc.query({ id: $routeParams.id });
-    var timeResource = TIME.query();
+//    var timeResource = TIME.query();
 
     capabilities.$promise
     .then(function () { this.render(); }.bind(this))
     .catch(function (e) {
       throw (e)
     });
-    timeResource.$promise
-    .then(function () { this.render(); }.bind(this))
-    .catch(function (e) {
-      throw (e)
-    });
+//    timeResource.$promise
+//    .then(function () { this.render(); }.bind(this))
+//    .catch(function (e) {
+//      throw (e)
+//    });
 
     this.render = function () {
       // Wait until both queries are resolved before proceding
       // Per MLD: This render() is unnecessary. No need to wait for all $resources to be resolved.
-      if (timeResource.$resolved && capabilities.$resolved) {
+      if (capabilities.$resolved) {//timeResource.$resolved && capabilities.$resolved) {
           $scope.capability = capabilities[0];
-
+			console.log(applications);
           applications.$promise.then(function () {
             if (applications.length > 0) {
               d3.select("#relappstab").style("display", "block");

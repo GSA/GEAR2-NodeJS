@@ -4,18 +4,18 @@ class FISMAModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
-      {
-        name: 'FISMAID',
-        type: 'int',
-        mapping(data) {
-          return data.FISMAID || data.ID;
-        },
-      },
+      // {
+        // name: 'FISMAID',
+        // type: 'int',
+        // mapping(data) {
+          // return data.FISMAID || data.ID;
+        // },
+      // },
       {
         name: 'Id',
         type: 'int',
         mapping(data) {
-          return data.FISMAID || data.ID;
+          return data.ID;
         },
       },
       {
@@ -51,15 +51,11 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'ATORenewal',
-        type: 'string',
-      },
-      {
         name: 'RenewalDate',
         type: 'string',
       },
       {
-        name: 'Complete',
+        name: 'ComplFISMA',
         type: 'string',
       },
       {
@@ -71,7 +67,7 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'Identifier',
+        name: 'FISMASystemIdentifier',
         type: 'string',
       },
       {
@@ -103,6 +99,14 @@ class FISMAModel extends Model {
         name: 'Program Manager',
         type: 'string',
         mapping: 'PM',
+      },
+      {
+        name: 'RelOrgDisplayName',
+        type: 'string',
+      },
+      {
+        name: 'FedContractorLoc',
+        type: 'string',
       },
     ];
   }

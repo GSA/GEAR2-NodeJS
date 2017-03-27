@@ -20,11 +20,11 @@ class CapabilityModel extends Model {
         type: 'string',
       },
       {
-        name: 'ReferenceNum',
+        name: 'Parent',
         type: 'string',
       },
-      {
-        name: 'Parent',
+	  {
+        name: 'ReferenceNum',
         type: 'string',
       },
       // next 3 fields are used by cap visualization

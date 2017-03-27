@@ -33,7 +33,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     $scope.applications = applications;
     applications.$promise.then(function (populateData) {
       $.each(applications, function (key, val) {
-        if ([val.Status] != "Retired" && [val.SSO_Display_Name] != "External" && [val.Type] != "Website") {
+        if ([val.Status] != "Retired" && [val.SSO] != "External" && [val.Type] != "Website") {
           var sys = '';
           var fismasys = '';
           if ([val.System] == ''){
@@ -62,7 +62,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Alias": val.Alias,
             "RegionClassification": val.RegionClassification,
             "HostingProvider": val.HostingProvider,
-            "FismaSystem": fismasys,
+            "FismaSystem": val.FISMASystem,
             "Id": val.Id,
             "Investment": val.Investment,
             "IsRevenueGenerator": val.IsRevenueGenerator,
@@ -146,12 +146,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'FISMA System',
           sortable: true,
           visible: false
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }, {
+        }, 
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
           field: 'Investment',
           title: 'Investment',
           sortable: true,
@@ -271,7 +273,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           appname = val.Name;
           owner = val.Owner;
           id = val.AppId;
-          notes = val.TIMENotes;
+          notes = val.Notes;
           var parentsys = '';
           fy14 = val.FY14;
           fy15 = val.FY15;
@@ -335,12 +337,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Status',
             title: 'Status',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
-            visible: false,
-            sortable: true
-          }, {
+          },
+		  // {
+            // field: 'Id',
+            // title: 'Id',
+            // visible: false,
+            // sortable: true
+          // }, 
+		  {
             field: 'Notes',
             title: 'Notes',
             visible: false,
@@ -420,12 +424,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'SSO',
           title: 'SSO',
           sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
+        }
+		// , {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // }
+		],
         data: $scope.bstData
       };
       bstSearchUtils.updateConfig($scope);
@@ -606,7 +612,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      $location.path('/itstandards/' + row.ID);
+      $location.path('/itstandards/' + row.Id);
       $route.reload();
     }
   });
