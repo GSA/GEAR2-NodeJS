@@ -273,7 +273,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           appname = val.Name;
           owner = val.Owner;
           id = val.AppId;
-          notes = val.TIMENotes;
+          notes = val.Notes;
           var parentsys = '';
           fy14 = val.FY14;
           fy15 = val.FY15;
