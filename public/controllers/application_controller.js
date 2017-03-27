@@ -33,7 +33,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     $scope.applications = applications;
     applications.$promise.then(function (populateData) {
       $.each(applications, function (key, val) {
-        if ([val.Status] != "Retired" && [val.SSO_Display_Name] != "External" && [val.Type] != "Website") {
+        if ([val.Status] != "Retired" && [val.SSO] != "External" && [val.Type] != "Website") {
           var sys = '';
           var fismasys = '';
           if ([val.System] == ''){
