@@ -121,6 +121,12 @@ class Application extends Model {
 
       },
 
+	  {
+        name: 'Notes',
+        type: 'string',
+
+      },
+
     ]);
   }
 }

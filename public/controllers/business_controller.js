@@ -1050,59 +1050,101 @@ $scope.createCapabilityTree = function () {
               // });
               //Populate Related Apps Table
               $('#funcappstable').bootstrapTable({
-                columns: [{
-                  field: 'Owner',
-                  title: '2 Letter Office',
+                columns: [
+				{
+                  field: 'SSOShort',
+                  title: 'Owner (Short Name)',
                   sortable: true,
-                }, {
+                }, 
+				{
                   field: 'Name',
                   title: 'Business Application Name',
                   sortable: true
-                }, {
+                }, 
+				{
                   field: 'System',
                   title: 'Parent System',
                   sortable: true,
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'Status',
                   title: 'Status',
                   sortable: true
-                }, {
+                }, 
+				{
                   field: 'FY14',
                   title: 'FY14',
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'FY15',
                   title: 'FY15',
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'FY16',
                   title: 'FY16',
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'FY17',
                   title: 'FY17'
-                }, {
+                }, 
+				{
                   field: 'FY18',
                   title: 'FY18'
-                }, {
+                }, 
+				{
                   field: 'FY19',
                   title: 'FY19'
-                }, {
+                }, 
+				{
                   field: 'FY20',
                   title: 'FY20'
-                }, 
-				// {
-                  // field: 'Id',
-                  // title: 'Id',
-                  // visible: false
-                // },
+                },
 				{
                   field: 'Notes',
                   title: 'Notes',
                   visible: false
 
-                }],
+                },
+				{
+					field: 'Alias',
+					title: 'Alias',
+					sortable: true,
+					visible: false
+				},
+				{
+					field: 'BusinessPOC',
+					title: 'Business POC',
+					sortable: true,
+					visible: false
+				},
+				{
+					field: 'TechnicalPOC',
+					title: 'Technical POC',
+					sortable: true,
+					visible: false
+				},	
+				{
+					field: 'SSO',
+					title: 'Owner(Long Name)',
+					sortable: true,
+					visible: false
+				},
+				{
+					field: 'Investment',
+					title: 'Related Investments',
+					sortable: true,
+					visible: false
+				}
+				// {
+                  // field: 'Id',
+                  // title: 'Id',
+                  // visible: false
+                // },
+				],
                 data: applications
               });
               // Method to handle click events on the Capability Applications table
