@@ -31,6 +31,10 @@ class CapabilityModel extends Model {
         name: 'Ref',
         type: 'string',
       },
+	  {
+        name: 'ParentCap',
+        type: 'string',
+      },
     ];
   }
 }

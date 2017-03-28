@@ -22,6 +22,22 @@ class AppTIMEModel extends Model {
         name: 'Alias',
         type: 'string',
       },
+	  {
+        name: 'Owner',
+        type: 'string',
+      },
+	  {
+        name: 'OwnerShort',
+        type: 'string',
+      },
+	  {
+        name: 'SSOShort',
+        type: 'string',
+      },
+	  {
+        name: 'OwnerShort',
+        type: 'string',
+      },
       {
         name: 'FY14',
         type: 'string',

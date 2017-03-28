@@ -278,7 +278,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.bstData = [];
         $.each(appstime, function (key, val) {
           appname = val.Name;
-          owner = val.Owner;
+          owner = val.OwnerShort;
           id = val.AppId;
           notes = val.Notes;
           var parentsys = '';
@@ -316,15 +316,17 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               "Id" : id,
               "Notes" : notes,
               "Alias" : val.Alias,
-              "RegionClassification" : val.RegionClassification
+              "RegionClassification" : val.RegionClassification,
+			  "OwnerLongName": val.Owner
             });
           }
         });
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
-          columns: [{
+          columns: [
+		  {
             field: 'Owner',
-            title: '2 Letter Office',
+            title: 'Owner (Short Name)',
             sortable: true,
           }, {
             field: 'Alias',
@@ -357,36 +359,65 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             visible: false,
             sortable: true
 
-          }, {
+          }, 
+		  {
             field: 'RegionClassification',
             title: 'Region Classification',
             visible: false,
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'FY14',
             title: 'FY14',
             visible: false
-          }, {
+          }, 
+		  {
             field: 'FY15',
             title: 'FY15',
             visible: false
-          }, {
+          }, 
+		  {
             field: 'FY16',
             title: 'FY16',
             visible: false
-          }, {
+          }, 
+		  {
             field: 'FY17',
             title: 'FY17'
-          }, {
+          }, 
+		  {
             field: 'FY18',
             title: 'FY18'
-          }, {
+          }, 
+		  {
             field: 'FY19',
             title: 'FY19'
-          }, {
+          }, 
+		  {
             field: 'FY20',
             title: 'FY20'
-          }],
+          },
+		  {
+            field: 'BusinessPOC',
+            title: 'Business POC',
+            visible: false,
+            sortable: true
+
+          }, 
+		  {
+            field: 'TechnicalPOC',
+            title: 'Technical POC',
+            visible: false,
+            sortable: true
+          },
+		  {
+            field: 'OwnerLongName',
+            title: 'Owner (Long Name)',
+            visible: false,
+            sortable: true
+          }		  
+
+		  ],
           data: $scope.bstData
         };
         bstSearchUtils.updateConfig($scope);
@@ -586,7 +617,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             visible: false
           },
 		{
-            field: 'Parent',
+            field: 'ParentCap',
             title: 'Parent Capability',
             visible: false
           }

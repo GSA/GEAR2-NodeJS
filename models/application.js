@@ -17,6 +17,18 @@ class Application extends Model {
         name: 'SSOShort',
         type: 'string',
       },
+	  {
+        name: 'Owner',
+        type: 'string',
+      },
+	   {
+        name: 'OwnerShort',
+        type: 'string',
+      },
+	  {
+        name: 'SSOShort',
+        type: 'string',
+      },
       {
         name: 'Owner',
         type: 'string',
