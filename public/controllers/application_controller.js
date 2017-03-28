@@ -36,11 +36,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         if ([val.Status] != "Retired" && [val.SSO] != "External" && [val.Type] != "Website") {
           var sys = '';
           var fismasys = '';
-          if ([val.System] == ''){
+          if ([val.ParentSystem] == ''){
             sys = "N/A";
           }
           else {
-            sys = val.System;
+            sys = val.ParentSystem;
           }
           if (val.FismaName != ""){
             fismasys = val.FismaName;
@@ -105,7 +105,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  visible: false
         }, 
 		{
-          field: 'System',
+          field: 'ParentSystem',
           title: 'Parent System',
           sortable: true,
         }, {
@@ -292,11 +292,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           $.each(apps, function (key, val) {
             if (val.Name == appname){
               status = val.Status;
-              if ([val.System] == ''){
+              if ([val.ParentSystem] == ''){
                 parentsys = "N/A";
               }
               else {
-                parentsys = val.System;
+                parentsys = val.ParentSystem;
               }
             }
           });
@@ -317,7 +317,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               "Notes" : notes,
               "Alias" : val.Alias,
               "RegionClassification" : val.RegionClassification,
-			  "OwnerLongName": val.Owner
+			  "OwnerLongName": val.Owner,
+			  "BusinessPOC": val.BusinessPOC,
+			  "TechnicalPOC": val.TechnicalPOC
             });
           }
         });

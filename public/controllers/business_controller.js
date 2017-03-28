@@ -230,7 +230,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 			  visible: false
             },				
 						{
-              field: 'System',
+              field: 'ParentSystem',
               title: 'Parent System',
               sortable: true,
 			  visible: false
@@ -1062,7 +1062,7 @@ $scope.createCapabilityTree = function () {
                   sortable: true
                 }, 
 				{
-                  field: 'System',
+                  field: 'ParentSystem',
                   title: 'Parent System',
                   sortable: true,
                   visible: false

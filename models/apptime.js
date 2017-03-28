@@ -108,6 +108,16 @@ class AppTIMEModel extends Model {
         type: 'string',
 
       },
+	  {
+        name: 'BusinessPOC',
+        type: 'string',
+
+      },
+	  {
+        name: 'TechnicalPOC',
+        type: 'string',
+
+      },
     ];
   }
 }

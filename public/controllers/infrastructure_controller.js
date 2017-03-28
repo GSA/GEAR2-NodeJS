@@ -177,24 +177,79 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             field: 'Name',
             title: 'Business Application Name',
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
-            field: 'SSO',
-            title: 'SSO',
+          }, 
+		  {
+            field: 'OwnerShort',
+            title: 'Owner (Short Name)',
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'Status',
             title: 'Status',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
+          }, 
+		  // {
+            // field: 'Id',
+            // title: 'Id',
+            // sortable: true,
+            // visible: false
+          // },
+		  {
+            field: 'Alias',
+            title: 'Alias',
             sortable: true,
             visible: false
-          }],
+          },
+		  {
+            field: 'BusinessPOC',
+            title: 'Business POC',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'TechnicalPOC',
+            title: 'Technical POC',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'ParentSystem',
+            title: 'Parent System',
+            sortable: true,
+            visible: false
+          },		  
+		  {
+            field: 'Owner',
+            title: 'Owner (Long Name)',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'HostingProvider',
+            title: 'Hosting Provider',
+            sortable: true,
+            visible: false
+          },
+		  
+		  {
+            field: 'TechnologyPlatform',
+            title: 'Application Platform',
+            sortable: true,
+            visible: false
+          },
+		  
+		  {
+            field: 'Cloud',
+            title: 'Cloud',
+            sortable: true,
+            visible: false
+          }
+		  ],
           data: $scope.applications
         });
       });

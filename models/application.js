@@ -34,7 +34,7 @@ class Application extends Model {
         type: 'string',
       },
       {
-        name: 'System',
+        name: 'ParentSystem',
         type: 'string',
       },
       {

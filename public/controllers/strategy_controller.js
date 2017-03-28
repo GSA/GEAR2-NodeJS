@@ -197,7 +197,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			visible: false
           },				
 		  {
-            field: 'System',
+            field: 'ParentSystem',
             title: 'Parent System',
             sortable: true,
 			visible: false
