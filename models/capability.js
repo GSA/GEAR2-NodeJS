@@ -1,6 +1,6 @@
 const Model = require('./model');
 
-class CapabilityModel extends Model {
+class CapModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
@@ -23,7 +23,7 @@ class CapabilityModel extends Model {
         name: 'Parent',
         type: 'string',
       },
-	  {
+      {
         name: 'ReferenceNum',
         type: 'string',
       },
@@ -44,4 +44,4 @@ class CapabilityModel extends Model {
   }
 }
 
-module.exports = CapabilityModel;
+module.exports = CapModel;
