@@ -9,6 +9,7 @@ router.route('/')
 router.route('/:id')
     .get(appCtrl.findOne);
 
+// children
 router.route('/:id/capabilities/')
     .get(appCtrl.findCapabilities);
 

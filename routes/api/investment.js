@@ -1,17 +1,16 @@
 const express = require('express');
-const orgCtrl = require('../../controllers/organization');
+const investmentCtrl = require('../../controllers/investment');
 
 const router = express.Router();
 
 router.route('/')
-    .get(orgCtrl.findAll);
+    .get(investmentCtrl.findAll);
 
 router.route('/:id')
-    .get(orgCtrl.findOne);
+    .get(investmentCtrl.findOne);
 
 // children
 router.route('/:id/applications/')
-    .get(orgCtrl.findApplications);
-
+    .get(investmentCtrl.findApplications);
 
 module.exports = router;

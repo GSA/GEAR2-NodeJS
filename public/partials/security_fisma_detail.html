@@ -7,7 +7,7 @@
     <div class="col-md-12">
         <div id="function" class="panel panel-default" style="height: auto;">
             <div id="functionheader" class="panel-heading">
-                <h3><i class="fa fa-lock fa-fw"></i>&nbsp;{{fisName}} </h3>
+                <h3><i class="fa fa-lock fa-fw"></i>&nbsp;{{ fisma.Name }} </h3>
 				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
 				data-content="<b>Overview:</b> Contains general properties of the FISMA system.<br>
 				<b>Certified Business Applications:</b> Lists all the business applications that are certified under this FISMA system.<br>
@@ -32,23 +32,23 @@
                                 </tr>
 								                <tr>
                                     <td><i class="fa fa-sitemap"></i>&nbsp;Responsible Org</td>
-                                    <td>{{relOrgDisplayName}}</td>
+                                    <td>{{ fisma.RelOrgDisplayName }}</td>
                                 </tr>
 								                <tr>
                                     <td><i class="fa fa-calendar"></i>&nbsp;ATO Date</td>
-                                    <td>{{atodate}}</td>
+                                    <td>{{ fisma.ATODate }}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-file"></i>&nbsp;ATO Type</td>
-                                    <td>{{atotype}}</td>
+                                    <td>{{ fisma.ATOType }}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-calendar"></i>&nbsp;Renewal Date</td>
-                                    <td>{{renewaldate}}</td>
+                                    <td>{{ fisma.RenewalDate }}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
-                                    <td>{{fismaSystemIdentifier}}</td>
+                                    <td>{{ fisma.FISMASystemIdentifier }}</td>
                                 </tr>
                             </table>
               							<br>

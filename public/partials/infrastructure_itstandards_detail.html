@@ -19,7 +19,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                            <li id="relapps" style="display:none;"><a href="#applications" aria-controls="applications" role="tab" data-toggle="tab" ng-click="getRelatedApps(standId)">Business Applications Using This Standard</a></li>
+                            <li id="relapps" ng-show="!!applications.length"><a href="#applications" aria-controls="applications" role="tab" data-toggle="tab">Business Applications Using This Standard</a></li>
                         </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">

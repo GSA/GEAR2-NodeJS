@@ -15,7 +15,7 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-/* Using iisnode, there is no numeric port, rather 
+/* Using iisnode, there is no numeric port, rather
 "process.env.PORT" is used. Trying to hard code that into
 this script, rather than allowing Express to search.
 

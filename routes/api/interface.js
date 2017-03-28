@@ -1,12 +1,12 @@
 const express = require('express');
-const orgCtrl = require('../../controllers/parentsystem');
+const interfaceCtrl = require('../../controllers/interface');
 
 const router = express.Router();
 
 router.route('/')
-    .get(orgCtrl.findAll);
+    .get(interfaceCtrl.findAll);
 
 router.route('/:id')
-    .get(orgCtrl.findOne);
+    .get(interfaceCtrl.findOne);
 
 module.exports = router;

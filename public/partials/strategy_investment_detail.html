@@ -27,8 +27,7 @@
                     <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
                     <li role="presentation">
                         <a href="#technology" aria-controls="technology" role="tab" data-toggle="tab"
-                            ng-show="investment.RelatedApplicationCount > 0"
-                            ng-click="getRelatedApps(inventory.Name)">
+                            ng-show="!!applications.length">
                             <span>Related Business Applications</span>
                         </a>
                     </li>
@@ -46,10 +45,10 @@
                             <tr>
                                 <td><i class="fa fa-user"></i>&nbsp;Investment Manager</td>
                                 <td>
-                                    <span ng-show="!!investment.Manager">
-                                        <a href="mailto:{{ investment.ManagerEmail }}">{{ investment.Manager }}</a>
+                                    <span ng-show="!!investment.InvManager">
+                                        <a href="mailto:{{ investment.InvManagerEmail }}">{{ investment.InvManager }}</a>
                                     </span>
-                                    <span ng-hide="!!investment.Manager">
+                                    <span ng-hide="!!investment.InvManager">
                                         None Provided
                                     </span>
                                     </ul>
@@ -65,11 +64,11 @@
                             </tr>
                             <tr>
                                 <td><i class="fa fa-th"></i>&nbsp;Primary Service Area</td>
-                                <td>{{ investment.PrimarySA }}</td>
+                                <td>{{ investment.PSA }}</td>
                             </tr>
                             <tr ng-show="!!investment.SecondarySA">
                                 <td><i class="fa fa-th-large"></i>&nbsp;Secondary Service Area #1</td>
-                                <td>{{ investment.SecondarySA }}</td>
+                                <td>{{ investment.SSA }}</td>
                             </tr>
                         </table>
                     </div>

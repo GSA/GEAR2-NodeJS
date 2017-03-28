@@ -1,15 +1,15 @@
 const express = require('express');
-const fismapocCtrl = require('../../controllers/fisma_poc');
+const pocCtrl = require('../../controllers/poc');
 
 const router = express.Router();
 
-console.log('Fisma POC routes loaded');
+console.log('POC routes loaded');
 
 router.route('/')
-    .get(fismapocCtrl.findAll);
+    .get(pocCtrl.findAll);
 
 router.route('/:id')
-    .get(fismapocCtrl.findOne);
+    .get(pocCtrl.findOne);
 
 // router.route('/:id/capabilities/')
     // .get(testCtrl.findCapabilities);
@@ -17,7 +17,7 @@ router.route('/:id')
 // router.route('/:id/technologies/')
     // .get(testCtrl.findTechnologies);
 
- router.route('/:id/pocs/')
-     .get(fismapocCtrl.findPOCs);
+ // router.route('/:id/pocs/')
+     // .get(fismapocCtrl.findPOCs);
 
 module.exports = router;

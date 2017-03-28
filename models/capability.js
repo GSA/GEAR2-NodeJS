@@ -5,39 +5,40 @@ class CapModel extends Model {
     super(f);
     this.fields = [
       {
-        name: 'ID',
-        type: 'int',
-        // mapping(data) {
-          // return data.ID;
-        // },
+        name: 'Id',
+        type: 'string',
+        mapping(data) {
+          return data.CapID || data.ID;
+        },
       },
       {
         name: 'Name',
         type: 'string',
-        // mapping(data) {
-          // return data.Name;
-        // },
       },
       {
         name: 'Description',
         type: 'string',
-        // mapping(data) {
-          // return data.Description;
-        // },
+      },
+      {
+        name: 'Parent',
+        type: 'string',
       },
       {
         name: 'ReferenceNum',
         type: 'string',
-        // mapping(data) {
-          // return data.ReferenceNum;
-        // },
       },
-	  {
-        name: 'Parent',
+      // next 3 fields are used by cap visualization
+      {
+        name: 'AppCount',
         type: 'string',
-        // mapping(data) {
-          // return data.Parent;
-        // },
+      },
+      {
+        name: 'RefNum',
+        type: 'string',
+      },
+      {
+        name: 'ParRefNum',
+        type: 'string',
       },
     ];
   }

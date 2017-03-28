@@ -4,6 +4,9 @@ class Model {
       {
         name: 'Id',
         type: 'number',
+        mapping(o) {
+          return o.Id || o.ID;
+        },
       },
       {
         name: 'Name',

@@ -5,10 +5,10 @@ class POCModel extends Model {
     super(f);
     this.fields = [
       {
-        name: 'Id',
+        name: 'ParentId',
         type: 'string',
         mapping(data) {
-          return data.ObjID;
+          return data.ID || data.ObjID;
         },
       },
       {
@@ -24,6 +24,14 @@ class POCModel extends Model {
         mapping(data) {
           return data.Email;
         },
+      },
+      {
+        name: 'Owner',
+        type: 'string',
+      },
+	  {
+        name: 'OwnerShort',
+        type: 'string',
       },
       {
         name: 'Type',

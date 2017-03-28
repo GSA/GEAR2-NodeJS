@@ -1,71 +1,46 @@
 const Model = require('./model');
 
-class ITStandardsModel extends Model {
+class InvestmentModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
       {
         name: 'ID',
-        type: 'int',
-        mapping(data) {
-          return data.ID;
+        type: 'string',
+        mapping(o) {
+          return o.ID;
         },
       },
       {
         name: 'Name',
         type: 'string',
-
       },
       {
         name: 'Description',
         type: 'string',
-
       },
-	  
       {
         name: 'Type',
         type: 'string',
-
-      },
-	  
-      {
-        name: 'Category',
-        type: 'string',
-
-      },
-	  
-      {
-        name: 'Status',
-        type: 'string',
-
       },
       {
-        name: 'DeploymentType',
+        name: 'PSA',
         type: 'string',
-
       },
       {
-        name: 'Comments',
+        name: 'SSA',
         type: 'string',
-
       },
       {
-        name: 'POC',
+        name: 'InvManager',
         type: 'string',
-
       },
       {
-        name: 'ReferenceDocuments',
+        name: 'UII',
         type: 'string',
-
-      },
-      {
-        name: 'ApprovalExpirationDate',
-        type: 'string',
-
       },
     ];
   }
 }
 
-module.exports = ITStandardsModel;
+module.exports = InvestmentModel;
