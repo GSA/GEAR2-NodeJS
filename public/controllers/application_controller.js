@@ -76,28 +76,35 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       // Bootstrap Table config obj on $scope so we can decouple from
       // init call and mutate options/properties a little more cleanly
       $scope.bsTableConfig = {
-        columns: [{
+        columns: [
+		{
           field: 'Name',
           title: 'Application Name',
           sortable: true
-        }, {
+        }, 
+		{
           field: 'Alias',
           title: 'Alias',
           sortable: true,
           visible: false
-        }, {
+        }, 
+		{
           field: 'Description',
           title: 'Description',
           sortable: true
-        }, {
-          field: 'SSO',
-          title: 'SSO',
-          sortable: true
-        }, {
+        }, 
+		{
           field: 'Owner',
-          title: '2 Letter Office',
+          title: 'Owner (Short Name)',
           sortable: true
-        }, {
+        }, 
+		{
+          field: 'SSO',
+          title: 'Owner (Long Name)',
+          sortable: true,
+		  visible: false
+        }, 
+		{
           field: 'System',
           title: 'Parent System',
           sortable: true,
@@ -562,34 +569,63 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Name',
             title: 'Business Capability',
             sortable: true
-          }, {
+          }, 
+		{
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
+          }, 
+		// {
+            // field: 'Id',
+            // title: 'Id',
+            // visible: false
+          // },
+		{
+            field: 'Ref',
+            title: 'Hierarchy number',
             visible: false
-          }],
+          },
+		{
+            field: 'Parent',
+            title: 'Parent Capability',
+            visible: false
+          }
+		],
           data: capabilities
         });
       });
 
       technologies.$promise.then(function () {
         $('#apptechtable').bootstrapTable({
-          columns: [{
+          columns: [
+		{
             field: 'Name',
             title: 'Technology',
             sortable: true
-          }, {
+          }, 
+		{
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
+          }, 
+		{
             field: 'Status',
             title: 'Status',
             sortable: true
-          }],
+          },
+		{
+            field: 'Category',
+            title: 'Software Category',
+            sortable: true,
+			visible: false
+          },
+		{
+            field: 'Expiration',
+            title: 'Approved Status Expiration Date',
+            sortable: true,
+			visible: false
+          },
+		],
           data: technologies
         });
       });

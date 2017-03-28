@@ -27,6 +27,10 @@ class CapabilityModel extends Model {
         name: 'ReferenceNum',
         type: 'string',
       },
+	  {
+        name: 'Ref',
+        type: 'string',
+      },
     ];
   }
 }
