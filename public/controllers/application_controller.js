@@ -522,24 +522,53 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Name',
             title: 'Application Name',
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
-            field: 'SSO',
-            title: 'SSO',
+          }, 
+		  {
+            field: 'OwnerShort',
+            title: 'Owner (Short Name)',
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'Status',
             title: 'Status',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
+          }, 
+		  // {
+            // field: 'Id',
+            // title: 'Id',
+            // sortable: true,
+            // visible: false
+          // }
+		  {
+            field: 'Alias',
+            title: 'Alias',
             sortable: true,
             visible: false
-          }],
+          },
+		  {
+            field: 'BusinessPOC',
+            title: 'Business POC',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'TechnicalPOC',
+            title: 'Technical POC',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'Owner',
+            title: 'Owner (Long Name)',
+            sortable: true,
+            visible: false
+          }
+		  ],
           data: appgroup
         });
       });
