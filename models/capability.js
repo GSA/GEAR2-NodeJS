@@ -1,39 +1,46 @@
 const Model = require('./model');
 
-class CapabilityModel extends Model {
+class CapModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
       {
-        name: 'Id',
-        type: 'string',
-        mapping(data) {
-          return data.CapID;
-        },
+        name: 'ID',
+        type: 'int',
+        // mapping(data) {
+          // return data.ID;
+        // },
       },
       {
         name: 'Name',
         type: 'string',
-        mapping(data) {
-          return data.Name;
-        },
+        // mapping(data) {
+          // return data.Name;
+        // },
       },
       {
         name: 'Description',
         type: 'string',
-        mapping(data) {
-          return data.Description;
-        },
+        // mapping(data) {
+          // return data.Description;
+        // },
       },
       {
-        name: 'Ref',
+        name: 'ReferenceNum',
         type: 'string',
-        mapping(data) {
-          return data.Ref;
-        },
+        // mapping(data) {
+          // return data.ReferenceNum;
+        // },
+      },
+	  {
+        name: 'Parent',
+        type: 'string',
+        // mapping(data) {
+          // return data.Parent;
+        // },
       },
     ];
   }
 }
 
-module.exports = CapabilityModel;
+module.exports = CapModel;
