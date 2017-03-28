@@ -199,20 +199,61 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           // }
 
           $('#orgapptable').bootstrapTable({
-            columns: [{
+            columns: [
+			{
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            }, {
+            }, 
+			{
               field: 'Description',
               title: 'Description',
-              sortable: true
-            }, {
-              field: 'Id',
-              title: 'Id',
               sortable: true,
-              visible: false
-            }],
+			  // visible: false
+            },
+			{
+              field: 'Alias',
+              title: 'Alias',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'BusinessPOC',
+              title: 'Business POC',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'TechnicalPOC',
+              title: 'Technical POC',
+              sortable: true,
+			  visible: false
+            },				
+						{
+              field: 'System',
+              title: 'Parent System',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'SSOShort',
+              title: 'Owner(Short Name)',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'SSO',
+              title: 'Owner(Long Name)',
+              sortable: true,
+			  visible: false
+            }			
+			// {
+              // field: 'Id',
+              // title: 'Id',
+              // sortable: true,
+              // visible: false
+            // }
+			],
             data: appmap//orgappnames
           });
         });
@@ -1050,11 +1091,13 @@ $scope.createCapabilityTree = function () {
                 }, {
                   field: 'FY20',
                   title: 'FY20'
-                }, {
-                  field: 'Id',
-                  title: 'Id',
-                  visible: false
-                }, {
+                }, 
+				// {
+                  // field: 'Id',
+                  // title: 'Id',
+                  // visible: false
+                // },
+				{
                   field: 'Notes',
                   title: 'Notes',
                   visible: false

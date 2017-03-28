@@ -13,6 +13,10 @@ class Application extends Model {
         name: 'SSO',
         type: 'string',
       },
+	  {
+        name: 'SSOShort',
+        type: 'string',
+      },
       {
         name: 'Owner',
         type: 'string',
