@@ -5,10 +5,10 @@
 
 // Create the 'Security' controller
 angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
-  'FISMASrc', 'FISMAPOCsSrc', 'POCSrc',
+  'FISMASrc', 'FISMAPOCsSrc', 'POCSrc', 'FISMAAppsSrc',
   'FISMAPOC', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
-  FISMASrc, FISMAPOCsSrc,  POCSrc,
+  FISMASrc, FISMAPOCsSrc,  POCSrc, FISMAAppsSrc,
   FISMAPOC, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -138,6 +138,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
     // Use the fisma_system 'get' method to send an appropriate GET request
     var fisma = FISMASrc.query({ id: $routeParams.id });
     var fismaid = '';
+	var fismaapps = FISMAAppsSrc.query({id: $routeParams.id })
     fisma.$promise.then(function (populateData) {
       $.each(fisma, function (key, val) {
         $scope.fisId = val.Id;
@@ -210,24 +211,118 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         });
 
       });
-      $('#fismaappstable').bootstrapTable({
-        columns: [{
-          field: 'Name',
-          title: 'Application Name',
-          sortable: true
-        }, {
-          field: 'Description',
-          title: 'Description',
-          sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
-        data: $scope.relapps
-      });
-    });
+   });
+		fismaapps.$promise.then(function (populateData) {
+		  $('#fismaappstable').bootstrapTable({
+			columns: [
+			{
+			  field: 'Name',
+			  title: 'Application Name',
+			  sortable: true
+			}, 
+			{
+			  field: 'Description',
+			  title: 'Description',
+			  sortable: true
+			}, 
+			{
+			  field: 'OwnerShort',
+			  title: 'Owner (Short Name)',
+			  sortable: true
+			},
+/* 			{
+			  field: 'Id',
+			  title: 'Id',
+			  sortable: true,
+			  visible: false
+			}, */
+			{
+			  field: 'Alias',
+			  title: 'Alias',
+			  sortable: true,
+			  visible: false
+			},
+			{
+			  field: 'BusinessPOC',
+			  title: 'Business POC',
+			  sortable: true,
+			  visible: false
+			},
+			{
+			  field: 'TechnicalPOC',
+			  title: 'Technical POC',
+			  sortable: true,
+			  visible: false
+			},
+			{
+			  field: 'Owner',
+			  title: 'Owner (Long Name)',
+			  sortable: true,
+			  visible: false
+			},
+			{
+              field: 'FY14',
+              title: 'FY14',
+              visible: false
+            }, 
+		    {
+              field: 'FY15',
+              title: 'FY15',
+              visible: false
+            }, 
+		    {
+              field: 'FY16',
+              title: 'FY16',
+              visible: false
+            }, 
+		    {
+              field: 'FY17',
+              title: 'FY17',
+			  visible: false
+            }, 
+		    {
+              field: 'FY18',
+              title: 'FY18',
+			  visible: false
+            }, 
+		    {
+              field: 'FY19',
+              title: 'FY19',
+			  visible: false
+            }, 
+		    {
+              field: 'FY20',
+              title: 'FY20',
+			  visible: false
+            },
+		    {
+              field: 'Notes',
+              title: 'Notes',
+			  visible: false
+            },
+			{
+			  field: 'HostingProvider',
+			  title: 'Hosting Provider',
+			  sortable: true,
+			  visible: false
+			},
+			{
+              field: 'Cloud',
+              title: 'Cloud',
+              sortable: true,
+              visible: false
+			},
+			{
+              field: 'TechnologyPlatform',
+              title: 'Platform',
+              sortable: true,
+              visible: false
+			} 
+			],
+			data: fismaapps//$scope.relapps
+			});
+		});
+ 
   }
 
 
@@ -236,9 +331,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var apppath = row.Id
-      apppath = apppath.replace(/\//g , "-%")
-      $location.path('/applications/' + apppath);
+      //var apppath = row.Id
+      //apppath = apppath.replace(/\//g , "-%")
+      $location.path('/applications/' + row.Id);
       $route.reload();
     }
   });
