@@ -24,12 +24,15 @@ angular.module('dashboard')
 .factory('AppTIMESrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/apptime/:id/');
 }])
-// TODO:
-// tbr: 'Interfaces' (OR should it be a child of applications, e.g. applications/:id/interfaces)
+// replaces 'Interfaces', but only when no filtering is required. See also AppInterfacesSrc & OrgInterfacesSrc.
 .factory('InterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v0/interfaces/:id/');
+  return $resource('/api/v0/interfaces/');
 }])
-// tbr: 'System'
+// replaces 'Interfaces' when filtering by App is required
+.factory('AppInterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/applications/:id/interfaces');
+}])
+// replaces 'System'
 .factory('ParentSystemsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/parentsystems/:id/');
 }]);

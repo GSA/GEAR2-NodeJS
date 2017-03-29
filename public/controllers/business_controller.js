@@ -6,12 +6,12 @@
 // Create the 'business' controller
 angular.module('dashboard').controller('BusinessController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'CapAppCountsSrc', 'OrgAppsSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'CapAppCountsSrc', 'OrgAppsSrc', 'InterfacesSrc',
   // resume legacy
   'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
 function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
   // insert new here
-  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc, OrgAppsSrc,
+  OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc, OrgAppsSrc, InterfacesSrc,
   // resume legacy
   BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
 
@@ -82,44 +82,35 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
-    var org = $routeParams.id;
-
-//    org = org.replace(/-%/g , "/");
-    // Use the ps 'get' method to send an appropriate GET request
     var organization = OrganizationsSrc.query({ id: $routeParams.id });
-
     var application = OrgAppsSrc.query({ id: $routeParams.id });
-    var interfaces = Interface.query();
-    var orgname = '';
-    var appid = '';
 
-    organization.$promise.then(function (populateData) {
-      $.each(organization, function (key, val) {
-        if ([val.Id] == org) {
+    organization.$promise.then(function () {
+      $.each(organization, function (key, org) {
+        if (org.Id == $routeParams.id) {
+          $scope.orgId = org.Id;
+          $scope.orgName = org.Name;
+          $scope.orgDescription = org.Description;
+          $scope.orgParent = org.Parent;
 
-		  $scope.orgId = val.Id;
-          $scope.orgName = val.Name;
-          orgname = val.Name;
-          $scope.orgDescription = val.Description;
-          $scope.orgParent = val.Parent;
-        }
-      });
-      application.$promise.then(function (populateData) {
-        interfaces.$promise.then(function (populateData) {
-          $.each(application, function (key, val) {
-            if ([val.Owner] == orgname) {
-              appid = val.Id;
-              $.each(interfaces, function (key, val) {
-                if (val.Appid == appid || val.RefAppid == appid) {
-                  d3.select("#interfacetab").style("display", "block");
-                }
+          application.$promise.then(function () {
+            var interfaces = InterfacesSrc.query({ owner: org.Name });
+            interfaces.$promise.then(function () {
+              $.each(application, function (i, app) {
+                if (app.Owner == org.DisplayName) {
+                  $.each(interfaces, function (i, iface) {
+                    if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
+                      d3.select("#interfacetab").style("display", "block");
+                    }
+                  });
+                };
               });
-            };
+            });
           });
-        });
+        };
       });
     });
-  }
+  };
 
 
   // Method for retrieving a single organization's related goals

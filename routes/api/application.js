@@ -19,4 +19,7 @@ router.route('/:id/technologies/')
 router.route('/:id/pocs/')
     .get(appCtrl.findPOCs);
 
+router.route('/:id/interfaces/')
+    .get(appCtrl.findInterfaces);
+
 module.exports = router;
