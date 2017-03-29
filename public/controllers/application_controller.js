@@ -5,10 +5,10 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
-  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc',
+  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'OrgInterfacesSrc',
   'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
-  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc,
+  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, InterfacesSrc, AppInterfacesSrc, OrgInterfacesSrc,
   System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -146,7 +146,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'FISMA System',
           sortable: true,
           visible: false
-        }, 
+        },
 		// {
           // field: 'Id',
           // title: 'Id',
@@ -343,7 +343,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             // title: 'Id',
             // visible: false,
             // sortable: true
-          // }, 
+          // },
 		  {
             field: 'Notes',
             title: 'Notes',
@@ -530,7 +530,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     technologies = AppTechnologiesSrc.query({ id: appId }),
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
-    interfaces = Interface.query({ appId: appId });
+    interfaces = InterfacesSrc.query({ appId: appId });
 
     application.$promise.then(function (d) {
       // rule is multiple URLs are single string, delimited with a comma
@@ -617,284 +617,265 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     }
   });
 
-  // Method for Interfaces by SSO chart
-  $scope.createInterfaceSSOChart = function (appId, orgId) {
-    var appid = appId;
-    var orgid = orgId;
-    var apps = ApplicationsSrc.query();
-    var interfacelist = [];
-    var providerid = '';
-    var consumerid = '';
-    var finallist = {};
-    var uniquelist = [];
-    apps.$promise.then(function (findApplications) {
-      var interfaces = Interface.query();
-      interfaces.$promise.then(function (populateData) {
-        var count = [];
-        var applist = [];
-        var app = '';
-        var appowner = '';
-        var source = '';
-        var target = '';
-        $.each(interfaces, function (key, val) {
-          if (val.Appid == appId || val.RefAppid == appId || appId == 'all') {
-            providerid = val.Appid;
-            consumerid = val.RefAppid;
-            $.each(apps, function (key, val){
-              if (providerid == val.Id && (orgid == 'all' || orgid == val.Owner)){
-                app = val.Name;
-                appowner = val.Owner;
-                source = app;
-                applist.push({'name' : app, 'group' : appowner})
-                $.each(apps, function (key, val){
-                  if (consumerid == val.Id){
-                    app = val.Name;
-                    appowner = val.Owner;
-                    target = app;
-                    applist.push({'name' : app, 'group' : appowner});
-                  }
-                });
-              }
-              else if (consumerid == val.Id && (orgid =='all' || orgid == val.Owner)){
-                app = val.Name;
-                appowner = val.Owner;
-                target = app;
-                applist.push({'name' : app, 'group' : appowner})
-                $.each(apps, function (key, val){
-                  if (providerid == val.Id){
-                    app = val.Name;
-                    appowner = val.Owner;
-                    source = app;
-                    applist.push({'name' : app, 'group' : appowner});
-                  }
-                });
-              }
-
-            });
-            uniquelist = _.uniq(applist, function(item, key, name) {
-              return item.name;
-            });
-            var sourceindex = $.map(uniquelist, function(obj, index) {
-              if(obj.name == source) {
-                return index;
-              }
-            })
-            sourceindex = sourceindex[0];
-            var targetindex = $.map(uniquelist, function(obj, index) {
-              if(obj.name == target) {
-                return index;
-              }
-            })
-            targetindex = targetindex[0];
-            if (sourceindex != undefined && targetindex != undefined){
-              interfacelist.push({'source' : sourceindex, 'target' : targetindex});
-            }
-          }
-        });
-
-
-        finallist = {"nodes" : uniquelist, "links" : interfacelist};
-
-        //Constants for the SVG
-        var width = 960,
-        height = 500;
-
-        //Set up the colour scale
-        var color = d3.scale.category20();
-
-        //Set up the force layout
-        var force = d3.layout.force()
-        .charge(-120)
-        .linkDistance(30)
-        .size([width, height]);
-
-
-        var node_drag = d3.behavior.drag()
-        .on("dragstart", dragstart)
-        .on("drag", dragmove)
-        .on("dragend", dragend);
-        function dragstart(d, i) {
-          force.stop() // stops the force auto positioning before you start dragging
+  $scope.createInterfaceSSOChart = function (appId, orgName) {
+    // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
+    var interfaces = null;
+    if (appId && !orgName) {
+      interfaces = AppInterfacesSrc.query({ id: appId });
+      console.log('APPIntf');
+    } else if (!appId && orgName) {
+      interfaces = InterfacesSrc.query({ owner: orgName });
+      console.log('ORGIntf', orgName);
+    } else {
+      interfaces = InterfacesSrc.query();
+      console.log('ALLIntf');
+    }
+    interfaces.$promise.then(function () {
+      // Considering that each Interface has 2 Applications: Name1 & Name2, AppID1 & AppID2, etc...
+      // . Gather all "1"s into a "source nodes" collection
+      var sourceNodes = _.map(interfaces, (el) => {
+        return {
+          name: el.Name1,
+          group: el.Owner1,
         }
-        function dragmove(d, i) {
-          d.px += d3.event.dx;
-          d.py += d3.event.dy;
-          d.x += d3.event.dx;
-          d.y += d3.event.dy;
+      });
+      // . Gather all "2"s into a "target nodes" collection
+      var targetNodes = _.map(interfaces, (el) => {
+        return {
+          name: el.Name2,
+          group: el.Owner2,
         }
-        function dragend(d, i) {
-          d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-          force.resume();
-        }
-        function releasenode(d) {
-          d.fixed = false; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-          //force.resume();
-        }
+      });
+      // . Generate a list of the applications used across sourceNodes & targetNodes
+      var nodes = sourceNodes.concat(targetNodes);
+      nodes = _.sortBy(nodes, 'name');
+      nodes = _.uniq(nodes, true, (node) => `${node.name}--${node.group}` );
 
-
-
-        //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-        var svg = d3.select("#interfacessochart").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("id", "interfacesvg");
-        //Read the data from the finallist element
-        var graph = finallist;
-
-
-        var padding = 10, // separation between circles
-        radius=8;
-        function collide(alpha) {
-          var quadtree = d3.geom.quadtree(graph.nodes);
-          return function(d) {
-            var rb = 2*radius + padding,
-            nx1 = d.x - rb,
-            nx2 = d.x + rb,
-            ny1 = d.y - rb,
-            ny2 = d.y + rb;
-            quadtree.visit(function(quad, x1, y1, x2, y2) {
-              if (quad.point && (quad.point !== d)) {
-                var x = d.x - quad.point.x,
-                y = d.y - quad.point.y,
-                l = Math.sqrt(x * x + y * y);
-                if (l < rb) {
-                  l = (l - rb) / l * alpha;
-                  d.x -= x *= l;
-                  d.y -= y *= l;
-                  quad.point.x += x;
-                  quad.point.y += y;
-                }
-              }
-              return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-            });
-          };
-        }
-
-        force
-        .nodes(graph.nodes)
-        .links(graph.links)
-        .start();
-
-        var link = svg.selectAll(".link")
-        .data(graph.links)
-        .enter().append("line")
-        .attr("class", "link")
-        .style("stroke-width", function(d) { return Math.sqrt(d.value); });
-
-        var node = svg.selectAll(".node")
-        .data(graph.nodes)
-        .enter().append("g")
-        .attr("class", "node")
-        .on('dblclick', releasenode)
-        .call(node_drag) //Added
-        .on('click', connectedNodes); //Added code
-        node.append("circle")
-        .attr("r", 8)
-        .style("fill", function (d) {
-          return color(d.group);
-        })
-
-        node.append("text")
-        .attr("class", "labeltext")
-        .attr("dx", 10)
-        .attr("dy", ".35em")
-        .text(function(d) { return d.name });
-
-
-        //Insert Legend
-
-        var legend = svg.selectAll(".legend")
-        .data(color.domain())
-        .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-        legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", color);
-
-        legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d; });
-
-
-
-
-
-        force.on("tick", function() {
-          link.attr("x1", function (d) {
-            return d.source.x;
-          })
-          .attr("y1", function (d) {
-            return d.source.y;
-          })
-          .attr("x2", function (d) {
-            return d.target.x;
-          })
-          .attr("y2", function (d) {
-            return d.target.y;
-          });
-          d3.selectAll("circle").attr("cx", function (d) {
-            return d.x;
-          })
-          .attr("cy", function (d) {
-            return d.y;
-          });
-          d3.selectAll(".labeltext").attr("x", function (d) {
-            return d.x;
-          })
-          .attr("y", function (d) {
-            return d.y;
-          });
-          node.each(collide(0.5)); //Added
-        });
-
-
-        //Toggle stores whether the highlighting is on
-        var toggle = 0;
-
-        //Create an array logging what is connected to what
-        var linkedByIndex = {};
-        for (var i = 0; i < graph.nodes.length; i++) {
-          linkedByIndex[i + "," + i] = 1;
-        };
-        graph.links.forEach(function (d) {
-          linkedByIndex[d.source.index + "," + d.target.index] = 1;
-        });
-
-        //This function looks up whether a pair are neighbours
-        function neighboring(a, b) {
-          return linkedByIndex[a.index + "," + b.index];
-        }
-
-        function connectedNodes() {
-          if (toggle == 0) {
-            //Reduce the opacity of all but the neighbouring nodes
-            var d = d3.select(this).node().__data__;
-            node.style("opacity", function (o) {
-              return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
-            });
-
-            link.style("opacity", function (o) {
-              return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
-            });
-
-            //Reduce the op
-            toggle = 1;
-          } else {
-            //Put them back to opacity=1
-            node.style("opacity", 1);
-            link.style("opacity", 1);
-            toggle = 0;
-          }
+      // . translates our Interfaces API output into link objects where source is "1" and target is "2"
+      // and their index values are retrieved by matching the Application.Name to a name in the nodes[]
+      // array we created.
+      var links = _.map(interfaces, (el) => {
+        return {
+          source: getIndex(el.Name1),
+          target: getIndex(el.Name2),
         }
       });
 
+      // . A utility. Because the visualization pulls data from the nodes[] collection using index
+      function getIndex(appName) {
+        var ind = -1;
+
+        _.find(nodes, (el, i) => {
+          if (el.name == appName) {
+            ind = i;
+          }
+        });
+
+        return ind;
+      }
+
+      var finallist = {"nodes" : nodes, "links" : links};
+      // console.log('FINAL:', JSON.stringify(finallist));
+      // throw('STOP!')
+
+      //Constants for the SVG
+      var width = 960,
+      height = 500;
+
+      //Set up the colour scale
+      var color = d3.scale.category20();
+
+      //Set up the force layout
+      var force = d3.layout.force()
+      .charge(-120)
+      .linkDistance(30)
+      .size([width, height]);
+
+
+      var node_drag = d3.behavior.drag()
+      .on("dragstart", dragstart)
+      .on("drag", dragmove)
+      .on("dragend", dragend);
+      function dragstart(d, i) {
+        force.stop() // stops the force auto positioning before you start dragging
+      }
+      function dragmove(d, i) {
+        d.px += d3.event.dx;
+        d.py += d3.event.dy;
+        d.x += d3.event.dx;
+        d.y += d3.event.dy;
+      }
+      function dragend(d, i) {
+        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
+        force.resume();
+      }
+      function releasenode(d) {
+        d.fixed = false; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
+        //force.resume();
+      }
+
+
+
+      //Append a SVG to the body of the html page. Assign this SVG as an object to svg
+      var svg = d3.select("#interfacessochart").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("id", "interfacesvg");
+      //Read the data from the finallist element
+      var graph = finallist;
+
+
+      var padding = 10, // separation between circles
+      radius=8;
+      function collide(alpha) {
+        var quadtree = d3.geom.quadtree(graph.nodes);
+        return function(d) {
+          var rb = 2*radius + padding,
+          nx1 = d.x - rb,
+          nx2 = d.x + rb,
+          ny1 = d.y - rb,
+          ny2 = d.y + rb;
+          quadtree.visit(function(quad, x1, y1, x2, y2) {
+            if (quad.point && (quad.point !== d)) {
+              var x = d.x - quad.point.x,
+              y = d.y - quad.point.y,
+              l = Math.sqrt(x * x + y * y);
+              if (l < rb) {
+                l = (l - rb) / l * alpha;
+                d.x -= x *= l;
+                d.y -= y *= l;
+                quad.point.x += x;
+                quad.point.y += y;
+              }
+            }
+            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+          });
+        };
+      }
+
+      force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+      var link = svg.selectAll(".link")
+      .data(graph.links)
+      .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+      var node = svg.selectAll(".node")
+      .data(graph.nodes)
+      .enter().append("g")
+      .attr("class", "node")
+      .on('dblclick', releasenode)
+      .call(node_drag) //Added
+      .on('click', connectedNodes); //Added code
+      node.append("circle")
+      .attr("r", 8)
+      .style("fill", function (d) {
+        return color(d.group);
+      })
+
+      node.append("text")
+      .attr("class", "labeltext")
+      .attr("dx", 10)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.name });
+
+
+      //Insert Legend
+
+      var legend = svg.selectAll(".legend")
+      .data(color.domain())
+      .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+      legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+      legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+
+
+
+
+      force.on("tick", function() {
+        link.attr("x1", function (d) {
+          return d.source.x;
+        })
+        .attr("y1", function (d) {
+          return d.source.y;
+        })
+        .attr("x2", function (d) {
+          return d.target.x;
+        })
+        .attr("y2", function (d) {
+          return d.target.y;
+        });
+        d3.selectAll("circle").attr("cx", function (d) {
+          return d.x;
+        })
+        .attr("cy", function (d) {
+          return d.y;
+        });
+        d3.selectAll(".labeltext").attr("x", function (d) {
+          return d.x;
+        })
+        .attr("y", function (d) {
+          return d.y;
+        });
+        node.each(collide(0.5)); //Added
+      });
+
+
+      //Toggle stores whether the highlighting is on
+      var toggle = 0;
+
+      //Create an array logging what is connected to what
+      var linkedByIndex = {};
+      for (var i = 0; i < graph.nodes.length; i++) {
+        linkedByIndex[i + "," + i] = 1;
+      };
+      graph.links.forEach(function (d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = 1;
+      });
+
+      //This function looks up whether a pair are neighbours
+      function neighboring(a, b) {
+        return linkedByIndex[a.index + "," + b.index];
+      }
+
+      function connectedNodes() {
+        if (toggle == 0) {
+          //Reduce the opacity of all but the neighbouring nodes
+          var d = d3.select(this).node().__data__;
+          node.style("opacity", function (o) {
+            return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
+          });
+
+          link.style("opacity", function (o) {
+            return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
+          });
+
+          //Reduce the op
+          toggle = 1;
+        } else {
+          //Put them back to opacity=1
+          node.style("opacity", 1);
+          link.style("opacity", 1);
+          toggle = 0;
+        }
+      }
     });
   }
 }
