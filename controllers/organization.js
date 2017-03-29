@@ -4,7 +4,6 @@ const AppStore = require('../stores/application');
 const orgStore = new OrgStore();
 const appStore = new AppStore();
 
-
 function findAll(req, res) {
   orgStore.query('SELECT * FROM SAODS.udfGetOrgList()', (results) => {
     res.json(results);
@@ -22,7 +21,6 @@ function findApplications(req, res) {
     res.json(results);
   });
 }
-
 
 module.exports = {
   findApplications,
