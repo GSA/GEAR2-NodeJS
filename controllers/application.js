@@ -16,7 +16,7 @@ function findAll(req, res) {
   if (Object.hasOwnProperty.call(req.query, 'fields')) {
     fields = req.query.fields;
   }
-  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite()`, (results) => {
+  appStore.query(`SELECT ${fields} FROM SAODS.somethingelse()`, (results) => {
     res.json(results);
   });
 }
