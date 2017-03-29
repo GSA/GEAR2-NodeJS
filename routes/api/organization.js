@@ -13,7 +13,4 @@ router.route('/:id')
 router.route('/:id/applications/')
     .get(orgCtrl.findApplications);
 
-router.route('/:id/interfaces/')
-    .get(orgCtrl.findInterfaces);
-
 module.exports = router;
