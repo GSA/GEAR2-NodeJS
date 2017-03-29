@@ -169,12 +169,12 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     });
   }
 */
-  // Method for retrieving a single organization's related Systems
+  // Method for retrieving a single organization's related Applications 
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
     var appmap = OrgAppsSrc.query({ id: orgId })//OrgAppMap.query();
     var applist = [];
-    appmap.$promise.then(function (populateData) {
+ //   appmap.$promise.then(function (populateData) {
       // $.each(appmap, function (key, val) {
         // if ([val.Orgid] == orgId) {
           // applist.push(val.Appid);
@@ -257,7 +257,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
             data: appmap//orgappnames
           });
         });
-      });
+    //  });
     }
 
     // Method to handle click events on the Organizational application table
@@ -1052,7 +1052,7 @@ $scope.createCapabilityTree = function () {
               $('#funcappstable').bootstrapTable({
                 columns: [
 				{
-                  field: 'SSOShort',
+                  field: 'OwnerShort',
                   title: 'Owner (Short Name)',
                   sortable: true,
                 }, 
@@ -1128,7 +1128,7 @@ $scope.createCapabilityTree = function () {
 					visible: false
 				},	
 				{
-					field: 'SSO',
+					field: 'Owner',
 					title: 'Owner(Long Name)',
 					sortable: true,
 					visible: false

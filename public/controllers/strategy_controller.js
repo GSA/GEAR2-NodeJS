@@ -163,7 +163,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true
           },
 		  {
-            field: 'SSOShort',
+            field: 'OwnerShort',
             title: 'Owner(Short Name)',
             sortable: true,
           },		  
@@ -203,7 +203,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			visible: false
            },
 		  {
-            field: 'SSO',
+            field: 'Owner',
             title: 'Owner(Long Name)',
             sortable: true,
 			visible: false

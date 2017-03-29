@@ -29,6 +29,10 @@ angular.module('dashboard')
 .factory('InterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/interfaces/:id/');
 }])
+
+.factory('SysAppSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/parentsystems/:id/applications');
+}])
 // tbr: 'System'
 .factory('ParentSystemsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/parentsystems/:id/');

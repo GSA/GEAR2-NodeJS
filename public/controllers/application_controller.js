@@ -5,10 +5,10 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
-  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc',
+  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc','SysAppSrc',
   'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
-  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc,
+  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc,
   System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -485,9 +485,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var syspath = row.Id;
- //     syspath = syspath.replace(/\//g , "-%")
-      $location.path('/systems/' + syspath);
+      $location.path('/systems/' + row.Id);
       $route.reload();
     }
   });
@@ -509,15 +507,29 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.sysURL = val.URL;
       });
       // Use the System 'query' method to send an appropriate GET request
-      var apps = ApplicationsSrc.query();
-      apps.$promise.then(function (populateApps) {
+      //LEGACY
+	  //var apps = ApplicationsSrc.query();
+      /* apps.$promise.then(function (populateApps) {
         var appgroup = [];
         $.each(apps, function (key, val) {
-          if (val.System == $scope.sysName){
-            appgroup.push({"Name" : val.Name, "Description" : val.Description, "SSO" : val.SSO_Display_Name, "Status" : val.Status, "Id" : val.Id });
+          if (val.ParentSystem == $scope.sysName){
+            appgroup.push({
+				"Name" : val.Name, 
+				"Description" : val.Description, 
+				"SSO" : val.SSO_Display_Name, 
+				"Status" : val.Status, 
+				"Id" : val.Id,
+				"Alias": val.Alias,
+				"BusinessPOC": val.BusinessPOC,
+				"TechnicalPOC": val.TechnicalPOC,
+				"Owner":val.Owner
+				});
           }
-        });
-        $('#sysapptable').bootstrapTable({
+        }); */
+		var sysapp = SysAppSrc.query({ id: $routeParams.id });
+        sysapp.$promise.then(function (populateData) {
+			
+		$('#sysapptable').bootstrapTable({
           columns: [{
             field: 'Name',
             title: 'Application Name',
@@ -569,7 +581,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             visible: false
           }
 		  ],
-          data: appgroup
+          data: sysapp//appgroup
+		//});
         });
       });
     });
@@ -700,7 +713,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      $location.path('/capability/' + row.Id);
+      $location.path('/capabilities/' + row.Id);
       $route.reload();
     }
   });
