@@ -151,28 +151,105 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       $scope.applications = InvestmentAppsSrc.query({ id: $routeParams.id });
       $scope.applications.$promise.then(function () {
         $('#invrelappstable').bootstrapTable({
-          columns: [{
+          columns: [
+		  {
             field: 'Name',
             title: 'Business Application Name',
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
-            field: 'SSO',
-            title: 'SSO',
-            sortable: true
-          }, {
+          },
+		  {
+            field: 'OwnerShort',
+            title: 'Owner(Short Name)',
+            sortable: true,
+          },		  
+		  {
             field: 'Status',
             title: 'Status',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
+          }, 
+		  // {
+            // field: 'Id',
+            // title: 'Id',
+            // sortable: true,
+            // visible: false
+          // }
+		  {
+            field: 'Alias',
+            title: 'Alias',
             sortable: true,
+			visible: false
+          },
+		  {
+            field: 'BusinessPOC',
+            title: 'Business POC',
+            sortable: true,
+			visible: false
+          },
+		  {
+            field: 'TechnicalPOC',
+            title: 'Technical POC',
+            sortable: true,
+			visible: false
+          },				
+		  {
+            field: 'ParentSystem',
+            title: 'Parent System',
+            sortable: true,
+			visible: false
+           },
+		  {
+            field: 'Owner',
+            title: 'Owner(Long Name)',
+            sortable: true,
+			visible: false
+            },
+		  {
+            field: 'FY14',
+            title: 'FY14',
             visible: false
-          }],
+          }, 
+		  {
+            field: 'FY15',
+            title: 'FY15',
+            visible: false
+          }, 
+		  {
+            field: 'FY16',
+            title: 'FY16',
+            visible: false
+          }, 
+		  {
+            field: 'FY17',
+            title: 'FY17',
+			visible: false
+          }, 
+		  {
+            field: 'FY18',
+            title: 'FY18',
+			visible: false
+          }, 
+		  {
+            field: 'FY19',
+            title: 'FY19',
+			visible: false
+          }, 
+		  {
+            field: 'FY20',
+            title: 'FY20',
+			visible: false
+          },
+		  {
+            field: 'Notes',
+            title: 'Notes',
+			visible: false
+          }
+		  
+		  ],
           data: $scope.applications
         });
         // Method to handle click events on the Investments table

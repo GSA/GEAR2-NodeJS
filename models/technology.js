@@ -32,6 +32,14 @@ class TechnologyModel extends Model {
           return data.Status;
         },
       },
+	  {
+        name: 'Expiration',
+        type: 'string',
+      },
+	  {
+        name: 'Category',
+        type: 'string',
+      },
     ];
   }
 }

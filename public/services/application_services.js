@@ -33,6 +33,10 @@ angular.module('dashboard')
   return $resource('/api/v0/applications/:id/interfaces');
 }])
 // replaces 'System'
+.factory('SysAppSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/parentsystems/:id/applications');
+}])
+// tbr: 'System' ?
 .factory('ParentSystemsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/parentsystems/:id/');
 }]);

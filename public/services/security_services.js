@@ -11,6 +11,11 @@ angular.module('dashboard')
 .factory('FISMAPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/fisma/:id/pocs');
 }])
+.factory('FISMAAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/fisma/:id/applications');
+}])
+
+
 // TODO:
 // tbr 'RISSO'
 .factory('POCSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {

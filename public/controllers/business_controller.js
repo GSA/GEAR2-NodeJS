@@ -160,12 +160,12 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     });
   }
 */
-  // Method for retrieving a single organization's related Systems
+  // Method for retrieving a single organization's related Applications 
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
     var appmap = OrgAppsSrc.query({ id: orgId })//OrgAppMap.query();
     var applist = [];
-    appmap.$promise.then(function (populateData) {
+ //   appmap.$promise.then(function (populateData) {
       // $.each(appmap, function (key, val) {
         // if ([val.Orgid] == orgId) {
           // applist.push(val.Appid);
@@ -190,24 +190,65 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           // }
 
           $('#orgapptable').bootstrapTable({
-            columns: [{
+            columns: [
+			{
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            }, {
+            }, 
+			{
               field: 'Description',
               title: 'Description',
-              sortable: true
-            }, {
-              field: 'Id',
-              title: 'Id',
               sortable: true,
-              visible: false
-            }],
+			  // visible: false
+            },
+			{
+              field: 'Alias',
+              title: 'Alias',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'BusinessPOC',
+              title: 'Business POC',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'TechnicalPOC',
+              title: 'Technical POC',
+              sortable: true,
+			  visible: false
+            },				
+						{
+              field: 'ParentSystem',
+              title: 'Parent System',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'SSOShort',
+              title: 'Owner(Short Name)',
+              sortable: true,
+			  visible: false
+            },
+			{
+              field: 'SSO',
+              title: 'Owner(Long Name)',
+              sortable: true,
+			  visible: false
+            }			
+			// {
+              // field: 'Id',
+              // title: 'Id',
+              // sortable: true,
+              // visible: false
+            // }
+			],
             data: appmap//orgappnames
           });
         });
-      });
+    //  });
     }
 
     // Method to handle click events on the Organizational application table
@@ -888,57 +929,101 @@ $scope.createCapabilityTree = function () {
               // });
               //Populate Related Apps Table
               $('#funcappstable').bootstrapTable({
-                columns: [{
-                  field: 'Owner',
-                  title: '2 Letter Office',
+                columns: [
+				{
+                  field: 'OwnerShort',
+                  title: 'Owner (Short Name)',
                   sortable: true,
-                }, {
+                }, 
+				{
                   field: 'Name',
                   title: 'Business Application Name',
                   sortable: true
-                }, {
-                  field: 'System',
+                }, 
+				{
+                  field: 'ParentSystem',
                   title: 'Parent System',
                   sortable: true,
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'Status',
                   title: 'Status',
                   sortable: true
-                }, {
+                }, 
+				{
                   field: 'FY14',
                   title: 'FY14',
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'FY15',
                   title: 'FY15',
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'FY16',
                   title: 'FY16',
                   visible: false
-                }, {
+                }, 
+				{
                   field: 'FY17',
                   title: 'FY17'
-                }, {
+                }, 
+				{
                   field: 'FY18',
                   title: 'FY18'
-                }, {
+                }, 
+				{
                   field: 'FY19',
                   title: 'FY19'
-                }, {
+                }, 
+				{
                   field: 'FY20',
                   title: 'FY20'
-                }, {
-                  field: 'Id',
-                  title: 'Id',
-                  visible: false
-                }, {
+                },
+				{
                   field: 'Notes',
                   title: 'Notes',
                   visible: false
 
-                }],
+                },
+				{
+					field: 'Alias',
+					title: 'Alias',
+					sortable: true,
+					visible: false
+				},
+				{
+					field: 'BusinessPOC',
+					title: 'Business POC',
+					sortable: true,
+					visible: false
+				},
+				{
+					field: 'TechnicalPOC',
+					title: 'Technical POC',
+					sortable: true,
+					visible: false
+				},	
+				{
+					field: 'Owner',
+					title: 'Owner(Long Name)',
+					sortable: true,
+					visible: false
+				},
+				{
+					field: 'Investment',
+					title: 'Related Investments',
+					sortable: true,
+					visible: false
+				}
+				// {
+                  // field: 'Id',
+                  // title: 'Id',
+                  // visible: false
+                // },
+				],
                 data: applications
               });
               // Method to handle click events on the Capability Applications table

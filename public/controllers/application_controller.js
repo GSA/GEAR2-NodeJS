@@ -5,10 +5,10 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
-  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'OrgInterfacesSrc',
+  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'OrgInterfacesSrc',
   'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
-  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, InterfacesSrc, AppInterfacesSrc, OrgInterfacesSrc,
+  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, OrgInterfacesSrc,
   System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -36,11 +36,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         if ([val.Status] != "Retired" && [val.SSO] != "External" && [val.Type] != "Website") {
           var sys = '';
           var fismasys = '';
-          if ([val.System] == ''){
+          if ([val.ParentSystem] == ''){
             sys = "N/A";
           }
           else {
-            sys = val.System;
+            sys = val.ParentSystem;
           }
           if (val.FismaName != ""){
             fismasys = val.FismaName;
@@ -76,29 +76,36 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       // Bootstrap Table config obj on $scope so we can decouple from
       // init call and mutate options/properties a little more cleanly
       $scope.bsTableConfig = {
-        columns: [{
+        columns: [
+		{
           field: 'Name',
           title: 'Application Name',
           sortable: true
-        }, {
+        },
+		{
           field: 'Alias',
           title: 'Alias',
           sortable: true,
           visible: false
-        }, {
+        },
+		{
           field: 'Description',
           title: 'Description',
           sortable: true
-        }, {
-          field: 'SSO',
-          title: 'SSO',
-          sortable: true
-        }, {
+        },
+		{
           field: 'Owner',
-          title: '2 Letter Office',
+          title: 'Owner (Short Name)',
           sortable: true
-        }, {
-          field: 'System',
+        },
+		{
+          field: 'SSO',
+          title: 'Owner (Long Name)',
+          sortable: true,
+		  visible: false
+        },
+		{
+          field: 'ParentSystem',
           title: 'Parent System',
           sortable: true,
         }, {
@@ -271,7 +278,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.bstData = [];
         $.each(appstime, function (key, val) {
           appname = val.Name;
-          owner = val.Owner;
+          owner = val.OwnerShort;
           id = val.AppId;
           notes = val.Notes;
           var parentsys = '';
@@ -285,11 +292,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           $.each(apps, function (key, val) {
             if (val.Name == appname){
               status = val.Status;
-              if ([val.System] == ''){
+              if ([val.ParentSystem] == ''){
                 parentsys = "N/A";
               }
               else {
-                parentsys = val.System;
+                parentsys = val.ParentSystem;
               }
             }
           });
@@ -309,15 +316,19 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               "Id" : id,
               "Notes" : notes,
               "Alias" : val.Alias,
-              "RegionClassification" : val.RegionClassification
+              "RegionClassification" : val.RegionClassification,
+			  "OwnerLongName": val.Owner,
+			  "BusinessPOC": val.BusinessPOC,
+			  "TechnicalPOC": val.TechnicalPOC
             });
           }
         });
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
-          columns: [{
+          columns: [
+		  {
             field: 'Owner',
-            title: '2 Letter Office',
+            title: 'Owner (Short Name)',
             sortable: true,
           }, {
             field: 'Alias',
@@ -350,36 +361,65 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             visible: false,
             sortable: true
 
-          }, {
+          },
+		  {
             field: 'RegionClassification',
             title: 'Region Classification',
             visible: false,
             sortable: true
-          }, {
+          },
+		  {
             field: 'FY14',
             title: 'FY14',
             visible: false
-          }, {
+          },
+		  {
             field: 'FY15',
             title: 'FY15',
             visible: false
-          }, {
+          },
+		  {
             field: 'FY16',
             title: 'FY16',
             visible: false
-          }, {
+          },
+		  {
             field: 'FY17',
             title: 'FY17'
-          }, {
+          },
+		  {
             field: 'FY18',
             title: 'FY18'
-          }, {
+          },
+		  {
             field: 'FY19',
             title: 'FY19'
-          }, {
+          },
+		  {
             field: 'FY20',
             title: 'FY20'
-          }],
+          },
+		  {
+            field: 'BusinessPOC',
+            title: 'Business POC',
+            visible: false,
+            sortable: true
+
+          },
+		  {
+            field: 'TechnicalPOC',
+            title: 'Technical POC',
+            visible: false,
+            sortable: true
+          },
+		  {
+            field: 'OwnerLongName',
+            title: 'Owner (Long Name)',
+            visible: false,
+            sortable: true
+          }
+
+		  ],
           data: $scope.bstData
         };
         bstSearchUtils.updateConfig($scope);
@@ -445,9 +485,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      var syspath = row.Id;
- //     syspath = syspath.replace(/\//g , "-%")
-      $location.path('/systems/' + syspath);
+      $location.path('/systems/' + row.Id);
       $route.reload();
     }
   });
@@ -469,38 +507,82 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.sysURL = val.URL;
       });
       // Use the System 'query' method to send an appropriate GET request
-      var apps = ApplicationsSrc.query();
-      apps.$promise.then(function (populateApps) {
+      //LEGACY
+	  //var apps = ApplicationsSrc.query();
+      /* apps.$promise.then(function (populateApps) {
         var appgroup = [];
         $.each(apps, function (key, val) {
-          if (val.System == $scope.sysName){
-            appgroup.push({"Name" : val.Name, "Description" : val.Description, "SSO" : val.SSO_Display_Name, "Status" : val.Status, "Id" : val.Id });
+          if (val.ParentSystem == $scope.sysName){
+            appgroup.push({
+				"Name" : val.Name,
+				"Description" : val.Description,
+				"SSO" : val.SSO_Display_Name,
+				"Status" : val.Status,
+				"Id" : val.Id,
+				"Alias": val.Alias,
+				"BusinessPOC": val.BusinessPOC,
+				"TechnicalPOC": val.TechnicalPOC,
+				"Owner":val.Owner
+				});
           }
-        });
-        $('#sysapptable').bootstrapTable({
+        }); */
+		var sysapp = SysAppSrc.query({ id: $routeParams.id });
+        sysapp.$promise.then(function (populateData) {
+
+		$('#sysapptable').bootstrapTable({
           columns: [{
             field: 'Name',
             title: 'Application Name',
             sortable: true
-          }, {
+          },
+		  {
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
-            field: 'SSO',
-            title: 'SSO',
+          },
+		  {
+            field: 'OwnerShort',
+            title: 'Owner (Short Name)',
             sortable: true
-          }, {
+          },
+		  {
             field: 'Status',
             title: 'Status',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
+          },
+		  // {
+            // field: 'Id',
+            // title: 'Id',
+            // sortable: true,
+            // visible: false
+          // }
+		  {
+            field: 'Alias',
+            title: 'Alias',
             sortable: true,
             visible: false
-          }],
-          data: appgroup
+          },
+		  {
+            field: 'BusinessPOC',
+            title: 'Business POC',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'TechnicalPOC',
+            title: 'Technical POC',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'Owner',
+            title: 'Owner (Long Name)',
+            sortable: true,
+            visible: false
+          }
+		  ],
+          data: sysapp//appgroup
+		//});
         });
       });
     });
@@ -562,34 +644,63 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Name',
             title: 'Business Capability',
             sortable: true
-          }, {
+          },
+		{
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
-            field: 'Id',
-            title: 'Id',
+          },
+		// {
+            // field: 'Id',
+            // title: 'Id',
+            // visible: false
+          // },
+		{
+            field: 'Ref',
+            title: 'Hierarchy number',
             visible: false
-          }],
+          },
+		{
+            field: 'ParentCap',
+            title: 'Parent Capability',
+            visible: false
+          }
+		],
           data: capabilities
         });
       });
 
       technologies.$promise.then(function () {
         $('#apptechtable').bootstrapTable({
-          columns: [{
+          columns: [
+		{
             field: 'Name',
             title: 'Technology',
             sortable: true
-          }, {
+          },
+		{
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, {
+          },
+		{
             field: 'Status',
             title: 'Status',
             sortable: true
-          }],
+          },
+		{
+            field: 'Category',
+            title: 'Software Category',
+            sortable: true,
+			visible: false
+          },
+		{
+            field: 'Expiration',
+            title: 'Approved Status Expiration Date',
+            sortable: true,
+			visible: false
+          },
+		],
           data: technologies
         });
       });
@@ -602,7 +713,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     // note: this :has selector cannot be cached; done this way to get
     // around caching & DOM availabily issues
     if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
-      $location.path('/capability/' + row.Id);
+      $location.path('/capabilities/' + row.Id);
       $route.reload();
     }
   });

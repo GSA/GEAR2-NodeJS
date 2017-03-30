@@ -1,6 +1,8 @@
 const SysStore = require('../stores/parentsystem');
+const AppStore = require('../stores/application');
 
 const sysStore = new SysStore();
+const appStore = new AppStore();
 
 function findAll(req, res) {
   sysStore.query('SELECT * FROM SAODS.udfGetSystemList()', (results) => {
@@ -14,7 +16,15 @@ function findOne(req, res) {
   });
 }
 
+// children
+function findApplications(req, res) {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 's')`, (results) => {
+    res.json(results);
+  });
+}
+
 module.exports = {
+  findApplications,
   findAll,
   findOne,
 };

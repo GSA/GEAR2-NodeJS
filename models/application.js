@@ -13,12 +13,28 @@ class Application extends Model {
         name: 'SSO',
         type: 'string',
       },
+	  {
+        name: 'SSOShort',
+        type: 'string',
+      },
+	  {
+        name: 'Owner',
+        type: 'string',
+      },
+	   {
+        name: 'OwnerShort',
+        type: 'string',
+      },
+	  {
+        name: 'SSOShort',
+        type: 'string',
+      },
       {
         name: 'Owner',
         type: 'string',
       },
       {
-        name: 'System',
+        name: 'ParentSystem',
         type: 'string',
       },
       {
@@ -113,6 +129,12 @@ class Application extends Model {
       },
 	  {
         name: 'FY20',
+        type: 'string',
+
+      },
+
+	  {
+        name: 'Notes',
         type: 'string',
 
       },
