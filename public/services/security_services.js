@@ -8,6 +8,9 @@ angular.module('dashboard')
 .factory('FISMASrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/fisma/:id');
 }])
+.factory('FISMAApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/fisma/:id/applications');
+}])
 .factory('FISMAPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/fisma/:id/pocs');
 }])

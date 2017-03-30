@@ -38,6 +38,10 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
+        name: 'ATOType',
+        type: 'string',
+      },
+      {
         name: 'RenewalDate',
         type: 'string',
       },

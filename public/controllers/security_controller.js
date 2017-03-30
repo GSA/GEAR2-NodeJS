@@ -5,10 +5,10 @@
 
 // Create the 'Security' controller
 angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
-  'FISMASrc', 'FISMAPOCsSrc', 'POCSrc',
+  'FISMASrc', 'FISMAPOCsSrc', 'FISMAApplicationsSrc', 'POCSrc',
   'FISMAPOC', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
-  FISMASrc, FISMAPOCsSrc,  POCSrc,
+  FISMASrc, FISMAPOCsSrc, FISMAApplicationsSrc, POCSrc,
   FISMAPOC, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -137,105 +137,52 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
     });
     // Use the fisma_system 'get' method to send an appropriate GET request
     var fisma = FISMASrc.query({ id: $routeParams.id });
+    var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });
+    var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
+
     fisma.$promise.then(function () {
-      var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
-      pocs.$promise.then(function () {
-        // _.each(fisma, function (item) {
-        //   _.each(_.keys(item), function (key) {
-        //     var match = _.where(pocs, {Type: key, ParentId: item.Id});
-        //     if (match.length) {
-        //       item[key] = match[0].Name + " " +  "<a href=mailto:" + match[0].Email + ">" + match[0].Email + "</a>"+ " " + (match[0].Phone || '');
-        //     }
-        //   });
-        // });
-      });
       $scope.fisma = fisma[0];
-      // $.each(fisma, function (key, val) {
-      //   $scope.fisId = val.Id;
-      //   $scope.fisName = val.Name;
-      //   $scope.atodate = val.ATODate;
-      //   $scope.atotype = val.ATOType;
-      //   $scope.respsso = val.RespSSO;
-      //   $scope.relOrgDisplayName = val.RelOrgDisplayName;
-      //   $scope.fismaSystemIdentifier = val.FISMASystemIdentifier;
-      //   $scope.renewaldate = val.RenewalDate;
-      //   $scope.relapps = val.RelApps;
-      //   var poctable = $("#poctable");
-      //
-      //   var issm = val.ISSM;
-      //   $.each(issm, function (key, val) {
-      //     var row = poctable[0].insertRow();
-      //     // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      //     var issmdec = row.insertCell(0);
-      //     var issmname = row.insertCell(1);
-      //     var issmphone = row.insertCell(2);
-      //     var issmemail = row.insertCell(3);
-      //     issmdec.innerHTML = '<i class="fa fa-user"></i>&nbsp;ISSM';
-      //     issmname.innerHTML = val.Name;
-      //     issmphone.innerHTML = val.PhoneNumber;
-      //     issmemail.innerHTML = val.Email;
-      //   });
-      //
-      //   var isso = val.ISSO;
-      //   $.each(isso, function (key, val) {
-      //     var row = poctable[0].insertRow();
-      //     // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      //     var issodec = row.insertCell(0);
-      //     var issoname = row.insertCell(1);
-      //     var issophone = row.insertCell(2);
-      //     var issoemail = row.insertCell(3);
-      //     issodec.innerHTML = '<i class="fa fa-user"></i>&nbsp;ISSO';
-      //     issoname.innerHTML = val.Name;
-      //     issophone.innerHTML = val.PhoneNumber;
-      //     issoemail.innerHTML = val.Email;
-      //   });
-      //
-      //
-      //   var authoff = val.AuthorizingOfficial;
-      //   $.each(authoff, function (key, val) {
-      //     var row = poctable[0].insertRow();
-      //     // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      //     var aodec = row.insertCell(0);
-      //     var aoname = row.insertCell(1);
-      //     var aophone = row.insertCell(2);
-      //     var aoemail = row.insertCell(3);
-      //     aodec.innerHTML = '<i class="fa fa-user"></i>&nbsp;Authorizing Official';
-      //     aoname.innerHTML = val.Name;
-      //     aophone.innerHTML = val.PhoneNumber;
-      //     aoemail.innerHTML = val.Email;
-      //   });
-      //
-      //   var pm = val.ProgramManager;
-      //   $.each(pm, function (key, val) {
-      //     var row = poctable[0].insertRow();
-      //     // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      //     var pmdec = row.insertCell(0);
-      //     var pmname = row.insertCell(1);
-      //     var pmphone = row.insertCell(2);
-      //     var pmemail = row.insertCell(3);
-      //     pmdec.innerHTML = '<i class="fa fa-user"></i>&nbsp;Program Manager';
-      //     pmname.innerHTML = val.Name;
-      //     pmphone.innerHTML = val.PhoneNumber;
-      //     pmemail.innerHTML = val.Email;
-      //   });
-      //
-      // });
-      $('#fismaappstable').bootstrapTable({
-        columns: [{
-          field: 'Name',
-          title: 'Application Name',
-          sortable: true
-        }, {
-          field: 'Description',
-          title: 'Description',
-          sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: true,
-          visible: false
-        }],
-        data: $scope.relapps
+      apps.$promise.then(function () {
+        $scope.applications = apps;
+        $('#fismaappstable').bootstrapTable({
+          columns: [{
+            field: 'Name',
+            title: 'Application Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }],
+          data: apps
+        });
+      });
+      pocs.$promise.then(function () {
+        $('#fismapocstable').bootstrapTable({
+          columns: [
+            {
+              field: 'Type',
+              title: 'Role',
+              sortable: true
+            },
+            {
+              field: 'Name',
+              title: 'Name',
+              sortable: true
+            },
+            {
+              field: 'Phone',
+              title: 'Phone Number',
+              sortable: true
+            },
+            {
+              field: 'Email',
+              title: 'Email',
+              sortable: true
+            },
+          ],
+          data: pocs
+        });
       });
     });
   }
