@@ -16,7 +16,7 @@ angular.module('dashboard')
 .factory('POCSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/pocs/:id');
 }])
-// FISMAPOC is UNUSED. References need to be deleted
+// note: old FISMAPOC was UNUSED
 
 
 

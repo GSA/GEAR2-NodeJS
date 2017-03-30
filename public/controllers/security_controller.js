@@ -31,7 +31,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       $.each(fsystems, function (key, val) {
         var artifacts = [];
 
-        _.each(val.Artifacts, function (artifact) {
+        _.each(val.RelatedArtifacts, function (artifact) {
           artifacts.push('<a class="no-propagation" target="_blank" href="' +
           artifact.ReferenceDocuments +  '">' + artifact.Name + '</a>');
         });
@@ -49,7 +49,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           "RenewalDate" : val.RenewalDate,
           "ComplFISMA" : val.ComplFISMA,
           "FISMASystemIdentifier" : val.FISMASystemIdentifier,
-          "Artifacts": val.RelatedArtifacts,// artifacts.join(',<br/>')
+          "Artifacts": artifacts.join(',<br/>')
         });
       });
       bstSearchUtils.checkFilterState($scope);
