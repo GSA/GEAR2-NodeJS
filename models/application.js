@@ -36,6 +36,12 @@ class Application extends Model {
       {
         name: 'ParentSystem',
         type: 'string',
+
+      },
+	  {
+        name: 'System',
+        type: 'string',
+
       },
       {
         name: 'BusinessPOC',
