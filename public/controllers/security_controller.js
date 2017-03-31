@@ -175,7 +175,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 
       apps.$promise.then(function (populateData) {
         $scope.applications = apps;
-        console.log(apps);
         $('#fismaappstable').bootstrapTable({
           columns: [
               {
@@ -210,8 +209,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 				field: 'OwnerShort',
 				title: 'Two Letter Org (Short)',
 				sortable: true
-				},		  
-		
+				},
+
 				/* 			{
 				field: 'Id',
 				title: 'Id',
@@ -332,7 +331,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       bstSearchUtils.checkFilterState($scope);
       $scope.bsTableConfig = {
         columns: [{
-          field: 'RespSSO',
+          field: 'RelOrgDisplayName',
           title: 'Responsible SSO',
           sortable: true
         }, {
