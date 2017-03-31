@@ -7,18 +7,13 @@ app.controller('appsBySsoChartController', function ($scope, ApplicationsSrc) {
     var active = _.filter(d, function (item) {
       // TODO: check if business logic is redundant with new API or if we can remove any if-statements
       var pass = false;
-      if (Object.hasOwnProperty.call(item, 'Type') && item.Type && item.Type !== 'Website') {
+      if (
+            (Object.hasOwnProperty.call(item, 'Status') && item.Status !== 'Retired')
+            && (Object.hasOwnProperty.call(item, 'SSO') && item.SSO !== null)
+            && (item.SSO.toLowerCase() !== 'external')
+            && (item.SSO.indexOf('Sample Office') < 0)) {
         pass = true;
-      }
-      if (Object.hasOwnProperty.call(item, 'Status') && item.Status && item.Status !== 'Retired') {
-        pass = true;
-      }
-      if (Object.hasOwnProperty.call(item, 'SSO') && item.SSO && item.SSO !== 'External') {
-        pass = true;
-      }
-      if (Object.hasOwnProperty.call(item, 'SSO') && item.SSO && item.SSO.indexOf('Sample Office') < 0) {
-        pass = true;
-      }
+       }
       return pass;
     });
     var grouped = _.countBy(active, "SSO");

@@ -14,22 +14,20 @@ class POCModel extends Model {
       {
         name: 'Name',
         type: 'string',
-        mapping(data) {
-          return data.Name;
-        },
+      },
+      {
+        name: 'Phone',
+        type: 'string',
       },
       {
         name: 'Email',
         type: 'string',
-        mapping(data) {
-          return data.Email;
-        },
       },
       {
         name: 'Owner',
         type: 'string',
       },
-	  {
+      {
         name: 'OwnerShort',
         type: 'string',
       },

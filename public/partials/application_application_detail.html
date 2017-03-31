@@ -57,7 +57,8 @@
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
-                                    <td>
+                                    <td>{{ application.BusinessPOC }}</td>
+									<!-- <td>
 										<ul class="list-unstyled" style="margin-bottom: 0">
 											<li ng-repeat="poc in pocs | filter:{Type:'Business'}">
 												<a href="mailto:{{ poc.Email }}">{{ poc.Name }}</a>
@@ -66,7 +67,7 @@
 												None Provided
 											</li>
 										</ul>
-									</td>
+									</td> -->
                                 </tr>
 								<tr>
                                     <td><i class="fa fa-money"></i>&nbsp;Related Investment</td>
@@ -93,7 +94,7 @@
 										<td>{{ t.FY18 }}</td>
 										<td>{{ t.FY19 }}</td>
 										<td>{{ t.FY20 }}</td>
-										<td>{{ t.TIMENotes }}</td>
+										<td>{{ t.Notes }}</td>
 									</tr>
 								</table>
 							</div>
