@@ -1,8 +1,10 @@
 const InvestmentStore = require('../stores/investment');
 const AppStore = require('../stores/application');
+const POCStore = require('../stores/poc');
 
 const investmentStore = new InvestmentStore();
 const appStore = new AppStore();
+const pocStore = new POCStore();
 
 function findAll(req, res) {
   let fields = '*';
@@ -28,8 +30,15 @@ function findApplications(req, res) {
   });
 }
 
+function findPOCs(req, res) {
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('i') WHERE ID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
+}
+
 module.exports = {
   findApplications,
+  findPOCs,
   findAll,
   findOne,
 };
