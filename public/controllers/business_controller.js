@@ -160,7 +160,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
     });
   }
 */
-  // Method for retrieving a single organization's related Applications 
+  // Method for retrieving a single organization's related Applications
   $scope.getRelatedSys = function(orgId) {
     // Use the Application 'get' method to send an appropriate GET request
     var appmap = OrgAppsSrc.query({ id: orgId })//OrgAppMap.query();
@@ -195,7 +195,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            }, 
+            },
 			{
               field: 'Alias',
               title: 'Alias',
@@ -224,7 +224,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               field: 'OwnerShort',
               title: 'Two Letter Org (Short)',
               sortable: true
-            },		  
+            },
 			{
               field: 'BusinessPOC',
               title: 'Business POC',
@@ -236,14 +236,14 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               title: 'Technical POC',
               sortable: true,
 			  visible: false
-            },				
+            },
 			{
               field: 'ParentSystem',
               title: 'Parent System',
               sortable: true,
 			  visible: false
             },
-		
+
 			// {
               // field: 'Id',
               // title: 'Id',
@@ -909,7 +909,6 @@ $scope.createCapabilityTree = function () {
       // Per MLD: This render() is unnecessary. No need to wait for all $resources to be resolved.
       if (capabilities.$resolved) {//timeResource.$resolved && capabilities.$resolved) {
           $scope.capability = capabilities[0];
-			console.log(applications);
           applications.$promise.then(function () {
             if (applications.length > 0) {
               d3.select("#relappstab").style("display", "block");
@@ -940,50 +939,50 @@ $scope.createCapabilityTree = function () {
                   field: 'OwnerShort',
                   title: 'Owner (Short Name)',
                   sortable: true,
-                }, 
+                },
 				{
                   field: 'Name',
                   title: 'Business Application Name',
                   sortable: true
-                }, 
+                },
 				{
                   field: 'ParentSystem',
                   title: 'Parent System',
                   sortable: true,
                   visible: false
-                }, 
+                },
 				{
                   field: 'Status',
                   title: 'Status',
                   sortable: true
-                }, 
+                },
 				{
                   field: 'FY14',
                   title: 'FY14',
                   visible: false
-                }, 
+                },
 				{
                   field: 'FY15',
                   title: 'FY15',
                   visible: false
-                }, 
+                },
 				{
                   field: 'FY16',
                   title: 'FY16',
                   visible: false
-                }, 
+                },
 				{
                   field: 'FY17',
                   title: 'FY17'
-                }, 
+                },
 				{
                   field: 'FY18',
                   title: 'FY18'
-                }, 
+                },
 				{
                   field: 'FY19',
                   title: 'FY19'
-                }, 
+                },
 				{
                   field: 'FY20',
                   title: 'FY20'
@@ -1011,7 +1010,7 @@ $scope.createCapabilityTree = function () {
 					title: 'Technical POC',
 					sortable: true,
 					visible: false
-				},	
+				},
 				{
 					field: 'Owner',
 					title: 'Owner(Long Name)',

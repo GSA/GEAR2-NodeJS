@@ -109,36 +109,36 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'OwnerShort',
           title: 'Two Letter Org (Short)',
           sortable: true
-        },		  
+        },
 		{
           field: 'BusinessPOC',
           title: 'Business POC',
           sortable: true,
           visible: false
-        }, 
+        },
 		{
           field: 'TechnicalPOC',
           title: 'Technical POC',
           sortable: true,
           visible: false
-        }, 
+        },
 		{
           field: 'System',
           title: 'Parent System',
           sortable: true,
-        }, 
+        },
 		{
           field: 'RegionClassification',
           title: 'Region Classification',
           sortable: true,
           visible: false
-        }, 
+        },
 		{
           field: 'IsRevenueGenerator',
           title: 'Revenue Generator',
           sortable: true,
           visible: false
-		}, 
+		},
 		{
           field: 'HostingProvider',
           title: 'Hosting Provider',
@@ -156,12 +156,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Platform',
           sortable: true,
           visible: false
-        }, 
+        },
 		{
           field: 'Status',
           title: 'Status',
           sortable: true
-        }, 
+        },
 		{
           field: 'FismaSystem',
           title: 'FISMA System',
@@ -654,7 +654,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
       capabilities.$promise.then(function () {
         $('#appcaptable').bootstrapTable({
-          columns: [		
+          columns: [
 		{
             field: 'Ref',
             title: 'Hierarchy number',
@@ -748,13 +748,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     var interfaces = null;
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
-      console.log('APPIntf');
     } else if (!appId && orgName) {
       interfaces = InterfacesSrc.query({ owner: orgName });
-      console.log('ORGIntf', orgName);
     } else {
       interfaces = InterfacesSrc.query();
-      console.log('ALLIntf');
     }
     interfaces.$promise.then(function () {
       // Considering that each Interface has 2 Applications: Name1 & Name2, AppID1 & AppID2, etc...
@@ -801,8 +798,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       }
 
       var finallist = {"nodes" : nodes, "links" : links};
-      // console.log('FINAL:', JSON.stringify(finallist));
-      // throw('STOP!')
 
       //Constants for the SVG
       var width = 960,
