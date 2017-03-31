@@ -94,61 +94,74 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true
         },
 		{
-          field: 'Owner',
-          title: 'Owner (Short Name)',
+          field: 'SSOShort',
+          title: 'SSO',
           sortable: true
         },
 		{
-          field: 'SSO',
-          title: 'Owner (Long Name)',
+          field: 'Owner',
+          title: 'Two Letter Org (Long)',
           sortable: true,
 		  visible: false
         },
 		{
-          field: 'ParentSystem',
-          title: 'Parent System',
-          sortable: true,
-        }, {
-          field: 'RegionClassification',
-          title: 'Region Classification',
-          sortable: true,
-          visible: false
-        }, {
-          field: 'IsRevenueGenerator',
-          title: 'Revenue Generator',
-          sortable: true,
-          visible: false
-
-        }, {
+          field: 'OwnerShort',
+          title: 'Two Letter Org (Short)',
+          sortable: true
+        },		  
+		{
           field: 'BusinessPOC',
           title: 'Business POC',
           sortable: true,
           visible: false
-        }, {
+        }, 
+		{
           field: 'TechnicalPOC',
           title: 'Technical POC',
           sortable: true,
           visible: false
-        }, {
+        }, 
+		{
+          field: 'ParentSystem',
+          title: 'Parent System',
+          sortable: true,
+        }, 
+		{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        }, 
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		}, 
+		{
           field: 'HostingProvider',
           title: 'Hosting Provider',
           sortable: true,
           visible: false
-        },{
+        },
+		{
           field: 'Cloud',
           title: 'Cloud',
           sortable: true,
           visible: false
-        },{
+        },
+		{
           field: 'TechnologyPlatform',
           title: 'Platform',
           sortable: true,
           visible: false
-        }, {
+        }, 
+		{
           field: 'Status',
           title: 'Status',
           sortable: true
-        }, {
+        }, 
+		{
           field: 'FismaSystem',
           title: 'FISMA System',
           sortable: true,
@@ -640,7 +653,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
       capabilities.$promise.then(function () {
         $('#appcaptable').bootstrapTable({
-          columns: [{
+          columns: [		
+		{
+            field: 'Ref',
+            title: 'Hierarchy number',
+            visible: false,
+			sortable: true
+          },
+		{
             field: 'Name',
             title: 'Business Capability',
             sortable: true
@@ -655,11 +675,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             // title: 'Id',
             // visible: false
           // },
-		{
-            field: 'Ref',
-            title: 'Hierarchy number',
-            visible: false
-          },
 		{
             field: 'ParentCap',
             title: 'Parent Capability',

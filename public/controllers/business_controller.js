@@ -197,17 +197,34 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true
             }, 
 			{
+              field: 'Alias',
+              title: 'Alias',
+              sortable: true,
+			  visible: false
+            },
+			{
               field: 'Description',
               title: 'Description',
               sortable: true,
 			  // visible: false
             },
 			{
-              field: 'Alias',
-              title: 'Alias',
+              field: 'SSOShort',
+              title: 'SSO',
               sortable: true,
 			  visible: false
             },
+		    {
+              field: 'Owner',
+              title: 'Two Letter Org (Long)',
+              sortable: true,
+			  visible: false
+            },
+		    {
+              field: 'OwnerShort',
+              title: 'Two Letter Org (Short)',
+              sortable: true
+            },		  
 			{
               field: 'BusinessPOC',
               title: 'Business POC',
@@ -220,24 +237,13 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true,
 			  visible: false
             },				
-						{
+			{
               field: 'ParentSystem',
               title: 'Parent System',
               sortable: true,
 			  visible: false
             },
-			{
-              field: 'SSOShort',
-              title: 'Owner(Short Name)',
-              sortable: true,
-			  visible: false
-            },
-			{
-              field: 'SSO',
-              title: 'Owner(Long Name)',
-              sortable: true,
-			  visible: false
-            }			
+		
 			// {
               // field: 'Id',
               // title: 'Id',

@@ -215,109 +215,117 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       fismaapps.$promise.then(function (populateData) {
         $('#fismaappstable').bootstrapTable({
           columns: [
-            {
-              field: 'Name',
-              title: 'Application Name',
-              sortable: true
-            },
-            {
-              field: 'Description',
-              title: 'Description',
-              sortable: true
-            },
-            {
-              field: 'OwnerShort',
-              title: 'Owner (Short Name)',
-              sortable: true
-            },
-            /* 			{
-            field: 'Id',
-            title: 'Id',
-            sortable: true,
-            visible: false
-          }, */
-          {
-            field: 'Alias',
-            title: 'Alias',
-            sortable: true,
-            visible: false
-          },
-          {
-            field: 'BusinessPOC',
-            title: 'Business POC',
-            sortable: true,
-            visible: false
-          },
-          {
-            field: 'TechnicalPOC',
-            title: 'Technical POC',
-            sortable: true,
-            visible: false
-          },
-          {
-            field: 'Owner',
-            title: 'Owner (Long Name)',
-            sortable: true,
-            visible: false
-          },
-          {
-            field: 'FY14',
-            title: 'FY14',
-            visible: false
-          },
-          {
-            field: 'FY15',
-            title: 'FY15',
-            visible: false
-          },
-          {
-            field: 'FY16',
-            title: 'FY16',
-            visible: false
-          },
-          {
-            field: 'FY17',
-            title: 'FY17',
-            visible: false
-          },
-          {
-            field: 'FY18',
-            title: 'FY18',
-            visible: false
-          },
-          {
-            field: 'FY19',
-            title: 'FY19',
-            visible: false
-          },
-          {
-            field: 'FY20',
-            title: 'FY20',
-            visible: false
-          },
-          {
-            field: 'Notes',
-            title: 'Notes',
-            visible: false
-          },
-          {
-            field: 'HostingProvider',
-            title: 'Hosting Provider',
-            sortable: true,
-            visible: false
-          },
-          {
-            field: 'Cloud',
-            title: 'Cloud',
-            sortable: true,
-            visible: false
-          },
-          {
-            field: 'TechnologyPlatform',
-            title: 'Platform',
-            sortable: true,
-            visible: false
-          }
+              {
+                field: 'Name',
+                title: 'Application Name',
+                sortable: true
+              },
+              {
+                field: 'Alias',
+                title: 'Alias',
+                sortable: true,
+                visible: false
+              },
+              {
+                field: 'Description',
+                title: 'Description',
+                sortable: true
+              },
+              {
+                field: 'SSOShort',
+                title: 'SSO',
+                sortable: true,
+                visible: false
+              },
+			  {
+				field: 'Owner',
+				title: 'Two Letter Org (Long)',
+				sortable: true,
+				visible: false
+			  },
+			  {
+				field: 'OwnerShort',
+				title: 'Two Letter Org (Short)',
+				sortable: true
+				},		  
+		
+				/* 			{
+				field: 'Id',
+				title: 'Id',
+				sortable: true,
+				visible: false
+			  }, */
+
+			  {
+				field: 'BusinessPOC',
+				title: 'Business POC',
+				sortable: true,
+				visible: false
+			  },
+			  {
+				field: 'TechnicalPOC',
+				title: 'Technical POC',
+				sortable: true,
+				visible: false
+			  },
+			  {
+				field: 'HostingProvider',
+				title: 'Hosting Provider',
+				sortable: true,
+				visible: false
+			  },
+			  {
+				field: 'Cloud',
+				title: 'Cloud',
+				sortable: true,
+				visible: false
+			  },
+			  {
+				field: 'TechnologyPlatform',
+				title: 'Platform',
+				sortable: true,
+				visible: false
+			  },
+			  {
+				field: 'FY14',
+				title: 'FY14',
+				visible: false
+			  },
+			  {
+				field: 'FY15',
+				title: 'FY15',
+				visible: false
+			  },
+			  {
+				field: 'FY16',
+				title: 'FY16',
+				visible: false
+			  },
+			  {
+				field: 'FY17',
+				title: 'FY17',
+				visible: false
+			  },
+			  {
+				field: 'FY18',
+				title: 'FY18',
+				visible: false
+			  },
+			  {
+				field: 'FY19',
+				title: 'FY19',
+				visible: false
+			  },
+			  {
+				field: 'FY20',
+				title: 'FY20',
+				visible: false
+			  },
+			  {
+				field: 'Notes',
+				title: 'Notes',
+				visible: false
+			  }
         ],
         data: fismaapps//$scope.relapps
       });
