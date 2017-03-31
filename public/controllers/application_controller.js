@@ -28,12 +28,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var applications = ApplicationsSrc.query();
     }
     else{
-      var applications = ApplicationsSrc.query({sso:$routeParams.applicationSSO});
+      var applications = ApplicationsSrc.query({ownerName:$routeParams.ownerName});
     }
     $scope.applications = applications;
     applications.$promise.then(function (populateData) {
       $.each(applications, function (key, val) {
-        if ([val.Status] != "Retired" && [val.SSO] != "External" && [val.Type] != "Website") {
+        if ([val.Status] != "Retired" && [val.SSO] != "External") {
           var sys = '';
           var fismasys = '';
           if ([val.ParentSystem] == ''){

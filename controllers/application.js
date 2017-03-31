@@ -12,11 +12,15 @@ const interfaceStore = new InterfaceStore();
 
 function findAll(req, res) {
   let fields = '*';
+  let filter = '';
 
   if (Object.hasOwnProperty.call(req.query, 'fields')) {
     fields = req.query.fields;
   }
-  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite()`, (results) => {
+  if (Object.hasOwnProperty.call(req.query, 'ownerName')) {
+    filter = ` WHERE OwnerShort LIKE '%${req.query.ownerName}%'`;
+  }
+  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite() ${filter}`, (results) => {
     res.json(results);
   });
 }
