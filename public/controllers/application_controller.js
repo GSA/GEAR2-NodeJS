@@ -217,45 +217,141 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       $.each(apps, function (key, val) {
         if ([val.Status] == "Retired") {
           $scope.bstData.push({
-            "Name" : val.Name,
-            "Description" : val.Description,
-            "SSO" : val.SSO_Display_Name,
-            "Status" : val.Status,
-            "RetiredYear" : val.RetiredYear,
+            "Name": val.Name,
+            "Description": val.Description,
+            "SSO": val.SSOShort,
+            "Owner": val.Owner,
+			"OwnerShort": val.OwnerShort,
+            "System": val.System,
+            "BusinessPOC": val.BusinessPOC,
+            "TechnicalPOC": val.TechnicalPOC,
+            "Cloud": val.Cloud,
+            "TechnologyPlatform": val.TechnologyPlatform,
+            "Status": val.Status,
             "Alias": val.Alias,
-            "Id": val.Id
+            "RegionClassification": val.RegionClassification,
+            "HostingProvider": val.HostingProvider,
+            "FismaSystem": val.FISMASystem,
+            "Id": val.Id,
+            "Investment": val.Investment,
+            "IsRevenueGenerator": val.IsRevenueGenerator,
+            "DesktopComponent": val.DesktopComponent,
+            "RetiredYear" : val.RetiredYear
           });
         }
       });
 
       bstSearchUtils.checkFilterState($scope);
       $scope.bsTableConfig = {
-        columns: [{
+        columns: [		{
           field: 'Name',
           title: 'Application Name',
           sortable: true
-        }, {
-          field: 'Description',
-          title: 'Description',
-          sortable: true
-        }, {
-          field: 'SSO',
-          title: 'SSO',
-          sortable: true
-        }, {
-          field: 'Status',
-          title: 'Status',
-          sortable: true
-        }, {
-          field: 'RetiredYear',
-          title: 'Retired Year (CY)',
-          sortable: true
-        }, {
+        },
+		{
           field: 'Alias',
           title: 'Alias',
           sortable: true,
           visible: false
-        }],
+        },
+		{
+          field: 'Description',
+          title: 'Description',
+          sortable: true
+        },
+		{
+          field: 'SSO',
+          title: 'SSO',
+          sortable: true
+        },
+		{
+          field: 'Owner',
+          title: 'Two Letter Org (Long)',
+          sortable: true,
+		  visible: false
+        },
+		{
+          field: 'OwnerShort',
+          title: 'Two Letter Org (Short)',
+          sortable: true
+        },
+		{
+          field: 'BusinessPOC',
+          title: 'Business POC',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'TechnicalPOC',
+          title: 'Technical POC',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'System',
+          title: 'Parent System',
+          sortable: true,
+        },
+		{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		},
+		{
+          field: 'HostingProvider',
+          title: 'Hosting Provider',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Cloud',
+          title: 'Cloud',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'TechnologyPlatform',
+          title: 'Platform',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Status',
+          title: 'Status',
+          sortable: true
+        },
+		{
+          field: 'FismaSystem',
+          title: 'FISMA System',
+          sortable: true,
+          visible: false
+        },
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
+          field: 'Investment',
+          title: 'Investment',
+          sortable: true,
+          visible: false
+
+        },
+		{
+          field: 'RetiredYear',
+          title: 'Retired Year (CY)',
+          sortable: true
+        }
+		],
         data: $scope.bstData
       }
       bstSearchUtils.updateConfig($scope);
@@ -274,6 +370,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     var time = [];
     var appname = '';
     var owner = '';
+	var sso = '';
     var id = '';
     var notes = '';
     var fy14 = '';
@@ -291,7 +388,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       apps.$promise.then(function (populateApps) {
         $scope.bstData = [];
         $.each(appstime, function (key, val) {
-          appname = val.Name;
+          sso = val.SSOShort;
+		  appname = val.Name;
           owner = val.OwnerShort;
           id = val.AppId;
           notes = val.Notes;
@@ -317,6 +415,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           if (status != 'Retired') {
             $scope.bstData.push({
               "Owner" : owner,
+			  "SSO" : sso,
               "Name" : appname,
               "Status" : status,
               "FY14" : fy14,
@@ -341,24 +440,40 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.bsTableConfig = {
           columns: [
 		  {
+            field: 'SSO',
+            title: 'SSO',
+            visible: false,
+            sortable: true
+          },
+		  {
             field: 'Owner',
-            title: 'Owner (Short Name)',
+            title: 'Two Letter Org (Short)',
             sortable: true,
-          }, {
+          },
+		  {
+            field: 'OwnerLongName',
+            title: 'Two Letter Org (Long)',
+            visible: false,
+            sortable: true
+          }, 
+		  {
             field: 'Alias',
             title: 'Alias',
             sortable: true,
             visible: false
-          }, {
+          }, 
+		  {
             field: 'Name',
             title: 'Application Name',
             sortable: true
-          }, {
+          }, 
+		  {
             field: 'ParentSystem',
             title: 'Parent System',
             sortable: true,
             visible: false
-          }, {
+          }, 
+		  {
             field: 'Status',
             title: 'Status',
             sortable: true
@@ -369,19 +484,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             // visible: false,
             // sortable: true
           // },
-		  {
-            field: 'Notes',
-            title: 'Notes',
-            visible: false,
-            sortable: true
-
-          },
-		  {
-            field: 'RegionClassification',
-            title: 'Region Classification',
-            visible: false,
-            sortable: true
-          },
 		  {
             field: 'FY14',
             title: 'FY14',
@@ -414,6 +516,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'FY20'
           },
 		  {
+            field: 'Notes',
+            title: 'Notes',
+            visible: false,
+            sortable: true
+
+          },
+		  {
             field: 'BusinessPOC',
             title: 'Business POC',
             visible: false,
@@ -427,13 +536,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true
           },
 		  {
-            field: 'OwnerLongName',
-            title: 'Owner (Long Name)',
+            field: 'RegionClassification',
+            title: 'Region Classification',
             visible: false,
             sortable: true
-          }
-
-		  ],
+          }],
           data: $scope.bstData
         };
         bstSearchUtils.updateConfig($scope);
@@ -555,13 +662,26 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true
           },
 		  {
-            field: 'OwnerShort',
-            title: 'Owner (Short Name)',
-            sortable: true
+            field: 'Alias',
+            title: 'Alias',
+            sortable: true,
+            visible: false
           },
 		  {
-            field: 'Status',
-            title: 'Status',
+            field: 'SSOShort',
+            title: 'SSO',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'Owner',
+            title: 'Two Letter Org (Long)',
+            sortable: true,
+            visible: false
+          },
+		  {
+            field: 'OwnerShort',
+            title: 'Two Letter Org (Short)',
             sortable: true
           },
 		  // {
@@ -570,12 +690,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             // sortable: true,
             // visible: false
           // }
-		  {
-            field: 'Alias',
-            title: 'Alias',
-            sortable: true,
-            visible: false
-          },
+
 		  {
             field: 'BusinessPOC',
             title: 'Business POC',
@@ -589,10 +704,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             visible: false
           },
 		  {
-            field: 'Owner',
-            title: 'Owner (Long Name)',
-            sortable: true,
-            visible: false
+            field: 'Status',
+            title: 'Status',
+            sortable: true
           }
 		  ],
           data: sysapp//appgroup
