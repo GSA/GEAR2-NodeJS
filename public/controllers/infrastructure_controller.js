@@ -173,82 +173,87 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
       $scope.applications.$promise.then(function () {
         // add related Apps here
         $('#standrelapptable').bootstrapTable({
-          columns: [{
+          columns: [
+		  {
             field: 'Name',
             title: 'Business Application Name',
             sortable: true
           }, 
 		  {
+            field: 'Alias',
+            title: 'Alias',
+            sortable: true,
+			visible: false
+          },
+          {
             field: 'Description',
             title: 'Description',
             sortable: true
-          }, 
+          },
+		  {
+            field: 'SSOShort',
+            title: 'SSO',
+            sortable: true
+          },
+		  {
+            field: 'Owner',
+            title: 'Two Letter Org (Long)',
+            sortable: true,
+			visible: false
+          },
 		  {
             field: 'OwnerShort',
-            title: 'Owner (Short Name)',
+            title: 'Two Letter Org (Short)',
             sortable: true
-          }, 
-		  {
-            field: 'Status',
-            title: 'Status',
-            sortable: true
-          }, 
+            },		  
 		  // {
             // field: 'Id',
             // title: 'Id',
             // sortable: true,
             // visible: false
-          // },
-		  {
-            field: 'Alias',
-            title: 'Alias',
-            sortable: true,
-            visible: false
-          },
+          // }
 		  {
             field: 'BusinessPOC',
             title: 'Business POC',
             sortable: true,
-            visible: false
+			visible: false
           },
 		  {
             field: 'TechnicalPOC',
             title: 'Technical POC',
             sortable: true,
-            visible: false
-          },
-		  {
+			visible: false
+          },				
+ 		  {
             field: 'ParentSystem',
             title: 'Parent System',
             sortable: true,
-            visible: false
-          },		  
-		  {
-            field: 'Owner',
-            title: 'Owner (Long Name)',
-            sortable: true,
-            visible: false
-          },
+			visible: false
+           },
 		  {
             field: 'HostingProvider',
             title: 'Hosting Provider',
             sortable: true,
             visible: false
           },
-		  
+		  {
+            field: 'Cloud',
+            title: 'Cloud',
+            sortable: true,
+            visible: false
+          },		  
 		  {
             field: 'TechnologyPlatform',
             title: 'Application Platform',
             sortable: true,
             visible: false
           },
-		  
 		  {
-            field: 'Cloud',
-            title: 'Cloud',
+            field: 'Status',
+            title: 'Status',
             sortable: true,
-            visible: false
-          }
+			visible: false
+          } 
 		  ],
           data: $scope.applications
         });

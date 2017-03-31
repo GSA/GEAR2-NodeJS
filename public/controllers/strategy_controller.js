@@ -158,32 +158,38 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true
           }, 
 		  {
+            field: 'Alias',
+            title: 'Alias',
+            sortable: true,
+			visible: false
+          },
+          {
             field: 'Description',
             title: 'Description',
             sortable: true
           },
 		  {
-            field: 'OwnerShort',
-            title: 'Owner(Short Name)',
-            sortable: true,
-          },		  
-		  {
-            field: 'Status',
-            title: 'Status',
+            field: 'SSOShort',
+            title: 'SSO',
             sortable: true
-          }, 
+          },
+		  {
+            field: 'Owner',
+            title: 'Two Letter Org (Long)',
+            sortable: true,
+			visible: false
+          },
+		  {
+            field: 'OwnerShort',
+            title: 'Two Letter Org (Short)',
+            sortable: true
+            },		  
 		  // {
             // field: 'Id',
             // title: 'Id',
             // sortable: true,
             // visible: false
           // }
-		  {
-            field: 'Alias',
-            title: 'Alias',
-            sortable: true,
-			visible: false
-          },
 		  {
             field: 'BusinessPOC',
             title: 'Business POC',
@@ -196,19 +202,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true,
 			visible: false
           },				
-		  {
+ 		  {
             field: 'ParentSystem',
             title: 'Parent System',
             sortable: true,
 			visible: false
            },
-		  {
-            field: 'Owner',
-            title: 'Owner(Long Name)',
-            sortable: true,
-			visible: false
-            },
-		  {
+ 		  {
             field: 'FY14',
             title: 'FY14',
             visible: false
@@ -247,8 +247,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Notes',
             title: 'Notes',
 			visible: false
-          }
-		  
+          },
+		  {
+            field: 'Status',
+            title: 'Status',
+            sortable: true
+          } 		  
 		  ],
           data: $scope.applications
         });
