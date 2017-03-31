@@ -380,7 +380,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               if (org.Parent == secondLevelOrg.name) {
                 secondLevelOrg.children.push({
                   name: org.Name,
-                  identity: org.Identity,
+                  identity: org.Id,
                   displayName: org.DisplayName,
                   parent: org.Parent,
                   description: org.Description,
@@ -464,7 +464,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
         d3.select("#orgdetail").style("display", "block");
         d3.select("#orgdetailheader").text = "";
         d3.select("#orgdetailbody").text = "";
-        $scope.selectedapp = d.name;
+        $scope.selectedapp = d.identity;
         var b = d3.select("#orgdetailbody")
         .text("");
         var a = d3.select("#orgname")
@@ -573,8 +573,8 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 
     orgdetail.on("click", function(){
       var orgpath = $scope.selectedapp;
-      orgpath = orgpath.replace(/\//g , "-%")
-      $location.path('/organization/' + orgpath);
+  //    orgpath = orgpath.replace(/\//g , "-%")
+      $location.path('/organizations/' + orgpath);
       $scope.$apply();
     });
 
