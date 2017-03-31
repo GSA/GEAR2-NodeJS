@@ -323,47 +323,48 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             }
           });
         });
+        $scope.bstData = fismaSrc;
+        $scope.bstData = _.uniq(fismaSrc, function(item) {
+          return item.Name;
+        });
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'RelOrgDisplayName',
+            title: 'Responsible SSO',
+            sortable: true
+          }, {
+            field: 'Name',
+            title: 'System Name',
+            sortable: true
+          }, {
+            field: 'FIPS199',
+            title: 'FIPS Impact Level',
+            sortable: true
+          }, {
+            field: 'ISSM',
+            title: 'ISSM',
+            sortable: true
+          }, {
+            field: 'ISSO',
+            title: 'ISSO',
+            sortable: true
+          }, {
+            field: 'Program Manager', // an alias to fisma.PM so we can match poc.Type value
+            title: 'Program Manager',
+            sortable: true
+          }, {
+            field: 'Authorizing Official',  // an alias to fisma.AO so we can match poc.Type value
+            title: 'Authorizing Official',
+            sortable: true
+          }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+
       });
-      $scope.bstData = [];
-      $scope.bstData = _.uniq(fismaSrc, function(item) {
-        return item.Name;
-      });
-      bstSearchUtils.checkFilterState($scope);
-      $scope.bsTableConfig = {
-        columns: [{
-          field: 'RelOrgDisplayName',
-          title: 'Responsible SSO',
-          sortable: true
-        }, {
-          field: 'Name',
-          title: 'System Name',
-          sortable: true
-        }, {
-          field: 'FIPS199',
-          title: 'FIPS Impact Level',
-          sortable: true
-        }, {
-          field: 'ISSM',
-          title: 'ISSM',
-          sortable: true
-        }, {
-          field: 'ISSO',
-          title: 'ISSO',
-          sortable: true
-        }, {
-          field: 'PM',
-          title: 'Program Manager',
-          sortable: true
-        }, {
-          field: 'AO',
-          title: 'Authorizing Official',
-          sortable: true
-        }],
-        data: $scope.bstData
-      };
-      bstSearchUtils.updateConfig($scope);
-      $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
-      bstSearchUtils.handleSearchState($scope);
     });
   }
 

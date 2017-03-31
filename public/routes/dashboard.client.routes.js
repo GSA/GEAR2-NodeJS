@@ -95,10 +95,10 @@ function($routeProvider, $locationProvider) {
 	when('/applications/:applicationId', {
 		templateUrl: 'partials/application_application_detail.html'
 	}).
-	when('/applications_BySSO/:applicationSSO/find/:query*', {
+	when('/applications_BySSO/:ownerName/find/:query*', {
 		templateUrl: 'partials/application_application_report.html'
 	}).
-	when('/applications_BySSO/:applicationSSO', {
+	when('/applications_BySSO/:ownerName', {
 		templateUrl: 'partials/application_application_report.html'
 	}).
 	when('/applications_TIME/find/:query*', {
