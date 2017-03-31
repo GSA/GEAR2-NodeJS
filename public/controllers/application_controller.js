@@ -51,8 +51,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           $scope.bstData.push({
             "Name": val.Name,
             "Description": val.Description,
-            "SSO": val.SSO,
-            "Owner": val["Owner"],
+            "SSO": val.SSOShort,
+            "Owner": val.Owner,
+			"OwnerShort": val.OwnerShort,
             "System": sys,
             "BusinessPOC": val.BusinessPOC,
             "TechnicalPOC": val.TechnicalPOC,
@@ -94,7 +95,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true
         },
 		{
-          field: 'SSOShort',
+          field: 'SSO',
           title: 'SSO',
           sortable: true
         },
@@ -122,7 +123,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           visible: false
         }, 
 		{
-          field: 'ParentSystem',
+          field: 'System',
           title: 'Parent System',
           sortable: true,
         }, 
@@ -657,8 +658,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		{
             field: 'Ref',
             title: 'Hierarchy number',
-            visible: false,
-			sortable: true
+        //    sortable: true
           },
 		{
             field: 'Name',

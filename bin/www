@@ -20,7 +20,7 @@ const http = require('http');
 this script, rather than allowing Express to search.
 */
 const port = normalizePort(process.env.PORT || '3000');
-//const port = 'process.env.PORT';
+const port = 'process.env.PORT';
 
 
 app.set('port', 'process.env.PORT');
