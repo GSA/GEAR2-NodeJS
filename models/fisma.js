@@ -4,19 +4,10 @@ class FISMAModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
-      // {
-        // name: 'FISMAID',
-        // type: 'int',
-        // mapping(data) {
-          // return data.FISMAID || data.ID;
-        // },
-      // },
       {
         name: 'Id',
         type: 'int',
-        mapping(data) {
-          return data.ID;
-        },
+        mapping: 'ID',
       },
       {
         name: 'Name',
@@ -59,16 +50,22 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'ComplFISMA',
-        type: 'string',
-      },
-      {
         name: 'RelatedArtifacts',
-        type: 'string',
-      },
-      {
-        name: 'FISMASystemIdentifier',
-        type: 'string',
+        type: 'array',
+        mapping(d) {
+          let arts = null;
+          if (d.RelatedArtifacts) {
+            arts = d.RelatedArtifacts.split('; ');
+            arts = arts.map((art) => {
+              const pieces = art.split(',');
+              return {
+                Name: pieces[0],
+                ReferenceDocuments: pieces[1],
+              };
+            });
+          }
+          return arts;
+        },
       },
       {
         name: 'FISMASystemIdentifier',

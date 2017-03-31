@@ -9,9 +9,9 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-    pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('r') WHERE ID = ${req.params.id}`, (results) => {
-      res.json(results);
-   });
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('r') WHERE ID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
 }
 
 module.exports = {
