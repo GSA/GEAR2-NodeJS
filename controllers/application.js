@@ -18,7 +18,7 @@ function findAll(req, res) {
     fields = req.query.fields;
   }
   if (Object.hasOwnProperty.call(req.query, 'ownerName')) {
-    filter = ` WHERE OwnerShort LIKE '%${req.query.ownerName}%'`;
+    filter = ` WHERE SSOShort LIKE '%${req.query.ownerName}%'`;
   }
   appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite() ${filter}`, (results) => {
     res.json(results);
