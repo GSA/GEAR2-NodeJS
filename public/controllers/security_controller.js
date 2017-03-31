@@ -358,11 +358,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           field: 'AO',
           title: 'Authorizing Official',
           sortable: true
-        }, {
-          field: 'Id',
-          title: 'Id',
-          sortable: false,
-          visible: false
         }],
         data: $scope.bstData
       };
