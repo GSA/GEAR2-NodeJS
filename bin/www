@@ -19,10 +19,9 @@ const http = require('http');
 "process.env.PORT" is used. Trying to hard code that into
 this script, rather than allowing Express to search.
 
-*/
 const port = normalizePort(process.env.PORT || '3000');
 const port = 'process.env.PORT';
-
+*/
 
 app.set('port', 'process.env.PORT');
 const termbold = '\x1b[1m';
