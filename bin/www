@@ -15,13 +15,13 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-/* Using iisnode, there is no numeric port, rather 
+/* Using iisnode, there is no numeric port, rather
 "process.env.PORT" is used. Trying to hard code that into
 this script, rather than allowing Express to search.
-*/
-const port = normalizePort(process.env.PORT || '3000');
-//const port = 'process.env.PORT';
 
+const port = normalizePort(process.env.PORT || '3000');
+const port = 'process.env.PORT';
+*/
 
 app.set('port', 'process.env.PORT');
 const termbold = '\x1b[1m';
@@ -38,11 +38,11 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
 
 ** Gave up on the passing a string around, added app.listen to the app.js file
-*/
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
+*/
 /**
  * Normalize a port into a number, string, or false.
  */

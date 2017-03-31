@@ -16,7 +16,7 @@ app.controller('appsBySsoChartController', function ($scope, ApplicationsSrc) {
        }
       return pass;
     });
-    var grouped = _.countBy(active, "SSO");
+    var grouped = _.countBy(active, "SSOShort");
 
     var mapped = _.map(grouped, function (val, lab) {
       return {
