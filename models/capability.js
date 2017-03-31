@@ -40,6 +40,14 @@ class CapModel extends Model {
         name: 'ParRefNum',
         type: 'string',
       },
+      {
+        name: 'Ref',
+        type: 'string',
+      },
+      {
+        name: 'ParentCap',
+        type: 'string',
+      },
     ];
   }
 }

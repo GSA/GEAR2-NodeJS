@@ -14,11 +14,27 @@ class Application extends Model {
         type: 'string',
       },
       {
+        name: 'SSOShort',
+        type: 'string',
+      },
+      {
         name: 'Owner',
         type: 'string',
       },
       {
-        name: 'System',
+        name: 'OwnerShort',
+        type: 'string',
+      },
+      {
+        name: 'SSOShort',
+        type: 'string',
+      },
+      {
+        name: 'Owner',
+        type: 'string',
+      },
+      {
+        name: 'ParentSystem',
         type: 'string',
       },
       {
@@ -84,39 +100,35 @@ class Application extends Model {
       {
         name: 'FY14',
         type: 'string',
-
       },
       {
         name: 'FY15',
         type: 'string',
-
       },
-	  {
+      {
         name: 'FY16',
         type: 'string',
-
       },
-	  {
+      {
         name: 'FY17',
         type: 'string',
-
       },
-	  {
+      {
         name: 'FY18',
         type: 'string',
-
       },
-	  {
+      {
         name: 'FY19',
         type: 'string',
-
       },
-	  {
+      {
         name: 'FY20',
         type: 'string',
-
       },
-
+      {
+        name: 'Notes',
+        type: 'string',
+      },
     ]);
   }
 }

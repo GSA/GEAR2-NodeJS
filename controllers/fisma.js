@@ -1,7 +1,9 @@
 const FISMAStore = require('../stores/fisma');
+const AppStore = require('../stores/application');
 const POCStore = require('../stores/poc');
 
 const fismaStore = new FISMAStore();
+const appStore = new AppStore();
 const pocStore = new POCStore();
 
 function findAll(req, res) {
@@ -22,6 +24,11 @@ function findOne(req, res, next) {
 }
 
 // children
+function findApplications(req, res) {
+  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'f')`, (results) => {
+    res.json(results);
+  });
+}
 function findPOCs(req, res) {
   const filter = req.params.id ? `WHERE ID = ${req.params.id}` : '';
 
@@ -31,6 +38,7 @@ function findPOCs(req, res) {
 }
 
 module.exports = {
+  findApplications,
   findPOCs,
   findAll,
   findOne,

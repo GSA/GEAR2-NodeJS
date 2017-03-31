@@ -10,6 +10,9 @@ router.route('/:id')
     .get(fismaCtrl.findOne);
 
 // children
+router.route('/:id/applications/')
+    .get(fismaCtrl.findApplications);
+
 router.route('/pocs')
     .get(fismaCtrl.findPOCs);
 
