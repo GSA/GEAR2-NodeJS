@@ -4,8 +4,16 @@
 'use strict';
 
 // Create the 'strategy' controller
-angular.module('dashboard').controller('StrategyController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal', 'InvestmentsSrc', 'InvestmentAppsSrc', 'Utils', 'bstSearchUtils',
-function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal, InvestmentsSrc, InvestmentAppsSrc, Utils, bstSearchUtils) {
+angular.module('dashboard').controller('StrategyController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal',
+  // new
+  'InvestmentsSrc', 'InvestmentAppsSrc','InvestmentPOCsSrc',
+  // remaining legacy
+  'Utils', 'bstSearchUtils',
+function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal,
+  // new
+  InvestmentsSrc, InvestmentAppsSrc, InvestmentPOCsSrc,
+  // remaining legacy
+  Utils, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
   $scope.$bstEl = null;
@@ -148,6 +156,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     var investment = InvestmentsSrc.query({ id: $routeParams.id });
     investment.$promise.then(function () {
       $scope.investment = investment[0];
+      $scope.pocs = InvestmentPOCsSrc.query({ id: $routeParams.id });
       $scope.applications = InvestmentAppsSrc.query({ id: $routeParams.id });
       $scope.applications.$promise.then(function () {
         $('#invrelappstable').bootstrapTable({
@@ -156,7 +165,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Name',
             title: 'Business Application Name',
             sortable: true
-          }, 
+          },
 		  {
             field: 'Alias',
             title: 'Alias',
@@ -183,7 +192,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'OwnerShort',
             title: 'Two Letter Org (Short)',
             sortable: true
-            },		  
+            },
 		  // {
             // field: 'Id',
             // title: 'Id',
@@ -201,7 +210,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Technical POC',
             sortable: true,
 			visible: false
-          },				
+          },
  		  {
             field: 'ParentSystem',
             title: 'Parent System',
@@ -212,32 +221,32 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'FY14',
             title: 'FY14',
             visible: false
-          }, 
+          },
 		  {
             field: 'FY15',
             title: 'FY15',
             visible: false
-          }, 
+          },
 		  {
             field: 'FY16',
             title: 'FY16',
             visible: false
-          }, 
+          },
 		  {
             field: 'FY17',
             title: 'FY17',
 			visible: false
-          }, 
+          },
 		  {
             field: 'FY18',
             title: 'FY18',
 			visible: false
-          }, 
+          },
 		  {
             field: 'FY19',
             title: 'FY19',
 			visible: false
-          }, 
+          },
 		  {
             field: 'FY20',
             title: 'FY20',
@@ -252,7 +261,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             field: 'Status',
             title: 'Status',
             sortable: true
-          } 		  
+          }
 		  ],
           data: $scope.applications
         });

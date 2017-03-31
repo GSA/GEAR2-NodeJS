@@ -11,7 +11,11 @@ angular.module('dashboard')
 // new
 .factory('InvestmentAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/investments/:id/applications');
-}]);
+}])
+// new
+.factory('InvestmentPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/investments/:id/pocs');
+}])
 // Goal is UNUSED, but lets leave references for now
 
 // Legacy

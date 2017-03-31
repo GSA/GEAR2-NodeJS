@@ -13,4 +13,7 @@ router.route('/:id')
 router.route('/:id/applications/')
     .get(investmentCtrl.findApplications);
 
+router.route('/:id/pocs/')
+    .get(investmentCtrl.findPOCs);
+
 module.exports = router;

@@ -40,7 +40,6 @@ function findTechnologies(req, res) {
 }
 
 function findPOCs(req, res) {
-  console.log(`SELECT * FROM SAODS.udfGetPOCDetails('a') WHERE ID = ${req.params.id}`);
   pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('a') WHERE ID = ${req.params.id}`, (results) => {
     res.json(results);
   });
