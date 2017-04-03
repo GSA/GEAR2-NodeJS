@@ -140,10 +140,16 @@ class Application extends Model {
         type: 'string',
         mapping(d)
         {
-          if (d.Link.indexOf('http://') === 0 || d.Link.indexOf('https://') === 0) 
+          let s = '';
+          if (d.Link && d.Link.indexOf('http://') !== 0 && d.Link.indexOf('https://') !== 0) 
           {
-            d.Link = 'http://' + d.Link;
-          },
+            s = 'http://' + d.Link;
+          }
+          else 
+          {
+           s = d.Link;
+          }
+          return s;
         },
       },
     ]);
