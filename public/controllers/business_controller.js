@@ -97,7 +97,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
             var interfaces = InterfacesSrc.query({ owner: org.Name });
             interfaces.$promise.then(function () {
               $.each(application, function (i, app) {
-                if (app.Owner == org.DisplayName) {
+                if (app.Owner == org.Name) {//org.DisplayName
                   $.each(interfaces, function (i, iface) {
                     if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
                       d3.select("#interfacetab").style("display", "block");
