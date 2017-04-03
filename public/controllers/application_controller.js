@@ -273,19 +273,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		{
           field: 'OwnerShort',
           title: 'Two Letter Org (Short)',
-          sortable: true
-        },
-		{
-          field: 'BusinessPOC',
-          title: 'Business POC',
           sortable: true,
-          visible: false
-        },
-		{
-          field: 'TechnicalPOC',
-          title: 'Technical POC',
-          sortable: true,
-          visible: false
+		  visible: false
         },
 		{
           field: 'System',
