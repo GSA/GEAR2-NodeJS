@@ -94,16 +94,29 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           $scope.orgParent = org.Parent;
 
           application.$promise.then(function () {
-            var interfaces = InterfacesSrc.query({ owner: org.Name });
+            var re = /^.*? -/;
+            var re2 = /\(\w?\)/;
+            if (re2.test(org.Name))
+            {
+              var tempname = re.exec(org.Name);
+              var interfaces = InterfacesSrc.query({ owner: tempname[0] });
+              $scope.tempname = tempname;
+            }
+            else
+            {
+              var interfaces = InterfacesSrc.query({ owner: org.Name });
+              $scope.tempname = org.Name;
+            }
             interfaces.$promise.then(function () {
               $.each(application, function (i, app) {
-                if (app.Owner == org.Name) {//org.DisplayName
+                   // if (app.Owner == org.Name)
+              //   {//org.DisplayName
                   $.each(interfaces, function (i, iface) {
                     if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
                       d3.select("#interfacetab").style("display", "block");
                     }
                   });
-                };
+               // };
               });
             });
           });
