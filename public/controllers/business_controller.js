@@ -937,7 +937,7 @@ $scope.createCapabilityTree = function () {
                 columns: [
 				{
                   field: 'OwnerShort',
-                  title: 'Owner (Short Name)',
+                  title: 'Two Letter Org (Short)',
                   sortable: true,
                 },
 				{
