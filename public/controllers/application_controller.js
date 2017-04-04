@@ -747,7 +747,16 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       });
 
       interfaces.$promise.then(function () {
+/*               $.each(application, function (i, app) {
+                  $.each(interfaces, function (i, iface) {
+                    if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
+                      d3.select("#interfacetab").style("display", "block");
+                    }
+                  });
+               // };
+              });         */
         $scope.interfaces = interfaces;
+        
       });
 
       pocs.$promise.then(function () {
