@@ -135,6 +135,23 @@ class Application extends Model {
         name: 'Notes',
         type: 'string',
       },
+      {
+        name: 'Link',
+        type: 'string',
+        mapping(d)
+        {
+          let s = '';
+          if (d.Link && d.Link.indexOf('http://') !== 0 && d.Link.indexOf('https://') !== 0) 
+          {
+            s = 'http://' + d.Link;
+          }
+          else 
+          {
+           s = d.Link;
+          }
+          return s;
+        },
+      },
     ]);
   }
 }

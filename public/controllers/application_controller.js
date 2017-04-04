@@ -273,19 +273,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		{
           field: 'OwnerShort',
           title: 'Two Letter Org (Short)',
-          sortable: true
-        },
-		{
-          field: 'BusinessPOC',
-          title: 'Business POC',
           sortable: true,
-          visible: false
-        },
-		{
-          field: 'TechnicalPOC',
-          title: 'Technical POC',
-          sortable: true,
-          visible: false
+		  visible: false
         },
 		{
           field: 'System',
@@ -670,8 +659,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  {
             field: 'SSOShort',
             title: 'SSO',
-            sortable: true,
-            visible: false
+            sortable: true 
           },
 		  {
             field: 'Owner',
@@ -740,7 +728,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     technologies = AppTechnologiesSrc.query({ id: appId }),
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
-    interfaces = InterfacesSrc.query({ appId: appId });
+    interfaces = AppInterfacesSrc.query({ id: appId });
 
     application.$promise.then(function (d) {
       // rule is multiple URLs are single string, delimited with a comma
@@ -759,7 +747,16 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       });
 
       interfaces.$promise.then(function () {
+              $.each(application, function (i, app) {
+                  $.each(interfaces, function (i, iface) {
+                    if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
+                      d3.select("#interfacetab").style("display", "block");
+                    }
+                  });
+               // };
+              });        
         $scope.interfaces = interfaces;
+        
       });
 
       pocs.$promise.then(function () {

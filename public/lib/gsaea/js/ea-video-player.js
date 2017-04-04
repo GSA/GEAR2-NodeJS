@@ -20,6 +20,15 @@ ea.videoPlayer = (function (_) {
             duration: '2:02',
             desc: ''
         },
+		{
+            id: 3,
+            name: 'Organization Chart',
+            src: '/media/Demo%20Video%203%20Organization%20Chart%20Final.mp4',
+            poster: '/media/Demo%20Video%203%20Organization%20Chart%20Final.png',
+            vtt: '/media/Demo%20Video%203%20Organization%20Chart%20Final.txt',
+            duration: '1:38',
+            desc: ''
+        },
     ];
 
     // Some templates are static HTML. It made sense to keep all the video
