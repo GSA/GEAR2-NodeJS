@@ -659,8 +659,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  {
             field: 'SSOShort',
             title: 'SSO',
-            sortable: true,
-            visible: false
+            sortable: true 
           },
 		  {
             field: 'Owner',
