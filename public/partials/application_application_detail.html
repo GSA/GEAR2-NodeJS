@@ -159,15 +159,17 @@
                                 <td><i class="fa fa-cog"></i>&nbsp;Parent System</td>
                                 <td>{{ application.System }}</td>
                             </tr>
-                            <tr id="fismasysrow" ng-show="!!application.RelFISMASys.length">
+                            <!-- <tr id="fismasysrow" ng-show="!!application.RelFISMASys.length"> -->
+                            <tr id="fismasysrow" ng-show="!!application.FISMASystem">
                                 <td><i class="fa fa-cog"></i>&nbsp;FISMA System</td>
-                                <td>
-                                    <ul class="list-unstyled">
-                                        <li ng-repeat="fs in application.RelFISMASys">
-                                            {{ fs.Name }}
-                                        </li>
-                                    </ul>
-                                </td>
+                                <td>{{ application.FISMASystem }}</td>
+                                <!-- <td> -->
+                                    <!-- <ul class="list-unstyled"> -->
+                                        <!-- <li ng-repeat="fs in application.FISMASystem">  -->
+                                           <!-- <!-- {{ fs.Name }} --> -->
+                                        <!-- </li> -->
+                                    <!-- </ul> -->
+                                <!-- </td> -->
                             </tr>
                         </table>
                         <br>
