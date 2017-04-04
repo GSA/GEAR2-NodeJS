@@ -728,7 +728,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     technologies = AppTechnologiesSrc.query({ id: appId }),
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
-    interfaces = InterfacesSrc.query({ appId: appId });
+    interfaces = AppInterfacesSrc.query({ id: appId });
 
     application.$promise.then(function (d) {
       // rule is multiple URLs are single string, delimited with a comma
@@ -747,14 +747,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       });
 
       interfaces.$promise.then(function () {
-/*               $.each(application, function (i, app) {
+              $.each(application, function (i, app) {
                   $.each(interfaces, function (i, iface) {
                     if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
                       d3.select("#interfacetab").style("display", "block");
                     }
                   });
                // };
-              });         */
+              });        
         $scope.interfaces = interfaces;
         
       });
