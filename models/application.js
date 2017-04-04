@@ -38,7 +38,7 @@ class Application extends Model {
         type: 'string',
 
       },
-	  {
+      {
         name: 'System',
         type: 'string',
 

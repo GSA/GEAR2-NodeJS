@@ -756,7 +756,7 @@ $scope.createCapabilityTree = function () {
         .data(d._children)
         .enter().append("g")
         .on("contextmenu", function(d){
-          $location.path('/capability/' + d.id);
+          $location.path('/capabilities/' + d.id);
           $scope.$apply();
         });
 
@@ -937,7 +937,7 @@ $scope.createCapabilityTree = function () {
                 columns: [
 				{
                   field: 'OwnerShort',
-                  title: 'Owner (Short Name)',
+                  title: 'Two Letter Org (Short)',
                   sortable: true,
                 },
 				{
