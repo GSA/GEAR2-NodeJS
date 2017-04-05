@@ -948,99 +948,94 @@ $scope.createCapabilityTree = function () {
               //Populate Related Apps Table
               $('#funcappstable').bootstrapTable({
                 columns: [
-				{
+                {
                   field: 'OwnerShort',
                   title: 'Two Letter Org (Short)',
                   sortable: true,
                 },
-				{
+                {
+                  field: 'Owner',
+                  title: 'Two Letter Org (Long)',
+                  sortable: true,
+                  visible: false
+                },
+                {
                   field: 'Name',
                   title: 'Business Application Name',
                   sortable: true
                 },
-				{
+                {
+                  field: 'Alias',
+                  title: 'Alias',
+                  sortable: true,
+                  visible: false
+                },
+                {
                   field: 'ParentSystem',
                   title: 'Parent System',
                   sortable: true,
                   visible: false
                 },
-				{
+                {
                   field: 'Status',
                   title: 'Status',
                   sortable: true
                 },
-				{
+                {
                   field: 'FY14',
                   title: 'FY14',
                   visible: false
                 },
-				{
+                {
                   field: 'FY15',
                   title: 'FY15',
                   visible: false
                 },
-				{
+                {
                   field: 'FY16',
                   title: 'FY16',
                   visible: false
                 },
-				{
+                {
                   field: 'FY17',
                   title: 'FY17'
                 },
-				{
+                {
                   field: 'FY18',
                   title: 'FY18'
                 },
-				{
+                {
                   field: 'FY19',
                   title: 'FY19'
                 },
-				{
+                {
                   field: 'FY20',
                   title: 'FY20'
                 },
-				{
+                {
                   field: 'Notes',
                   title: 'Notes',
                   visible: false
 
                 },
-				{
-					field: 'Alias',
-					title: 'Alias',
-					sortable: true,
-					visible: false
-				},
-				{
-					field: 'BusinessPOC',
-					title: 'Business POC',
-					sortable: true,
-					visible: false
-				},
-				{
-					field: 'TechnicalPOC',
-					title: 'Technical POC',
-					sortable: true,
-					visible: false
-				},
-				{
-					field: 'Owner',
-					title: 'Owner(Long Name)',
-					sortable: true,
-					visible: false
-				},
-				{
-					field: 'Investment',
-					title: 'Related Investments',
-					sortable: true,
-					visible: false
-				}
-				// {
-                  // field: 'Id',
-                  // title: 'Id',
-                  // visible: false
-                // },
+                {
+                  field: 'BusinessPOC',
+                  title: 'Business POC',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'TechnicalPOC',
+                  title: 'Technical POC',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'Investment',
+                  title: 'Related Investments',
+                  sortable: true,
+                  visible: false
+                }
 				],
                 data: applications
               });
