@@ -40,12 +40,12 @@ dashboard.factory('bstSearchUtils', function ($routeParams, $location ) {
       // trigger it's search on load, we are pre-filtering the data
       // ourselves, before Bootstrap Table is initialized
       if (!scope.bstFilter.hasOwnProperty(QUICKSEARCH_PARAM)) {
-        // _.filter() the dataset(i.e. rows) while using for...in to
+        // use _.filter() on the dataset(i.e. rows) while using for...in to
         // check each of the fields(i.e. cols)
         var filteredItems = _.filter(scope.bstData, function (item) {
           var isMatching = false;
           for (var p in scope.bstFilter) {
-            if (typeof item[p] !== 'undefined') {
+            if (typeof item[p] !== 'undefined' && item[p]) {
               isMatching = item[p].toString().toLowerCase()
               .indexOf(scope.bstFilter[p].toLowerCase()) >= 0;
 
