@@ -28,8 +28,12 @@
     <link rel="stylesheet" type="text/css" href="./lib/ea-charts/css/ea-charts.css" />
 
 </head>
+<header>
+<div class="navbar navbar-inverse navbar-fixed-top" id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+</header>
 
 <body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -117,6 +121,7 @@
             </div>
 
             <!-- Render AngularJS views -->
+			<div id = "maincontent">
             <section id="stage" ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"></section>
 
         </div>

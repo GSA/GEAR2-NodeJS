@@ -805,12 +805,19 @@
         }
 
         if (this.options.showPaginationSwitch) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
+            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">', that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize, 
                 this.options.formatPaginationSwitch()),
-                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
+                sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.paginationSwitchDown),
                 '</button>');
         }
 
+		 
+        // html.push(sprintf('<button class="btn btn-default%s' + '" type="button" name="advancedSearch" title="%s">', that.options.formatAdvancedSearch()));
+        // html.push(sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.advancedSearchIcon))
+        // html.push('</button></div>');
+		
+		
+		
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
@@ -828,7 +835,7 @@
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group dropdown" title="%s">',
                 this.options.formatColumns()),
-                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
+                '<button type="button" class="btn btn-default" name="Columns" ' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
