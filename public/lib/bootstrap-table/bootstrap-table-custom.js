@@ -833,9 +833,9 @@
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open btn-group dropdown" title="%s">',
-                this.options.formatColumns()),
-                '<button type="button" class="btn btn-default" name="Columns" ' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
+            html.push(sprintf('<div class="keep-open btn-group dropdown"">',
+                // this.options.formatColumns()),
+                '<button type="button" class="btn btn-default" name="Columns" title="%s" ' + (that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize, that.options.formatColumns()) + ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
