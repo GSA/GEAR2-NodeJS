@@ -805,8 +805,7 @@
         }
 
         if (this.options.showPaginationSwitch) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">', that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize, 
-                this.options.formatPaginationSwitch()),
+            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s" aria-hidden="true" aria-label= "Pagination Switch">', this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.paginationSwitchDown),
                 '</button>');
         }
@@ -833,10 +832,13 @@
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open btn-group dropdown"">',
-                // this.options.formatColumns()),
-                '<button type="button" class="btn btn-default" name="Columns" title="%s" ' + (that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize, that.options.formatColumns()) + ' dropdown-toggle" data-toggle="dropdown">',
-                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
+            html.push(sprintf('<div class="keep-open btn-group dropdown"">'//,
+                //this.options.formatColumns()
+				),
+                //'<button type="button" class="btn btn-default" name="Columns" ' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
+                sprintf('<button type="button" class="btn btn-default" name="Columns" title="%s" aria-hidden=true aria-label= "Columns"',this.options.formatColumns()),
+				' dropdown-toggle" data-toggle="dropdown">',
+				sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
                 '<ul class="dropdown-menu" role="menu">');
@@ -909,7 +911,7 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                sprintf('<input class="form-control' + (this.options.iconSize === undefined ? '' : ' input-' + this.options.iconSize) + '" type="text" placeholder="%s">',
+                sprintf('<input class="form-control' + (this.options.iconSize === undefined ? '' : ' input-' + this.options.iconSize) + '" type="text" aria-lable = "Search" placeholder="%s">',
                     this.options.formatSearch()),
                 '</div>');
 

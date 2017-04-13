@@ -43,7 +43,7 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" ' +
+                        '<button class="btn btn-default dropdown-toggle" aria-hidden=true aria-label= "Export"' +
 						'title="Export" ' +
                             'data-toggle="dropdown" type="button">',
                             '<i class="glyphicon glyphicon-export icon-share"></i> ',
