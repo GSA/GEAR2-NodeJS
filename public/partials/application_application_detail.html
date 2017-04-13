@@ -20,25 +20,25 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active" role="presentation">
                         <a href="#overview-pane" data-toggle="tab"
-                            aria-controls="overview-pane" role="tab" tabindex="0" aria-expanded="true">
+                            aria-controls="overview-pane" role="tab" aria-expanded="true">
                             Overview
                         </a>
                     </li>
                     <li role="presentation">
                         <a href="#business-pane" data-toggle="tab"
-                            aria-controls="business-pane" role="tab" tabindex="-1" aria-expanded="false">
+                            aria-controls="business-pane" role="tab" aria-expanded="false">
                             Business
                         </a>
                     </li>
                     <li role="presentation">
                         <a href="#technology-pane" data-toggle="tab"
-                            aria-controls="technology-pane" role="tab" tabindex="-1" aria-expanded="false">
+                            aria-controls="technology-pane" role="tab" aria-expanded="false">
                             Technology
                         </a>
                     </li>
                     <li role="presentation" ng-show="!!interfaces.length">
                         <a href="#interfaces-pane" data-toggle="tab"
-                            aria-controls="interfaces-pane" role="tab" tabindex="-1"  aria-expanded="false"
+                            aria-controls="interfaces-pane" role="tab" aria-expanded="false"
                             ng-click="createInterfaceSSOChart(application.Id)">
                             Interfaces
                         </a>
@@ -82,16 +82,16 @@
                             <tr>
                                 <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
                                 <td>
-									<ul class="list-unstyled" style="margin-bottom: 0">
-										<li ng-repeat="p in pocs|filter:{Type: 'Business'}">
-											<a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
-										</li>
+                                    <ul class="list-unstyled" style="margin-bottom: 0">
+                                        <li ng-repeat="p in pocs|filter:{Type: 'Business'}">
+                                            <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
+                                        </li>
                                         <li ng-hide="!!pocs.length">
                                             <span ng-hide="!application.BusinessPOC">{{ application.BusinessPOC }}</span>
                                             <span ng-hide="application.BusinessPOC">None Provided</span>
-										</li>
-									</ul>
-								</td>
+                                        </li>
+                                    </ul>
+                                </td>
                             </tr>
                             <tr>
                                 <td><i class="fa fa-money"></i>&nbsp;Related Investment</td>
