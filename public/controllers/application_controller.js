@@ -444,24 +444,24 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Two Letter Org (Long)',
             visible: false,
             sortable: true
-          }, 
+          },
 		  {
             field: 'Alias',
             title: 'Alias',
             sortable: true,
             visible: false
-          }, 
+          },
 		  {
             field: 'Name',
             title: 'Application Name',
             sortable: true
-          }, 
+          },
 		  {
             field: 'ParentSystem',
             title: 'Parent System',
             sortable: true,
             visible: false
-          }, 
+          },
 		  {
             field: 'Status',
             title: 'Status',
@@ -659,7 +659,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  {
             field: 'SSOShort',
             title: 'SSO',
-            sortable: true 
+            sortable: true
           },
 		  {
             field: 'Owner',
@@ -750,13 +750,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               $.each(application, function (i, app) {
                   $.each(interfaces, function (i, iface) {
                     if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
-                      d3.select("#interfacetab").style("display", "block");
+                      d3.select("#interfaces-tab").style("display", "block");
                     }
                   });
                // };
-              });        
+              });
         $scope.interfaces = interfaces;
-        
+
       });
 
       pocs.$promise.then(function () {
