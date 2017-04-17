@@ -1129,6 +1129,16 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			data.push({
 				"App1":val.Name1,
 				"App2":val.Name2,
+				"NameShort1":val.NameShort1,
+				"NameShort2":val.NameShort2,
+				"SSO1":val.SSO1,
+				"SSO2":val.SSO2,
+				"SSOShort1":val.SSOShort1,
+				"SSOShort2":val.SSOShort2,
+				"Owner1":val.Owner1,
+				"Owner2":val.Owner2,
+				"OwnerShort1":val.OwnerShort1,
+				"OwnerShort2":val.OwnerShort2,
 				"count": 1,		
 			})
 			// data.push({
@@ -1137,28 +1147,30 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				// "count": 1,		
 			// })
 		})
-				var mpr = chordMpr(data);
+		var mpr = chordMpr(data);
 
-        mpr
-          .addValuesToMap('App1')
-		  
-          .setFilter(function (row, a, b) {
-            return (row.App1 === a.name && row.App2 === b.name)
-          })
-          .setAccessor(function (recs, a, b) {
-            if (!recs[0]) return 0;
-            return +recs[0].count;
-          });
-        drawChords(mpr.getMatrix(), mpr.getMap());
+			mpr
+			  .addValuesToMap('App1','SSO1')
+			  
+			  .setFilter(function (row, a, b) {
+				return (row.App1 === a.name && row.App2 === b.name)
+			  })
+			  .setAccessor(function (recs, a, b) {
+				if (!recs[0]) return 0;
+				return +recs[0].count;
+			  });
+			drawChords(mpr.getMatrix(), mpr.getMap());
 	//	}) 
 	function drawChords (matrix, mmap) {
         var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
 
-        var fill = d3.scale.ordinal()
-            .domain(d3.range(4))
-            .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
-
-        var chord = d3.layout.chord()
+        // var fill = d3.scale.ordinal()
+            // .domain(d3.range(4))
+            // .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
+		var fill = d3.scale.ordinal()
+            .range(['#c7b570','#c6cdc7','#335c64','#768935','#507282','#5c4a56','#aa7455','#574109','#837722','#73342d','#0a5564','#9c8f57','#7895a4','#4a5456','#b0a690','#0a3542',]);
+        
+		var chord = d3.layout.chord()
             .padding(.02)
             .sortSubgroups(d3.descending)
             .sortChords(d3.descending);
@@ -1204,13 +1216,35 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                   + (d.angle > Math.PI ? "rotate(180)" : "");
             })
             .text(function(d) { return rdr(d).gname; });
+		 //Insert Legend
 
+		 /*  var legend = svg.selectAll(".legend")
+			  .data(fill.domain())
+			  .enter().append("g")
+			  .attr("class", "legend")
+			  .attr("transform", function(d, i) { return "translate(" + w / 4 + "," + h / 4 + ")"; });
+
+			  legend.append("rect")
+			  .attr("x", width - 18)
+			  .attr("width", 18)
+			  .attr("height", 18)
+			  .style("fill", fill);
+
+			  legend.append("text")
+			  .attr("x", width - 24)
+			  .attr("y", 9)
+			  .attr("dy", ".35em")
+			  .style("text-anchor", "end")
+			  .text(function(d) { return d; }); */
+			  
           var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())
               .enter().append("svg:path")
                 .attr("class", "chord")
-                .style("stroke", function(d) { return d3.rgb(fill(d.target.index)).darker(); })
-                .style("fill", function(d) { return fill(d.target.index); })
+				.style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })
+                .style("fill", function(d) { return fill(+rdr(d).sdata.SSO1); })
+                // .style("stroke", function(d) { return d3.rgb(fill(d.target.index)).darker(); })
+                // .style("fill", function(d) { return fill(d.target.index); })
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {
                   d3.select("#tooltip")
@@ -1224,18 +1258,18 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           function chordTip (d) {
             var p = d3.format(".2%"), q = d3.format(",.3r")
             return "Chord Info:<br/>"
-              + p(d.svalue/d.stotal) + " (" + q(d.svalue) + ") of "
-              + d.sname + " prefer " + d.tname
-              + (d.sname === d.tname ? "": ("<br/>while...<br/>"
-              + p(d.tvalue/d.ttotal) + " (" + q(d.tvalue) + ") of "
-              + d.tname + " prefer " + d.sname))
+             // + p(d.svalue/d.stotal) + " (" + q(d.svalue) + ") of "
+              + d.sname + " connects to " + d.tname
+              //+ (d.sname === d.tname ? "": ("<br/>while...<br/>"
+             //+ p(d.tvalue/d.ttotal) + " (" + q(d.tvalue) + ") of "
+              //+ d.tname + " prefer " + d.sname))
           }
 
           function groupTip (d) {
             var p = d3.format(".1%"), q = d3.format(",.3r")
-            return "Group Info:<br/>"
+            return "Application Info:<br/>"
                 + d.gname + " : " + q(d.gvalue) + "<br/>"
-                + p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
+                //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
           function mouseover(d, i) {
