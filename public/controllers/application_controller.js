@@ -1243,15 +1243,15 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 .attr("class", "chord")
 				.style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })
                 .style("fill", function(d) { return fill(+rdr(d).sdata.SSO1); })
-                // .style("stroke", function(d) { return d3.rgb(fill(d.target.index)).darker(); })
-                // .style("fill", function(d) { return fill(d.target.index); })
+                .style("stroke", function(d) { return d3.rgb(fill(d.target.index)).darker(); })
+                .style("fill", function(d) { return fill(d.target.index); })
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {
                   d3.select("#tooltip1")
                     .style("visibility", "visible")
                     .html(chordTip(rdr(d)))
-                    // .style("top", function () { return (d3.event.pageY - 100)+"px"})
-                    // .style("left", function () { return (d3.event.pageX - 100)+"px";})
+                    //.style("top", function () { return (d3.event.pageY - 100)+"px"})
+                    //.style("left", function () { return (d3.event.pageX - 100)+"px";})
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
