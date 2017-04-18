@@ -1272,7 +1272,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           function groupTip (d) {
             var p = d3.format(".1%"), q = d3.format(",.1r")
             return "Application Infomation:<br/>"
-				+ "Long Name: "+ d.gname + " <br/>" 
+				+ "Long Name: "+ d.gnamelong + " <br/>" 
 				//+ " SSO : " d.gdata.SSO1 + " <br/>"
 				+ "Owner: "+ d.gowner + " <br/>"
                 + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"

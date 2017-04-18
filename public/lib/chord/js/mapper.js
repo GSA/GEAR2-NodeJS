@@ -21,7 +21,7 @@ function chordMpr (data) {
        var recs = _.filter(data, function (row) {
           return filter(row, a, b);
         })
-        matrix[a.id][b.id] = accessor(recs, a, b);
+        matrix[a.id][b.id] = isNaN(accessor(recs, a, b))? 0: accessor(recs, a, b);
       });
     });
     return matrix;
