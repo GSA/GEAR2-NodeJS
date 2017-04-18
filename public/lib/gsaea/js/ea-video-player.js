@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 window.ea = window.ea || {};
 
 ea.videoPlayer = (function (_) {
@@ -59,14 +61,15 @@ ea.videoPlayer = (function (_) {
             '<% } %>' +
         '</video>');
     var modalTpl = _.template('' +
-        '<div id="eavp-modal-<%= id %>" class="eavp-modal modal fade" tabindex="-1" role="dialog">' +
+        '<div id="eavp-modal-<%= id %>" class="eavp-modal modal fade" tabindex="-1" ' +
+            'role="dialog" aria-labelledby="modal-title">' +
             '<div class="modal-dialog" role="document">' +
                 '<div class="modal-content">' +
                     '<div class="modal-header">' +
                         '<button type="button" class="close" data-dismiss="modal" ' +
                             'aria-label="Close">' +
                             '<span aria-hidden="true">&times;</span></button>' +
-                        '<h4 class="modal-title"><%= name %></h4>' +
+                        '<h4 id="modal-title" class="modal-title"><%= name %></h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
                     '</div>' +
