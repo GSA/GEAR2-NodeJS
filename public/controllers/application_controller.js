@@ -1261,7 +1261,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
           function chordTip (d) {
             var p = d3.format(".2%"), q = d3.format(",.1r")
-            return "Chord Info:<br/>"
+            return "Interface Data:<br/>"
              // + p(d.svalue/d.stotal) + " (" + q(d.svalue) + ") of "
               + d.sname + " connects to " + d.tname
               //+ (d.sname === d.tname ? "": ("<br/>while...<br/>"
@@ -1290,8 +1290,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             d3.select("#tooltip1")
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
-              // .style("top", function () { return (d3.event.pageY - 80)+"px"})
-              // .style("left", function () { return (d3.event.pageX - 130)+"px";})
+              .style("top", function () { return (d3.event.pageY - 80)+"px"})
+              .style("left", function () { return (d3.event.pageX - 130)+"px";})
 		  
 		  chordPaths.classed("fade", function(p) {
               return p.source.index != i
