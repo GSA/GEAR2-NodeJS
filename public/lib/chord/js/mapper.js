@@ -41,8 +41,30 @@ function chordMpr (data) {
   },
   mpr.addValuesToMap = function (varName, info) {
     var values = _.uniq(_.pluck(data, varName));
+    // var resutls = _.map(
+        // _.where(data,values),
+        // function(datum){
+          // return{SSO: datum.SSO1};
+        // });
+    var len = data.length;
+    var co = 0;
+    var info = {};
     _.map(values, function (v) {
       if (!mmap[v]) {
+        for (co = 0; co < len; co++ )
+        {
+          if (data[co].NameShort1 === v)
+          {
+          info = {
+            "SSO1": data[co].SSO1,
+            "Name1": data[co].Name1,
+            "SSOShort1": data[co].SSOShort1,
+            "Owner1": data[co].Owner1,
+            "OwnerShort1": data[co].OwnerShort1
+            };
+          break;
+          }         
+        }
         mmap[v] = { name: v, id: n++, data: info }
       }
     });

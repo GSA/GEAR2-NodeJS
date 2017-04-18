@@ -1127,8 +1127,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     interfaces.$promise.then(function (populateData) {
 		$.each(interfaces,function(key,val){
 			data.push({
-				"App1":val.Name1,
-				"App2":val.Name2,
+        "Name1":val.Name1,
+				"Name2":val.Name2,
 				"NameShort1":val.NameShort1,
 				"NameShort2":val.NameShort2,
 				"SSO1":val.SSO1,
@@ -1150,10 +1150,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		var mpr = chordMpr(data);
 
 			mpr
-			  .addValuesToMap('App1','SSO1')
+			  .addValuesToMap("NameShort1")//,['NameShort1','Owner1','OwnerShort1','SSO1','SSOShort1'])
 			  
 			  .setFilter(function (row, a, b) {
-				return (row.App1 === a.name && row.App2 === b.name)
+				return (row.NameShort1 === a.name && row.NameShort2 === b.name)
 			  })
 			  .setAccessor(function (recs, a, b) {
 				if (!recs[0]) return 0;
@@ -1197,7 +1197,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           .enter().append("svg:g")
             .attr("class", "group")
             .on("mouseover", mouseover)
-            .on("mouseout", function (d) { d3.select("#tooltip").style("visibility", "hidden") });
+            .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
         g.append("svg:path")
             .style("stroke", "black")
@@ -1247,13 +1247,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 // .style("fill", function(d) { return fill(d.target.index); })
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {
-                  d3.select("#tooltip")
+                  d3.select("#tooltip1")
                     .style("visibility", "visible")
                     .html(chordTip(rdr(d)))
-                    .style("top", function () { return (d3.event.pageY - 100)+"px"})
-                    .style("left", function () { return (d3.event.pageX - 100)+"px";})
+                    // .style("top", function () { return (d3.event.pageY - 100)+"px"})
+                    // .style("left", function () { return (d3.event.pageX - 100)+"px";})
                 })
-                .on("mouseout", function (d) { d3.select("#tooltip").style("visibility", "hidden") });
+                .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
           function chordTip (d) {
             var p = d3.format(".2%"), q = d3.format(",.3r")
@@ -1273,11 +1273,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           }
 
           function mouseover(d, i) {
-            d3.select("#tooltip")
+            d3.select("#tooltip1")
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
-              .style("top", function () { return (d3.event.pageY - 80)+"px"})
-              .style("left", function () { return (d3.event.pageX - 130)+"px";})
+              // .style("top", function () { return (d3.event.pageY - 80)+"px"})
+              // .style("left", function () { return (d3.event.pageX - 130)+"px";})
 
             chordPaths.classed("fade", function(p) {
               return p.source.index != i
