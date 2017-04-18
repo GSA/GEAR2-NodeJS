@@ -41,11 +41,6 @@ function chordMpr (data) {
   },
   mpr.addValuesToMap = function (varName, info) {
     var values = _.uniq(_.pluck(data, varName));
-    // var resutls = _.map(
-        // _.where(data,values),
-        // function(datum){
-          // return{SSO: datum.SSO1};
-        // });
     var len = data.length;
     var co = 0;
     var info = {};
@@ -83,16 +78,32 @@ function chordRdr (matrix, mmap) {
       s = _.where(mmap, {id: i });
       t = _.where(mmap, {id: j });
       m.sname = s[0].name;
+	  m.ssso = s[0].data.SSO1;
+	  m.snamelong = s[0].data.Name1;
+	  m.sssoshort = s[0].data.SSOShort1;
+	  m.sowner = s[0].data.Owner1;
+	  m.sownershort = s[0].data.OwnerShort1;
       m.sdata = d.source.value;
       m.svalue = +d.source.value;
       m.stotal = _.reduce(matrix[i], function (k, n) { return k + n }, 0);
       m.tname = t[0].name;
+	  m.tsso = t[0].data.SSO1;
+	  m.tnamelong = t[0].data.Name1;
+	  m.tssoshort = t[0].data.SSOShort1;
+	  m.towner = t[0].data.Owner1;
+	  m.townershort = t[0].data.OwnerShort1;
       m.tdata = d.target.value;
       m.tvalue = +d.target.value;
       m.ttotal = _.reduce(matrix[j], function (k, n) { return k + n }, 0);
     } else {
       g = _.where(mmap, {id: d.index });
       m.gname = g[0].name;
+	  m.gname = g[0].name;
+	  m.gsso = g[0].data.SSO1;
+	  m.gnamelong = g[0].data.Name1;
+	  m.gssoshort = g[0].data.SSOShort1;
+	  m.gowner = g[0].data.Owner1;
+	  m.gownershort = g[0].data.OwnerShort1;
       m.gdata = g[0].data;
       m.gvalue = d.value;
     }

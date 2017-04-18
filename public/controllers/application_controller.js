@@ -1250,13 +1250,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                   d3.select("#tooltip1")
                     .style("visibility", "visible")
                     .html(chordTip(rdr(d)))
-                    //.style("top", function () { return (d3.event.pageY - 100)+"px"})
-                    //.style("left", function () { return (d3.event.pageX - 100)+"px";})
+                    .style("top", function () { return (d3.event.pageY - 100)+"px"})
+                    .style("left", function () { return (d3.event.pageX - 100)+"px";})
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
           function chordTip (d) {
-            var p = d3.format(".2%"), q = d3.format(",.3r")
+            var p = d3.format(".2%"), q = d3.format(",.1r")
             return "Chord Info:<br/>"
              // + p(d.svalue/d.stotal) + " (" + q(d.svalue) + ") of "
               + d.sname + " connects to " + d.tname
@@ -1266,9 +1266,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           }
 
           function groupTip (d) {
-            var p = d3.format(".1%"), q = d3.format(",.3r")
-            return "Application Info:<br/>"
-                + d.gname + " : " + q(d.gvalue) + "<br/>"
+            var p = d3.format(".1%"), q = d3.format(",.1r")
+            return "Application Infomation:<br/>"
+				+ "Long Name: "+ d.gname + " <br/>" 
+				//+ " SSO : " d.gdata.SSO1 + " <br/>"
+				+ "Owner: "+ d.gowner + " <br/>"
+                + d.gname + " Connects to : " + q(d.gvalue) + " other Applications <br/>"
                 //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
