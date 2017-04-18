@@ -1275,7 +1275,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				+ "Long Name: "+ d.gname + " <br/>" 
 				//+ " SSO : " d.gdata.SSO1 + " <br/>"
 				+ "Owner: "+ d.gowner + " <br/>"
-                + d.gname + " Connects to : " + q(d.gvalue) + " other Applications <br/>"
+                + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"
                 //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
