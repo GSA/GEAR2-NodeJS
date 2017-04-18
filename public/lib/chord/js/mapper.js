@@ -51,7 +51,8 @@ function chordMpr (data) {
           if (data[co].NameShort1 === v)
           {
           info = {
-            "SSO1": data[co].SSO1,
+            "id1": data[co].AppID1,
+			"SSO1": data[co].SSO1,
             "Name1": data[co].Name1,
             "SSOShort1": data[co].SSOShort1,
             "Owner1": data[co].Owner1,
@@ -79,6 +80,7 @@ function chordRdr (matrix, mmap) {
       t = _.where(mmap, {id: j });
       m.sname = s[0].name;
 	  m.ssso = s[0].data.SSO1;
+	  m.sid = s[0].data.id1;
 	  m.snamelong = s[0].data.Name1;
 	  m.sssoshort = s[0].data.SSOShort1;
 	  m.sowner = s[0].data.Owner1;
@@ -87,6 +89,7 @@ function chordRdr (matrix, mmap) {
       m.svalue = +d.source.value;
       m.stotal = _.reduce(matrix[i], function (k, n) { return k + n }, 0);
       m.tname = t[0].name;
+	  m.tid = t[0].data.id1;
 	  m.tsso = t[0].data.SSO1;
 	  m.tnamelong = t[0].data.Name1;
 	  m.tssoshort = t[0].data.SSOShort1;
@@ -98,7 +101,7 @@ function chordRdr (matrix, mmap) {
     } else {
       g = _.where(mmap, {id: d.index });
       m.gname = g[0].name;
-	  m.gname = g[0].name;
+	  m.gid = g[0].data.id1;
 	  m.gsso = g[0].data.SSO1;
 	  m.gnamelong = g[0].data.Name1;
 	  m.gssoshort = g[0].data.SSOShort1;

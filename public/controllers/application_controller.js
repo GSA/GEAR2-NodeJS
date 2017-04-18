@@ -1127,7 +1127,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     interfaces.$promise.then(function (populateData) {
 		$.each(interfaces,function(key,val){
 			data.push({
-        "Name1":val.Name1,
+				"AppID1":val.AppID1,
+				"AppID2":val.AppID2,
+				"Name1":val.Name1,
 				"Name2":val.Name2,
 				"NameShort1":val.NameShort1,
 				"NameShort2":val.NameShort2,
@@ -1162,7 +1164,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			drawChords(mpr.getMatrix(), mpr.getMap());
 	//	}) 
 	function drawChords (matrix, mmap) {
-        var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
+		var w = 880, h = 700, r1 = h / 2, r0 = r1 - 100;
+	   // var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
 
         // var fill = d3.scale.ordinal()
             // .domain(d3.range(4))
@@ -1197,7 +1200,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           .enter().append("svg:g")
             .attr("class", "group")
             .on("mouseover", mouseover)
-            .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
+            .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") })
+			.on("click", mouseclick);
 
         g.append("svg:path")
             .style("stroke", "black")
@@ -1275,14 +1279,21 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
+		  function mouseclick(d) {
+			  var appid = rdr(d).gid;
+				$location.path('/applications/' + appid);
+				$scope.$apply();
+				}
+          
+		  
           function mouseover(d, i) {
             d3.select("#tooltip1")
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
               // .style("top", function () { return (d3.event.pageY - 80)+"px"})
               // .style("left", function () { return (d3.event.pageX - 130)+"px";})
-
-            chordPaths.classed("fade", function(p) {
+		  
+		  chordPaths.classed("fade", function(p) {
               return p.source.index != i
                   && p.target.index != i;
             });
