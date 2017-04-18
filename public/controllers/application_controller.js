@@ -1249,7 +1249,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 .on("mouseover", function (d) {
                   d3.select("#tooltip1")
                     .style("visibility", "visible")
-                    .html(chordTip(rdr(d)))
+                    .html(chordTip(rdr(d)))//controls whether the tips are moving or not
                     .style("top", function () { return (d3.event.pageY - 100)+"px"})
                     .style("left", function () { return (d3.event.pageX - 100)+"px";})
                 })
