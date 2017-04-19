@@ -805,9 +805,9 @@
         }
 
         if (this.options.showPaginationSwitch) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
+            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">', that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize,
                 this.options.formatPaginationSwitch()),
-                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
+                sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.paginationSwitchDown),
                 '</button>');
         }
 
@@ -826,9 +826,9 @@
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open btn-group dropdown" title="%s">',
-                this.options.formatColumns()),
-                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
+            html.push(sprintf('<div class="keep-open btn-group dropdown"">',
+                // this.options.formatColumns()),
+                '<button type="button" class="btn btn-default" name="Columns" title="%s" ' + (that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize, that.options.formatColumns()) + ' dropdown-toggle" data-toggle="dropdown">',
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span class="caret"></span>',
                 '</button>',
