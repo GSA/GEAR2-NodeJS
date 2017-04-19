@@ -41,6 +41,23 @@ function chordMpr (data) {
   },
   mpr.addValuesToMap = function (varName, info) {
     var values = _.uniq(_.pluck(data, varName));
+    var values2 = _.uniq(_.pluck(data, "NameShort2"));
+    var indx = -1;
+    var aa = 0;
+    var bb = 0;
+    if (values2.length >= values.length)
+    {
+      for (aa = 0;aa<values2.length;aa++){
+        for (bb = 0; bb< values.length;bb++)
+        { if (values2[aa] ===values[bb])
+          { indx = 1;
+            break;}
+          else continue;
+        }
+        if (indx === -1)
+          values.push(values2[aa]);
+      }
+    }
     var len = data.length;
     var co = 0;
     var info = {};

@@ -1143,11 +1143,23 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				"OwnerShort2":val.OwnerShort2,
 				"count": 1,		
 			})
-			// data.push({
-				// "App1":val.Name2,
-				// "App2":val.Name1,
-				// "count": 1,		
-			// })
+			 // data.push({
+				// "AppID1":val.AppID2,
+				// "AppID2":val.AppID1,
+				// "Name1":val.Name2,
+				// "Name2":val.Name1,
+				// "NameShort1":val.NameShort2,
+				// "NameShort2":val.NameShort1,
+				// "SSO1":val.SSO2,
+				// "SSO2":val.SSO1,
+				// "SSOShort1":val.SSOShort2,
+				// "SSOShort2":val.SSOShort1,
+				// "Owner1":val.Owner2,
+				// "Owner2":val.Owner1,
+				// "OwnerShort1":val.OwnerShort2,
+				// "OwnerShort2":val.OwnerShort1,
+				// "count": 0,
+			 // })
 		})
 		var mpr = chordMpr(data);
 
@@ -1155,7 +1167,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .addValuesToMap("NameShort1")//,['NameShort1','Owner1','OwnerShort1','SSO1','SSOShort1'])
 			  
 			  .setFilter(function (row, a, b) {
-				return (row.NameShort1 === a.name && row.NameShort2 === b.name)
+          // var fil;
+				  // if (row.NameShort1 === a.name && row.NameShort2 === b.name)
+            // fil = 1;
+          // else if (row.NameShort2 === a.name && row.NameShort1 === b.name)
+            // fil = 0.1;
+          // else
+              // fil = 0;
+            return (row.NameShort1 === a.name && row.NameShort2 === b.name);
 			  })
 			  .setAccessor(function (recs, a, b) {
 				if (!recs[0]) return 0;
