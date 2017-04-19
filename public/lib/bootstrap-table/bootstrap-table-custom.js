@@ -831,10 +831,8 @@
         if (this.options.showColumns) {
             var label = this.options.formatColumns()
             html.push(sprintf('<div class="keep-open btn-group dropdown">'),
-                sprintf('<button id="bstShowColumns" type="button" class="btn btn-default' +
-                    (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) +
-                    ' aria-haspopup="true" aria-expanded="false"' +
-                    ' dropdown-toggle" data-toggle="dropdown">'),
+                '<button id="bstShowColumns" type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown"' +
+                    ' aria-haspopup="true" aria-expanded="false" >',
                 sprintf('<i aria-hidden="true" class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 ' <span aria-hidden="true" class="caret"></span>',
                 ' <span class="sr-only">' + label + '</span>',
