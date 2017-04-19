@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * MODIFIED BY MLD
  * 1. fix filterBy function to handle "OR" condition with Array
@@ -805,8 +807,9 @@
         }
 
         if (this.options.showPaginationSwitch) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
-                this.options.formatPaginationSwitch()),
+            var label = this.options.formatPaginationSwitch();
+            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" aria-label="%s" title="%s">',
+                label, label),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
                 '</button>');
         }
@@ -826,13 +829,15 @@
         }
 
         if (this.options.showColumns) {
-            html.push(sprintf('<div class="keep-open btn-group dropdown" title="%s">',
-                this.options.formatColumns()),
-                '<button type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
-                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
-                ' <span class="caret"></span>',
+            var label = this.options.formatColumns()
+            html.push(sprintf('<div class="keep-open btn-group dropdown">'),
+                '<button id="bstShowColumns" type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown"' +
+                    ' aria-haspopup="true" aria-expanded="false" >',
+                sprintf('<i aria-hidden="true" class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
+                ' <span aria-hidden="true" class="caret"></span>',
+                ' <span class="sr-only">' + label + '</span>',
                 '</button>',
-                '<ul class="dropdown-menu" role="menu">');
+                '<ul class="dropdown-menu" aria-labelledby="bstShowColumns">');
 
             $.each(this.options.columns, function (i, column) {
                 if (column.radio || column.checkbox) {
@@ -902,7 +907,7 @@
             html = [];
             html.push(
                 '<div class="pull-' + this.options.searchAlign + ' search">',
-                sprintf('<input class="form-control' + (this.options.iconSize === undefined ? '' : ' input-' + this.options.iconSize) + '" type="text" placeholder="%s">',
+                sprintf('<input class="form-control' + (this.options.iconSize === undefined ? '' : ' input-' + this.options.iconSize) + '" type="text" aria-label="Search" placeholder="%s">',
                     this.options.formatSearch()),
                 '</div>');
 
