@@ -1167,13 +1167,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .addValuesToMap("NameShort1")//,['NameShort1','Owner1','OwnerShort1','SSO1','SSOShort1'])
 			  
 			  .setFilter(function (row, a, b) {
-          // var fil;
-				  // if (row.NameShort1 === a.name && row.NameShort2 === b.name)
-            // fil = 1;
-          // else if (row.NameShort2 === a.name && row.NameShort1 === b.name)
-            // fil = 0.1;
-          // else
-              // fil = 0;
             return (row.NameShort1 === a.name && row.NameShort2 === b.name);
 			  })
 			  .setAccessor(function (recs, a, b) {
@@ -1185,36 +1178,41 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 	function drawChords (matrix, mmap) {
 		var w = 880, h = 700, r1 = h / 2, r0 = r1 - 100;
 	   // var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
+		var color = d3.scale.category20();
+    var fill = d3.scale.ordinal()
+                 .range(['#393b79','#5254a3','#6b6ecf','#9c9ede','#637939','#8ca252','#b5cf6b','#cedb9c','#8c6d31','#bd9e39','#e7ba52','#e7cb94','#843c39','#ad494a','#d6616b','#e7969c','#7b4173','#a55194','#ce6dbd','#de9ed6',])
+            // .range(['#c7b570','#c6cdc7','#335c64','#768935','#507282','#5c4a56','#aa7455','#574109','#837722','#73342d','#0a5564','#9c8f57','#7895a4','#4a5456','#b0a690','#0a3542',]);
+      var chord = d3.layout.chord()
+                    .sortSubgroups(d3.descending)
+                    .sortChords(d3.descending);  
+      
+      var mmapsize = mpr.size(mmap);
+      if(mmapsize <=2){
+           chord.padding(2);}
+      else{
+            chord.padding(.02);}
 
-        // var fill = d3.scale.ordinal()
-            // .domain(d3.range(4))
-            // .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
-		var fill = d3.scale.ordinal()
-            .range(['#c7b570','#c6cdc7','#335c64','#768935','#507282','#5c4a56','#aa7455','#574109','#837722','#73342d','#0a5564','#9c8f57','#7895a4','#4a5456','#b0a690','#0a3542',]);
-        
-		var chord = d3.layout.chord()
-            .padding(.02)
-            .sortSubgroups(d3.descending)
-            .sortChords(d3.descending);
-
-        var arc = d3.svg.arc()
+      var arc = d3.svg.arc()
             .innerRadius(r0)
             .outerRadius(r0 + 20);
-
-        var svg = d3.select("#interfacessochart").append("svg:svg")
+      
+      var svg = d3.select("#interfacessochart").append("svg:svg")
             .attr("width", w)
             .attr("height", h)
-          .append("svg:g")
+            .append("svg:g")
             .attr("id", "circle")
             .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+      
+      if(mmapsize <=2){
+            svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
 
             svg.append("circle")
                 .attr("r", r0 + 20);
 
-        var rdr = chordRdr(matrix, mmap);
-        chord.matrix(matrix);
+      var rdr = chordRdr(matrix, mmap);
+      chord.matrix(matrix);
 
-        var g = svg.selectAll("g.group")
+      var g = svg.selectAll("g.group")
             .data(chord.groups())
           .enter().append("svg:g")
             .attr("class", "group")
@@ -1232,6 +1230,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             .attr("dy", ".35em")
             .style("font-family", "helvetica, arial, sans-serif")
             .style("font-size", "10px")
+            .style("font-weight", "bold")
             .attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
             .attr("transform", function(d) {
               return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
@@ -1274,7 +1273,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                     .style("visibility", "visible")
                     .html(chordTip(rdr(d)))//controls whether the tips are moving or not
                     .style("top", function () { return (d3.event.pageY - 100)+"px"})
-                    .style("left", function () { return (d3.event.pageX - 100)+"px";})
+                    .style("left", function () { return (d3.event.pageX-w/2)+"px";})
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
@@ -1309,8 +1308,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             d3.select("#tooltip1")
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
-              .style("top", function () { return (d3.event.pageY - 80)+"px"})
-              .style("left", function () { return (d3.event.pageX - 130)+"px";})
+              .style("top", function () { return (d3.event.y - 80)+"px"})//d3.event.pageY
+              .style("left", function () { return (d3.event.x-w/2)+"px";})//d3.event.pageX
 		  
 		  chordPaths.classed("fade", function(p) {
               return p.source.index != i

@@ -5,6 +5,14 @@ function chordMpr (data) {
   var mpr = {}, mmap = {}, n = 0,
       matrix = [], filter, accessor;
 
+  mpr.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+  },
+
   mpr.setFilter = function (fun) {
     filter = fun;
     return this;
@@ -39,6 +47,7 @@ function chordMpr (data) {
       mmap[value] = { name: value, id: n++, data: info }
     }
   },
+ 
   mpr.addValuesToMap = function (varName, info) {
     var values = _.uniq(_.pluck(data, varName));
     var values2 = _.uniq(_.pluck(data, "NameShort2"));
