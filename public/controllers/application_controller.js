@@ -1265,8 +1265,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 .attr("class", "chord")
 				.style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })
                 .style("fill", function(d) { return fill(+rdr(d).sdata.SSO1); })
-                .style("stroke", function(d) { return d3.rgb(fill(d.target.index)).darker(); })
-                .style("fill", function(d) { return fill(d.target.index); })
+                .style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
+                .style("fill", function(d) { return fill(d.source.index); })
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {
                   d3.select("#tooltip1")
