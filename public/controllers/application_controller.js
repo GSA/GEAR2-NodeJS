@@ -1222,7 +1222,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
         g.append("svg:path")
             .style("stroke", "black")
-            .style("fill", function(d) { return fill(d.index); })
+            .style("fill", function(d) { return fill(rdr(d).gowner); })//d.index  //group color control, colored by owner 2 letter office
             .attr("d", arc);
 
         g.append("svg:text")
@@ -1261,12 +1261,15 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  
           var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())
-              .enter().append("svg:path")
+				.enter().append("svg:path")
                 .attr("class", "chord")
-				.style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })
-                .style("fill", function(d) { return fill(+rdr(d).sdata.SSO1); })
-                .style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
-                .style("fill", function(d) { return fill(d.source.index); })
+				.style("stroke-opacity", .4) // set the stroke opacity
+				.style("stroke", "#3182bd")      // set the line colour, #3182bd seems GSA Blue
+				.style("fill", "#c6dbef")      // set the fill colour
+				// .style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })//+rdr(d).sdata.SSO1)
+                // .style("fill", function(d) { return fill(+rdr(d).sdata.SSO1); })//+rdr(d).sdata.SSO1)
+                // .style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
+                // .style("fill", function(d) { return fill(d.source.index); })
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {
                   d3.select("#tooltip1")
