@@ -5,7 +5,7 @@ class ITStandardsModel extends Model {
     super(f);
     this.fields = [
       {
-        name: 'Id',
+        name: 'ID',
         type: 'int',
         mapping(data) {
           return data.ID;
@@ -57,7 +57,17 @@ class ITStandardsModel extends Model {
       {
         name: 'ReferenceDocuments',
         type: 'string',
-
+        mapping(d)
+        {
+          let s = '';
+          if(d.ReferenceDocuments){
+            s = "<a href=" + "'" + d.ReferenceDocuments + "'" + "target = '_blank'>" + d.ReferenceDocuments + "</a>"
+          }
+          else{
+            s = d.ReferenceDocuments;
+          }
+          return s;
+        },
       },
       {
         name: 'ApprovalExpirationDate',

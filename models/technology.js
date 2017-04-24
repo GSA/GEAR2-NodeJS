@@ -8,7 +8,7 @@ class TechnologyModel extends Model {
         name: 'Id',
         type: 'string',
         mapping(data) {
-          return data.TechID;
+          return data.ID;
         },
       },
       {
@@ -31,6 +31,14 @@ class TechnologyModel extends Model {
         mapping(data) {
           return data.Status;
         },
+      },
+	  {
+        name: 'Expiration',
+        type: 'string',
+      },
+	  {
+        name: 'Category',
+        type: 'string',
       },
     ];
   }

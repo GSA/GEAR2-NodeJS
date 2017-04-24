@@ -2,19 +2,25 @@ const AppStore = require('../stores/application');
 const CapStore = require('../stores/capability');
 const TechStore = require('../stores/technology');
 const POCStore = require('../stores/poc');
+const InterfaceStore = require('../stores/interface');
 
 const appStore = new AppStore();
 const capStore = new CapStore();
 const techStore = new TechStore();
 const pocStore = new POCStore();
+const interfaceStore = new InterfaceStore();
 
 function findAll(req, res) {
   let fields = '*';
+  let filter = '';
 
   if (Object.hasOwnProperty.call(req.query, 'fields')) {
     fields = req.query.fields;
   }
-  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite()`, (results) => {
+  if (Object.hasOwnProperty.call(req.query, 'ownerName')) {
+    filter = ` WHERE SSOShort LIKE '%${req.query.ownerName}%'`;
+  }
+  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite() ${filter}`, (results) => {
     res.json(results);
   });
 }
@@ -38,7 +44,14 @@ function findTechnologies(req, res) {
 }
 
 function findPOCs(req, res) {
-  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('a') WHERE ObjID = ${req.params.id}`, (results) => {
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('a') WHERE ID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
+}
+
+function findInterfaces(req, res) {
+  interfaceStore.query(`SELECT * FROM SAODS.udfGetAppInterfaces()
+    WHERE AppID1 = ${req.params.id} or AppID2 = ${req.params.id}`, (results) => {
     res.json(results);
   });
 }
@@ -47,6 +60,7 @@ module.exports = {
   findCapabilities,
   findTechnologies,
   findPOCs,
+  findInterfaces,
   findAll,
   findOne,
 };

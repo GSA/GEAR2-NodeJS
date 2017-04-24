@@ -1,6 +1,11 @@
+/* eslint-disable */
+
 window.ea = window.ea || {};
 
 ea.videoPlayer = (function (_) {
+    // override defaults
+    videojs.options.autoplay = false;
+
     var metadata = [
         {
             id: 1,
@@ -18,6 +23,15 @@ ea.videoPlayer = (function (_) {
             poster: '/media/Navigating%20the%20GEAR%20Homepage.png',
             vtt: '/media/Navigating%20the%20GEAR%20Homepage.txt',
             duration: '2:02',
+            desc: ''
+        },
+		{
+            id: 3,
+            name: 'Organization Chart',
+            src: '/media/Demo%20Video%203%20Organization%20Chart%20Final.mp4',
+            poster: '/media/Demo%20Video%203%20Organization%20Chart%20Final.png',
+            vtt: '/media/Demo%20Video%203%20Organization%20Chart%20Final.txt',
+            duration: '1:38',
             desc: ''
         },
     ];
@@ -40,24 +54,24 @@ ea.videoPlayer = (function (_) {
         '</a>');
     var playerTpl = _.template('' +
         '<video id="ea-video-<%= id %>" data-video-name="<%= name %>" class="video-js" ' +
-            'controls="controls" preload="false" ' +
-            '<% if (ctx === "side-submenu-vids") { %>autoplay <% } %>' +
+            'controls="controls" preload="true" ' +
             'poster="<%= poster %>" data-setup="{}" width="480" height="360">' +
             '<source src="<%= src %>" type="video/mp4" />' +
             '<% if (typeof vtt !== "undefined") { %>' +
             '<track kind="captions" src="<%= vtt %>" srclang="en" ' +
-                'label="English" default="default" />' +
+                'label="English" />' +
             '<% } %>' +
         '</video>');
     var modalTpl = _.template('' +
-        '<div id="eavp-modal-<%= id %>" class="eavp-modal modal fade" tabindex="-1" role="dialog">' +
+        '<div id="eavp-modal-<%= id %>" class="eavp-modal modal fade" tabindex="-1" ' +
+            'role="dialog">' +
             '<div class="modal-dialog" role="document">' +
                 '<div class="modal-content">' +
                     '<div class="modal-header">' +
                         '<button type="button" class="close" data-dismiss="modal" ' +
                             'aria-label="Close">' +
                             '<span aria-hidden="true">&times;</span></button>' +
-                        '<h4 class="modal-title"><%= name %></h4>' +
+                        '<h4 id="modal-title" class="modal-title"><%= name %></h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
                     '</div>' +
@@ -225,10 +239,6 @@ ea.videoPlayer = (function (_) {
                 if (!$('body').hasClass(stateClass)) {
                     if (typeof ga !== 'undefined') {
                         ga('send', 'event', gaContext, gaEvent, gaVideoAction);
-                    } else {
-                        console.log('SIMULATE GA EVENT:');
-                        console.log("ga('send', 'event', '%s', '%s', '%s')",
-                            gaContext, gaEvent, gaVideoAction);
                     }
                     $('body').addClass(stateClass);
                 }
@@ -237,7 +247,6 @@ ea.videoPlayer = (function (_) {
                 $('body').removeClass(e.target.id + '-ended');
             })
             .on('ended', function (e) {
-                console.log('ENDED!', e);
                 var stateClass = e.target.id + '-ended',
                     gaEvent = 'finish',
                     gaVideoAction = $(e.target).data('video-name') + '-end',
@@ -251,10 +260,6 @@ ea.videoPlayer = (function (_) {
 
                     if (typeof ga !== 'undefined') {
                         ga('send', 'event', gaContext, gaEvent, gaVideoAction);
-                    } else {
-                        console.log('SIMULATE GA EVENT:');
-                        console.log("ga('send', 'event', '%s', '%s', '%s')",
-                            gaContext, gaEvent, gaVideoAction);
                     }
                     $('body').addClass(stateClass);
                 }

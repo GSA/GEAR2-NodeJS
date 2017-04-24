@@ -1,17 +1,17 @@
-/* jshint node:true */
+const express = require('express');
+const sysCtrl = require('../../controllers/parentsystem');
 
-var express = require('express');
-var orgCtrl = require('../../controllers/parentsystem');
-
-console.log('Parent System routes loaded');
-
-var router = express.Router();
+const router = express.Router();
 
 router.route('/')
-    
-    .get(orgCtrl.findAll);
- 
+    .get(sysCtrl.findAll);
+
 router.route('/:id')
-    .get(orgCtrl.findOne);
+    .get(sysCtrl.findOne);
+	
+// children
+router.route('/:id/applications/')
+    .get(sysCtrl.findApplications);
+	
 
 module.exports = router;

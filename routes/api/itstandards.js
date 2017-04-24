@@ -1,17 +1,17 @@
-/* jshint node:true */
+const express = require('express');
+const itsCtrl = require('../../controllers/itstandards');
 
-var express = require('express');
-var itsCtrl = require('../../controllers/itstandards');
-
-console.log('itstandards routes loaded');
-
-var router = express.Router();
+const router = express.Router();
 
 router.route('/')
-    
     .get(itsCtrl.findAll);
- 
+
 router.route('/:id')
     .get(itsCtrl.findOne);
+
+// children
+router.route('/:id/applications/')
+    .get(itsCtrl.findApplications);
+
 
 module.exports = router;

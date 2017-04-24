@@ -1,14 +1,14 @@
 const Model = require('./model');
 
-class POCModel extends Model {
+class InvestmentModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
       {
-        name: 'ParentId',
+        name: 'ID',
         type: 'string',
-        mapping(data) {
-          return data.ID || data.ObjID;
+        mapping(o) {
+          return o.ID;
         },
       },
       {
@@ -16,30 +16,31 @@ class POCModel extends Model {
         type: 'string',
       },
       {
-        name: 'Phone',
-        type: 'string',
-      },
-      {
-        name: 'Email',
-        type: 'string',
-      },
-      {
-        name: 'Owner',
-        type: 'string',
-      },
-      {
-        name: 'OwnerShort',
+        name: 'Description',
         type: 'string',
       },
       {
         name: 'Type',
         type: 'string',
-        mapping(data) {
-          return data['POC Type'];
-        },
+      },
+      {
+        name: 'PSA',
+        type: 'string',
+      },
+      {
+        name: 'SSA',
+        type: 'string',
+      },
+      {
+        name: 'InvManager',
+        type: 'string',
+      },
+      {
+        name: 'UII',
+        type: 'string',
       },
     ];
   }
 }
 
-module.exports = POCModel;
+module.exports = InvestmentModel;

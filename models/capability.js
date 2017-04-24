@@ -1,6 +1,6 @@
 const Model = require('./model');
 
-class CapabilityModel extends Model {
+class CapModel extends Model {
   constructor(f) {
     super(f);
     this.fields = [
@@ -8,32 +8,48 @@ class CapabilityModel extends Model {
         name: 'Id',
         type: 'string',
         mapping(data) {
-          return data.CapID;
+          return data.CapID || data.ID;
         },
       },
       {
         name: 'Name',
         type: 'string',
-        mapping(data) {
-          return data.Name;
-        },
       },
       {
         name: 'Description',
         type: 'string',
-        mapping(data) {
-          return data.Description;
-        },
+      },
+      {
+        name: 'Parent',
+        type: 'string',
+      },
+      {
+        name: 'ReferenceNum',
+        type: 'string',
+      },
+      // next 3 fields are used by cap visualization
+      {
+        name: 'AppCount',
+        type: 'string',
+      },
+      {
+        name: 'RefNum',
+        type: 'string',
+      },
+      {
+        name: 'ParRefNum',
+        type: 'string',
       },
       {
         name: 'Ref',
         type: 'string',
-        mapping(data) {
-          return data.Ref;
-        },
+      },
+      {
+        name: 'ParentCap',
+        type: 'string',
       },
     ];
   }
 }
 
-module.exports = CapabilityModel;
+module.exports = CapModel;

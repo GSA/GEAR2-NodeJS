@@ -8,7 +8,7 @@ class OrganizationModel extends Model {
         name: 'Id',
         type: 'int',
         mapping(data) {
-          return data.OrgID;
+          return data.ID || data.OrgID;
         },
       },
       {

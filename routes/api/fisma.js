@@ -1,17 +1,22 @@
-/* jshint node:true */
+const express = require('express');
+const fismaCtrl = require('../../controllers/fisma');
 
-var express = require('express');
-var fismaCtrl = require('../../controllers/fisma');
-
-console.log('FISMA routes loaded');
-
-var router = express.Router();
+const router = express.Router();
 
 router.route('/')
-    
     .get(fismaCtrl.findAll);
- 
+
 router.route('/:id')
     .get(fismaCtrl.findOne);
+
+// children
+router.route('/:id/applications/')
+    .get(fismaCtrl.findApplications);
+
+router.route('/pocs')
+    .get(fismaCtrl.findPOCs);
+
+router.route('/:id/pocs')
+    .get(fismaCtrl.findPOCs);
 
 module.exports = router;
