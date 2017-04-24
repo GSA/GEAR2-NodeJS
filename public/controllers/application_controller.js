@@ -1178,9 +1178,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 	function drawChords (matrix, mmap) {
 		var w = 880, h = 700, r1 = h / 2, r0 = r1 - 100;
 	   // var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
-		var color = d3.scale.category20();
+		var color = d3.scale.category20b();
     var fill = d3.scale.ordinal()
-                 .range(['#393b79','#5254a3','#6b6ecf','#9c9ede','#637939','#8ca252','#b5cf6b','#cedb9c','#8c6d31','#bd9e39','#e7ba52','#e7cb94','#843c39','#ad494a','#d6616b','#e7969c','#7b4173','#a55194','#ce6dbd','#de9ed6',])
+                 .range(['#6b6ecf','#b5cf6b','#e7ba52','#d6616b','#de9ed6','#393b79','#637939',	'#8c6d31','#843c39','#7b4173','#ce6dbd','#9c9ede','#cedb9c','#e7cb94','#e7969c','#5254a3','#8ca252','#bd9e39','#ad494a','#a55194',])
             // .range(['#c7b570','#c6cdc7','#335c64','#768935','#507282','#5c4a56','#aa7455','#574109','#837722','#73342d','#0a5564','#9c8f57','#7895a4','#4a5456','#b0a690','#0a3542',]);
       var chord = d3.layout.chord()
                     .sortSubgroups(d3.descending)
@@ -1303,7 +1303,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				+ "Long Name: "+ d.gnamelong + " <br/>" 
 				//+ " SSO : " d.gdata.SSO1 + " <br/>"
 				+ "Owner: "+ d.gowner + " <br/>"
-                + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"
+                // + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"
                 //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
