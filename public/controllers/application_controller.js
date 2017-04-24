@@ -1216,9 +1216,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             .data(chord.groups())
           .enter().append("svg:g")
             .attr("class", "group")
+			// .attr("data-legend",function(d) { return d.name})
             .on("mouseover", mouseover)
             .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") })
 			.on("click", mouseclick);
+			
 
         g.append("svg:path")
             .style("stroke", "black")
@@ -1240,11 +1242,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             .text(function(d) { return rdr(d).gname; });
 		 //Insert Legend
 
-		 /*  var legend = svg.selectAll(".legend")
+		    var legend = svg.selectAll("legend")
 			  .data(fill.domain())
 			  .enter().append("g")
 			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate(" + w / 4 + "," + h / 4 + ")"; });
+			  .attr("transform", function(d, i) { return "translate(80,0)"; }); //"translate(" + w / 4 + "," + h / 4 + ")"
 
 			  legend.append("rect")
 			  .attr("x", width - 18)
@@ -1257,7 +1259,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .attr("y", 9)
 			  .attr("dy", ".35em")
 			  .style("text-anchor", "end")
-			  .text(function(d) { return d; }); */
+			  .text(function(d) { return d; });  
 			  
           var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())
