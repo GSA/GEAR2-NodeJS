@@ -4,7 +4,7 @@
 // const TechStore = require('../stores/technology');
  const POCStore = require('../stores/poc');
 
-const pocStore = new pocStore();
+const pocStore = new POCStore();
 // const capStore = new CapStore();
 // const techStore = new TechStore();
 //const pocStore = new POCStore();

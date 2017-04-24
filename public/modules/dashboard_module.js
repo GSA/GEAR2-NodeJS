@@ -7,7 +7,8 @@
 var dashboard = angular.module('dashboard', [
   'apps.graveyard',
   'known-issues',
-  'release-notes'
+  'release-notes',
+  'manager-page'
 ]);
 
 dashboard.run(['$route', '$rootScope', '$location',
