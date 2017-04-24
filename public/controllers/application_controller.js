@@ -1203,8 +1203,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             .attr("id", "circle")
             .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
       
-      if(mmapsize <=2){
-            svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
+      // if(mmapsize <=2){
+            // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
 
             svg.append("circle")
                 .attr("r", r0 + 20);
@@ -1242,24 +1242,28 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             .text(function(d) { return rdr(d).gname; });
 		 //Insert Legend
 
-		    var legend = svg.selectAll("legend")
+		    var legend = svg.selectAll(".legend")
 			  .data(fill.domain())
 			  .enter().append("g")
 			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate(80,0)"; }); //"translate(" + w / 4 + "," + h / 4 + ")"
-
+			  .attr("transform", function(d, i) { return "translate(" + w/6 + "," + i * 20 + ")"; }); //"translate(" + w / 4 + "," + h / 4 + ")"
+			
+	
 			  legend.append("rect")
-			  .attr("x", width - 18)
+			  .attr("x", w/2 - 18)
 			  .attr("width", 18)
 			  .attr("height", 18)
 			  .style("fill", fill);
 
 			  legend.append("text")
-			  .attr("x", width - 24)
+			  .attr("x", w/2 - 24)
 			  .attr("y", 9)
 			  .attr("dy", ".35em")
 			  .style("text-anchor", "end")
 			  .text(function(d) { return d; });  
+			  // if(mmapsize <=2){
+			  // legend.attr("transform", function(d, i) { return "translate(" + w/6 + "," + i * 20 + ") rotate(-57)"; });}
+					  
 			  
           var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())
