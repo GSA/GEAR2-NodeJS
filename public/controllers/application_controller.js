@@ -1224,7 +1224,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
         g.append("svg:path")
             .style("stroke", "black")
-            .style("fill", function(d) { return fill(rdr(d).gowner); })//d.index  //group color control, colored by owner 2 letter office
+            .style("fill", function(d) { return fill(rdr(d).gownershort); })//d.index  //group color control, colored by owner 2 letter office
             .attr("d", arc);
 
         g.append("svg:text")
@@ -1250,13 +1250,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			
 	
 			  legend.append("rect")
-			  .attr("x", w/2 - 18)
+			  .attr("x", w/2 - 45)
 			  .attr("width", 18)
 			  .attr("height", 18)
 			  .style("fill", fill);
 
 			  legend.append("text")
-			  .attr("x", w/2 - 24)
+			  .attr("x", w/2 - 50)
 			  .attr("y", 9)
 			  .attr("dy", ".35em")
 			  .style("text-anchor", "end")
@@ -1289,8 +1289,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           function chordTip (d) {
             var p = d3.format(".2%"), q = d3.format(",.1r")
             return "Interface Data:<br/>"
+               +"Coming soon..."
              // + p(d.svalue/d.stotal) + " (" + q(d.svalue) + ") of "
-              + d.sname + " connects to " + d.tname
+              //+ d.sname + " connects to " + d.tname
               //+ (d.sname === d.tname ? "": ("<br/>while...<br/>"
              //+ p(d.tvalue/d.ttotal) + " (" + q(d.tvalue) + ") of "
               //+ d.tname + " prefer " + d.sname))
@@ -1318,7 +1319,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
               .style("top", function () { return (d3.event.y - 80)+"px"})//d3.event.pageY
-              .style("left", function () { return (d3.event.x-w/2)+"px";})//d3.event.pageX
+              .style("left", function () { return (d3.event.x- 80)+"px";})//d3.event.pageX
 		  
 		  chordPaths.classed("fade", function(p) {
               return p.source.index != i

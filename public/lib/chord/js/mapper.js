@@ -67,7 +67,7 @@ function chordMpr (data) {
           values.push(values2[aa]);
       }
     }
-    var countApp = _.countBy(data, 'NameShort1')>_.countBy(data, 'NameShort2')?_.countBy(data, 'NameShort1'):_.countBy(data, 'NameShort2');
+    var countApp = _.countBy(data, 'NameShort1')>=_.countBy(data, 'NameShort2')?_.countBy(data, 'NameShort1'):_.countBy(data, 'NameShort2');
         
     var len = data.length;
     var co = 0;
