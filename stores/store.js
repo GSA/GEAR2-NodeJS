@@ -24,7 +24,6 @@ class Store {
           error: err,
         });
       } else {
-        this.data = [];
         const request = new Request(sql, (reqErr) => {
           if (reqErr) {
             cb.call(cb, {
@@ -35,12 +34,17 @@ class Store {
             cb.call(cb, this.data);
           }
         });
-        request.on('row', (columns) => {
+        request.on('columnMetadata', () => {
+          this.data = [];
+        });
+        request.on('row', (row) => {
           const obj = {};
-          columns.forEach((column) => {
-            obj[column.metadata.colName] = column.value;
+          row.forEach((col) => {
+            // using destructuring assignment for consciseness
+            const { value: val, metadata: { colName: cname } } = col;
+            obj[cname] = val;
           });
-          this.data.push(this.model.apply(obj));
+          this.data.push(obj);
         });
         connection.execSql(request);
       }
