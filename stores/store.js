@@ -24,7 +24,7 @@ class Store {
           error: err,
         });
       } else {
-        this.data = [];
+        // the callback passed into a new Request is executed last, on 'completed'
         const request = new Request(sql, (reqErr) => {
           if (reqErr) {
             cb.call(cb, {
@@ -35,6 +35,11 @@ class Store {
             cb.call(cb, this.data);
           }
         });
+        // a 'columnMetadata' event fires first, just before row data is sent back
+        request.on('columnMetadata', () => {
+          this.data = [];
+        });
+        // 'row' events start firing after 'columnMetadata'
         request.on('row', (columns) => {
           const obj = {};
           columns.forEach((column) => {
