@@ -11,6 +11,7 @@ var dashboard = angular.module('dashboard', [
   'manager-page'
 ]);
 
+
 dashboard.run(['$route', '$rootScope', '$location',
 function ($route, $rootScope, $location) {
   // @param pushState {Boolean} pass `true` to push (vs replace) state to history
