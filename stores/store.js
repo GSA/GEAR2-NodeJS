@@ -37,14 +37,12 @@ class Store {
         request.on('columnMetadata', () => {
           this.data = [];
         });
-        request.on('row', (row) => {
+        request.on('row', (columns) => {
           const obj = {};
-          row.forEach((col) => {
-            // using destructuring assignment for consciseness
-            const { value: val, metadata: { colName: cname } } = col;
-            obj[cname] = val;
+          columns.forEach((column) => {
+            obj[column.metadata.colName] = column.value;
           });
-          this.data.push(obj);
+          this.data.push(this.model.apply(obj));
         });
         connection.execSql(request);
       }
