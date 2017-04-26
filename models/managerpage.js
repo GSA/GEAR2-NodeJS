@@ -17,7 +17,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&FISMASystem=none&System=&Status=' target = '_blank'>" + d.NoFISMA + "</a>"
+            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&FismaSystem=none' target = '_blank'>" + d.NoFISMA + "</a>"
           return s;
         },
 
@@ -28,7 +28,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&FISMASystem=&System=&Investment=none&Status=' target = '_blank'>" + d.NoInvest + "</a>"
+            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&FISMASystem=&System=&Investment=none&Status=' target = '_blank'>" + d.NoInvest + "</a>"
           return s;
         },
       },
@@ -39,7 +39,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=none&TechnicalPOC=none&System=&Status=' target = '_blank'>" + d.NoPOCs + "</a>"
+            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=none&TechnicalPOC=none&System=&Status=' target = '_blank'>" + d.NoPOCs + "</a>"
           return s;
         },
       },
@@ -50,7 +50,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!applications/find/Name=&SSO=&OwnerShort=none&BusinessPOC=&TechnicalPOC=&System=&Status=' target = '_blank'>" + d.NoOwnOrg + "</a>"
+            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=none&BusinessPOC=&TechnicalPOC=&System=&Status=' target = '_blank'>" + d.NoOwnOrg + "</a>"
           return s;
         },
       },
@@ -61,7 +61,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&TechnologyPlatform=none&System=&Status=' target = '_blank'>" + d.NoAppPlat + "</a>"
+            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&TechnologyPlatform=none&System=&Status=' target = '_blank'>" + d.NoAppPlat + "</a>"
           return s;
         },
       },
@@ -71,7 +71,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&Technologies=none&System=&Status=' target = '_blank'>" + d.NoTech + "</a>"
+            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&Technologies=none&System=&Status=' target = '_blank'>" + d.NoTech + "</a>"
           return s;
         },
       },
