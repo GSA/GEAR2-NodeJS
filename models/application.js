@@ -36,13 +36,15 @@ class Application extends Model {
       {
         name: 'ParentSystem',
         type: 'string',
-
+        mapping(d) {
+        return d.System || d.ParentSystem;
+        },
       },
-      {
+/*       {
         name: 'System',
         type: 'string',
 
-      },
+      }, */
       {
         name: 'BusinessPOC',
         type: 'string',

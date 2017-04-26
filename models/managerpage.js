@@ -39,7 +39,9 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=none&TechnicalPOC=none&System=&Status=' target = '_blank'>" + d.NoPOCs + "</a>"
+            s = d.NoPOCs  
+                +"<br/>"+"<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=none&TechnicalPOC=&System=&Status=' target = '_blank'> Missing Business POCs</a>"
+                +"<br/>"+"<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=none&System=&Status=' target = '_blank'> Missing Technical POCs</a>"
           return s;
         },
       },
@@ -68,30 +70,14 @@ class MNGtandardsModel extends Model {
       {
         name: 'NoTech',
         type: 'int',
-         mapping(d)
-        {
-          let s = '';          
-            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&Technologies=none&System=&Status=' target = '_blank'>" + d.NoTech + "</a>"
-          return s;
-        },
+         // mapping(d)
+        // {
+          // let s = '';          
+            // s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&System=&Status=&Technologies=none' target = '_blank'>" + d.NoTech + "</a>"
+          // return s;
+        // },
       },
 
-      /* {
-        name: 'ReferenceDocuments',
-        type: 'string',
-        mapping(d)
-        {
-          let s = '';
-          if(d.ReferenceDocuments){
-            s = "<a href=" + "'" + d.ReferenceDocuments + "'" + "target = '_blank'>" + d.ReferenceDocuments + "</a>"
-          }
-          else{
-            s = d.ReferenceDocuments;
-          }
-          return s;
-        },
-      },
- */     
     ];
   }
 }
