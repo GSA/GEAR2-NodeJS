@@ -1104,5 +1104,8 @@ $scope.createCapabilityTree = function () {
       }
 
     }
+    
+    
+    
   }
 ]);
