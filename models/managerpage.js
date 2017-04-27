@@ -17,7 +17,7 @@ class MNGtandardsModel extends Model {
          mapping(d)
         {
           let s = '';          
-            s = "<a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&FismaSystem=none' target = '_blank'>" + d.NoFISMA + "</a>"
+            s = " Count: <a href='#!/applications/find/Name=&SSO=&OwnerShort=&BusinessPOC=&TechnicalPOC=&FismaSystem=none' target = '_blank'>" + d.NoFISMA + "</a>"
           return s;
         },
 
