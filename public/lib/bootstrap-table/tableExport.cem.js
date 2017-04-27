@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /*The MIT License (MIT)
 
 Original work Copyright (c) 2014 https://github.com/kayalshri/
@@ -47,9 +49,9 @@ THE SOFTWARE.*/
       };
 
       var options = $.extend(true, defaults, options);
-	  
+
       var el = this;
-	
+
       var DownloadEvt = null;
 
       if(defaults.type == 'csv' || defaults.type == 'txt'){
@@ -466,12 +468,12 @@ THE SOFTWARE.*/
             rowIndex++;
             rows.push(rowData);
           });
-          
+
           defaults.jspdf.autotable.margins = {};
           $.extend(true, defaults.jspdf.autotable.margins, defaults.jspdf.margins);
 
           doc.autoTable(headers, rows, defaults.jspdf.autotable);
-          
+
           jsPdfOutput (doc);
         }
       }

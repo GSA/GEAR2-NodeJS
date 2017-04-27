@@ -12,6 +12,7 @@ dashboard.factory('bstSearchUtils', function ($routeParams, $location ) {
   COLUMN_SELECTION_PARAM = 'cols',
   LOADING_MSG_TIMEOUT = 3000,
   LOADING_WATCHER_POLL_RATE = 300,
+  TYPEAHEAD_DEBOUNCE_WAIT = 2000,
   currentScope = null;
 
   // Process the querystring and pre-processes the dataset json if needed
@@ -118,6 +119,10 @@ dashboard.factory('bstSearchUtils', function ($routeParams, $location ) {
         // [ADVANCED-SPECIFIC]
         $(window).on('as-submit', function (event) {
           updateAdvancedSearch(scope, $('#advancedSearch').serialize());
+          // _.debounce(function () {
+          //   console.log('BST ADSRCH');
+          //   updateAdvancedSearch(scope, $('#advancedSearch').serialize());
+          // }, TYPEAHEAD_DEBOUNCE_WAIT);
         });
 
         // [QUICK-SPECIFIC]
