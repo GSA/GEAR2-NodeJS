@@ -854,7 +854,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     }
   });
 
-  $scope.createInterfaceSSOChart1 = function (appId, orgName) {
+  /* $scope.createInterfaceSSOChart1 = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
     var interfaces = null;
     if (appId && !orgName) {
@@ -1109,7 +1109,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         }
       }
     });
-  }
+   }*/
   
   
   
@@ -1193,15 +1193,15 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             chord.padding(.02);}
 
       var arc = d3.svg.arc()
-            .innerRadius(r0)
-            .outerRadius(r0 + 20);
+                  .innerRadius(r0)
+                  .outerRadius(r0 + 20);
       
       var svg = d3.select("#interfacessochart").append("svg:svg")
-            .attr("width", w)
-            .attr("height", h)
-            .append("svg:g")
-            .attr("id", "circle")
-            .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+                  .attr("width", w)
+                  .attr("height", h)
+                  .append("svg:g")
+                  .attr("id", "circle")
+                  .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
       
       // if(mmapsize <=2){
             // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
@@ -1210,11 +1210,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 .attr("r", r0 + 20);
 
       var rdr = chordRdr(matrix, mmap);
-      chord.matrix(matrix);
-
+          chord.matrix(matrix);
+  
       var g = svg.selectAll("g.group")
             .data(chord.groups())
-          .enter().append("svg:g")
+            .enter().append("svg:g")
             .attr("class", "group")
 			// .attr("data-legend",function(d) { return d.name})
             .on("mouseover", mouseover)
@@ -1243,10 +1243,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		 //Insert Legend
 
 		    var legend = svg.selectAll(".legend")
-			  .data(fill.domain())
-			  .enter().append("g")
-			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate(" + w/6 + "," + i * 20 + ")"; }); //"translate(" + w / 4 + "," + h / 4 + ")"
+                        .data(fill.domain())
+                        .enter().append("g")
+                        .attr("class", "legend")
+                        .attr("transform", function(d, i) { return "translate(" + w/6 + "," + i * 20 + ")"; }); //"translate(" + w / 4 + "," + h / 4 + ")"
 			
 	
 			  legend.append("rect")
@@ -1265,14 +1265,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  // legend.attr("transform", function(d, i) { return "translate(" + w/6 + "," + i * 20 + ") rotate(-57)"; });}
 					  
 			  
-          var chordPaths = svg.selectAll("path.chord")
+        var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())
-				.enter().append("svg:path")
+                .enter().append("svg:path")
                 .attr("class", "chord")
-				.style("stroke-opacity", .4) // set the stroke opacity
-				.style("stroke", "#3182bd")      // set the line colour, #3182bd seems GSA Blue
-				.style("fill", "#c6dbef")      // set the fill colour
-				// .style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })//+rdr(d).sdata.SSO1)
+                .style("stroke-opacity", .4) // set the stroke opacity
+                .style("stroke", "#3182bd")      // set the line colour, #3182bd seems GSA Blue
+                .style("fill", "#c6dbef")      // set the fill colour
+                // .style("stroke", function(d) { return d3.rgb(fill(+rdr(d).sdata.SSO1)).darker(); })//+rdr(d).sdata.SSO1)
                 // .style("fill", function(d) { return fill(+rdr(d).sdata.SSO1); })//+rdr(d).sdata.SSO1)
                 // .style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
                 // .style("fill", function(d) { return fill(d.source.index); })
@@ -1281,12 +1281,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                   d3.select("#tooltip1")
                     .style("visibility", "visible")
                     .html(chordTip(rdr(d)))//controls whether the tips are moving or not
-                    .style("top", function () { return (d3.event.pageY - 100)+"px"})
-                    .style("left", function () { return (d3.event.pageX-w/2)+"px";})
+                    .style("top", function () { return (d3.event.y - 100)+"px"})//d3.event.pageY - 100
+                    .style("left", function () { return (d3.event.x-80)+"px";})//d3.event.pageX-w/2
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
-          function chordTip (d) {
+        function chordTip (d) {
             var p = d3.format(".2%"), q = d3.format(",.1r")
             return "Interface Data:<br/>"
                +"Coming soon..."
@@ -1297,31 +1297,31 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               //+ d.tname + " prefer " + d.sname))
           }
 
-          function groupTip (d) {
+        function groupTip (d) {
             var p = d3.format(".1%"), q = d3.format(",.1r")
             return "Application Infomation:<br/>"
-				+ "Long Name: "+ d.gnamelong + " <br/>" 
-				//+ " SSO : " d.gdata.SSO1 + " <br/>"
-				+ "Owner: "+ d.gowner + " <br/>"
-                // + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"
-                //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
+                    + "Long Name: "+ d.gnamelong + " <br/>" 
+                    //+ " SSO : " d.gdata.SSO1 + " <br/>"
+                    + "Owner: "+ d.gowner + " <br/>"
+                    // + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"
+                    //+ p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
-		  function mouseclick(d) {
-			  var appid = rdr(d).gid;
-				$location.path('/applications/' + appid);
-				$scope.$apply();
-				}
-          
+        function mouseclick(d) {
+            var appid = rdr(d).gid;
+            $location.path('/applications/' + appid);
+            $scope.$apply();
+            }
+              
 		  
-          function mouseover(d, i) {
+        function mouseover(d, i) {
             d3.select("#tooltip1")
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
               .style("top", function () { return (d3.event.y - 80)+"px"})//d3.event.pageY
               .style("left", function () { return (d3.event.x- 80)+"px";})//d3.event.pageX
 		  
-		  chordPaths.classed("fade", function(p) {
+        chordPaths.classed("fade", function(p) {
               return p.source.index != i
                   && p.target.index != i;
             });
