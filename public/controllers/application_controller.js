@@ -867,14 +867,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     interfaces.$promise.then(function () {
       // Considering that each Interface has 2 Applications: Name1 & Name2, AppID1 & AppID2, etc...
       // . Gather all "1"s into a "source nodes" collection
-      var sourceNodes = _.map(interfaces, (el) => {
+      var sourceNodes = _.map(interfaces, function (el) {
         return {
           name: el.Name1,
           group: el.Owner1,
         }
       });
       // . Gather all "2"s into a "target nodes" collection
-      var targetNodes = _.map(interfaces, (el) => {
+      var targetNodes = _.map(interfaces, function (el) {
         return {
           name: el.Name2,
           group: el.Owner2,
@@ -883,12 +883,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       // . Generate a list of the applications used across sourceNodes & targetNodes
       var nodes = sourceNodes.concat(targetNodes);
       nodes = _.sortBy(nodes, 'name');
-      nodes = _.uniq(nodes, true, (node) => `${node.name}--${node.group}` );
+      nodes = _.uniq(nodes, true, function (node) {
+        return node.name + '--' + node.group;
+      });
 
       // . translates our Interfaces API output into link objects where source is "1" and target is "2"
       // and their index values are retrieved by matching the Application.Name to a name in the nodes[]
       // array we created.
-      var links = _.map(interfaces, (el) => {
+      var links = _.map(interfaces, function (el) {
         return {
           source: getIndex(el.Name1),
           target: getIndex(el.Name2),
@@ -899,7 +901,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       function getIndex(appName) {
         var ind = -1;
 
-        _.find(nodes, (el, i) => {
+        _.find(nodes, function (el, i) {
           if (el.name == appName) {
             ind = i;
           }
