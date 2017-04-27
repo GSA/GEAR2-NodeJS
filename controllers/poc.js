@@ -1,28 +1,18 @@
-
-//const FismapocStore = require('../stores/fisma_poc');
-// const CapStore = require('../stores/capability');
-// const TechStore = require('../stores/technology');
- const POCStore = require('../stores/poc');
+const POCStore = require('../stores/poc');
 
 const pocStore = new POCStore();
-// const capStore = new CapStore();
-// const techStore = new TechStore();
-//const pocStore = new POCStore();
 
 function findAll(req, res) {
-  pocStore.query("SELECT ID, Name, RelOrgDisplayName, FIPS199, ISSO, ISSM, AO, PM  FROM SAODS.udfGetFISMAList()", (results) => {
-
+  pocStore.query("SELECT ALL * FROM SAODS.udfGetPOCDetails('r')", (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-
-    pocStore.query(`SELECT ID, Name, RelOrgDisplayName, FIPS199, ISSO, ISSM, AO, PM  FROM SAODS.udfGetFISMAList() WHERE ID = ${req.params.id}`, (results) => {
-      res.json(results);
-   });
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('r') WHERE ID = ${req.params.id}`, (results) => {
+    res.json(results);
+  });
 }
-
 
 module.exports = {
 
