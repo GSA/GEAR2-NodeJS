@@ -856,7 +856,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
   $scope.createInterfaceSSOChart = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
-    var interfaces = null;
+    var interfaces = null,
+        SVG_ID = 'interfacesvg';
+
+    if (document.getElementById(SVG_ID)) {
+      return false;
+    }
+
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
     } else if (!appId && orgName) {
@@ -954,10 +960,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var svg = d3.select("#interfacessochart").append("svg")
       .attr("width", width)
       .attr("height", height)
-      .attr("id", "interfacesvg");
+      .attr("id", SVG_ID);
       //Read the data from the finallist element
       var graph = finallist;
-
 
       var padding = 10, // separation between circles
       radius=8;
