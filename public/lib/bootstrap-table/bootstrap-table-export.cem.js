@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * extensions: https://github.com/kayalshri/tableExport.jquery.plugin
@@ -43,8 +45,8 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" aria-hidden=true aria-label= "Export"' +
-						'title="Export" ' +
+                        '<button class="btn btn-default dropdown-toggle" ' +
+                            'title="Export" aria-label="Export"' +
                             'data-toggle="dropdown" type="button">',
                             '<i class="glyphicon glyphicon-export icon-share"></i> ',
                             '<span class="caret"></span>',

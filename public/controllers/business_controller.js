@@ -113,7 +113,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               //   {//org.DisplayName
                   $.each(interfaces, function (i, iface) {
                     if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
-                      d3.select("#interfacetab").style("display", "block");
+                      d3.select("#interfaces-tab").style("display", "block");
                     }
                   });
                // };
@@ -1104,5 +1104,8 @@ $scope.createCapabilityTree = function () {
       }
 
     }
+    
+    
+    
   }
 ]);

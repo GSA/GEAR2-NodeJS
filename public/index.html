@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./lib/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
-    <link href="./lib/nvd3/nv.d3.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="./lib/nvd3/nv.d3.min.css" rel="stylesheet" type="text/css"> -->
     <link href="./lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css">
     <!-- Video player dependencies -->
     <link rel="stylesheet" href="./lib/video.js/video-js.min.css" />
     <link rel="stylesheet" href="./lib/owl.carousel/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="./lib/owl.carousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="./lib/owl.carousel/assets/owl.theme.default.min.css" />
     <!-- Custom styles for this template -->
-    <link href="./lib/gsaea/css/dashboard.css" rel="stylesheet">
-    <link href="./lib/gsaea/css/gear.css" rel="stylesheet">
+    <link href="./lib/gsaea/css/dashboard.css" rel="stylesheet" />
+    <link href="./lib/gsaea/css/gear.css" rel="stylesheet" />
     <link href="./lib/bootstrap/css/metisMenu.min.css" rel="stylesheet" />
     <link href="./lib/jquery/jquery-ui.min.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="./lib/gsaea/images/gear.ico">
+    <link rel="icon" type="image/png" href="./lib/gsaea/images/gear.ico" />
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="./lib/gsaea/js/ie-emulation-modes-warning.js"></script>
 
@@ -28,107 +28,106 @@
     <link rel="stylesheet" type="text/css" href="./lib/ea-charts/css/ea-charts.css" />
 
 </head>
-<header>
-<div class="navbar navbar-inverse navbar-fixed-top" id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
-</header>
 
 <body>
+    <div class="ea-wrapper">
+        <a href="#stage" class="ea-skip-link">skip to main content</a>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#!"><i class="fa fa-gears fa-fw"></i>GSA EA Analytics & Reporting (GEAR)</a>
+                </div>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#!"><i class="fa fa-gears fa-fw"></i>GSA EA Analytics & Reporting (GEAR)</a>
-            </div>
-
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#!">Home</a></li>
-                    <li><a href="#!/assistivetechnology">Assistive Technology</a></li>
-                    <li><a href="#!/siteoverview">About</a></li>
-                    <li><a href="mailto:ea_planning@gsa.gov">Contact EA Team</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-puzzle-piece fa-fw"></i> Strategy<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <!--                    <a href="#!/goals">2015 GSA IT Goals (Two-Letter Offices)</a>   -->
-                                    <a href="#!/strategic_framework">GSA IT Strategic Framework</a>
-                                    <a href="#!/investments">GSA IT Investments</a>
-                                    <a href="https://insite.gsa.gov/portal/directives/tab/I" target="_blank">GSA IT Policies</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Business<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#!/capabilities">GSA Capability List</a>
-                                    <a href="#!/capability_model">GSA Capability Model</a>
-                                    <a href="#!/organizations">GSA Organization List</a>
-                                    <a href="#!/organization_model">GSA Organization Chart</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-laptop fa-fw"></i> Business Applications<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#!/systems">GSA Parent Systems</a>
-                                    <a href="#!/applications">GSA Business Applications</a>
-                                    <a href="#!/applications_TIME">Application TIME Report</a>
-                                    <a href="#!/applications_retired">GSA Retired Applications</a>
-                                    <a href="#!/applications_graveyard">GSA Application Graveyard</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-lock fa-fw"></i> Security<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#!/FISMA">FISMA Systems Inventory</a>
-                                    <a href="#!/FISMA_POC">FISMA Systems - POC</a>
-                                    <a href="#!/RISSO_POC">RISSO - POC</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gears fa-fw"></i> Technologies<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#!/itstandards">IT Standards List</a>
-                                    <!-- <a href="#!/itstandards_goldimage">Standard Laptop (Gold Image)</a> -->
-									<a href="https://insite.gsa.gov/portal/content/500499" target="_blank">IT Standards Approval Process</a>
-                                </li>
-                            </ul>
-                        </li>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#!">Home</a></li>
+                        <li><a href="#!/assistivetechnology">Assistive Technology</a></li>
+                        <li><a href="#!/siteoverview">About</a></li>
+                        <li><a href="mailto:ea_planning@gsa.gov">Contact EA Team</a></li>
                     </ul>
                 </div>
             </div>
+        </nav>
 
-            <!-- Render AngularJS views -->
-			<div id = "maincontent">
-            <section id="stage" ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"></section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="#"><i class="fa fa-puzzle-piece fa-fw"></i> Strategy<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <!--                    <a href="#!/goals">2015 GSA IT Goals (Two-Letter Offices)</a>   -->
+                                        <a href="#!/strategic_framework">GSA IT Strategic Framework</a>
+                                        <a href="#!/investments">GSA IT Investments</a>
+                                        <a href="https://insite.gsa.gov/portal/directives/tab/I" target="_blank">GSA IT Policies</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Business<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#!/capabilities">GSA Capability List</a>
+                                        <a href="#!/capability_model">GSA Capability Model</a>
+                                        <a href="#!/organizations">GSA Organization List</a>
+                                        <a href="#!/organization_model">GSA Organization Chart</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-laptop fa-fw"></i> Business Applications<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#!/systems">GSA Parent Systems</a>
+                                        <a href="#!/applications">GSA Business Applications</a>
+                                        <a href="#!/applications_TIME">Application TIME Report</a>
+                                        <a href="#!/applications_retired">GSA Retired Applications</a>
+                                        <a href="#!/applications_graveyard">GSA Application Graveyard</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-lock fa-fw"></i> Security<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#!/FISMA">FISMA Systems Inventory</a>
+                                        <a href="#!/FISMA_POC">FISMA Systems - POC</a>
+                                        <a href="#!/RISSO_POC">RISSO - POC</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-gears fa-fw"></i> Technologies<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#!/itstandards">IT Standards List</a>
+                                        <!-- <a href="#!/itstandards_goldimage">Standard Laptop (Gold Image)</a> -->
+    									<a href="https://insite.gsa.gov/portal/content/500499" target="_blank">IT Standards Approval Process</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
+                <!-- Render AngularJS views -->
+                <section tabindex="-1" aria-label="Main Content" role="main" id="stage" ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"></section>
+
+            </div>
         </div>
-    </div>
 
-    <div class="row footer">
-        <small>GSA Enterprise Architecture 2017</small>
+        <div class="row footer" id="footer">
+            <small>GSA Enterprise Architecture 2017</small>
+        </div>
+
     </div>
 
     <script src="./lib/jquery/jquery-2.1.3.min.js"></script>
@@ -156,7 +155,8 @@
     <script src="./views/apps-graveyard/apps-graveyard.js"></script>
     <script src="./views/known-issues/known-issues.js"></script>
     <script src="./views/release-notes/release-notes.js"></script>
-
+    <script src="./views/manager-page/manager-page.js"></script>
+    
     <!-- Load controllers -->
     <script src="controllers/apps_by_sso_chart_controller.js"></script>
     <script src="./controllers/business_controller.js"></script>
@@ -212,6 +212,7 @@
 
     <script src="./lib/owl.carousel/owl.carousel.min.js"></script>
     <script src="./lib/gsaea/js/ea-video-player.js"></script>
+    <script src="./lib/gsaea/js/ea-508.js"></script>
     <script id="side-menu-behaviors">
         $(function () {
             /**
@@ -237,7 +238,6 @@
         });
     </script>
 
-
-
 </body>
 </html>
+

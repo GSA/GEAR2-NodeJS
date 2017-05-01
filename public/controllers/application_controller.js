@@ -444,24 +444,24 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Two Letter Org (Long)',
             visible: false,
             sortable: true
-          }, 
+          },
 		  {
             field: 'Alias',
             title: 'Alias',
             sortable: true,
             visible: false
-          }, 
+          },
 		  {
             field: 'Name',
             title: 'Application Name',
             sortable: true
-          }, 
+          },
 		  {
             field: 'ParentSystem',
             title: 'Parent System',
             sortable: true,
             visible: false
-          }, 
+          },
 		  {
             field: 'Status',
             title: 'Status',
@@ -659,7 +659,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  {
             field: 'SSOShort',
             title: 'SSO',
-            sortable: true 
+            sortable: true
           },
 		  {
             field: 'Owner',
@@ -750,13 +750,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               $.each(application, function (i, app) {
                   $.each(interfaces, function (i, iface) {
                     if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
-                      d3.select("#interfacetab").style("display", "block");
+                      d3.select("#interfaces-tab").style("display", "block");
                     }
                   });
                // };
-              });        
+              });
         $scope.interfaces = interfaces;
-        
+
       });
 
       pocs.$promise.then(function () {
@@ -856,7 +856,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
   $scope.createInterfaceSSOChart = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
-    var interfaces = null;
+    var interfaces = null,
+        SVG_ID = 'interfacesvg';
+
+    if (document.getElementById(SVG_ID)) {
+      return false;
+    }
+
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
     } else if (!appId && orgName) {
@@ -867,14 +873,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     interfaces.$promise.then(function () {
       // Considering that each Interface has 2 Applications: Name1 & Name2, AppID1 & AppID2, etc...
       // . Gather all "1"s into a "source nodes" collection
-      var sourceNodes = _.map(interfaces, (el) => {
+      var sourceNodes = _.map(interfaces, function (el) {
         return {
           name: el.Name1,
           group: el.Owner1,
         }
       });
       // . Gather all "2"s into a "target nodes" collection
-      var targetNodes = _.map(interfaces, (el) => {
+      var targetNodes = _.map(interfaces, function (el) {
         return {
           name: el.Name2,
           group: el.Owner2,
@@ -883,12 +889,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       // . Generate a list of the applications used across sourceNodes & targetNodes
       var nodes = sourceNodes.concat(targetNodes);
       nodes = _.sortBy(nodes, 'name');
-      nodes = _.uniq(nodes, true, (node) => `${node.name}--${node.group}` );
+      nodes = _.uniq(nodes, true, function (node) {
+        return node.name + '--' + node.group;
+      });
 
       // . translates our Interfaces API output into link objects where source is "1" and target is "2"
       // and their index values are retrieved by matching the Application.Name to a name in the nodes[]
       // array we created.
-      var links = _.map(interfaces, (el) => {
+      var links = _.map(interfaces, function (el) {
         return {
           source: getIndex(el.Name1),
           target: getIndex(el.Name2),
@@ -899,7 +907,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       function getIndex(appName) {
         var ind = -1;
 
-        _.find(nodes, (el, i) => {
+        _.find(nodes, function (el, i) {
           if (el.name == appName) {
             ind = i;
           }
@@ -952,10 +960,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var svg = d3.select("#interfacessochart").append("svg")
       .attr("width", width)
       .attr("height", height)
-      .attr("id", "interfacesvg");
+      .attr("id", SVG_ID);
       //Read the data from the finallist element
       var graph = finallist;
-
 
       var padding = 10, // separation between circles
       radius=8;
