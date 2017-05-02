@@ -857,6 +857,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   $scope.createInterfaceSSOChart = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
     var interfaces = null,
+        CONTAINER_ID = 'interfacessochart',
         SVG_ID = 'interfacesvg';
 
     if (document.getElementById(SVG_ID)) {
@@ -919,8 +920,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var finallist = {"nodes" : nodes, "links" : links};
 
       //Constants for the SVG
-      var width = 960,
+      var width = $('#' + CONTAINER_ID).parents('.panel-body').width(),
       height = 500;
+
+      // Because sometimes in IE, $.width() returns 0
+      if (!width) {
+        width = 930; // best fit @1280px screen width in IE11
+      }
 
       //Set up the colour scale
       var color = d3.scale.category20();
@@ -957,7 +963,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
 
       //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-      var svg = d3.select("#interfacessochart").append("svg")
+      var svg = d3.select('#' + CONTAINER_ID).append("svg")
       .attr("width", width)
       .attr("height", height)
       .attr("id", SVG_ID);
