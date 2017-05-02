@@ -923,6 +923,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var width = $('#' + CONTAINER_ID).width(),
       height = 500;
 
+      // Because sometimes in IE, $.width() returns 0
+      if (!width) {
+        width = 935;
+      }
+
       //Set up the colour scale
       var color = d3.scale.category20();
 
