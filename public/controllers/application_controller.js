@@ -920,12 +920,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var finallist = {"nodes" : nodes, "links" : links};
 
       //Constants for the SVG
-      var width = $('#' + CONTAINER_ID).width(),
+      var width = $('#' + CONTAINER_ID).parents('.panel-body').width(),
       height = 500;
 
       // Because sometimes in IE, $.width() returns 0
       if (!width) {
-        width = 935;
+        width = 930; // best fit @1280px screen width in IE11
       }
 
       //Set up the colour scale
