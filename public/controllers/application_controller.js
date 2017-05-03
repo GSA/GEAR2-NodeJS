@@ -856,7 +856,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
   /* $scope.createInterfaceSSOChart1 = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
-    var interfaces = null;
+    var interfaces = null,
+        CONTAINER_ID = 'interfacessochart',
+        SVG_ID = 'interfacesvg';
+
+    if (document.getElementById(SVG_ID)) {
+      return false;
+    }
+
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
     } else if (!appId && orgName) {
@@ -867,14 +874,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     interfaces.$promise.then(function () {
       // Considering that each Interface has 2 Applications: Name1 & Name2, AppID1 & AppID2, etc...
       // . Gather all "1"s into a "source nodes" collection
-      var sourceNodes = _.map(interfaces, (el) => {
+      var sourceNodes = _.map(interfaces, function (el) {
         return {
           name: el.Name1,
           group: el.Owner1,
         }
       });
       // . Gather all "2"s into a "target nodes" collection
-      var targetNodes = _.map(interfaces, (el) => {
+      var targetNodes = _.map(interfaces, function (el) {
         return {
           name: el.Name2,
           group: el.Owner2,
@@ -883,12 +890,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       // . Generate a list of the applications used across sourceNodes & targetNodes
       var nodes = sourceNodes.concat(targetNodes);
       nodes = _.sortBy(nodes, 'name');
-      nodes = _.uniq(nodes, true, (node) => `${node.name}--${node.group}` );
+      nodes = _.uniq(nodes, true, function (node) {
+        return node.name + '--' + node.group;
+      });
 
       // . translates our Interfaces API output into link objects where source is "1" and target is "2"
       // and their index values are retrieved by matching the Application.Name to a name in the nodes[]
       // array we created.
-      var links = _.map(interfaces, (el) => {
+      var links = _.map(interfaces, function (el) {
         return {
           source: getIndex(el.Name1),
           target: getIndex(el.Name2),
@@ -899,7 +908,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       function getIndex(appName) {
         var ind = -1;
 
-        _.find(nodes, (el, i) => {
+        _.find(nodes, function (el, i) {
           if (el.name == appName) {
             ind = i;
           }
@@ -911,8 +920,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var finallist = {"nodes" : nodes, "links" : links};
 
       //Constants for the SVG
-      var width = 960,
+      var width = $('#' + CONTAINER_ID).parents('.panel-body').width(),
       height = 500;
+
+      // Because sometimes in IE, $.width() returns 0
+      if (!width) {
+        width = 930; // best fit @1280px screen width in IE11
+      }
 
       //Set up the colour scale
       var color = d3.scale.category20();
@@ -949,13 +963,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
 
       //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-      var svg = d3.select("#interfacessochart").append("svg")
+      var svg = d3.select('#' + CONTAINER_ID).append("svg")
       .attr("width", width)
       .attr("height", height)
-      .attr("id", "interfacesvg");
+      .attr("id", SVG_ID);
       //Read the data from the finallist element
       var graph = finallist;
-
 
       var padding = 10, // separation between circles
       radius=8;
@@ -1109,12 +1122,23 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         }
       }
     });
+<<<<<<< HEAD
    }*/
+=======
+  
+  }
+>>>>>>> 9efe5fbc232caa3f14e505c9e235abf5a70f0f0a
   
   
   
   $scope.createInterfaceSSOChart = function (appId, orgName) {
-	var interfaces = null;
+    var interfaces = null,
+        CONTAINER_ID = 'interfacessochart',
+        SVG_ID = 'interfacesvg';
+
+    if (document.getElementById(SVG_ID)) {
+      return false;
+    }
 	var data = [];
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
@@ -1143,24 +1167,15 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				"OwnerShort2":val.OwnerShort2,
 				"count": 1,		
 			})
-			 // data.push({
-				// "AppID1":val.AppID2,
-				// "AppID2":val.AppID1,
-				// "Name1":val.Name2,
-				// "Name2":val.Name1,
-				// "NameShort1":val.NameShort2,
-				// "NameShort2":val.NameShort1,
-				// "SSO1":val.SSO2,
-				// "SSO2":val.SSO1,
-				// "SSOShort1":val.SSOShort2,
-				// "SSOShort2":val.SSOShort1,
-				// "Owner1":val.Owner2,
-				// "Owner2":val.Owner1,
-				// "OwnerShort1":val.OwnerShort2,
-				// "OwnerShort2":val.OwnerShort1,
-				// "count": 0,
-			 // })
 		})
+	  //Constants for the SVG
+      var w = $('#' + CONTAINER_ID).parents('.panel-body').width(),
+      h = 500;
+
+      // Because sometimes in IE, $.width() returns 0
+      if (!w) {
+        w = 930; // best fit @1280px screen width in IE11
+      }
 		var mpr = chordMpr(data);
 
 			mpr
@@ -1176,10 +1191,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			drawChords(mpr.getMatrix(), mpr.getMap());
 	//	}) 
 	function drawChords (matrix, mmap) {
-		var w = 880, h = 700, r1 = h / 2, r0 = r1 - 100;
+		var r1 = h / 1.8, r0 = r1 - 80; //w = 880, h = 700, 
 	   // var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
 		var color = d3.scale.category20b();
-    var fill = d3.scale.ordinal()
+		var fill = d3.scale.ordinal()
                  .range(['#6b6ecf','#b5cf6b','#e7ba52','#d6616b','#de9ed6','#393b79','#637939',	'#8c6d31','#843c39','#7b4173','#ce6dbd','#9c9ede','#cedb9c','#e7cb94','#e7969c','#5254a3','#8ca252','#bd9e39','#ad494a','#a55194',])
             // .range(['#c7b570','#c6cdc7','#335c64','#768935','#507282','#5c4a56','#aa7455','#574109','#837722','#73342d','#0a5564','#9c8f57','#7895a4','#4a5456','#b0a690','#0a3542',]);
       var chord = d3.layout.chord()
@@ -1193,6 +1208,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             chord.padding(.02);}
 
       var arc = d3.svg.arc()
+<<<<<<< HEAD
                   .innerRadius(r0)
                   .outerRadius(r0 + 20);
       
@@ -1203,19 +1219,38 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                   .attr("id", "circle")
                   .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
       
+=======
+            .innerRadius(r0)
+            .outerRadius(r0 + 20);
+			
+			
+      
+      var svg = d3.select('#' + CONTAINER_ID).append("svg")
+		  .attr("width", w)
+		  .attr("height", h)
+		  .attr("id", SVG_ID)
+		  .append("svg:g")
+	//            .attr("id", "circle")
+		  .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
+		  
+>>>>>>> 9efe5fbc232caa3f14e505c9e235abf5a70f0f0a
       // if(mmapsize <=2){
             // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
-
-            svg.append("circle")
-                .attr("r", r0 + 20);
+            svg.append(SVG_ID)
+               .attr("r", r0 + 20);
 
       var rdr = chordRdr(matrix, mmap);
           chord.matrix(matrix);
   
       var g = svg.selectAll("g.group")
             .data(chord.groups())
+<<<<<<< HEAD
             .enter().append("svg:g")
+=======
+			.enter().append("svg:g")
+>>>>>>> 9efe5fbc232caa3f14e505c9e235abf5a70f0f0a
             .attr("class", "group")
+			
 			// .attr("data-legend",function(d) { return d.name})
             .on("mouseover", mouseover)
             .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") })
@@ -1240,13 +1275,17 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                   + (d.angle > Math.PI ? "rotate(180)" : "");
             })
             .text(function(d) { return rdr(d).gname; });
-		 //Insert Legend
 
+	
+		
+		 //Insert Legend			
 		    var legend = svg.selectAll(".legend")
-                        .data(fill.domain())
-                        .enter().append("g")
-                        .attr("class", "legend")
-                        .attr("transform", function(d, i) { return "translate(" + w/6 + "," + i * 20 + ")"; }); //"translate(" + w / 4 + "," + h / 4 + ")"
+
+			  .data(fill.domain())
+			  .enter().append("g")
+			  .attr("class", "legend")
+			  .attr("transform", function(d, i) { return "translate(" + (-w/8) + "," + i * 20 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"
+
 			
 	
 			  legend.append("rect")
@@ -1285,6 +1324,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                     .style("left", function () { return (d3.event.x-80)+"px";})//d3.event.pageX-w/2
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
+				
+			g.attr("transform", "translate(-80,0)");
+			chordPaths.attr("transform", "translate(-80,0)");
 
         function chordTip (d) {
             var p = d3.format(".2%"), q = d3.format(",.1r")
