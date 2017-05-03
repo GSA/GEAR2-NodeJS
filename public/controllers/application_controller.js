@@ -1124,10 +1124,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     });
 <<<<<<< HEAD
    }*/
-=======
-  
-  }
->>>>>>> 9efe5fbc232caa3f14e505c9e235abf5a70f0f0a
   
   
   
@@ -1208,18 +1204,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             chord.padding(.02);}
 
       var arc = d3.svg.arc()
-<<<<<<< HEAD
-                  .innerRadius(r0)
-                  .outerRadius(r0 + 20);
-      
-      var svg = d3.select("#interfacessochart").append("svg:svg")
-                  .attr("width", w)
-                  .attr("height", h)
-                  .append("svg:g")
-                  .attr("id", "circle")
-                  .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
-      
-=======
             .innerRadius(r0)
             .outerRadius(r0 + 20);
 			
@@ -1233,7 +1217,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 	//            .attr("id", "circle")
 		  .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
 		  
->>>>>>> 9efe5fbc232caa3f14e505c9e235abf5a70f0f0a
       // if(mmapsize <=2){
             // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
             svg.append(SVG_ID)
@@ -1244,11 +1227,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   
       var g = svg.selectAll("g.group")
             .data(chord.groups())
-<<<<<<< HEAD
             .enter().append("svg:g")
-=======
-			.enter().append("svg:g")
->>>>>>> 9efe5fbc232caa3f14e505c9e235abf5a70f0f0a
             .attr("class", "group")
 			
 			// .attr("data-legend",function(d) { return d.name})
