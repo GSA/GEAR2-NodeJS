@@ -763,6 +763,52 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.pocs = pocs;
       });
 
+      time.$promise.then(function () {
+        $('#apptimetable').bootstrapTable({
+          columns: [
+		  {
+            field: 'FY14',
+            title: 'FY14',
+            visible: false
+          },
+		  {
+            field: 'FY15',
+            title: 'FY15',
+            visible: false
+          },
+		  {
+            field: 'FY16',
+            title: 'FY16',
+            visible: false
+          },
+		  {
+            field: 'FY17',
+            title: 'FY17'
+          },
+		  {
+            field: 'FY18',
+            title: 'FY18'
+          },
+		  {
+            field: 'FY19',
+            title: 'FY19'
+          },
+		  {
+            field: 'FY20',
+            title: 'FY20'
+          },
+		  {
+            field: 'Notes',
+            title: 'Notes',
+            // visible: false,
+            sortable: true
+
+          },
+		],
+          data: time
+        });
+      });
+
       capabilities.$promise.then(function () {
         $('#appcaptable').bootstrapTable({
           columns: [
