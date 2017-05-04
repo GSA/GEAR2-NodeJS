@@ -1166,7 +1166,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		})
 	  //Constants for the SVG
       var w = $('#' + CONTAINER_ID).parents('.panel-body').width(),
-      h = 500;
+      h = 650;
 
       // Because sometimes in IE, $.width() returns 0
       if (!w) {
@@ -1187,7 +1187,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			drawChords(mpr.getMatrix(), mpr.getMap());
 	//	}) 
 	function drawChords (matrix, mmap) {
-		var r1 = h / 1.8, r0 = r1 - 80; //w = 880, h = 700, 
+		var r1 = h / 2, r0 = 0.6 * r1;//r1 - 80; //w = 880, h = 700, 
 	   // var w = 980, h = 800, r1 = h / 2, r0 = r1 - 100;
 		var color = d3.scale.category20b();
 		var fill = d3.scale.ordinal()
@@ -1205,13 +1205,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
       var arc = d3.svg.arc()
             .innerRadius(r0)
-            .outerRadius(r0 + 20);
+            .outerRadius(r0 + 15);
 			
 			
       
       var svg = d3.select('#' + CONTAINER_ID).append("svg")
-		  .attr("width", w)
-		  .attr("height", h)
+		  .attr("width",  w)
+		  .attr("height",  h)
 		  .attr("id", SVG_ID)
 		  .append("svg:g")
 	//            .attr("id", "circle")
@@ -1250,7 +1250,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             .attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
             .attr("transform", function(d) {
               return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-                  + "translate(" + (r0 + 26) + ")"
+                  + "translate(" + (r0 + 21) + ")"
                   + (d.angle > Math.PI ? "rotate(180)" : "");
             })
             .text(function(d) { return rdr(d).gname; });
@@ -1263,20 +1263,22 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .data(fill.domain())
 			  .enter().append("g")
 			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate(" + (-w/8) + "," + i * 20 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"
+			  .attr("transform", function(d, i) { return "translate( 0," + i * 15 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
 
 			
 	
 			  legend.append("rect")
 			  .attr("x", w/2 - 45)
-			  .attr("width", 18)
-			  .attr("height", 18)
+			  .attr("width", 12)
+			  .attr("height", 12)
 			  .style("fill", fill);
 
 			  legend.append("text")
 			  .attr("x", w/2 - 50)
-			  .attr("y", 9)
+			  .attr("y", 8)
 			  .attr("dy", ".35em")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
 			  .style("text-anchor", "end")
 			  .text(function(d) { return d; });  
 			  // if(mmapsize <=2){
