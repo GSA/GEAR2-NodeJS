@@ -1198,8 +1198,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                     .sortChords(d3.descending);  
       
       var mmapsize = mpr.size(mmap);
-      if(mmapsize <=2){
-           chord.padding(2);}
+      if(mmapsize <=6){
+           chord.padding(4/mmapsize);}
       else{
             chord.padding(.02);}
 
@@ -1322,8 +1322,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
         function groupTip (d) {
             var p = d3.format(".1%"), q = d3.format(",.1r")
-            return "Application Infomation:<br/>"
-                    + "Long Name: "+ d.gnamelong + " <br/>" 
+            return "Application Information:<br/>"
+                    + "Name: "+ d.gnamelong + " <br/>" 
                     //+ " SSO : " d.gdata.SSO1 + " <br/>"
                     + "Owner: "+ d.gowner + " <br/>"
                     // + d.gname + " Connects to : " + q(d.gvalue) + " other Applications on this model<br/>"
