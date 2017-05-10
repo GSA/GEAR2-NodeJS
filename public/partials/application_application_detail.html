@@ -4,6 +4,7 @@
         $('[data-toggle="popover"]').popover()
     })
     </script>
+
     <div class="col-md-12">
         <div id="application" class="panel panel-default" style="height: auto;">
             <div id="applicationheader" class="panel-heading">
@@ -210,24 +211,27 @@
                         <br>
                         <h4>Related Technology</h4>
                         <table id="apptechtable" style="cursor: pointer;"
-                            data-search="true"
-                            data-advanced-search="true"
-                            data-id-table="apptechtable"
-                            data-trim-on-search="false"
-                            data-show-columns="true"
-                            data-show-export="true"
-                            data-classes="table table-no-bordered table-hover table-condensed"
-                            data-striped="true"
-                            data-pagination="true"
-                            data-show-pagination-switch="true"
-                            data-sort-name="Name"
-                            data-sort-order="asc">
-                        </table>
-                    </div>
-                    <div id="interfaces-pane" class="tab-pane fade"
-                      aria-labelledby="interfaces-tab" role="tabpanel">
-                        <div id="interfacessochart" style="margin-top:20px">
-                        </div>
+
+                        data-search="true"
+                        data-advanced-search="true"
+                        data-id-table="apptechtable"
+                        data-trim-on-search="false"
+                        data-show-columns="true"
+                        data-show-export="true"
+                        data-classes="table table-no-bordered table-hover table-condensed"
+                        data-striped="true"
+                        data-pagination="true"
+                        data-show-pagination-switch="true"
+                        data-sort-name="Name"
+                        data-sort-order="asc"
+                        >
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfaces-tab"  id="interfaces">
+                    <div id="interfacessochart" style="margin-top:20px">
+					<div id = "tooltip1" > </div>
+
                     </div>
                 </div>
             </div>
