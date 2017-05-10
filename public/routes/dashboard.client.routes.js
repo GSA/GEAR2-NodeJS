@@ -19,6 +19,9 @@ function($routeProvider, $locationProvider) {
 	when('/assistivetechnology', {
 		templateUrl: 'partials/assistive_technology.html'
 	}).
+  when('/glossary', {
+		templateUrl: 'partials/glossary.html'
+	}).
 
 	//Configure Business Routes
 	when('/organizations/find/:query*', {
