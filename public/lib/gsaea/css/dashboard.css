@@ -451,6 +451,22 @@ text {
     display: none;
 }
 
+#tooltip1 {
+        color: #2F4F4F;
+        opacity: .9;
+        /* background: #333; */
+        background: #f6f6f6;
+        padding: 5px;
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+        font-weight: bold;
+        position: fixed;
+        z-index: 10;
+        visibility: hidden;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
 /* BOOTSTRAP-TABLE DROPDOWN */
 .bootstrap-table ul.dropdown-menu {
   padding-left: 5px;
