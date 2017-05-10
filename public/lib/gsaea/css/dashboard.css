@@ -485,3 +485,10 @@ text {
     height:auto;
     width:auto;
 }
+/* 508 */
+.ea-skip-link {
+ position: absolute;
+ clip: 0 0 0 0;
+ left: -150px;
+ top: -150px;
+}

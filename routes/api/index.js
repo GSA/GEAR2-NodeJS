@@ -9,6 +9,7 @@ const interfaces = require('./interface');
 const investment = require('./investment');
 const org = require('./organization');
 const sys = require('./parentsystem');
+const mng = require('./managerpage');
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.use('/investments', investment);
 router.use('/organizations', org);
 router.use('/parentsystems', sys);
 router.use('/pocs', poc);
+router.use('/managerpage', mng);
 
 module.exports = router;

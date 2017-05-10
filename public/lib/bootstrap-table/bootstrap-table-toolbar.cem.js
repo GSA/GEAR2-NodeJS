@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * @author: aperez <aperez@datadec.es>
  * @version: v2.0.0
@@ -74,13 +76,16 @@
 
             $('#avdSearchModalContent').append(vFormAvd.join(''));
 
-            $('#' + that.options.idForm).off('keyup blur', 'input').on('keyup blur', 'input', function (event) {
+            $('#' + that.options.idForm)
+              .off('keyup blur', 'input')
+              .on('keyup blur', 'input', function (event) {
+                var to = (event.type === 'focusout')? 0: that.options.searchTimeOut
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(function () {
                     that.onColumnAdvancedSearch(event);
                     // Why window and not form? Can we fix?
                     $(window).trigger('as-submit');
-                }, that.options.searchTimeOut);
+                }, to);
             });
 
             $("#btnCloseAvd").click(function() {

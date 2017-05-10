@@ -10,5 +10,7 @@ angular.module('known-issues', ['ngRoute'])
 }])
 
 .controller('KnownIssuesCtrl', ['$scope', function ($scope) {
-  //$scope.tester = new Array(6);
+ 
+
+ //$scope.tester = new Array(6);
 }]);

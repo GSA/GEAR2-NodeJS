@@ -17,96 +17,116 @@
                 ">Click to see how to use this report</button>
             </div>
             <div class="panel-body" style="margin : 20px">
-                <div role="tabpanel">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                        <li role="presentation"><a href="#business" aria-controls="business" role="tab" data-toggle="tab">Business</a></li>
-                        <li role="presentation"><a href="#technology" aria-controls="technology" role="tab" data-toggle="tab">Technology</a></li>
-                        <li id="interfacetab" ng-show="!!interfaces.length" role="presentation"><a href="#interfaces" aria-controls="interfaces" role="tab" data-toggle="tab" ng-click="createInterfaceSSOChart(application.Id)">Interfaces</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
-                            <div ng-show="application.Alias">
-                                <h4>Alias</h4>
-                                <p>{{ application.Alias }}</p>
-                            </div>
-                            <h4>Description</h4>
-                            <p>{{ application.Description }}</p>
-                            <div id="Link" ng-show="application.Link">
-                            <!-- <div id="link" ng-show="!!application.Url.length">                            -->
-                          
-                                <h4>Link</h4>
-                                <!-- <a style="display:block" target="_blank" ng-repeat="url in application.Link" href="{{ url }}">{{ url }}</a> -->
-                                <a target="_blank" href="{{ application.Link }}">{{ application.Link }}</a>
-                            </div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active" role="presentation">
+                        <a href="#overview-pane" data-toggle="tab"
+                            aria-controls="overview-pane" role="tab" aria-expanded="true">
+                            Overview
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#business-pane" data-toggle="tab"
+                            aria-controls="business-pane" role="tab" aria-expanded="false">
+                            Business
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#technology-pane" data-toggle="tab"
+                            aria-controls="technology-pane" role="tab" aria-expanded="false">
+                            Technology
+                        </a>
+                    </li>
+                    <li role="presentation" ng-show="!!interfaces.length">
+                        <a href="#interfaces-pane" data-toggle="tab"
+                            aria-controls="interfaces-pane" role="tab" aria-expanded="false"
+                            ng-click="createInterfaceSSOChart(application.Id)">
+                            Interfaces
+                        </a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="overview-pane" class="tab-pane fade in active"
+                        aria-labelledby="overview-tab" role="tabpanel">
+                        <div ng-show="application.Alias">
+                            <h4>Alias</h4>
+                            <p>{{ application.Alias }}</p>
                         </div>
+                        <h4>Description</h4>
+                        <p>{{ application.Description }}</p>
+                        <div id="Link" ng-show="application.Link">
+                        <!-- <div id="link" ng-show="!!application.Url.length">                            -->
 
-                        <div role="tabpanel" class="tab-pane fade" id="business">
-                            <br>
-                            <h4>Business Overview</h4>
+                            <h4>Link</h4>
+                            <!-- <a style="display:block" target="_blank" ng-repeat="url in application.Link" href="{{ url }}">{{ url }}</a> -->
+                            <a target="_blank" href="{{ application.Link }}">{{ application.Link }}</a>
+                        </div>
+                    </div>
+                    <div id="business-pane" class="tab-pane fade"
+                        aria-labelledby="business-tab" role="tabpanel">
+                        <br>
+                        <h4>Business Overview</h4>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-sitemap"></i>&nbsp;SSO</td>
+                                <td>{{ application.SSO }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-sitemap"></i>&nbsp;2 Letter Office</td>
+                                <td>{{ application.Owner }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
+                                <td>
+                                    <ul class="list-unstyled" style="margin-bottom: 0">
+                                        <li ng-repeat="p in pocs|filter:{Type: 'Business'}">
+                                            <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
+                                        </li>
+                                        <li ng-hide="!!pocs.length">
+                                            <span ng-hide="!application.BusinessPOC">{{ application.BusinessPOC }}</span>
+                                            <span ng-hide="application.BusinessPOC">None Provided</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-money"></i>&nbsp;Related Investment</td>
+                                <td>{{ application.Investment||"None Provided" }}</td>
+                            </tr>
+                            <tr ng-show="!!application.IsRevenueGenerator">
+                                <td><i class="fa fa-line-chart"></i>&nbsp;Revenue Generator</td>
+                                <td>{{ application.IsRevenueGenerator }}</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div id="timeblock" ng-show="!!time.length">
+                            <h4>Business Application Roadmap</h4>
                             <table class="table table-hover">
                                 <tr>
-                                    <th>Attribute</th>
-                                    <th>Value</th>
+                                    <th>FY17</th>
+                                    <th>FY18</th>
+                                    <th>FY19</th>
+                                    <th>FY20</th>
+                                    <th>Notes</th>
                                 </tr>
-                                <tr>
-                                    <td><i class="fa fa-sitemap"></i>&nbsp;SSO</td>
-                                    <td>{{ application.SSO }}</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-sitemap"></i>&nbsp;2 Letter Office</td>
-                                    <td>{{ application.Owner }}</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
-                                    <td>
-										<ul class="list-unstyled" style="margin-bottom: 0">
-											<li ng-repeat="p in pocs|filter:{Type: 'Business'}">
-												<a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
-											</li>
-                                            <li ng-hide="!!pocs.length">
-                                                <span ng-hide="!application.BusinessPOC">{{ application.BusinessPOC }}</span>
-                                                <span ng-hide="application.BusinessPOC">None Provided</span>
-											</li>
-										</ul>
-									</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-money"></i>&nbsp;Related Investment</td>
-                                    <td>{{ application.Investment||"None Provided" }}</td>
-                                </tr>
-                                <tr ng-show="!!application.IsRevenueGenerator">
-                                    <td><i class="fa fa-line-chart"></i>&nbsp;Revenue Generator</td>
-                                    <td>{{ application.IsRevenueGenerator }}</td>
+                                <tr ng-repeat="t in time">
+                                    <td>{{ t.FY17 }}</td>
+                                    <td>{{ t.FY18 }}</td>
+                                    <td>{{ t.FY19 }}</td>
+                                    <td>{{ t.FY20 }}</td>
+                                    <td>{{ t.Notes }}</td>
                                 </tr>
                             </table>
-                            <br>
-                            <div id="timeblock" ng-show="!!time.length">
-                                <h4>Business Application Roadmap</h4>
-                                <table class="table table-hover">
-                                    <tr>
-                                        <th>FY17</th>
-                                        <th>FY18</th>
-                                        <th>FY19</th>
-                                        <th>FY20</th>
-                                        <th>Notes</th>
-                                    </tr>
-                                    <tr ng-repeat="t in time">
-                                        <td>{{ t.FY17 }}</td>
-                                        <td>{{ t.FY18 }}</td>
-                                        <td>{{ t.FY19 }}</td>
-                                        <td>{{ t.FY20 }}</td>
-                                        <td>{{ t.Notes }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <br>
-                            <br>
-
-                            <h4>Related Business Capabilities</h4>
-                            <table id="appcaptable" style="cursor: pointer;"
+                        </div>
+                        <br>
+                        <br>
+                        <h4>Related Business Capabilities</h4>
+                        <table id="appcaptable" style="cursor: pointer;"
                             data-search="true"
                             data-advanced-search="true"
                             data-id-table="sysapptable"
@@ -118,11 +138,11 @@
                             data-pagination="true"
                             data-show-pagination-switch="true"
                             data-sort-name="Ref"
-                            data-sort-order="asc"
-                            >
+                            data-sort-order="asc">
                         </table>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="technology">
+                    <div id="technology-pane" class="tab-pane fade"
+                        aria-labelledby="technology-tab" role="tabpanel">
                         <br>
                         <h4>Technical Overview</h4>
                         <table id="technicaltable" class="table table-hover">
@@ -167,7 +187,7 @@
                                 <!-- <td> -->
                                     <!-- <ul class="list-unstyled"> -->
                                         <!-- <li ng-repeat="fs in application.FISMASystem">  -->
-                                           <!--  {{ fs.Name }} --> 
+                                           <!--  {{ fs.Name }} -->
                                         <!-- </li> -->
                                     <!-- </ul> -->
                                 <!-- </td> -->
@@ -176,6 +196,7 @@
                         <br>
                         <h4>Related Technology</h4>
                         <table id="apptechtable" style="cursor: pointer;"
+
                         data-search="true"
                         data-advanced-search="true"
                         data-id-table="apptechtable"
@@ -192,14 +213,13 @@
                     </table>
                 </div>
 
-                <div role="tabpanel" class="tab-pane fade in active" id="interfaces">
+                <div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfaces-tab"  id="interfaces">
                     <div id="interfacessochart" style="margin-top:20px">
 					<div id = "tooltip1" > </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </section>
