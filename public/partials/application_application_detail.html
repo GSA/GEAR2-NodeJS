@@ -105,23 +105,38 @@
                         </table>
                         <br>
                         <div id="timeblock" ng-show="!!time.length">
-                            <h4>Business Application Roadmap</h4>
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>FY17</th>
-                                    <th>FY18</th>
-                                    <th>FY19</th>
-                                    <th>FY20</th>
-                                    <th>Notes</th>
-                                </tr>
-                                <tr ng-repeat="t in time">
-                                    <td>{{ t.FY17 }}</td>
-                                    <td>{{ t.FY18 }}</td>
-                                    <td>{{ t.FY19 }}</td>
-                                    <td>{{ t.FY20 }}</td>
-                                    <td>{{ t.Notes }}</td>
-                                </tr>
-                            </table>
+                            <!-- <h4>Business Application Roadmap</h4> -->
+                            <!-- <table class="table table-hover"> -->
+                                <!-- <tr> -->
+                                    <!-- <th>FY17</th> -->
+                                    <!-- <th>FY18</th> -->
+                                    <!-- <th>FY19</th> -->
+                                    <!-- <th>FY20</th> -->
+                                    <!-- <th>Notes</th> -->
+                                <!-- </tr> -->
+                                <!-- <tr ng-repeat="t in time"> -->
+                                    <!-- <td>{{ t.FY17 }}</td> -->
+                                    <!-- <td>{{ t.FY18 }}</td> -->
+                                    <!-- <td>{{ t.FY19 }}</td> -->
+                                    <!-- <td>{{ t.FY20 }}</td> -->
+                                    <!-- <td>{{ t.Notes }}</td> -->
+                                <!-- </tr> -->
+                            <!-- </table> -->
+                        <h4>Business Application Roadmap</h4>
+                        <table id="apptimetable" style="cursor: pointer;"
+                            data-search="true"
+                            data-advanced-search="true"
+                            data-id-table="sysapptable"
+                            data-trim-on-search="false"
+                            data-show-columns="true"
+                            data-show-export="true"
+                            data-classes="table table-no-bordered table-hover table-condensed"
+                            data-striped="true"
+                            data-pagination="true"
+                            data-show-pagination-switch="true"
+                            data-sort-name="Ref"
+                            data-sort-order="asc">
+                        </table>
                         </div>
                         <br>
                         <br>
