@@ -36,11 +36,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         if ([val.Status] != "Retired" && [val.SSO] != "External") {
           var sys = '';
           var fismasys = '';
-          if ([val.ParentSystem] == ''){
+          if ([val.System] == ''){
             sys = "N/A";
           }
           else {
-            sys = val.ParentSystem;
+            sys = val.System;
           }
           if (val.FismaName != ""){
             fismasys = val.FismaName;
@@ -616,26 +616,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.sysDescription = val.Description;
         $scope.sysURL = val.URL;
       });
-      // Use the System 'query' method to send an appropriate GET request
-      //LEGACY
-	  //var apps = ApplicationsSrc.query();
-      /* apps.$promise.then(function (populateApps) {
-        var appgroup = [];
-        $.each(apps, function (key, val) {
-          if (val.ParentSystem == $scope.sysName){
-            appgroup.push({
-				"Name" : val.Name,
-				"Description" : val.Description,
-				"SSO" : val.SSO_Display_Name,
-				"Status" : val.Status,
-				"Id" : val.Id,
-				"Alias": val.Alias,
-				"BusinessPOC": val.BusinessPOC,
-				"TechnicalPOC": val.TechnicalPOC,
-				"Owner":val.Owner
-				});
-          }
-        }); */
+
 		var sysapp = SysAppSrc.query({ id: $routeParams.id });
         sysapp.$promise.then(function (populateData) {
 
@@ -854,6 +835,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     }
   });
 
+  
+  
   $scope.createInterfaceSSOChart = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
     var interfaces = null,
@@ -864,6 +847,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       return false;
     }
 
+	var data = [];
+
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
     } else if (!appId && orgName) {
@@ -871,257 +856,204 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     } else {
       interfaces = InterfacesSrc.query();
     }
-    interfaces.$promise.then(function () {
-      // Considering that each Interface has 2 Applications: Name1 & Name2, AppID1 & AppID2, etc...
-      // . Gather all "1"s into a "source nodes" collection
-      var sourceNodes = _.map(interfaces, function (el) {
-        return {
-          name: el.Name1,
-          group: el.Owner1,
-        }
-      });
-      // . Gather all "2"s into a "target nodes" collection
-      var targetNodes = _.map(interfaces, function (el) {
-        return {
-          name: el.Name2,
-          group: el.Owner2,
-        }
-      });
-      // . Generate a list of the applications used across sourceNodes & targetNodes
-      var nodes = sourceNodes.concat(targetNodes);
-      nodes = _.sortBy(nodes, 'name');
-      nodes = _.uniq(nodes, true, function (node) {
-        return node.name + '--' + node.group;
-      });
 
-      // . translates our Interfaces API output into link objects where source is "1" and target is "2"
-      // and their index values are retrieved by matching the Application.Name to a name in the nodes[]
-      // array we created.
-      var links = _.map(interfaces, function (el) {
-        return {
-          source: getIndex(el.Name1),
-          target: getIndex(el.Name2),
-        }
-      });
-
-      // . A utility. Because the visualization pulls data from the nodes[] collection using index
-      function getIndex(appName) {
-        var ind = -1;
-
-        _.find(nodes, function (el, i) {
-          if (el.name == appName) {
-            ind = i;
-          }
-        });
-
-        return ind;
-      }
-
-      var finallist = {"nodes" : nodes, "links" : links};
-
-      //Constants for the SVG
-      var width = $('#' + CONTAINER_ID).parents('.panel-body').width(),
-      height = 500;
+	$scope.interfaces = interfaces;
+    interfaces.$promise.then(function (populateData) {
+		$.each(interfaces,function(key,val){
+			data.push({
+				"AppID1":val.AppID1,
+				"AppID2":val.AppID2,
+				"Name1":val.Name1,
+				"Name2":val.Name2,
+				"NameShort1":val.NameShort1,
+				"NameShort2":val.NameShort2,
+				"SSO1":val.SSO1,
+				"SSO2":val.SSO2,
+				"SSOShort1":val.SSOShort1,
+				"SSOShort2":val.SSOShort2,
+				"Owner1":val.Owner1,
+				"Owner2":val.Owner2,
+				"OwnerShort1":val.OwnerShort1,
+				"OwnerShort2":val.OwnerShort2,
+				"count": 1,		
+			})
+		})
+	  //Constants for the SVG
+      var w = $('#' + CONTAINER_ID).parents('.panel-body').width(),
+      h = 650;
 
       // Because sometimes in IE, $.width() returns 0
-      if (!width) {
-        width = 930; // best fit @1280px screen width in IE11
+      if (!w) {
+        w = 930; // best fit @1280px screen width in IE11
       }
+		var mpr = chordMpr(data);
 
-      //Set up the colour scale
-      var color = d3.scale.category20();
+			mpr
+			  .addValuesToMap("NameShort1")
+			  
+			  .setFilter(function (row, a, b) {
+            return (row.NameShort1 === a.name && row.NameShort2 === b.name);
+			  })
+			  .setAccessor(function (recs, a, b) {
+				if (!recs[0]) return 0;
+				return +recs[0].count;
+			  });
+			drawChords(mpr.getMatrix(), mpr.getMap());
+	//	}) 
+	function drawChords (matrix, mmap) {
+		var r1 = h / 2, r0 = 0.6 * r1;
 
-      //Set up the force layout
-      var force = d3.layout.force()
-      .charge(-120)
-      .linkDistance(30)
-      .size([width, height]);
+		var color = d3.scale.category20b();
+		var fill = d3.scale.ordinal()
+                 .range(['#6b6ecf','#b5cf6b','#e7ba52','#d6616b','#de9ed6','#393b79','#637939',	'#8c6d31','#843c39','#7b4173','#ce6dbd','#9c9ede','#cedb9c','#e7cb94','#e7969c','#5254a3','#8ca252','#bd9e39','#ad494a','#a55194',])
 
+      var chord = d3.layout.chord()
+                    .sortSubgroups(d3.descending)
+                    .sortChords(d3.descending);  
+      
+      var mmapsize = mpr.size(mmap);
+      if(mmapsize <=6){
+           chord.padding(4/mmapsize);}
+      else{
+            chord.padding(.02);}
 
-      var node_drag = d3.behavior.drag()
-      .on("dragstart", dragstart)
-      .on("drag", dragmove)
-      .on("dragend", dragend);
-      function dragstart(d, i) {
-        force.stop() // stops the force auto positioning before you start dragging
-      }
-      function dragmove(d, i) {
-        d.px += d3.event.dx;
-        d.py += d3.event.dy;
-        d.x += d3.event.dx;
-        d.y += d3.event.dy;
-      }
-      function dragend(d, i) {
-        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-        force.resume();
-      }
-      function releasenode(d) {
-        d.fixed = false; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-        //force.resume();
-      }
-
-
-
-      //Append a SVG to the body of the html page. Assign this SVG as an object to svg
+      var arc = d3.svg.arc()
+            .innerRadius(r0)
+            .outerRadius(r0 + 15);
+			
+			
+      
       var svg = d3.select('#' + CONTAINER_ID).append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("id", SVG_ID);
-      //Read the data from the finallist element
-      var graph = finallist;
+		  .attr("width",  w)
+		  .attr("height",  h)
+		  .attr("id", SVG_ID)
+		  .append("svg:g")
+	//            .attr("id", "circle")
+		  .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
+		  
+      // if(mmapsize <=2){
+            // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
+            svg.append(SVG_ID)
+               .attr("r", r0 + 20);
 
-      var padding = 10, // separation between circles
-      radius=8;
-      function collide(alpha) {
-        var quadtree = d3.geom.quadtree(graph.nodes);
-        return function(d) {
-          var rb = 2*radius + padding,
-          nx1 = d.x - rb,
-          nx2 = d.x + rb,
-          ny1 = d.y - rb,
-          ny2 = d.y + rb;
-          quadtree.visit(function(quad, x1, y1, x2, y2) {
-            if (quad.point && (quad.point !== d)) {
-              var x = d.x - quad.point.x,
-              y = d.y - quad.point.y,
-              l = Math.sqrt(x * x + y * y);
-              if (l < rb) {
-                l = (l - rb) / l * alpha;
-                d.x -= x *= l;
-                d.y -= y *= l;
-                quad.point.x += x;
-                quad.point.y += y;
-              }
+      var rdr = chordRdr(matrix, mmap);
+          chord.matrix(matrix);
+  
+      var g = svg.selectAll("g.group")
+            .data(chord.groups())
+            .enter().append("svg:g")
+            .attr("class", "group")
+			
+			// .attr("data-legend",function(d) { return d.name})
+            .on("mouseover", mouseover)
+            .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") })
+			.on("click", mouseclick);
+			
+
+        g.append("svg:path")
+            .style("stroke", "black")
+            .style("fill", function(d) { return fill(rdr(d).gownershort); })//d.index  //group color control, colored by owner 2 letter office
+            .attr("d", arc);
+
+        g.append("svg:text")
+            .each(function(d) { d.angle = (d.startAngle + d.endAngle) / 2; })
+            .attr("dy", ".35em")
+            .style("font-family", "helvetica, arial, sans-serif")
+            .style("font-size", "10px")
+            .style("font-weight", "bold")
+            .attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+            .attr("transform", function(d) {
+              return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+                  + "translate(" + (r0 + 21) + ")"
+                  + (d.angle > Math.PI ? "rotate(180)" : "");
+            })
+            .text(function(d) { return rdr(d).gname; });
+
+	
+		
+		 //Insert Legend			
+		    var legend = svg.selectAll(".legend")
+
+			  .data(fill.domain())
+			  .enter().append("g")
+			  .attr("class", "legend")
+			  .attr("transform", function(d, i) { return "translate( 0," + i * 15 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
+
+			
+	
+			  legend.append("rect")
+			  .attr("x", w/2 - 45)
+			  .attr("width", 12)
+			  .attr("height", 12)
+			  .style("fill", fill);
+
+			  legend.append("text")
+			  .attr("x", w/2 - 50)
+			  .attr("y", 8)
+			  .attr("dy", ".35em")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+			  .style("text-anchor", "end")
+			  .text(function(d) { return d; });  
+					  
+			  
+        var chordPaths = svg.selectAll("path.chord")
+                .data(chord.chords())
+                .enter().append("svg:path")
+                .attr("class", "chord")
+                .style("stroke-opacity", .4) // set the stroke opacity
+                .style("stroke", "#3182bd")      // set the line colour, #3182bd seems GSA Blue
+                .style("fill", "#c6dbef")      // set the fill colour
+                .attr("d", d3.svg.chord().radius(r0))
+                .on("mouseover", function (d) {
+                  d3.select("#tooltip1")
+                    .style("visibility", "visible")
+                    .html(chordTip(rdr(d)))//controls whether the tips are moving or not
+                    .style("top", function () { return (d3.event.y - 100)+"px"})//d3.event.pageY - 100
+                    .style("left", function () { return (d3.event.x-80)+"px";})//d3.event.pageX-w/2
+                })
+                .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
+				
+			g.attr("transform", "translate(-80,0)");
+			chordPaths.attr("transform", "translate(-80,0)");
+
+        function chordTip (d) {
+            var p = d3.format(".2%"), q = d3.format(",.1r")
+            return "Interface Data:<br/>"
+               +"Coming soon..."
+          }
+
+        function groupTip (d) {
+            var p = d3.format(".1%"), q = d3.format(",.1r")
+            return "Application Information:<br/>"
+                    + "Name: "+ d.gnamelong + " <br/>" 
+                    + "Owner: "+ d.gowner + " <br/>"
+          }
+
+        function mouseclick(d) {
+            var appid = rdr(d).gid;
+            $location.path('/applications/' + appid);
+            $scope.$apply();
+
             }
-            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-          });
-        };
+              
+		  
+        function mouseover(d, i) {
+            d3.select("#tooltip1")
+              .style("visibility", "visible")
+              .html(groupTip(rdr(d)))
+              .style("top", function () { return (d3.event.y - 80)+"px"})//d3.event.pageY
+              .style("left", function () { return (d3.event.x- 80)+"px";})//d3.event.pageX
+		  
+        chordPaths.classed("fade", function(p) {
+              return p.source.index != i
+                  && p.target.index != i;
+            });
+          }
       }
-
-      force
-      .nodes(graph.nodes)
-      .links(graph.links)
-      .start();
-
-      var link = svg.selectAll(".link")
-      .data(graph.links)
-      .enter().append("line")
-      .attr("class", "link")
-      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
-
-      var node = svg.selectAll(".node")
-      .data(graph.nodes)
-      .enter().append("g")
-      .attr("class", "node")
-      .on('dblclick', releasenode)
-      .call(node_drag) //Added
-      .on('click', connectedNodes); //Added code
-      node.append("circle")
-      .attr("r", 8)
-      .style("fill", function (d) {
-        return color(d.group);
-      })
-
-      node.append("text")
-      .attr("class", "labeltext")
-      .attr("dx", 10)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name });
-
-
-      //Insert Legend
-
-      var legend = svg.selectAll(".legend")
-      .data(color.domain())
-      .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-      legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-      legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-
-
-
-
-      force.on("tick", function() {
-        link.attr("x1", function (d) {
-          return d.source.x;
-        })
-        .attr("y1", function (d) {
-          return d.source.y;
-        })
-        .attr("x2", function (d) {
-          return d.target.x;
-        })
-        .attr("y2", function (d) {
-          return d.target.y;
-        });
-        d3.selectAll("circle").attr("cx", function (d) {
-          return d.x;
-        })
-        .attr("cy", function (d) {
-          return d.y;
-        });
-        d3.selectAll(".labeltext").attr("x", function (d) {
-          return d.x;
-        })
-        .attr("y", function (d) {
-          return d.y;
-        });
-        node.each(collide(0.5)); //Added
-      });
-
-
-      //Toggle stores whether the highlighting is on
-      var toggle = 0;
-
-      //Create an array logging what is connected to what
-      var linkedByIndex = {};
-      for (var i = 0; i < graph.nodes.length; i++) {
-        linkedByIndex[i + "," + i] = 1;
-      };
-      graph.links.forEach(function (d) {
-        linkedByIndex[d.source.index + "," + d.target.index] = 1;
-      });
-
-      //This function looks up whether a pair are neighbours
-      function neighboring(a, b) {
-        return linkedByIndex[a.index + "," + b.index];
-      }
-
-      function connectedNodes() {
-        if (toggle == 0) {
-          //Reduce the opacity of all but the neighbouring nodes
-          var d = d3.select(this).node().__data__;
-          node.style("opacity", function (o) {
-            return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
-          });
-
-          link.style("opacity", function (o) {
-            return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
-          });
-
-          //Reduce the op
-          toggle = 1;
-        } else {
-          //Put them back to opacity=1
-          node.style("opacity", 1);
-          link.style("opacity", 1);
-          toggle = 0;
-        }
-      }
-    });
+	
+	})  
   }
-}
+  
+  }
 ]);
