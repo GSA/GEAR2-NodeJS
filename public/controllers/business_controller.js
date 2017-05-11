@@ -1102,10 +1102,6 @@ $scope.createCapabilityTree = function () {
         })
         .text(function(d) { return d.text; });
       }
-
     }
-
-
-
   }
 ]);
