@@ -807,18 +807,13 @@
         }
 
         if (this.options.showPaginationSwitch) {
-            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s" aria-hidden="true" aria-label= "Pagination Switch">', this.options.formatPaginationSwitch()),
-                sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.paginationSwitchDown),
+            var label = this.options.formatPaginationSwitch();
+            html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" aria-label="%s" title="%s">',
+                label, label),
+                sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
                 '</button>');
         }
 
-		 
-        // html.push(sprintf('<button class="btn btn-default%s' + '" type="button" name="advancedSearch" title="%s">', that.options.formatAdvancedSearch()));
-        // html.push(sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.advancedSearchIcon))
-        // html.push('</button></div>');
-		
-		
-		
         if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
                 this.options.formatRefresh()),
@@ -834,15 +829,13 @@
         }
 
         if (this.options.showColumns) {
-
-            html.push(sprintf('<div class="keep-open btn-group dropdown"">'//,
-                //this.options.formatColumns()
-				),
-                //'<button type="button" class="btn btn-default" name="Columns" ' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown">',
-                sprintf('<button type="button" class="btn btn-default" name="Columns" title="%s" aria-hidden=true aria-label= "Columns"',this.options.formatColumns()),
-				' dropdown-toggle" data-toggle="dropdown">',
-				sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
-                ' <span class="caret"></span>',
+            var label = this.options.formatColumns()
+            html.push(sprintf('<div class="keep-open btn-group dropdown">'),
+                '<button id="bstShowColumns" type="button" class="btn btn-default' + (this.options.iconSize == undefined ? '' : ' btn-' + this.options.iconSize) + ' dropdown-toggle" data-toggle="dropdown"' +
+                    ' aria-haspopup="true" aria-expanded="false" >',
+                sprintf('<i aria-hidden="true" class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
+                ' <span aria-hidden="true" class="caret"></span>',
+                ' <span class="sr-only">' + label + '</span>',
                 '</button>',
                 '<ul class="dropdown-menu" aria-labelledby="bstShowColumns">');
 
