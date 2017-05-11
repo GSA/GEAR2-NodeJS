@@ -4,6 +4,7 @@
         $('[data-toggle="popover"]').popover()
     })
     </script>
+
     <div class="col-md-12">
         <div id="application" class="panel panel-default" style="height: auto;">
             <div id="applicationheader" class="panel-heading">
@@ -12,7 +13,7 @@
                 data-content="<b>Overview:</b> Contains a general description of the business application.<br>
                 <b>Business:</b> Contains an overview of business-related information as well as the related business capabilities for the business application.”<br>
                 <b>Technology:</b> Contains an overview of technical information as well as the related technologies/IT standards the business application uses.”<br>
-                <b>Interfaces:</b> The interface tab only appears if the business application has interfaces to other business applications. The model can be manipulated by dragging the circles in different positions on the white space. Left clicking an individual business application will highlight only that business application and others that it interfaces with.
+                <b>Interfaces:</b> The interface tab only appears if the business application has interfaces to other business applications. The model can be utilized by hovering over the arc to see the information of the business application, or by hovering over the chord to see the interfaces with other applications. Left click an arc to go to the detail page of that business application.
                 ">Click to see how to use this report</button>
             </div>
             <div class="panel-body" style="margin : 20px">
@@ -104,23 +105,38 @@
                         </table>
                         <br>
                         <div id="timeblock" ng-show="!!time.length">
-                            <h4>Business Application Roadmap</h4>
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>FY17</th>
-                                    <th>FY18</th>
-                                    <th>FY19</th>
-                                    <th>FY20</th>
-                                    <th>Notes</th>
-                                </tr>
-                                <tr ng-repeat="t in time">
-                                    <td>{{ t.FY17 }}</td>
-                                    <td>{{ t.FY18 }}</td>
-                                    <td>{{ t.FY19 }}</td>
-                                    <td>{{ t.FY20 }}</td>
-                                    <td>{{ t.Notes }}</td>
-                                </tr>
-                            </table>
+                            <!-- <h4>Business Application Roadmap</h4> -->
+                            <!-- <table class="table table-hover"> -->
+                                <!-- <tr> -->
+                                    <!-- <th>FY17</th> -->
+                                    <!-- <th>FY18</th> -->
+                                    <!-- <th>FY19</th> -->
+                                    <!-- <th>FY20</th> -->
+                                    <!-- <th>Notes</th> -->
+                                <!-- </tr> -->
+                                <!-- <tr ng-repeat="t in time"> -->
+                                    <!-- <td>{{ t.FY17 }}</td> -->
+                                    <!-- <td>{{ t.FY18 }}</td> -->
+                                    <!-- <td>{{ t.FY19 }}</td> -->
+                                    <!-- <td>{{ t.FY20 }}</td> -->
+                                    <!-- <td>{{ t.Notes }}</td> -->
+                                <!-- </tr> -->
+                            <!-- </table> -->
+                        <h4>Business Application Roadmap</h4>
+                        <table id="apptimetable" style="cursor: pointer;"
+                            data-search="true"
+                            data-advanced-search="true"
+                            data-id-table="sysapptable"
+                            data-trim-on-search="false"
+                            data-show-columns="true"
+                            data-show-export="true"
+                            data-classes="table table-no-bordered table-hover table-condensed"
+                            data-striped="true"
+                            data-pagination="true"
+                            data-show-pagination-switch="true"
+                            data-sort-name="Ref"
+                            data-sort-order="asc">
+                        </table>
                         </div>
                         <br>
                         <br>
@@ -195,24 +211,27 @@
                         <br>
                         <h4>Related Technology</h4>
                         <table id="apptechtable" style="cursor: pointer;"
-                            data-search="true"
-                            data-advanced-search="true"
-                            data-id-table="apptechtable"
-                            data-trim-on-search="false"
-                            data-show-columns="true"
-                            data-show-export="true"
-                            data-classes="table table-no-bordered table-hover table-condensed"
-                            data-striped="true"
-                            data-pagination="true"
-                            data-show-pagination-switch="true"
-                            data-sort-name="Name"
-                            data-sort-order="asc">
-                        </table>
-                    </div>
-                    <div id="interfaces-pane" class="tab-pane fade"
-                      aria-labelledby="interfaces-tab" role="tabpanel">
-                        <div id="interfacessochart" style="margin-top:20px">
-                        </div>
+
+                        data-search="true"
+                        data-advanced-search="true"
+                        data-id-table="apptechtable"
+                        data-trim-on-search="false"
+                        data-show-columns="true"
+                        data-show-export="true"
+                        data-classes="table table-no-bordered table-hover table-condensed"
+                        data-striped="true"
+                        data-pagination="true"
+                        data-show-pagination-switch="true"
+                        data-sort-name="Name"
+                        data-sort-order="asc"
+                        >
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfaces-tab"  id="interfaces-pane">
+                    <div id="interfacessochart" style="margin-top:20px">
+					<div id = "tooltip1" > </div>
+
                     </div>
                 </div>
             </div>
