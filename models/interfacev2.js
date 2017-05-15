@@ -9,7 +9,7 @@ class Interfacev2Model extends Model {
         type: 'string',
       },
       {
-        name: 'deskApp',
+        name: 'destApp',
         type: 'string',
       },
       {
