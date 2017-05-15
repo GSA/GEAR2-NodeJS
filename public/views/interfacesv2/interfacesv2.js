@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('manager-page', ['ngRoute'])
+angular.module('interfacesv2', ['ngRoute'])
 
  
 .config(['$routeProvider', function ($routeProvider) {
