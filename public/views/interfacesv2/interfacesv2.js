@@ -91,7 +91,8 @@ angular.module('interfacesv2', ['ngRoute'])
 			  graph.nodes.push({ "name": d.target });
 			  graph.links.push({ "source": d.source,
 								 "target": d.target,
-								 "value": +d.count });
+								 "value": +d.count,
+								 "info": d.PII});
 			 });
 
 			 // return only the distinct / unique nodes
@@ -133,7 +134,9 @@ angular.module('interfacesv2', ['ngRoute'])
 		  link.append("title")
 				.text(function(d) {
 					return d.source.name + " → " + 
-						d.target.name + "\n" + format(d.value); });
+						d.target.name + "\n" + 
+						format(d.value) + "\n" + 
+						d.info; });
 
 		// add in the nodes
 		  var node = svg.append("g").selectAll(".node")
@@ -171,8 +174,19 @@ angular.module('interfacesv2', ['ngRoute'])
 			.filter(function(d) { return d.x < width / 2; })
 			  .attr("x", 6 + sankey.nodeWidth())
 			  .attr("text-anchor", "start");
-
+			  
 		// the function for moving the nodes
+		  function dragmove(d) {
+			d3.select(this).attr("transform", 
+				"translate(" + (
+					   d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
+					) + "," + (
+						   d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+					) + ")");
+			sankey.relayout();
+			link.attr("d", path);
+		  }
+/* 		// the function for moving the nodes
 		  function dragmove(d) {
 			d3.select(this).attr("transform", 
 				"translate(" + d.x + "," + (
@@ -180,7 +194,7 @@ angular.module('interfacesv2', ['ngRoute'])
 					) + ")");
 			sankey.relayout();
 			link.attr("d", path);
-		  }
+		  } */
         // I need to learn javascript
   var numCycles = 0;
   for( var i = 0; i< sankey.links().length; i++ ) {
