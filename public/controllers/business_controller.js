@@ -664,8 +664,8 @@ $scope.createCapabilityTree = function () {
     var root =  _.tree(capApps,'Manage GSA','name', 'pname');
 
       var margin = {top: 20, right: 0, bottom: 0, left: 0},
-      width = 960,
-      height = 600 - margin.top - margin.bottom,
+      width = $('#buschart').width(),
+      height = $('#stage').height() - $('#businessheader').height() - parseInt($('#stage').css('padding-top')) * 2,
       formatNumber = d3.format(",d"),
       transitioning;
 
@@ -1102,10 +1102,6 @@ $scope.createCapabilityTree = function () {
         })
         .text(function(d) { return d.text; });
       }
-
     }
-    
-    
-    
   }
 ]);
