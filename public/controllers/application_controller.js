@@ -222,7 +222,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "SSO": val.SSOShort,
             "Owner": val.Owner,
 			"OwnerShort": val.OwnerShort,
-            "System": val.System,
+            "System": val.ParentSystem,
             "BusinessPOC": val.BusinessPOC,
             "TechnicalPOC": val.TechnicalPOC,
             "Cloud": val.Cloud,
