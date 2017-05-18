@@ -168,6 +168,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
       $scope.type = std.Type;
       $scope.comments = std.Comments||$scope.noITStdCommentsMsg;
       $scope.approvalExpirationDate = std.ApprovalExpirationDate;
+	  $scope.refdocdetail = std.Refdocdetail;
 
       $scope.applications = ITStdApplicationsSrc.query({ id: currentId });
       $scope.applications.$promise.then(function () {

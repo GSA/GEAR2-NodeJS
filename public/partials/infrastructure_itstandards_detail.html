@@ -4,6 +4,17 @@
   $('[data-toggle="popover"]').popover()
 })
 </script>
+<style> 
+table tr td a {
+    display:block;
+    height:100%;
+    width:100%;
+}
+table tr td {
+    padding-left: 0;
+    padding-right: 0;
+} </style>
+
     <div class="col-md-12">
         <div id="function" class="panel panel-default" style="height: auto;">
             <div id="functionheader" class="panel-heading">
@@ -52,6 +63,15 @@
                                 <tr>
                                     <td><i class="fa fa-comment-o"></i>&nbsp;Comments</td>
                                     <td>{{comments}}</td>
+                                </tr>
+								<tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;Reference Documents</td>
+                                    <td><a href="{{refdocdetail}}">
+									<div style="height:100%;width:100%">
+									  {{refdocdetail}}
+									</div>
+									</a>
+									</td>
                                 </tr>
                             </table>
                         </div>
