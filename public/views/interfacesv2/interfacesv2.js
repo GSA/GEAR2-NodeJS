@@ -49,9 +49,9 @@ angular.module('interfacesv2', ['ngRoute'])
 			w = 930; // best fit @1280px screen width in IE11
 		  }
 		  
-		var margin = {top: 10, right: 10, bottom: 10, left: 10},
-			width = w - margin.left - margin.right,//700
-			height = h - margin.top - margin.bottom;//300
+		var margin = {top: 5, right: 5, bottom: 5, left: 5},
+			width = (w - margin.left - margin.right)*0.9,//700
+			height = (h - margin.top - margin.bottom)*0.9;//300
 		
 
 		var formatNumber = d3.format(",.0f"),    // zero decimal places
@@ -60,6 +60,7 @@ angular.module('interfacesv2', ['ngRoute'])
 
 		// append the svg canvas to the page
 		var svg = d3.select('#' + CONTAINER_ID).append("svg")
+     .attr( "preserveAspectRatio", "xMinYMid meet" )
 			.attr("width", w)//width + margin.left + margin.right)
 			.attr("height", h)//height + margin.top + margin.bottom)
 			.attr("id", SVG_ID)
@@ -90,7 +91,8 @@ angular.module('interfacesv2', ['ngRoute'])
 			  graph.nodes.push({ "name": d.target });
 			  graph.links.push({ "source": d.source,
 								 "target": d.target,
-								 "value": +d.count });
+								 "value": +d.count,
+								 "info": d.PII});
 			 });
 
 			 // return only the distinct / unique nodes
@@ -124,12 +126,17 @@ angular.module('interfacesv2', ['ngRoute'])
 			  .attr("d", path)
 			  .style("stroke-width", function(d) { return Math.max(1, d.dy); })
 			  .sort(function(a, b) { return b.dy - a.dy; });
-
-		// add the link titles
+    
+      link.filter( function(d) { return !d.causesCycle} )
+      .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+		
+    // add the link titles
 		  link.append("title")
 				.text(function(d) {
 					return d.source.name + " → " + 
-						d.target.name + "\n" + format(d.value); });
+						d.target.name + "\n" + 
+						format(d.value) + "\n" + 
+						d.info; });
 
 		// add in the nodes
 		  var node = svg.append("g").selectAll(".node")
@@ -167,8 +174,19 @@ angular.module('interfacesv2', ['ngRoute'])
 			.filter(function(d) { return d.x < width / 2; })
 			  .attr("x", 6 + sankey.nodeWidth())
 			  .attr("text-anchor", "start");
-
+			  
 		// the function for moving the nodes
+		  function dragmove(d) {
+			d3.select(this).attr("transform", 
+				"translate(" + (
+					   d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
+					) + "," + (
+						   d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+					) + ")");
+			sankey.relayout();
+			link.attr("d", path);
+		  }
+/* 		// the function for moving the nodes
 		  function dragmove(d) {
 			d3.select(this).attr("transform", 
 				"translate(" + d.x + "," + (
@@ -176,7 +194,29 @@ angular.module('interfacesv2', ['ngRoute'])
 					) + ")");
 			sankey.relayout();
 			link.attr("d", path);
-		  }
+		  } */
+        // I need to learn javascript
+  var numCycles = 0;
+  for( var i = 0; i< sankey.links().length; i++ ) {
+    if( sankey.links()[i].causesCycle ) {
+      numCycles++;
+    }
+  }
+ var cycleTopMarginSize = -10;
+ var horizontalMarginSize = 5;
+  /* var cycleTopMarginSize = (sankey.cycleLaneDistFromFwdPaths() -
+	    ( (sankey.cycleLaneNarrowWidth() + sankey.cycleSmallWidthBuffer() ) * numCycles ) )
+  var horizontalMarginSize = ( sankey.cycleDistFromNode() + sankey.cycleControlPointDist() ); */
+
+  svg = d3.select('#' + CONTAINER_ID).select("svg")
+    .attr( "viewBox",
+	  "" + (0 - horizontalMarginSize ) + " "         // left
+	  + cycleTopMarginSize + " "                     // top
+	  + (w + horizontalMarginSize * 2 ) + " "     // width
+	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height
+
+      
+      
 		});
 
         
