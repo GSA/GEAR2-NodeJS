@@ -61,12 +61,20 @@ class ITStandardsModel extends Model {
         {
           let s = '';
           if(d.ReferenceDocuments){
-            s = "<a href=" + "'" + d.ReferenceDocuments + "'" + "target = '_blank'>" + d.ReferenceDocuments + "</a>"
+            s = "<a href=" + "'" + d.ReferenceDocuments + "'" + " target = '_blank'> " + d.ReferenceDocuments + "</a>"
           }
           else{
             s = d.ReferenceDocuments;
           }
           return s;
+        },
+      },
+	    {
+        name: 'Refdocdetail',
+        type: 'string',
+        mapping(d)
+        {
+          return d.ReferenceDocuments;
         },
       },
       {
