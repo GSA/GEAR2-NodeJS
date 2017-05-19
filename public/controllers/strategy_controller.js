@@ -257,12 +257,30 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Notes',
 			visible: false
           },
-		  {
-            field: 'Status',
-            title: 'Status',
-            sortable: true
-          }
-		  ],
+		{
+          field: 'TechnologyPlatform',
+          title: 'Platform',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Status',
+          title: 'Status',
+          sortable: true
+        },
+		{
+          field: 'FismaSystem',
+          title: 'FISMA System',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Investment',
+          title: 'Investment',
+          sortable: true,
+          visible: false
+
+        }],
           data: $scope.applications
         });
         // Method to handle click events on the Investments table

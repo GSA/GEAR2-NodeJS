@@ -948,6 +948,12 @@ $scope.createCapabilityTree = function () {
               //Populate Related Apps Table
               $('#funcappstable').bootstrapTable({
                 columns: [
+				{
+				  field: 'SSO',
+				  title: 'SSO',
+				  sortable: true,
+				  visible: false
+				},
                 {
                   field: 'OwnerShort',
                   title: 'Two Letter Org (Short)',
@@ -1030,6 +1036,18 @@ $scope.createCapabilityTree = function () {
                   sortable: true,
                   visible: false
                 },
+				{
+				  field: 'TechnologyPlatform',
+				  title: 'Platform',
+				  sortable: true,
+				  visible: false
+				},
+				{
+				  field: 'FismaSystem',
+				  title: 'FISMA System',
+				  sortable: true,
+				  visible: false
+				},
                 {
                   field: 'Investment',
                   title: 'Related Investments',

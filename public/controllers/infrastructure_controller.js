@@ -254,8 +254,26 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             title: 'Status',
             sortable: true,
 			visible: false
-          } 
-		  ],
+          },
+		{
+          field: 'FismaSystem',
+          title: 'FISMA System',
+          sortable: true,
+          visible: false
+        },
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
+          field: 'Investment',
+          title: 'Investment',
+          sortable: true,
+          visible: false
+
+        }],
           data: $scope.applications
         });
       });

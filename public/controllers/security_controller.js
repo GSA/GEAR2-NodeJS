@@ -230,6 +230,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 				sortable: true,
 				visible: false
 			  },
+ 	  		{
+				  field: 'ParentSystem',
+				  title: 'Parent System',
+				  sortable: true,
+				  visible: false
+				},
 			  {
 				field: 'HostingProvider',
 				title: 'Hosting Provider',
@@ -287,8 +293,26 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 				field: 'Notes',
 				title: 'Notes',
 				visible: false
-			  }
-        ],
+			  },
+	  		{
+			  field: 'FismaSystem',
+			  title: 'FISMA System',
+			  sortable: true,
+			  visible: false
+			},
+			// {
+			  // field: 'Id',
+			  // title: 'Id',
+			  // sortable: true,
+			  // visible: false
+			// },
+			{
+			  field: 'Investment',
+			  title: 'Investment',
+			  sortable: true,
+			  visible: false
+
+			}],
         data: apps
       });
     });
