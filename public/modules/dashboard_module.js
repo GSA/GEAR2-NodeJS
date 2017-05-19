@@ -8,7 +8,8 @@ var dashboard = angular.module('dashboard', [
   'apps.graveyard',
   'known-issues',
   'release-notes',
-  'manager-page'
+  'manager-page',
+  'interfacesv2'
 ]);
 
 
