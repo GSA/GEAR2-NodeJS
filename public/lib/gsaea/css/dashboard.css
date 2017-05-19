@@ -492,29 +492,3 @@ text {
  left: -150px;
  top: -150px;
 }
-
-.link {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: 0.5;
-}
-
-.link.backwards {
-  stroke: #402;
-  stroke-dasharray: 9,1;
-}
-
-.cycleLink {
-  fill: #600;
-  opacity: .2;
-  stroke: none;
-  stroke-linejoin: "round";
-}
-
-.cycleLink:hover {
-  opacity: .9;
-}
-
-.link:hover {
-  stroke-opacity: .9;
-}
