@@ -36,11 +36,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         if ([val.Status] != "Retired" && [val.SSO] != "External") {
           var sys = '';
           var fismasys = '';
-          if ([val.ParentSystem] == ''){
+          if ([val.System] == ''){
             sys = "N/A";
           }
           else {
-            sys = val.ParentSystem;
+            sys = val.System;
           }
           if (val.FismaName != ""){
             fismasys = val.FismaName;
