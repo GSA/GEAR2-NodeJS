@@ -182,6 +182,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'SSO',
             sortable: true
           },
+		  		  {
+            field: 'SSO',
+            title: 'SSO (Long)',
+            sortable: true,
+			visible: false
+          },
 		  {
             field: 'Owner',
             title: 'Two Letter Org (Long)',
@@ -257,6 +263,31 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Notes',
 			visible: false
           },
+		  								{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		},
+		{
+          field: 'HostingProvider',
+          title: 'Hosting Provider',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Cloud',
+          title: 'Cloud',
+          sortable: true,
+          visible: false
+        },
+			
 		{
           field: 'TechnologyPlatform',
           title: 'Platform',

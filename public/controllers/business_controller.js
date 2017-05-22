@@ -227,6 +227,12 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true,
 			  visible: false
             },
+						{
+              field: 'SSO',
+              title: 'SSO (Long)',
+              sortable: true,
+			  visible: false
+            },
 		    {
               field: 'Owner',
               title: 'Two Letter Org (Long)',
@@ -256,6 +262,102 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true,
 			  visible: false
             },
+					{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		},
+		{
+          field: 'HostingProvider',
+          title: 'Hosting Provider',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Cloud',
+          title: 'Cloud',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'TechnologyPlatform',
+          title: 'Platform',
+          sortable: true,
+          visible: false
+        },
+			                 {
+                  field: 'FY14',
+                  title: 'FY14',
+                  visible: false
+                },
+                {
+                  field: 'FY15',
+                  title: 'FY15',
+                  visible: false
+                },
+                {
+                  field: 'FY16',
+                  title: 'FY16',
+                  visible: false
+                },
+                {
+                  field: 'FY17',
+                  title: 'FY17',
+				  visible: false
+                },
+                {
+                  field: 'FY18',
+                  title: 'FY18',
+				  visible: false
+                },
+                {
+                  field: 'FY19',
+                  title: 'FY19',
+				  visible: false
+                },
+                {
+                  field: 'FY20',
+                  title: 'FY20',
+				  visible: false
+                },
+                {
+                  field: 'Notes',
+                  title: 'Notes',
+                  visible: false
+
+                },
+		{
+          field: 'Status',
+          title: 'Status',
+          sortable: true,
+		  visible: false
+        },
+		{
+          field: 'FismaSystem',
+          title: 'FISMA System',
+          sortable: true,
+          visible: false
+        },
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
+          field: 'Investment',
+          title: 'Investment',
+          sortable: true,
+          visible: false
+
+        }
 
 			// {
               // field: 'Id',
@@ -954,6 +1056,13 @@ $scope.createCapabilityTree = function () {
 				  sortable: true,
 				  visible: false
 				},
+				{
+          field: 'SSOShort',
+          title: 'SSO (Short)',
+          sortable: true,
+		  visible: false
+		  
+        },
                 {
                   field: 'OwnerShort',
                   title: 'Two Letter Org (Short)',
@@ -975,7 +1084,14 @@ $scope.createCapabilityTree = function () {
                   title: 'Alias',
                   sortable: true,
                   visible: false
-                },
+                },		
+				{
+          field: 'Description',
+          title: 'Description',
+          sortable: true,
+		  visible: false
+        },
+		
                 {
                   field: 'ParentSystem',
                   title: 'Parent System',
@@ -1036,6 +1152,30 @@ $scope.createCapabilityTree = function () {
                   sortable: true,
                   visible: false
                 },
+								{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		},
+		{
+          field: 'HostingProvider',
+          title: 'Hosting Provider',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Cloud',
+          title: 'Cloud',
+          sortable: true,
+          visible: false
+        },
 				{
 				  field: 'TechnologyPlatform',
 				  title: 'Platform',

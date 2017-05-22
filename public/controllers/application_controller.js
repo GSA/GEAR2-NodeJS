@@ -52,6 +52,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Name": val.Name,
             "Description": val.Description,
             "SSO": val.SSOShort,
+			"SSOLong": val.SSO,
             "Owner": val.Owner,
 			"OwnerShort": val.OwnerShort,
             "System": sys,
@@ -98,6 +99,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'SSO',
           title: 'SSO',
           sortable: true
+        },
+		{
+          field: 'SSOLong',
+          title: 'SSO (Long)',
+          sortable: true,
+		  visible: false
         },
 		{
           field: 'Owner',
@@ -672,12 +679,101 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true,
             visible: false
           },
-		  {
-            field: 'Status',
-            title: 'Status',
-            sortable: true
-          }
-		  ],
+		  		{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		},
+		{
+          field: 'HostingProvider',
+          title: 'Hosting Provider',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'Cloud',
+          title: 'Cloud',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'TechnologyPlatform',
+          title: 'Platform',
+          sortable: true,
+          visible: false
+        },
+			                 {
+                  field: 'FY14',
+                  title: 'FY14',
+                  visible: false
+                },
+                {
+                  field: 'FY15',
+                  title: 'FY15',
+                  visible: false
+                },
+                {
+                  field: 'FY16',
+                  title: 'FY16',
+                  visible: false
+                },
+                {
+                  field: 'FY17',
+                  title: 'FY17',
+				  visible: false
+                },
+                {
+                  field: 'FY18',
+                  title: 'FY18',
+				  visible: false
+                },
+                {
+                  field: 'FY19',
+                  title: 'FY19',
+				  visible: false
+                },
+                {
+                  field: 'FY20',
+                  title: 'FY20',
+				  visible: false
+                },
+                {
+                  field: 'Notes',
+                  title: 'Notes',
+                  visible: false
+
+                },
+		{
+          field: 'Status',
+          title: 'Status',
+          sortable: true
+        },
+		{
+          field: 'FismaSystem',
+          title: 'FISMA System',
+          sortable: true,
+          visible: false
+        },
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
+          field: 'Investment',
+          title: 'Investment',
+          sortable: true,
+          visible: false
+
+        }],
           data: sysapp//appgroup
 		//});
         });
