@@ -122,8 +122,13 @@ angular.module('interfacesv2', ['ngRoute'])
 		  var link = svg.append("g").selectAll(".link")
 			  .data(graph.links)
 			.enter().append("path")
-			  .attr("class", "link")
+			  .attr("class", "links")
 			  .attr("d", path)
+			  .style("fill", function(d) { 
+				  return d.color = color(d.info); })//.replace(/ .*/, "")
+			  .style("stroke", function(d) { 
+			  return d.color})//d3.rgb(d.color).brighter(1); })
+			  .style("stroke-opacity", 0.5)
 			  .style("stroke-width", function(d) { return Math.max(1, d.dy); })
 			  .sort(function(a, b) { return b.dy - a.dy; });
     
@@ -155,10 +160,12 @@ angular.module('interfacesv2', ['ngRoute'])
 		  node.append("rect")
 			  .attr("height", function(d) { return d.dy; })
 			  .attr("width", sankey.nodeWidth())
-			  .style("fill", function(d) { 
-				  return d.color = color(d.name.replace(/ .*/, "")); })
-			  .style("stroke", function(d) { 
-				  return d3.rgb(d.color).darker(2); })
+			  .style("fill", "grey")
+			  .style("stroke", "black")
+			  // .style("fill", function(d) { 
+				  // return d.color = color(d.name.replace(/ .*/, "")); })
+			  // .style("stroke", function(d) { 
+				  // return d3.rgb(d.color).darker(2); })
 			.append("title")
 			  .text(function(d) { 
 				  return d.name + "\n" + format(d.value); });

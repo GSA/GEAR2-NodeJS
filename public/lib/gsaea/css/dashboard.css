@@ -518,3 +518,8 @@ text {
 .link:hover {
   stroke-opacity: .9;
 }
+
+path.links {
+  fill: none;
+  stroke-width: 1.5px;
+}
