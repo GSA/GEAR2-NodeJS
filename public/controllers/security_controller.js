@@ -168,7 +168,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 
       fisma.$promise.then(function () {
         $scope.fisma = fisma[0];
-        $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name;
+        $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
         $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;
         if(fisma[0].CSP =='N/A') $scope.fisma.CSP = '';
         if(fisma[0].ServiceType =='N/A') $scope.fisma.ServiceType = '';
