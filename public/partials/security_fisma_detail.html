@@ -54,17 +54,17 @@
                                     <td><i class="fa fa-cloud"></i>&nbsp;Cloud Hosted?</td>
                                     <td>{{ fisma.CloudYN }}</td>
                                 </tr>
-								<tr>
-								<div ng-show="!!fisma.CSP">
+								<tr ng-show="!!fisma.CSP">
+						
                                     <td><i class="fa fa-cloud"></i>&nbsp;Cloud Service Provider</td>
                                     <td>{{ fisma.CSP }}</td>
-								</div>
+					
                                 </tr>
-								<tr>
-								<div ng-show="!!fisma.ServiceType">
+								<tr ng-show="!!fisma.ServiceType">
+							
                                     <td><i class="fa fa-certificate"></i>&nbsp;Type of Service</td>
                                     <td>{{ fisma.ServiceType }}</td>
-								</div>
+							
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
