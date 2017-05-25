@@ -70,6 +70,15 @@
                                     <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
                                     <td>{{ fisma.FISMASystemIdentifier }}</td>
                                 </tr>
+                  <tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;Related Artifacts</td>
+                                    <td><a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
+									<div style="height:100%;width:100%">
+									  {{fisma.RelatedArtName}}
+									</div>
+									</a>
+									</td>
+                                </tr>
                             </table>
               							<br>
                             <h4>Points Of Contact</h4>
