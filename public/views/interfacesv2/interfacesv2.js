@@ -124,11 +124,11 @@ angular.module('interfacesv2', ['ngRoute'])
 			.enter().append("path")
 			  .attr("class", "links")
 			  .attr("d", path)
-			  .style("fill", function(d) { 
-				  return d.color = color(d.info); })//.replace(/ .*/, "")
+			  // .style("fill", function(d) { 
+				  // return d.color = color(d.info); })//.replace(/ .*/, "")
 			  .style("stroke", function(d) { 
-			  return d.color})//d3.rgb(d.color).brighter(1); })
-			  .style("stroke-opacity", 0.5)
+				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
+			  .style("stroke-opacity", 0.7)
 			  .style("stroke-width", function(d) { return Math.max(1, d.dy); })
 			  .sort(function(a, b) { return b.dy - a.dy; });
     
