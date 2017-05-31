@@ -49,6 +49,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             "RenewalDate" : val.RenewalDate,
             "ComplFISMA" : val.ComplFISMA,
             "FISMASystemIdentifier" : val.FISMASystemIdentifier,
+			"PII": val.PII,
+			"CloudYN": val.CloudYN,
+			"CSP": val.CSP,
+			"ServiceType": val.ServiceType,
             "Artifacts": artifacts.join(',<br/>')
           });
         });
@@ -90,6 +94,26 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             sortable: true,
             visible: false
           }, {
+            field: 'PII',
+            title: 'PII',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CloudYN',
+            title: 'Cloud Hosted?',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CSP',
+            title: 'Cloud Server Provider',
+            sortable: true,
+            visible: false
+          },{
+            field: 'ServiceType',
+            title: 'Type of Service',
+            sortable: true,
+            visible: false
+          },{
             field: 'Artifacts',
             title: 'Related Artifacts'
           },
@@ -144,6 +168,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 
       fisma.$promise.then(function () {
         $scope.fisma = fisma[0];
+        $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
+        $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;
+        if(fisma[0].CSP =='N/A') $scope.fisma.CSP = '';
+        if(fisma[0].ServiceType =='N/A') $scope.fisma.ServiceType = '';
         pocs.$promise.then(function () {
           $('#fismapocstable').bootstrapTable({
             columns: [

@@ -46,9 +46,38 @@
                                     <td><i class="fa fa-calendar"></i>&nbsp;Renewal Date</td>
                                     <td>{{ fisma.RenewalDate }}</td>
                                 </tr>
+								<tr>
+                                    <td><i class="fa fa-info-circle"></i>&nbsp;PII</td>
+                                    <td>{{ fisma.PII }}</td>
+                                </tr>
+								<tr>
+                                    <td><i class="fa fa-cloud"></i>&nbsp;Cloud Hosted?</td>
+                                    <td>{{ fisma.CloudYN }}</td>
+                                </tr>
+								<tr ng-show="!!fisma.CSP">
+						
+                                    <td><i class="fa fa-cloud"></i>&nbsp;Cloud Service Provider</td>
+                                    <td>{{ fisma.CSP }}</td>
+					
+                                </tr>
+								<tr ng-show="!!fisma.ServiceType">
+							
+                                    <td><i class="fa fa-certificate"></i>&nbsp;Type of Service</td>
+                                    <td>{{ fisma.ServiceType }}</td>
+							
+                                </tr>
                                 <tr>
                                     <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
                                     <td>{{ fisma.FISMASystemIdentifier }}</td>
+                                </tr>
+                  <tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;Related Artifacts</td>
+                                    <td><a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
+									<div style="height:100%;width:100%">
+									  {{fisma.RelatedArtName}}
+									</div>
+									</a>
+									</td>
                                 </tr>
                             </table>
               							<br>

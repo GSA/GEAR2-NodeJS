@@ -105,6 +105,22 @@ class FISMAModel extends Model {
         name: 'FedContractorLoc',
         type: 'string',
       },
+	  {
+        name: 'PII',
+        type: 'string',
+      },
+	  {
+        name: 'CloudYN',
+        type: 'string',
+      },
+	  {
+        name: 'CSP',
+        type: 'string',
+      },
+	  {
+        name: 'ServiceType',
+        type: 'string',
+      },
     ];
   }
 }
