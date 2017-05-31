@@ -197,6 +197,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             sortable: true
           },
 		  {
+            field: 'SSO',
+            title: 'SSO (Long)',
+            sortable: true,
+			visible: false
+          },
+		  {
             field: 'Owner',
             title: 'Two Letter Org (Long)',
             sortable: true,
@@ -231,6 +237,18 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             sortable: true,
 			visible: false
            },
+		   								{
+          field: 'RegionClassification',
+          title: 'Region Classification',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'IsRevenueGenerator',
+          title: 'Revenue Generator',
+          sortable: true,
+          visible: false
+		},
 		  {
             field: 'HostingProvider',
             title: 'Hosting Provider',
@@ -249,13 +267,72 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             sortable: true,
             visible: false
           },
+		                 {
+                  field: 'FY14',
+                  title: 'FY14',
+                  visible: false
+                },
+                {
+                  field: 'FY15',
+                  title: 'FY15',
+                  visible: false
+                },
+                {
+                  field: 'FY16',
+                  title: 'FY16',
+                  visible: false
+                },
+                {
+                  field: 'FY17',
+                  title: 'FY17',
+				  visible: false
+                },
+                {
+                  field: 'FY18',
+                  title: 'FY18',
+				  visible: false
+                },
+                {
+                  field: 'FY19',
+                  title: 'FY19',
+				  visible: false
+                },
+                {
+                  field: 'FY20',
+                  title: 'FY20',
+				  visible: false
+                },
+                {
+                  field: 'Notes',
+                  title: 'Notes',
+                  visible: false
+
+                },
 		  {
             field: 'Status',
             title: 'Status',
             sortable: true,
 			visible: false
-          } 
-		  ],
+          },
+		{
+          field: 'FismaSystem',
+          title: 'FISMA System',
+          sortable: true,
+          visible: false
+        },
+		// {
+          // field: 'Id',
+          // title: 'Id',
+          // sortable: true,
+          // visible: false
+        // },
+		{
+          field: 'Investment',
+          title: 'Investment',
+          sortable: true,
+          visible: false
+
+        }],
           data: $scope.applications
         });
       });
