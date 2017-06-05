@@ -1119,21 +1119,21 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .data(fill.domain())
 			  .enter().append("g")
 			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate( 0," + i * 15 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
+			  .attr("transform", function(d, i) { return "translate( 0," + (i * 17 - h/2 + 30) + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
 
 			
 	
 			  legend.append("rect")
 			  .attr("x", w/2 - 45)
-			  .attr("width", 12)
-			  .attr("height", 12)
+			  .attr("width", 13)
+			  .attr("height", 14)
 			  .style("fill", fill);
 
 			  legend.append("text")
 			  .attr("x", w/2 - 50)
 			  .attr("y", 8)
-			  .attr("dy", ".35em")
-        .style("font-size", "12px")
+			  .attr("dy", ".25em")
+        .style("font-size", "14px")
         .style("font-weight", "bold")
 			  .style("text-anchor", "end")
 			  .text(function(d) { return d; });  
