@@ -1023,7 +1023,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .data(fill.domain())
 			  .enter().append("g")
 			  .attr("class", "legend")
-			  .attr("transform", function(d, i) { return "translate( 0," + i * (-15) + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
+			  .attr("transform", function(d, i) { return "translate( 0," + (i * 15 - h/2 + 30) + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
 
 			
 	
