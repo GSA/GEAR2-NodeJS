@@ -39,7 +39,7 @@ angular.module('interfacesv2', ['ngRoute'])
         });
       }) */
 	  
-		var units = "Counts";
+		var units = "PII Information";
 
 		var w = $('#' + CONTAINER_ID).parents('.panel-body').width(),
 		  h = 650;
@@ -49,7 +49,7 @@ angular.module('interfacesv2', ['ngRoute'])
 			w = 930; // best fit @1280px screen width in IE11
 		  }
 		  
-		var margin = {top: 5, right: 5, bottom: 5, left: 5},
+		var margin = {top: 5, right: 75, bottom: 5, left: 5},
 			width = (w - margin.left - margin.right)*0.9,//700
 			height = (h - margin.top - margin.bottom)*0.9;//300
 		
@@ -223,8 +223,32 @@ angular.module('interfacesv2', ['ngRoute'])
 	  + cycleTopMarginSize + " "                     // top
 	  + (w + horizontalMarginSize * 2 ) + " "     // width
 	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height
-
       
+	   //Insert Legend			
+		    var legend = svg.selectAll(".legend")
+
+			  .data(color.domain())
+			  .enter().append("g")
+			  .attr("class", "legend")
+			  .attr("transform", function(d, i) { return "translate( 0," + i * 15 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
+
+			
+	
+			  legend.append("rect")
+			  .attr("x", w)
+			  .attr("width", 12)
+			  .attr("height", 12)
+			  .style("fill", color);
+
+			  legend.append("text")
+			  .attr("x", w - 5)
+			  .attr("y", 8)
+			  .attr("dy", ".35em")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+			  .style("text-anchor", "end")
+			  .text(function(d) { return d; });  
+			  
       
 		});
 
