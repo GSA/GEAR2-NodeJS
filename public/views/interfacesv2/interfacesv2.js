@@ -21,6 +21,8 @@ angular.module('interfacesv2', ['ngRoute'])
 		interv2.$promise.then(function (populateData) {
 		$.each(interv2,function(key,val){
 			data.push({
+				// "sourceid":val.scrAppid,
+				// "targetid":val.destAppid,
 				"source":val.srcApp,
 				"target":val.destApp,
 				"count":val.Count,
@@ -31,13 +33,6 @@ angular.module('interfacesv2', ['ngRoute'])
 		var interfacesv2 = null,
         CONTAINER_ID = 'interfacesankey',
         SVG_ID = 'interfacev2svg';
-      /* $scope.interv2.$promise.then(function () {
-        $('#interfacesankey').bootstrapTable({
-          // columns: [
-    // ],
-          data: $scope.interv2
-        });
-      }) */
 	  
 		var units = "PII Information";
 
@@ -67,7 +62,6 @@ angular.module('interfacesv2', ['ngRoute'])
 			.attr("height", h)//height + margin.top + margin.bottom)
 			.attr("id", SVG_ID)
 			.append("g")
-			// .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
 			.attr("transform", 
 				  "translate(" + margin.left + "," + margin.top + ")");
 
@@ -90,9 +84,15 @@ angular.module('interfacesv2', ['ngRoute'])
 
 			data.forEach(function (d) {
 			  graph.nodes.push({ "name": d.source });
+			  // graph.nodes.push({ "name": d.source,
+								 // "id": d.sourceid});
 			  graph.nodes.push({ "name": d.target });
+			  // graph.nodes.push({ "name": d.target,
+								 // "id": d.targetid });
 			  graph.links.push({ "source": d.source,
 								 "target": d.target,
+								 // "sourceid": d.sourceid,
+								 // "targetid": d.targetid,
 								 "value": +d.count,
 								 "info": d.PII});
 			 });
@@ -100,6 +100,7 @@ angular.module('interfacesv2', ['ngRoute'])
 			 // return only the distinct / unique nodes
 			 graph.nodes = d3.keys(d3.nest()
 			   .key(function (d) { return d.name; })
+			   // .key(function (d) { return {"name": d.name, "id": d.id};)
 			   .map(graph.nodes));
 
 			 // loop through each link replacing the text with its index from node
@@ -112,6 +113,7 @@ angular.module('interfacesv2', ['ngRoute'])
 			 // rather than an array of strings
 			 graph.nodes.forEach(function (d, i) {
 			   graph.nodes[i] = { "name": d };
+			   // graph.nodes[i] = { "name": d.name, "id": d.id  };
 			 });
 
 		  sankey
@@ -156,7 +158,8 @@ angular.module('interfacesv2', ['ngRoute'])
 			  .origin(function(d) { return d; })
 			  .on("dragstart", function() { 
 				  this.parentNode.appendChild(this); })
-			  .on("drag", dragmove));
+			  .on("drag", dragmove))
+			  // .on("click", mouseclick);
 
 		// add the rectangles for the nodes
 		  node.append("rect")
@@ -176,7 +179,10 @@ angular.module('interfacesv2', ['ngRoute'])
 		  node.append("text")
 			  .attr("x", -6)
 			  .attr("y", function(d) { return d.dy / 2; })
-			  .attr("dy", ".35em")
+			  .attr("dy", ".35em")            
+			  .style("font-family", "helvetica, arial, sans-serif")
+			  .style("font-size", "10px")
+              .style("font-weight", "bold")
 			  .attr("text-anchor", "end")
 			  .attr("transform", null)
 			  .text(function(d) { return d.name; })
@@ -184,7 +190,7 @@ angular.module('interfacesv2', ['ngRoute'])
 			  .attr("x", 6 + sankey.nodeWidth())
 			  .attr("text-anchor", "start");
 			  
-		// the function for moving the nodes
+		// the function for moving the nodes, both vertically and horizontally
 		  function dragmove(d) {
 			d3.select(this).attr("transform", 
 				"translate(" + (
@@ -195,15 +201,6 @@ angular.module('interfacesv2', ['ngRoute'])
 			sankey.relayout();
 			link.attr("d", path);
 		  }
-/* 		// the function for moving the nodes
-		  function dragmove(d) {
-			d3.select(this).attr("transform", 
-				"translate(" + d.x + "," + (
-						d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
-					) + ")");
-			sankey.relayout();
-			link.attr("d", path);
-		  } */
         // I need to learn javascript
   var numCycles = 0;
   for( var i = 0; i< sankey.links().length; i++ ) {
@@ -235,7 +232,7 @@ angular.module('interfacesv2', ['ngRoute'])
 			
 	
 			  legend.append("rect")
-			  .attr("x", w)
+			  .attr("x", w-3)
 			  .attr("width", 12)
 			  .attr("height", 12)
 			  .style("fill", color);
@@ -248,7 +245,14 @@ angular.module('interfacesv2', ['ngRoute'])
         .style("font-weight", "bold")
 			  .style("text-anchor", "end")
 			  .text(function(d) { return d; });  
-			  
+
+        // function mouseclick(d) {
+            // var appid = d.id;
+            // $location.path('/applications/' + appid);
+            // $scope.$apply();
+
+            // }
+			
       
 		});
 

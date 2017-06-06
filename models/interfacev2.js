@@ -4,6 +4,18 @@ class Interfacev2Model extends Model {
   constructor(f) {
     super(f);
     this.fields = [
+	{
+        name: 'srcAppid',
+        type: 'int',
+      },
+	  {
+        name: 'destAppid',
+        type: 'int',
+      },
+	  {
+        name: 'srcApp',
+        type: 'string',
+      },
       {
         name: 'srcApp',
         type: 'string',
