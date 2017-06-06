@@ -56,7 +56,9 @@ angular.module('interfacesv2', ['ngRoute'])
 
 		var formatNumber = d3.format(",.0f"),    // zero decimal places
 			format = function(d) { return formatNumber(d) + " " + units; },
-			color = d3.scale.category20b();
+			// color = d3.scale.category20b();
+			color =	d3.scale.ordinal()
+                 .range(['#6b6ecf','#b5cf6b','#e7ba52','#d6616b','#de9ed6','#393b79','#637939',	'#8c6d31','#843c39','#7b4173','#ce6dbd','#9c9ede','#cedb9c','#e7cb94','#e7969c','#5254a3','#8ca252','#bd9e39','#ad494a','#a55194',]);
 
 		// append the svg canvas to the page
 		var svg = d3.select('#' + CONTAINER_ID).append("svg")

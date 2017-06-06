@@ -4,7 +4,7 @@ const interfacev2Store = new Interfacev2Store();
 
 function findAll(req, res) {
 
-  interfacev2Store.query(`SELECT * FROM SAODS.udfGetAppInterfacesv2()`, (results) => {
+  interfacev2Store.query(`SELECT * FROM SAODS.udfGetAppInterfacesv3()`, (results) => {
     res.json(results);
   });
 }
