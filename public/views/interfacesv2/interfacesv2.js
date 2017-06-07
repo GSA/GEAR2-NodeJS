@@ -21,8 +21,8 @@ angular.module('interfacesv2', ['ngRoute'])
 		interv2.$promise.then(function (populateData) {
 		$.each(interv2,function(key,val){
 			data.push({
-				// "sourceid":val.scrAppid,
-				// "targetid":val.destAppid,
+				"sourceid":val.scrAppID,
+				"targetid":val.destAppID,
 				"source":val.srcApp,
 				"target":val.destApp,
 				"count":val.Count,

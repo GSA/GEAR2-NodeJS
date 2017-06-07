@@ -5,11 +5,11 @@ class Interfacev2Model extends Model {
     super(f);
     this.fields = [
 	{
-        name: 'srcAppid',
+        name: 'srcAppID',
         type: 'int',
       },
 	  {
-        name: 'destAppid',
+        name: 'destAppID',
         type: 'int',
       },
 	  {
