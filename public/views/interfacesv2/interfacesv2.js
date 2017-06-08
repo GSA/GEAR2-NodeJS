@@ -59,8 +59,8 @@ angular.module('interfacesv2', ['ngRoute'])
 
 		// append the svg canvas to the page
 		var svg = d3.select('#' + CONTAINER_ID)
-			  // .on("touchstart", nozoom)
-              // .on("touchmove", nozoom)
+			.on("touchstart", nozoom)
+      .on("touchmove", nozoom)
 			.append("svg")
 			.attr( "preserveAspectRatio", "xMinYMid meet" )
 			.attr("width", w)//width + margin.left + margin.right)
@@ -116,7 +116,10 @@ angular.module('interfacesv2', ['ngRoute'])
 			   graph.links[i].source = nodes_k.indexOf(graph.links[i].source);
 			   graph.links[i].target = nodes_k.indexOf(graph.links[i].target);
 			 });
-
+        
+       graph.links.sort(function(a,b){
+         return (a.source <= b.source) && (a.target <= b.target)
+       });
 			 //now loop through each nodes to make nodes an array of objects
 			 // rather than an array of strings
 			 graph.nodes.forEach(function (d, i) {
@@ -142,7 +145,7 @@ angular.module('interfacesv2', ['ngRoute'])
 				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
 			  .style("stroke-opacity", 0.7)
 			  .style("stroke-width", function(d) { return Math.max(1, d.dy); })
-			  .sort(function(a, b) { return b.dy - a.dy; });
+			  //.sort(function(a, b) { return b.dy - a.dy; });
     
       link.filter( function(d) { return !d.causesCycle} )
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
@@ -201,26 +204,34 @@ angular.module('interfacesv2', ['ngRoute'])
 			  
 		// the function for moving the nodes, both vertically and horizontally
 		  function dragmove(d) {
-			d3.select(this).attr("transform", 
-				"translate(" + (
-					   d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
-					) + "," + (
-						   d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
-					) + ")");
-			sankey.relayout();
-			link.attr("d", path);
+        d[0] = d3.event.x, d[1] = d3.event.y;
+        if (this.nextSibling) this.parentNode.appendChild(this);
+        d3.select(this).attr("transform", 
+          "translate(" + (
+               d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
+            ) + "," + (
+                 d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+            ) + ")");
+        sankey.relayout();
+        link.attr("d", path);
 		  }
 		  
 		  function mouseclick(d) {
-			var appid = d.id;
+        if (d3.event.defaultPrevented) return; // dragged
+        // if( d3.select(this).attr("data-clicked") == "1" ){
+            // d3.select(this).attr("data-clicked","0"); 
+            var appid = d.id;
             window.location = window.location.pathname + ('#!/applications/' + appid);
-     		//	$scope.$apply();
+          // }
+        // else{
+            // d3.select(this).attr("data-clicked","1");         
+        //}
+      	//	$scope.$apply();
+        }
 
-            }
-
-		// function nozoom() {
-		  // d3.event.preventDefault();
-		// }			
+      function nozoom() {
+        d3.event.preventDefault();
+      }			
 			
         // I need to learn javascript
   var numCycles = 0;
@@ -229,18 +240,18 @@ angular.module('interfacesv2', ['ngRoute'])
       numCycles++;
     }
   }
- var cycleTopMarginSize = -10;/* 
+ var cycleTopMarginSize = -10; 
  var horizontalMarginSize = 5;
   // var cycleTopMarginSize = (sankey.cycleLaneDistFromFwdPaths() -
 	    // ( (sankey.cycleLaneNarrowWidth() + sankey.cycleSmallWidthBuffer() ) * numCycles ) )
   // var horizontalMarginSize = ( sankey.cycleDistFromNode() + sankey.cycleControlPointDist() ); 
 
-  svg = d3.select('#' + CONTAINER_ID).select("svg")
+  /* svg = d3.select('#' + CONTAINER_ID).select("svg")
     .attr( "viewBox",
 	  "" + (0 - horizontalMarginSize ) + " "         // left
 	  + cycleTopMarginSize + " "                     // top
 	  + (w + horizontalMarginSize * 2 ) + " "     // width
-	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height */
+	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height  */
       
 	   //Insert Legend			
 		    var legend = svg.selectAll(".legend")
@@ -253,13 +264,13 @@ angular.module('interfacesv2', ['ngRoute'])
 			
 	
 			  legend.append("rect")
-			  .attr("x", w-3)
+			  .attr("x", w-15)
 			  .attr("width", 12)
 			  .attr("height", 12)
 			  .style("fill", color);
 
 			  legend.append("text")
-			  .attr("x", w - 5)
+			  .attr("x", w - 20)
 			  .attr("y", 8)
 			  .attr("dy", ".35em")
 			  .style("font-size", "12px")
