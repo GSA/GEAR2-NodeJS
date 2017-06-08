@@ -46,7 +46,7 @@ angular.module('interfacesv2', ['ngRoute'])
 			w = 930; // best fit @1280px screen width in IE11
 		  }
 		  
-		var margin = {top: 5, right: 75, bottom: 5, left: 5},
+		var margin = {top: 5, right: (0.13*w), bottom: 5, left: (0.13*w)},
 			width = (w - margin.left - margin.right)*0.9,//700
 			height = (h - margin.top - margin.bottom)*0.9;//300
 		
@@ -176,14 +176,14 @@ angular.module('interfacesv2', ['ngRoute'])
 		  node.append("rect")
 			  .attr("height", function(d) { return d.dy; })
 			  .attr("width", sankey.nodeWidth())
-			  .style("fill", "grey")
-			  .style("stroke", "black")
-			  
+			  .style("fill", "#36648b")
+			  //.style("stroke", "#104e8b")
+        .attr('fill-opacity', 0.9)
 			  // .style("fill", function(d) { 
 				  // return d.color = color(d.name.replace(/ .*/, "")); })
 			  // .style("stroke", function(d) { 
 				  // return d3.rgb(d.color).darker(2); })
-			.append("title")
+        .append("title")
 			  .text(function(d) { 
 				  return d.name + "\n" + format(d.value); });
 
@@ -240,19 +240,19 @@ angular.module('interfacesv2', ['ngRoute'])
       numCycles++;
     }
   }
- var cycleTopMarginSize = -10; 
- var horizontalMarginSize = 5;
+ //var cycleTopMarginSize = -10; 
+ //var horizontalMarginSize = 5;
   // var cycleTopMarginSize = (sankey.cycleLaneDistFromFwdPaths() -
 	    // ( (sankey.cycleLaneNarrowWidth() + sankey.cycleSmallWidthBuffer() ) * numCycles ) )
   // var horizontalMarginSize = ( sankey.cycleDistFromNode() + sankey.cycleControlPointDist() ); 
 
-  /* svg = d3.select('#' + CONTAINER_ID).select("svg")
-    .attr( "viewBox",
+    svg = d3.select('#' + CONTAINER_ID).select("svg")
+   /* .attr( "viewBox",
 	  "" + (0 - horizontalMarginSize ) + " "         // left
 	  + cycleTopMarginSize + " "                     // top
 	  + (w + horizontalMarginSize * 2 ) + " "     // width
-	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height  */
-      
+	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height  
+       */
 	   //Insert Legend			
 		    var legend = svg.selectAll(".legend")
 
