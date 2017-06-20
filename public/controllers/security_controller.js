@@ -364,7 +364,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			  sortable: true,
 			  visible: false
 
-			}],
+			},
+          {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
+        }],
         data: apps
       });
     });

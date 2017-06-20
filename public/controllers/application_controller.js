@@ -52,9 +52,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Name": val.Name,
             "Description": val.Description,
             "SSO": val.SSOShort,
-			"SSOLong": val.SSO,
+            "SSOLong": val.SSO,
             "Owner": val.Owner,
-			"OwnerShort": val.OwnerShort,
+            "OwnerShort": val.OwnerShort,
             "System": sys,
             "BusinessPOC": val.BusinessPOC,
             "TechnicalPOC": val.TechnicalPOC,
@@ -68,7 +68,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Id": val.Id,
             "Investment": val.Investment,
             "IsRevenueGenerator": val.IsRevenueGenerator,
-            "DesktopComponent": val.DesktopComponent
+            "DesktopComponent": val.DesktopComponent,
+            "OMBUID": val.OMBUID
+            
           });
         }
       });
@@ -187,6 +189,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true,
           visible: false
 
+        },
+    {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
         }],
         data: $scope.bstData
       }
@@ -243,7 +251,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Investment": val.Investment,
             "IsRevenueGenerator": val.IsRevenueGenerator,
             "DesktopComponent": val.DesktopComponent,
-            "RetiredYear" : val.RetiredYear
+            "RetiredYear" : val.RetiredYear,
+            "OBMUID": val.OMBUID
           });
         }
       });
@@ -346,6 +355,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'RetiredYear',
           title: 'Retired Year (CY)',
           sortable: true
+        },
+    {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
         }
 		],
         data: $scope.bstData
@@ -428,7 +443,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               "RegionClassification" : val.RegionClassification,
 			  "OwnerLongName": val.Owner,
 			  "BusinessPOC": val.BusinessPOC,
-			  "TechnicalPOC": val.TechnicalPOC
+			  "TechnicalPOC": val.TechnicalPOC,
+        "OMBUID" : val.OMBUID
             });
           }
         });
@@ -536,7 +552,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Region Classification',
             visible: false,
             sortable: true
-          }],
+          },
+      {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
+        }],
           data: $scope.bstData
         };
         bstSearchUtils.updateConfig($scope);
@@ -773,6 +795,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true,
           visible: false
 
+        },
+     {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
         }],
           data: sysapp//appgroup
 		//});
