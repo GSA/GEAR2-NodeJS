@@ -102,6 +102,10 @@
                                 <td><i class="fa fa-line-chart"></i>&nbsp;Revenue Generator</td>
                                 <td>{{ application.IsRevenueGenerator }}</td>
                             </tr>
+                            <tr ng-show="!!application.OMBUID">
+                                <td><i class="fa fa-bookmark"></i>&nbsp;OMB Unique ID</td>
+                                <td>{{ application.OMBUID }}</td>
+                            </tr>
                         </table>
                         <br>
                         <div id="timeblock" ng-show="!!time.length">
