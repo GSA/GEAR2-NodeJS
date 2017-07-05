@@ -357,6 +357,12 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           sortable: true,
           visible: false
 
+        },
+            {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
         }
 
 			// {
@@ -1050,19 +1056,19 @@ $scope.createCapabilityTree = function () {
               //Populate Related Apps Table
               $('#funcappstable').bootstrapTable({
                 columns: [
-				{
-				  field: 'SSO',
-				  title: 'SSO',
-				  sortable: true,
-				  visible: false
-				},
-				{
-          field: 'SSOShort',
-          title: 'SSO (Short)',
-          sortable: true,
-		  visible: false
-		  
-        },
+                {
+                  field: 'SSO',
+                  title: 'SSO',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'SSOShort',
+                  title: 'SSO (Short)',
+                  sortable: true,
+              visible: false
+              
+                },
                 {
                   field: 'OwnerShort',
                   title: 'Two Letter Org (Short)',
@@ -1085,12 +1091,12 @@ $scope.createCapabilityTree = function () {
                   sortable: true,
                   visible: false
                 },		
-				{
-          field: 'Description',
-          title: 'Description',
-          sortable: true,
-		  visible: false
-        },
+                {
+                  field: 'Description',
+                  title: 'Description',
+                  sortable: true,
+                  visible: false
+                },
 		
                 {
                   field: 'ParentSystem',
@@ -1153,48 +1159,54 @@ $scope.createCapabilityTree = function () {
                   visible: false
                 },
 								{
-          field: 'RegionClassification',
-          title: 'Region Classification',
-          sortable: true,
-          visible: false
-        },
-		{
-          field: 'IsRevenueGenerator',
-          title: 'Revenue Generator',
-          sortable: true,
-          visible: false
-		},
-		{
-          field: 'HostingProvider',
-          title: 'Hosting Provider',
-          sortable: true,
-          visible: false
-        },
-		{
-          field: 'Cloud',
-          title: 'Cloud',
-          sortable: true,
-          visible: false
-        },
-				{
-				  field: 'TechnologyPlatform',
-				  title: 'Platform',
-				  sortable: true,
-				  visible: false
-				},
-				{
-				  field: 'FismaSystem',
-				  title: 'FISMA System',
-				  sortable: true,
-				  visible: false
-				},
+                  field: 'RegionClassification',
+                  title: 'Region Classification',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'IsRevenueGenerator',
+                  title: 'Revenue Generator',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'HostingProvider',
+                  title: 'Hosting Provider',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'Cloud',
+                  title: 'Cloud',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'TechnologyPlatform',
+                  title: 'Platform',
+                  sortable: true,
+                  visible: false
+                },
+                {
+                  field: 'FismaSystem',
+                  title: 'FISMA System',
+                  sortable: true,
+                  visible: false
+                },
                 {
                   field: 'Investment',
                   title: 'Related Investments',
                   sortable: true,
                   visible: false
+                },
+                {
+                  field: 'OMBUID',
+                  title: 'OMB Unique ID',
+                  sortable: true,
+                  visible: false
                 }
-				],
+                ],
                 data: applications
               });
               // Method to handle click events on the Capability Applications table

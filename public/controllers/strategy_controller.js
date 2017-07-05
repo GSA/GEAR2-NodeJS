@@ -311,6 +311,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true,
           visible: false
 
+        },
+            {
+          field: 'OMBUID',
+          title: 'OMB Unique ID',
+          sortable: true,
+          visible: false
         }],
           data: $scope.applications
         });

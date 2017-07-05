@@ -155,6 +155,10 @@ class Application extends Model {
           return s;
         },
       },
+      {
+        name: 'OMBUID',
+        type: 'string',
+      },
     ]);
   }
 }
