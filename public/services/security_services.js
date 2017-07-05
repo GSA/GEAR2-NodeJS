@@ -8,6 +8,15 @@ angular.module('dashboard')
 .factory('FISMASrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/fisma/:id');
 }])
+.factory('FISMAexpSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/fismaexp');
+}])
+.factory('FISMAexp1Src', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/fismaexp/thisyear');
+}])
+.factory('FISMAexp2Src', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  return $resource('/api/v0/fismaexp/nextyear');
+}])
 .factory('FISMAApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/fisma/:id/applications');
 }])
@@ -50,5 +59,29 @@ angular.module('dashboard').factory('RISSO', ['$resource', 'WcfConfig', function
   // Use the '$resource' service to return an FISMA System '$resource' object
   return $resource(WcfConfig.urlRoot + 'EAOpen.svc/risso_pocs:rissoId', {
     rissoId: '@_id'
+  });
+}]);
+
+// Create the 'FISMAexp' service
+angular.module('dashboard').factory('FISMAexp', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  // Use the '$resource' service to return an FISMA System '$resource' object
+  return $resource(WcfConfig.urlRoot + 'EAOpen.svc/fisma_systems/', {
+    fismaId: '@_id'
+  });
+}]);
+
+// Create the 'FISMAexp1' service (i.e. FISMA systems expiring this fiscal year)
+angular.module('dashboard').factory('FISMAexp1', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  // Use the '$resource' service to return an FISMA System '$resource' object
+  return $resource(WcfConfig.urlRoot + 'EAOpen.svc/fisma_systems/', {
+    fismaId: '@_id'
+  });
+}]);
+
+// Create the 'FISMAexp2' service (i.e. FISMA systems expiring next fiscal year)
+angular.module('dashboard').factory('FISMAexp2', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
+  // Use the '$resource' service to return an FISMA System '$resource' object
+  return $resource(WcfConfig.urlRoot + 'EAOpen.svc/fisma_systems/', {
+    fismaId: '@_id'
   });
 }]);
