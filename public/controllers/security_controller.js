@@ -5,10 +5,10 @@
 
 // Create the 'Security' controller
 angular.module('dashboard').controller('SecurityController', ['$route','$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
-'FISMASrc', 'FISMAPOCsSrc', 'POCSrc', 'FISMAAppsSrc', 'FISMAApplicationsSrc',
+'FISMASrc', 'FISMAexpSrc', 'FISMAexp1Src', 'FISMAexp2Src', 'FISMAPOCsSrc', 'POCSrc', 'FISMAAppsSrc', 'FISMAApplicationsSrc',
 'FISMAPOC', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
-  FISMASrc, FISMAPOCsSrc,  POCSrc, FISMAAppsSrc, FISMAApplicationsSrc,
+  FISMASrc, FISMAexpSrc, FISMAexp1Src, FISMAexp2Src, FISMAPOCsSrc,  POCSrc, FISMAAppsSrc, FISMAApplicationsSrc,
   FISMAPOC, bstSearchUtils) {
     $scope.rootPath = '';
     $scope.bstData = [];
@@ -153,6 +153,416 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       }
     });
 
+    // Method for Fisma Expired Systems table
+    $scope.createFISMAexpTable = function () {
+      $scope.$bstEl = $('#fismaexptable');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/FISMAexp';
+
+      var fsystems = FISMAexpSrc.query();
+      fsystems.$promise.then(function (populateData) {
+        $scope.bstData = [];
+        var art = "";
+        var link = "";
+        $.each(fsystems, function (key, val) {
+          var artifacts = [];
+
+          _.each(val.RelatedArtifacts, function (artifact) {
+            artifacts.push('<a class="no-propagation" target="_blank" href="' +
+            artifact.ReferenceDocuments +  '">' + artifact.Name + '</a>');
+          });
+
+          art = val.RelatedArtName;
+          link = val.RelatedArtURL;
+          $scope.bstData.push({
+            "RelOrgDisplayName" : val.RelOrgDisplayName,
+            "Name" : val.Name,
+            "Id" : val.Id,
+            "FedContractorLoc" : val.FedContractorLoc,
+            "FIPS199" : val.FIPS199,
+            "ATODate" : val.ATODate,
+            "ATOType" : val.ATOType,
+            "RenewalDate" : val.RenewalDate,
+            "ComplFISMA" : val.ComplFISMA,
+            "FISMASystemIdentifier" : val.FISMASystemIdentifier,
+			"InactiveDate" : val.InactiveDate,
+			"PII": val.PII,
+			"CloudYN": val.CloudYN,
+			"CSP": val.CSP,
+			"ServiceType": val.ServiceType,
+            "Artifacts": artifacts.join(',<br/>')
+          });
+        });
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'System Name',
+            sortable: true
+          }, {
+            field: 'RelOrgDisplayName',
+            title: 'Responsible Org',
+            sortable: true
+          }, {
+            field: 'FedContractorLoc',
+            title: 'Federal/Contractor',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'FIPS199',
+            title: 'FIPS Impact Level',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ATODate',
+            title: 'ATO Date',
+            sortable: true
+          }, {
+            field: 'ATOType',
+            title: 'ATO Type',
+            sortable: true
+          }, {
+            field: 'RenewalDate',
+            title: 'Renewal Date',
+            sortable: true
+          }, {
+            field: 'ComplFISMA',
+            title: 'Complete Assessment For Current FY',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'PII',
+            title: 'PII',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CloudYN',
+            title: 'Cloud Hosted?',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CSP',
+            title: 'Cloud Server Provider',
+            sortable: true,
+            visible: false
+          },{
+            field: 'ServiceType',
+            title: 'Type of Service',
+            sortable: true,
+            visible: false
+          },{
+            field: 'Artifacts',
+            title: 'Related Artifacts'
+          },
+          {
+            field: 'FISMASystemIdentifier',
+            title: 'FISMA System Identifier',
+            sortable: true,
+            visible: false
+          },
+		  {
+			field: 'InactiveDate',
+			title: 'Inactive Date',
+			sortable: true,
+			visible: false
+		  }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+
+      });
+    }
+
+    $('#fismaexptable')
+    .on('click-cell.bs.table', function (e, field, value, row, $element) {
+      // note: this :has selector cannot be cached as a jQuery selection;
+      // done this way to get around that caching issues & other DOM
+      // availabily issues
+      // ALSO: bs-table plugin captures events and prevents propagation
+      // from inner children to bubble back up. The only solution so
+      // far is to explicitly exclude by column name
+      if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length)
+      && field !== 'Artifacts') {
+        $location.path('/FISMA/' + row.Id);
+        $scope.$apply();
+      }
+    });
+	
+    // Method for Fisma Expired1 Systems table
+    $scope.createFISMAexp1Table = function () {
+      $scope.$bstEl = $('#fismaexp1table');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/FISMAexp1';
+
+      var fsystems = FISMAexp1Src.query();
+      fsystems.$promise.then(function (populateData) {
+        $scope.bstData = [];
+        var art = "";
+        var link = "";
+        $.each(fsystems, function (key, val) {
+          var artifacts = [];
+
+          _.each(val.RelatedArtifacts, function (artifact) {
+            artifacts.push('<a class="no-propagation" target="_blank" href="' +
+            artifact.ReferenceDocuments +  '">' + artifact.Name + '</a>');
+          });
+
+          art = val.RelatedArtName;
+          link = val.RelatedArtURL;
+          $scope.bstData.push({
+            "RelOrgDisplayName" : val.RelOrgDisplayName,
+            "Name" : val.Name,
+            "Id" : val.Id,
+            "FedContractorLoc" : val.FedContractorLoc,
+            "FIPS199" : val.FIPS199,
+            "ATODate" : val.ATODate,
+            "ATOType" : val.ATOType,
+            "RenewalDate" : val.RenewalDate,
+            "ComplFISMA" : val.ComplFISMA,
+            "FISMASystemIdentifier" : val.FISMASystemIdentifier,
+			"InactiveDate" : val.InactiveDate,
+			"PII": val.PII,
+			"CloudYN": val.CloudYN,
+			"CSP": val.CSP,
+			"ServiceType": val.ServiceType,
+            "Artifacts": artifacts.join(',<br/>')
+          });
+        });
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'System Name',
+            sortable: true
+          }, {
+            field: 'RelOrgDisplayName',
+            title: 'Responsible Org',
+            sortable: true
+          }, {
+            field: 'FedContractorLoc',
+            title: 'Federal/Contractor',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'FIPS199',
+            title: 'FIPS Impact Level',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ATODate',
+            title: 'ATO Date',
+            sortable: true
+          }, {
+            field: 'ATOType',
+            title: 'ATO Type',
+            sortable: true
+          }, {
+            field: 'RenewalDate',
+            title: 'Renewal Date',
+            sortable: true
+          }, {
+            field: 'ComplFISMA',
+            title: 'Complete Assessment For Current FY',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'PII',
+            title: 'PII',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CloudYN',
+            title: 'Cloud Hosted?',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CSP',
+            title: 'Cloud Server Provider',
+            sortable: true,
+            visible: false
+          },{
+            field: 'ServiceType',
+            title: 'Type of Service',
+            sortable: true,
+            visible: false
+          },{
+            field: 'Artifacts',
+            title: 'Related Artifacts'
+          },
+          {
+            field: 'FISMASystemIdentifier',
+            title: 'FISMA System Identifier',
+            sortable: true,
+            visible: false
+          },
+		  {
+			field: 'InactiveDate',
+			title: 'Inactive Date',
+			sortable: true,
+			visible: false
+		  }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+
+      });
+    }
+
+    $('#fismaexp1table')
+    .on('click-cell.bs.table', function (e, field, value, row, $element) {
+      // note: this :has selector cannot be cached as a jQuery selection;
+      // done this way to get around that caching issues & other DOM
+      // availabily issues
+      // ALSO: bs-table plugin captures events and prevents propagation
+      // from inner children to bubble back up. The only solution so
+      // far is to explicitly exclude by column name
+      if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length)
+      && field !== 'Artifacts') {
+        $location.path('/FISMA/' + row.Id);
+        $scope.$apply();
+      }
+    });
+	
+    // Method for Fisma Expired2 Systems table
+    $scope.createFISMAexp2Table = function () {
+      $scope.$bstEl = $('#fismaexp2table');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/FISMAexp2';
+
+      var fsystems = FISMAexp2Src.query();
+      fsystems.$promise.then(function (populateData) {
+        $scope.bstData = [];
+        var art = "";
+        var link = "";
+        $.each(fsystems, function (key, val) {
+          var artifacts = [];
+
+          _.each(val.RelatedArtifacts, function (artifact) {
+            artifacts.push('<a class="no-propagation" target="_blank" href="' +
+            artifact.ReferenceDocuments +  '">' + artifact.Name + '</a>');
+          });
+
+          art = val.RelatedArtName;
+          link = val.RelatedArtURL;
+          $scope.bstData.push({
+            "RelOrgDisplayName" : val.RelOrgDisplayName,
+            "Name" : val.Name,
+            "Id" : val.Id,
+            "FedContractorLoc" : val.FedContractorLoc,
+            "FIPS199" : val.FIPS199,
+            "ATODate" : val.ATODate,
+            "ATOType" : val.ATOType,
+            "RenewalDate" : val.RenewalDate,
+            "ComplFISMA" : val.ComplFISMA,
+            "FISMASystemIdentifier" : val.FISMASystemIdentifier,
+			"InactiveDate" : val.InactiveDate,
+			"PII": val.PII,
+			"CloudYN": val.CloudYN,
+			"CSP": val.CSP,
+			"ServiceType": val.ServiceType,
+            "Artifacts": artifacts.join(',<br/>')
+          });
+        });
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'System Name',
+            sortable: true
+          }, {
+            field: 'RelOrgDisplayName',
+            title: 'Responsible Org',
+            sortable: true
+          }, {
+            field: 'FedContractorLoc',
+            title: 'Federal/Contractor',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'FIPS199',
+            title: 'FIPS Impact Level',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ATODate',
+            title: 'ATO Date',
+            sortable: true
+          }, {
+            field: 'ATOType',
+            title: 'ATO Type',
+            sortable: true
+          }, {
+            field: 'RenewalDate',
+            title: 'Renewal Date',
+            sortable: true
+          }, {
+            field: 'ComplFISMA',
+            title: 'Complete Assessment For Current FY',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'PII',
+            title: 'PII',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CloudYN',
+            title: 'Cloud Hosted?',
+            sortable: true,
+            visible: false
+          },{
+            field: 'CSP',
+            title: 'Cloud Server Provider',
+            sortable: true,
+            visible: false
+          },{
+            field: 'ServiceType',
+            title: 'Type of Service',
+            sortable: true,
+            visible: false
+          },{
+            field: 'Artifacts',
+            title: 'Related Artifacts'
+          },
+          {
+            field: 'FISMASystemIdentifier',
+            title: 'FISMA System Identifier',
+            sortable: true,
+            visible: false
+          },
+		  {
+			field: 'InactiveDate',
+			title: 'Inactive Date',
+			sortable: true,
+			visible: false
+		  }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+
+      });
+    }
+
+    $('#fismaexp2table')
+    .on('click-cell.bs.table', function (e, field, value, row, $element) {
+      // note: this :has selector cannot be cached as a jQuery selection;
+      // done this way to get around that caching issues & other DOM
+      // availabily issues
+      // ALSO: bs-table plugin captures events and prevents propagation
+      // from inner children to bubble back up. The only solution so
+      // far is to explicitly exclude by column name
+      if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length)
+      && field !== 'Artifacts') {
+        $location.path('/FISMA/' + row.Id);
+        $scope.$apply();
+      }
+    });
 
     // Method for retrieving a single System's details
     $scope.createFISMADetail = function() {
