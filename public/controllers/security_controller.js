@@ -224,7 +224,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           }, {
             field: 'RenewalDate',
             title: 'Renewal Date',
-            sortable: true
+            sortable: true,
+			visible: false
           }, {
             field: 'ComplFISMA',
             title: 'Complete Assessment For Current FY',
@@ -252,7 +253,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             visible: false
           },{
             field: 'Artifacts',
-            title: 'Related Artifacts'
+            title: 'Related Artifacts',
+			visible: false
           },
           {
             field: 'FISMASystemIdentifier',
@@ -264,7 +266,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			field: 'InactiveDate',
 			title: 'Inactive Date',
 			sortable: true,
-			visible: false
+			visible: true
 		  }],
           data: $scope.bstData
         };
