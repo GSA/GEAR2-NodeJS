@@ -69,7 +69,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Investment": val.Investment,
             "IsRevenueGenerator": val.IsRevenueGenerator,
             "DesktopComponent": val.DesktopComponent,
-            "OMBUID": val.OMBUID
+            "OMBUID": val.OMBUID,
+			"ProdYear": val.ProdYear
             
           });
         }
@@ -171,6 +172,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Status',
           sortable: true
         },
+		 {
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
 		{
           field: 'FismaSystem',
           title: 'FISMA System',
@@ -190,12 +197,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           visible: false
 
         },
-    {
+		{
           field: 'OMBUID',
           title: 'OMB Unique ID',
           sortable: true,
           visible: false
-        }],
+        },
+		],
         data: $scope.bstData
       }
 
@@ -252,7 +260,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "IsRevenueGenerator": val.IsRevenueGenerator,
             "DesktopComponent": val.DesktopComponent,
             "RetiredYear" : val.RetiredYear,
-            "OBMUID": val.OMBUID
+            "OBMUID": val.OMBUID,
+			"ProdYear": val.ProdYear
           });
         }
       });
@@ -331,6 +340,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'Status',
           title: 'Status',
           sortable: true
+        },
+		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
         },
 		{
           field: 'FismaSystem',
@@ -429,6 +444,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  "SSO" : sso,
               "Name" : appname,
               "Status" : status,
+			  "ProdYear": val.ProdYear,
               "FY14" : fy14,
               "FY15" : fy15,
               "FY16" : fy16,
@@ -490,6 +506,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Status',
             sortable: true
           },
+		  {
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+			},
 		  // {
             // field: 'Id',
             // title: 'Id',
@@ -777,6 +799,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Status',
           sortable: true
         },
+		 {
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
 		{
           field: 'FISMASystem',
           title: 'FISMA System',
@@ -965,6 +993,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Status',
             sortable: true
           },
+		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
 		{
             field: 'Category',
             title: 'Software Category',

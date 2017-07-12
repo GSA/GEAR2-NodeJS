@@ -340,6 +340,12 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
 		  visible: false
         },
 		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
+		{
           field: 'FismaSystem',
           title: 'FISMA System',
           sortable: true,
@@ -1109,6 +1115,13 @@ $scope.createCapabilityTree = function () {
                   title: 'Status',
                   sortable: true
                 },
+				{
+				  field: 'ProdYear',
+				  title: 'Production Year',
+				  sortable: true,
+				  visible: false
+				},
+				
                 {
                   field: 'FY14',
                   title: 'FY14',
