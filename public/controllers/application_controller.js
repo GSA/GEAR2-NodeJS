@@ -609,6 +609,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     $scope.rootPath = '/systems';
     // Use the System 'query' method to send an appropriate GET request
     var systems = ParentSystemsSrc.query();
+	$scope.system = systems[0];
     systems.$promise.then(function (populateData) {
       $scope.bstData = systems;
       bstSearchUtils.checkFilterState($scope);

@@ -19,7 +19,11 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
 							<li role="presentation"><a href="#applications" aria-controls="applications" role="tab" data-toggle="tab">Child Business Applications</a></li>
-                        </ul>
+							<li role="presentation" ng-show="!!interfaces.length">
+								<a href="#interfaces-pane" data-toggle="tab" aria-controls="interfaces-pane" role="tab" aria-expanded="false" ng-click="createInterfaceSSOChart(system.Id)">Interfaces	</a>
+							</li>
+						
+						</ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="overview">
@@ -68,6 +72,14 @@
 								</tr>
 							</table>
 						</div>
+						
+					<div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfaces-tab"  id="interfaces-pane">
+						<div id="interfacessochart" style="margin-top:20px">
+						<div id = "tooltip1" > </div>
+
+						</div>
+					</div>
+						
                     </div>
                 </div>
             </div>
