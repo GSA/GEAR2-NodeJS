@@ -70,7 +70,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "IsRevenueGenerator": val.IsRevenueGenerator,
             "DesktopComponent": val.DesktopComponent,
             "OMBUID": val.OMBUID
-            
+
           });
         }
       });
@@ -836,13 +836,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     interfaces = AppInterfacesSrc.query({ id: appId });
 
     application.$promise.then(function (d) {
-      // rule is multiple URLs are single string, delimited with a comma
-      if(!!application[0].Url && application[0].Url.indexOf(',') > -1) {
-        application[0].Url = application[0].Url.split(',');
-      } else if (!!application[0].Url) {
-        application[0].Url = [application[0].Url];
+      // rule is multiple Links are single string, delimited with a comma
+      if(!!application[0].Link && application[0].Link.indexOf(',') > -1) {
+        application[0].Link = application[0].Link.split(',');
+      } else if (!!application[0].Link) {
+        application[0].Link = [application[0].Link];
       } else {
-        application[0].Url = [];
+        application[0].Link = [];
       }
 
       $scope.application = application[0];
@@ -1005,8 +1005,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     }
   });
 
-  
-  
+
+
   $scope.createInterfaceSSOChart = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
     var interfaces = null,
@@ -1045,7 +1045,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				"Owner2":val.Owner2,
 				"OwnerShort1":val.OwnerShort1,
 				"OwnerShort2":val.OwnerShort2,
-				"count": 1,		
+				"count": 1,
 			})
 		})
 	  //Constants for the SVG
@@ -1060,7 +1060,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
 			mpr
 			  .addValuesToMap("NameShort1")
-			  
+
 			  .setFilter(function (row, a, b) {
             return (row.NameShort1 === a.name && row.NameShort2 === b.name);
 			  })
@@ -1069,7 +1069,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				return +recs[0].count;
 			  });
 			drawChords(mpr.getMatrix(), mpr.getMap());
-	//	}) 
+	//	})
 	function drawChords (matrix, mmap) {
 		var r1 = h / 2, r0 = 0.6 * r1;
 
@@ -1079,8 +1079,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
       var chord = d3.layout.chord()
                     .sortSubgroups(d3.descending)
-                    .sortChords(d3.descending);  
-      
+                    .sortChords(d3.descending);
+
       var mmapsize = mpr.size(mmap);
       if(mmapsize <=6){
            chord.padding(4/mmapsize);}
@@ -1090,9 +1090,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       var arc = d3.svg.arc()
             .innerRadius(r0)
             .outerRadius(r0 + 15);
-			
-			
-      
+
+
+
       var svg = d3.select('#' + CONTAINER_ID).append("svg")
 		  .attr("width",  w)
 		  .attr("height",  h)
@@ -1100,7 +1100,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  .append("svg:g")
 	//            .attr("id", "circle")
 		  .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
-		  
+
       // if(mmapsize <=2){
             // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
             svg.append(SVG_ID)
@@ -1108,17 +1108,17 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
       var rdr = chordRdr(matrix, mmap);
           chord.matrix(matrix);
-  
+
       var g = svg.selectAll("g.group")
             .data(chord.groups())
             .enter().append("svg:g")
             .attr("class", "group")
-			
+
 			// .attr("data-legend",function(d) { return d.name})
             .on("mouseover", mouseover)
             .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") })
 			.on("click", mouseclick);
-			
+
 
         g.append("svg:path")
             .style("stroke", "black")
@@ -1139,9 +1139,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             })
             .text(function(d) { return rdr(d).gname; });
 
-	
-		
-		 //Insert Legend			
+
+
+		 //Insert Legend
 		    var legend = svg.selectAll(".legend")
 
 			  .data(fill.domain())
@@ -1149,8 +1149,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .attr("class", "legend")
 			  .attr("transform", function(d, i) { return "translate( 0," + (i * 17 - h/2 + 30) + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
 
-			
-	
+
+
 			  legend.append("rect")
 			  .attr("x", w/2 - 45)
 			  .attr("width", 13)
@@ -1164,9 +1164,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         .style("font-size", "14px")
         .style("font-weight", "bold")
 			  .style("text-anchor", "end")
-			  .text(function(d) { return d; });  
-					  
-			  
+			  .text(function(d) { return d; });
+
+
         var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())
                 .enter().append("svg:path")
@@ -1183,7 +1183,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                     .style("left", function () { return (d3.event.x-80)+"px";})//d3.event.pageX-w/2
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
-				
+
 			g.attr("transform", "translate(-80,0)");
 			chordPaths.attr("transform", "translate(-80,0)");
 
@@ -1196,7 +1196,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         function groupTip (d) {
             var p = d3.format(".1%"), q = d3.format(",.1r")
             return "Application Information:<br/>"
-                    + "Name: "+ d.gnamelong + " <br/>" 
+                    + "Name: "+ d.gnamelong + " <br/>"
                     + "Owner: "+ d.gowner + " <br/>"
           }
 
@@ -1206,24 +1206,24 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             $scope.$apply();
 
             }
-              
-		  
+
+
         function mouseover(d, i) {
             d3.select("#tooltip1")
               .style("visibility", "visible")
               .html(groupTip(rdr(d)))
               .style("top", function () { return (d3.event.y - 80)+"px"})//d3.event.pageY
               .style("left", function () { return (d3.event.x- 80)+"px";})//d3.event.pageX
-		  
+
         chordPaths.classed("fade", function(p) {
               return p.source.index != i
                   && p.target.index != i;
             });
           }
       }
-	
-	})  
+
+	})
   }
-  
+
   }
 ]);
