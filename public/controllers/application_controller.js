@@ -681,8 +681,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
           application.$promise.then(function () {
             
-              var interfaces = InterfacesSrc.query({ owner: sys.Name });
-			$scope.tempname = sys.Name;
+            var interfaces = InterfacesSrc.query({ owner: sys.Name });
+            $scope.tempname = sys.Name;
             
             interfaces.$promise.then(function () {
               $.each(application, function (i, app) {
