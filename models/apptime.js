@@ -118,6 +118,14 @@ class AppTIMEModel extends Model {
         type: 'string',
 
       },
+      {
+        name: 'OMBUID',
+        type: 'string',
+      },
+	  {
+        name: 'ProdYear',
+        type: 'string',
+      },
     ];
   }
 }
