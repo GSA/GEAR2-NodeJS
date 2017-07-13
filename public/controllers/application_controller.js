@@ -659,6 +659,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     });
     // Use the Application 'get' method to send an appropriate GET request
     var system = ParentSystemsSrc.query({ id: $routeParams.id });
+	var application = SysAppSrc.query({ id: $routeParams.id });
     var sysid = '';
     system.$promise.then(function (populateData) {
       $.each(system, function (key, val) {
@@ -669,6 +670,38 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.sysURL = val.URL;
       });
 
+
+	      system.$promise.then(function () {
+      $.each(system, function (key, sys) {
+        if (sys.Id == $routeParams.id) {
+          $scope.sysId = sys.Id;
+          $scope.sysName = sys.Name;
+          $scope.sysDescription = sys.Description;
+          $scope.sysParent = sys.Parent;
+
+          application.$promise.then(function () {
+            
+              var interfaces = InterfacesSrc.query({ owner: sys.Name });
+			$scope.tempname = sys.Name;
+            
+            interfaces.$promise.then(function () {
+              $.each(application, function (i, app) {
+                   // if (app.Owner == org.Name)
+              //   {//org.DisplayName
+                  $.each(interfaces, function (i, iface) {
+                    if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
+                      d3.select("#interfaces-tab").style("display", "block");
+                    }
+                  });
+               // };
+              });
+            });
+          });
+        };
+      });
+    });
+	  
+	  
 		var sysapp = SysAppSrc.query({ id: $routeParams.id });
         sysapp.$promise.then(function (populateData) {
 
