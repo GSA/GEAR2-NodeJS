@@ -16,6 +16,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   $scope.bstFilter = {};
   $scope.tableFilterList = [];
   $scope.hasUsedSearchForm = false;
+  
 
   // Method to create Applications table
   $scope.createAppTable = function () {
@@ -680,10 +681,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           $scope.sysParent = sys.Parent;
 
           application.$promise.then(function () {
-            
+          
             var interfaces = InterfacesSrc.query({ owner: sys.Name });
             $scope.tempname = sys.Name;
-            
+            $scope.systype = 'sys';
+			
             interfaces.$promise.then(function () {
               $.each(application, function (i, app) {
                    // if (app.Owner == org.Name)
@@ -896,7 +898,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
     interfaces = AppInterfacesSrc.query({ id: appId });
-
+	
+		
     application.$promise.then(function (d) {
       // rule is multiple URLs are single string, delimited with a comma
       if(!!application[0].Url && application[0].Url.indexOf(',') > -1) {
@@ -1075,7 +1078,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
   
   
-  $scope.createInterfaceSSOChart = function (appId, orgName) {
+  $scope.createInterfaceSSOChart = function (appId, orgName, type) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
     var interfaces = null,
         CONTAINER_ID = 'interfacessochart',
@@ -1098,6 +1101,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 	$scope.interfaces = interfaces;
     interfaces.$promise.then(function (populateData) {
 		$.each(interfaces,function(key,val){
+			if (val.System1 == null)
+				val.System1 = 'None';
+			if (val.System2 == null)
+				val.System2 = 'None';
+			
 			data.push({
 				"AppID1":val.AppID1,
 				"AppID2":val.AppID2,
@@ -1113,6 +1121,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				"Owner2":val.Owner2,
 				"OwnerShort1":val.OwnerShort1,
 				"OwnerShort2":val.OwnerShort2,
+				"System1":val.System1,
+				"System2":val.System2,
 				"count": 1,		
 			})
 		})
@@ -1136,9 +1146,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				if (!recs[0]) return 0;
 				return +recs[0].count;
 			  });
-			drawChords(mpr.getMatrix(), mpr.getMap());
+			drawChords(mpr.getMatrix(), mpr.getMap(), type);
 	//	}) 
-	function drawChords (matrix, mmap) {
+	function drawChords (matrix, mmap, type) {
 		var r1 = h / 2, r0 = 0.6 * r1;
 
 		var color = d3.scale.category20b();
@@ -1190,7 +1200,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
         g.append("svg:path")
             .style("stroke", "black")
-            .style("fill", function(d) { return fill(rdr(d).gownershort); })//d.index  //group color control, colored by owner 2 letter office
+            .style("fill", function(d) { 
+				if (type ==='sys')
+					return fill(rdr(d).gsystem);
+				else				
+					return fill(rdr(d).gownershort); 
+				})//d.index  //group color control, colored by owner 2 letter office
             .attr("d", arc);
 
         g.append("svg:text")
@@ -1233,7 +1248,24 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         .style("font-weight", "bold")
 			  .style("text-anchor", "end")
 			  .text(function(d) { return d; });  
-					  
+		
+		var legendtitle;
+		if (type === 'sys')
+			legendtitle = 'Parent System';
+		else
+			legendtitle = 'Organization';
+		
+			svg.append("text")
+			.attr("transform", function(d, i) { return "translate( 0," + (- h/2 + 30) + ")"; })
+			.attr("x", w/2 - 45)             
+			.attr("y", -15)
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.style("text-anchor", "end")			
+			.text(legendtitle);
+			  
+
+			  
 			  
         var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())

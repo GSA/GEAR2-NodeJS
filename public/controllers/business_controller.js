@@ -107,6 +107,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               var interfaces = InterfacesSrc.query({ owner: org.Name });
               $scope.tempname = org.Name;
             }
+
             interfaces.$promise.then(function () {
               $.each(application, function (i, app) {
                    // if (app.Owner == org.Name)
