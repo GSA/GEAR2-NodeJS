@@ -1251,7 +1251,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		
 		var legendtitle;
 		if (type === 'sys')
-			legendtitle = 'Parent System';
+			legendtitle = 'Related System';
 		else
 			legendtitle = 'Organization';
 		
