@@ -682,7 +682,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
           application.$promise.then(function () {
           
-            var interfaces = InterfacesSrc.query({ owner: sys.Name });
+            var interfaces = InterfacesSrc.query({ sys: sys.Name });
             $scope.tempname = sys.Name;
             $scope.systype = 'sys';
 			
@@ -1092,9 +1092,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
+    } else if (!appId && orgName && type) {
+      interfaces = InterfacesSrc.query({ sys: orgName });
     } else if (!appId && orgName) {
       interfaces = InterfacesSrc.query({ owner: orgName });
-    } else {
+	} else {
       interfaces = InterfacesSrc.query();
     }
 
