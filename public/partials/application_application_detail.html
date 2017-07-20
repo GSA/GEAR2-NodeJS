@@ -55,12 +55,9 @@
                         </div>
                         <h4>Description</h4>
                         <p>{{ application.Description }}</p>
-                        <div id="Link" ng-show="application.Link">
-                        <!-- <div id="link" ng-show="!!application.Url.length">                            -->
-
+                        <div id="Link" ng-show="!!application.Link.length">
                             <h4>Link</h4>
-                            <!-- <a style="display:block" target="_blank" ng-repeat="url in application.Link" href="{{ url }}">{{ url }}</a> -->
-                            <a target="_blank" href="{{ application.Link }}">{{ application.Link }}</a>
+                            <a style="display:block" target="_blank" ng-repeat="url in application.Link" href="{{ url }}">{{ url }}</a>
                         </div>
                     </div>
                     <div id="business-pane" class="tab-pane fade"
