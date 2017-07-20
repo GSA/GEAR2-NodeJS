@@ -103,6 +103,14 @@
                                 <td><i class="fa fa-bookmark"></i>&nbsp;OMB Unique ID</td>
                                 <td>{{ application.OMBUID }}</td>
                             </tr>
+							<tr ng-show="!!application.OMBUID">
+                                <td><i class="fa fa-bookmark"></i>&nbsp;Status</td>
+                                <td>{{ application.Status }}</td>
+                            </tr>
+							<tr ng-show="!!application.OMBUID">
+                                <td><i class="fa fa-bookmark"></i>&nbsp;Production Year</td>
+                                <td>{{ application.ProdYear }}</td>
+                            </tr>
                         </table>
                         <br>
                         <div id="timeblock" ng-show="!!time.length">

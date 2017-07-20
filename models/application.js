@@ -159,6 +159,10 @@ class Application extends Model {
         name: 'OMBUID',
         type: 'string',
       },
+	  {
+        name: 'ProdYear',
+        type: 'string',
+      },
     ]);
   }
 }
