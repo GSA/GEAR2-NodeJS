@@ -16,6 +16,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   $scope.bstFilter = {};
   $scope.tableFilterList = [];
   $scope.hasUsedSearchForm = false;
+  
 
   // Method to create Applications table
   $scope.createAppTable = function () {
@@ -69,8 +70,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Investment": val.Investment,
             "IsRevenueGenerator": val.IsRevenueGenerator,
             "DesktopComponent": val.DesktopComponent,
-            "OMBUID": val.OMBUID
 
+            "OMBUID": val.OMBUID,
+			"ProdYear": val.ProdYear
           });
         }
       });
@@ -171,6 +173,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Status',
           sortable: true
         },
+		 {
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
 		{
           field: 'FismaSystem',
           title: 'FISMA System',
@@ -190,12 +198,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           visible: false
 
         },
-    {
+		{
           field: 'OMBUID',
           title: 'OMB Unique ID',
           sortable: true,
           visible: false
-        }],
+        },
+		],
         data: $scope.bstData
       }
 
@@ -252,7 +261,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "IsRevenueGenerator": val.IsRevenueGenerator,
             "DesktopComponent": val.DesktopComponent,
             "RetiredYear" : val.RetiredYear,
-            "OBMUID": val.OMBUID
+            "OBMUID": val.OMBUID,
+			"ProdYear": val.ProdYear
           });
         }
       });
@@ -331,6 +341,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           field: 'Status',
           title: 'Status',
           sortable: true
+        },
+		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
         },
 		{
           field: 'FismaSystem',
@@ -429,6 +445,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  "SSO" : sso,
               "Name" : appname,
               "Status" : status,
+			  "ProdYear": val.ProdYear,
               "FY14" : fy14,
               "FY15" : fy15,
               "FY16" : fy16,
@@ -490,6 +507,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'Status',
             sortable: true
           },
+		  {
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+			},
 		  // {
             // field: 'Id',
             // title: 'Id',
@@ -587,6 +610,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     $scope.rootPath = '/systems';
     // Use the System 'query' method to send an appropriate GET request
     var systems = ParentSystemsSrc.query();
+	$scope.system = systems[0];
     systems.$promise.then(function (populateData) {
       $scope.bstData = systems;
       bstSearchUtils.checkFilterState($scope);
@@ -636,6 +660,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     });
     // Use the Application 'get' method to send an appropriate GET request
     var system = ParentSystemsSrc.query({ id: $routeParams.id });
+	var application = SysAppSrc.query({ id: $routeParams.id });
     var sysid = '';
     system.$promise.then(function (populateData) {
       $.each(system, function (key, val) {
@@ -646,6 +671,39 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $scope.sysURL = val.URL;
       });
 
+
+	      system.$promise.then(function () {
+      $.each(system, function (key, sys) {
+        if (sys.Id == $routeParams.id) {
+          $scope.sysId = sys.Id;
+          $scope.sysName = sys.Name;
+          $scope.sysDescription = sys.Description;
+          $scope.sysParent = sys.Parent;
+
+          application.$promise.then(function () {
+          
+            var interfaces = InterfacesSrc.query({ sys: sys.Name });
+            $scope.tempname = sys.Name;
+            $scope.systype = 'sys';
+			
+            interfaces.$promise.then(function () {
+              $.each(application, function (i, app) {
+                   // if (app.Owner == org.Name)
+              //   {//org.DisplayName
+                  $.each(interfaces, function (i, iface) {
+                    if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
+                      d3.select("#interfaces-tab").style("display", "block");
+                    }
+                  });
+               // };
+              });
+            });
+          });
+        };
+      });
+    });
+	  
+	  
 		var sysapp = SysAppSrc.query({ id: $routeParams.id });
         sysapp.$promise.then(function (populateData) {
 
@@ -777,6 +835,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Status',
           sortable: true
         },
+		 {
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
 		{
           field: 'FISMASystem',
           title: 'FISMA System',
@@ -834,7 +898,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
     interfaces = AppInterfacesSrc.query({ id: appId });
-
+	
+		
     application.$promise.then(function (d) {
       // rule is multiple Links are single string, delimited with a comma
       if(!!application[0].Link && application[0].Link.indexOf(',') > -1) {
@@ -966,6 +1031,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             sortable: true
           },
 		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
+		{
             field: 'Category',
             title: 'Software Category',
             sortable: true,
@@ -1005,9 +1076,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     }
   });
 
+  
+  $scope.createInterfaceSSOChart = function (appId, orgName, type) {
 
-
-  $scope.createInterfaceSSOChart = function (appId, orgName) {
     // TODO: there are better ways filtering Interfaces. Let's choose one that isn't dependent on args like this. -mld
     var interfaces = null,
         CONTAINER_ID = 'interfacessochart',
@@ -1021,15 +1092,22 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
     if (appId && !orgName) {
       interfaces = AppInterfacesSrc.query({ id: appId });
+    } else if (!appId && orgName && type) {
+      interfaces = InterfacesSrc.query({ sys: orgName });
     } else if (!appId && orgName) {
       interfaces = InterfacesSrc.query({ owner: orgName });
-    } else {
+	} else {
       interfaces = InterfacesSrc.query();
     }
 
 	$scope.interfaces = interfaces;
     interfaces.$promise.then(function (populateData) {
 		$.each(interfaces,function(key,val){
+			if (val.System1 == null)
+				val.System1 = 'None';
+			if (val.System2 == null)
+				val.System2 = 'None';
+			
 			data.push({
 				"AppID1":val.AppID1,
 				"AppID2":val.AppID2,
@@ -1045,7 +1123,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				"Owner2":val.Owner2,
 				"OwnerShort1":val.OwnerShort1,
 				"OwnerShort2":val.OwnerShort2,
-				"count": 1,
+				"System1":val.System1,
+				"System2":val.System2,
+				"count": 1,		
+
 			})
 		})
 	  //Constants for the SVG
@@ -1068,9 +1149,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				if (!recs[0]) return 0;
 				return +recs[0].count;
 			  });
-			drawChords(mpr.getMatrix(), mpr.getMap());
-	//	})
-	function drawChords (matrix, mmap) {
+
+			drawChords(mpr.getMatrix(), mpr.getMap(), type);
+	//	}) 
+	function drawChords (matrix, mmap, type) {
+
 		var r1 = h / 2, r0 = 0.6 * r1;
 
 		var color = d3.scale.category20b();
@@ -1122,7 +1205,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
         g.append("svg:path")
             .style("stroke", "black")
-            .style("fill", function(d) { return fill(rdr(d).gownershort); })//d.index  //group color control, colored by owner 2 letter office
+            .style("fill", function(d) { 
+				if (type ==='sys')
+					return fill(rdr(d).gsystem);
+				else				
+					return fill(rdr(d).gownershort); 
+				})//d.index  //group color control, colored by owner 2 letter office
             .attr("d", arc);
 
         g.append("svg:text")
@@ -1164,8 +1252,23 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         .style("font-size", "14px")
         .style("font-weight", "bold")
 			  .style("text-anchor", "end")
-			  .text(function(d) { return d; });
-
+			  .text(function(d) { return d; });  
+		
+		var legendtitle;
+		if (type === 'sys')
+			legendtitle = 'Related System';
+		else
+			legendtitle = 'Organization';
+		
+			svg.append("text")
+			.attr("transform", function(d, i) { return "translate( 0," + (- h/2 + 30) + ")"; })
+			.attr("x", w/2 - 45)             
+			.attr("y", -15)
+			.style("font-size", "16px")
+			.style("font-weight", "bold")
+			.style("text-anchor", "end")			
+			.text(legendtitle);
+			  
 
         var chordPaths = svg.selectAll("path.chord")
                 .data(chord.chords())

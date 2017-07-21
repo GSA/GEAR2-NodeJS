@@ -33,6 +33,10 @@ class InterfaceModel extends Model {
         type: 'string',
       },
       {
+        name: 'System1',
+        type: 'string',
+      },
+      {
         name: 'AppID2',
         type: 'string',
       },
@@ -58,6 +62,10 @@ class InterfaceModel extends Model {
       },
       {
         name: 'OwnerShort2',
+        type: 'string',
+      },
+      {
+        name: 'System2',
         type: 'string',
       },
     ];

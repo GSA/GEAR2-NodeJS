@@ -300,6 +300,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true
         },
 		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
+        },
+
+		{
           field: 'FismaSystem',
           title: 'FISMA System',
           sortable: true,

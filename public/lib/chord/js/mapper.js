@@ -85,6 +85,7 @@ function chordMpr (data) {
             "SSOShort1": data[co].SSOShort1,
             "Owner1": data[co].Owner1,
             "OwnerShort1": data[co].OwnerShort1,
+			"System1": data[co].System1,
             "countApp": countApp[v]
             };
           break;
@@ -114,6 +115,7 @@ function chordRdr (matrix, mmap) {
       m.sssoshort = s[0].data.SSOShort1;
       m.sowner = s[0].data.Owner1;
       m.sownershort = s[0].data.OwnerShort1;
+	  m.ssystem = s[0].data.System1;
       m.sdata = d.source.value;
       m.svalue = +d.source.value;
       m.stotal = _.reduce(matrix[i], function (k, n) { return k + n }, 0);
@@ -124,6 +126,7 @@ function chordRdr (matrix, mmap) {
       m.tssoshort = t[0].data.SSOShort1;
       m.towner = t[0].data.Owner1;
       m.townershort = t[0].data.OwnerShort1;
+	  m.tsystem = t[0].data.System1;
       m.tdata = d.target.value;
       m.tvalue = +d.target.value;
       m.ttotal = _.reduce(matrix[j], function (k, n) { return k + n }, 0);
@@ -136,6 +139,7 @@ function chordRdr (matrix, mmap) {
       m.gssoshort = g[0].data.SSOShort1;
       m.gowner = g[0].data.Owner1;
       m.gownershort = g[0].data.OwnerShort1;
+	  m.gsystem = g[0].data.System1;
       m.gdata = g[0].data;
       m.gvalue = g[0].data.countApp;
       // m.gvalue = d.value;

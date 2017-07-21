@@ -107,6 +107,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               var interfaces = InterfacesSrc.query({ owner: org.Name });
               $scope.tempname = org.Name;
             }
+
             interfaces.$promise.then(function () {
               $.each(application, function (i, app) {
                    // if (app.Owner == org.Name)
@@ -338,6 +339,12 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           title: 'Status',
           sortable: true,
 		  visible: false
+        },
+		{
+          field: 'ProdYear',
+          title: 'Production Year',
+          sortable: true,
+          visible: false
         },
 		{
           field: 'FismaSystem',
@@ -1109,6 +1116,13 @@ $scope.createCapabilityTree = function () {
                   title: 'Status',
                   sortable: true
                 },
+				{
+				  field: 'ProdYear',
+				  title: 'Production Year',
+				  sortable: true,
+				  visible: false
+				},
+				
                 {
                   field: 'FY14',
                   title: 'FY14',
