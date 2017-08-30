@@ -12,7 +12,7 @@
         json: 'JSON',
         xml: 'XML',
         png: 'PNG',
-        csv: 'CSV',
+        csv: 'MS-Excel (CSV)',
         txt: 'TXT',
         sql: 'SQL',
         doc: 'MS-Word',
@@ -24,7 +24,7 @@
     $.extend($.fn.bootstrapTable.defaults, {
         showExport: false,
         // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql'],
         exportOptions: {}
     });
 
