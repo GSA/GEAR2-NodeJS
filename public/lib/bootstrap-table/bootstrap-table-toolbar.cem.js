@@ -5,6 +5,7 @@
  * @version: v2.0.0
  *
  * @update Dennis Hernández <http://djhvscf.github.io/Blog>
+ *
  */
 
 !function($) {
