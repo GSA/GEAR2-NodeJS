@@ -50,6 +50,7 @@
                         <li><a href="#!/siteoverview">About</a></li>
                         <li><a href="#!/glossary">Glossary</a></li>
                         <li><a href="mailto:ea_planning@gsa.gov">Contact EA Team</a></li>
+                        <li><a id="login-link" href="/login">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -117,6 +118,14 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#"><i class="fa fa-edit fa-fw"></i> Admin<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#!/admin">Admin</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -155,6 +164,9 @@
     <script src="./modules/dashboard_module.js"></script>
 
     <!-- Load views -->
+    <!-- in EXECUTE order (vs alpha) -->
+    <script src="./views/admin-detail/admin-detail.js"></script>
+    <script src="./views/admin/admin.js"></script>
     <script src="./views/apps-graveyard/apps-graveyard.js"></script>
     <script src="./views/known-issues/known-issues.js"></script>
     <script src="./views/release-notes/release-notes.js"></script>
@@ -219,6 +231,10 @@
 	<script src="./lib/chord/js/mapper.js"></script>
     <script id="side-menu-behaviors">
         $(function () {
+            $('#login-link').attr('href', function () {
+                var path = window.location.href.substr(window.location.origin.length)
+                return '/login?target=' + path;
+            });
             /**
              *  Enables CSS :target pseudo selector on hash-bang
              *  links in the #side-menu control.
@@ -244,4 +260,3 @@
 
 </body>
 </html>
-
