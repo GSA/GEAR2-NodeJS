@@ -7,7 +7,8 @@ const appStore = new AppStore();
 const pocStore = new POCStore();
 
 function findAll(req, res) {
-  fismaStore.query('SELECT * FROM SAODS.udfGetFISMAList()', (results) => {
+  fismaStore.search('CALL get_fisma_detail(0)', (results) => {
+	  console.log(results);
     res.json(results);
   });
 }
@@ -17,7 +18,7 @@ function findOne(req, res, next) {
   if (req.params.id === 'pocs') {
     next();
   } else {
-    fismaStore.query(`SELECT * FROM SAODS.udfGetFISMAList() WHERE ID = ${req.params.id}`, (results) => {
+    fismaStore.search(`CALL get_fisma_detail( ${req.params.id})`, (results) => {
       res.json(results);
     });
   }
@@ -25,14 +26,14 @@ function findOne(req, res, next) {
 
 // children
 function findApplications(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'f')`, (results) => {
+  appStore.search(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'f')`, (results) => {
     res.json(results);
   });
 }
 function findPOCs(req, res) {
   const filter = req.params.id ? `WHERE ID = ${req.params.id}` : '';
 
-  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('f') ${filter}`, (results) => {
+  pocStore.search(`SELECT * FROM SAODS.udfGetPOCDetails('f') ${filter}`, (results) => {
     res.json(results);
   });
 }

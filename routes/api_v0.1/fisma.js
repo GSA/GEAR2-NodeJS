@@ -1,15 +1,24 @@
 const express = require('express');
 const fismaCtrl = require('../../controllers/fisma');
 const mysql = require('mysql');
-const dbconfig = require('../../.securables/database');
-const connection = mysql.createConnection(dbconfig.connection);
+const dbconfig = require('../../.securables/gear-config');
+/* const connection = mysql.createConnection(dbconfig.connection);
 connection.query(`USE ${dbconfig.database};`);
+ */
+const connection = mysql.createConnection({
+		host: 'localhost',
+        user: 'root',
+        password: '19861029'
+	
+	
+});
+connection.query(`USE cowboy_ods;`);
 
 const router = express.Router();
 
 router.route('/')
   .get((req, res) => {
-    connection.query(`SELECT * FROM apps;`, (err, rows) => {
+    connection.query(`CALL get_fisma_detail(0);`, (err, rows) => {
       if (err) {
         res.send(err);
       } else {
@@ -29,7 +38,7 @@ router.route('/')
 
 router.route('/:id')
   .get((req, res) => {
-    connection.query(`SELECT * FROM apps WHERE id = ${mysql.escape(req.params.id)};`, (err, rows) => {
+    connection.query(`CALL get_fisma_detail(${mysql.escape(req.params.id)});`, (err, rows) => {
       if (err) {
         res.send(err);
       } else {
