@@ -1,10 +1,10 @@
 const FISMAStore = require('../stores/fisma');
-const AppStore = require('../stores/application');
-const POCStore = require('../stores/poc');
+//const AppStore = require('../stores/application');
+//const POCStore = require('../stores/poc');
 
 const fismaStore = new FISMAStore();
-const appStore = new AppStore();
-const pocStore = new POCStore();
+//const appStore = new AppStore();
+//const pocStore = new POCStore();
 
 function findAll(req, res) {
   fismaStore.search('CALL get_fisma_detail(0)', (results) => {
@@ -20,12 +20,13 @@ function findOne(req, res, next) {
   } else {
     fismaStore.search(`CALL get_fisma_detail( ${req.params.id})`, (results) => {
       res.json(results);
+	  console.log(results);
     });
   }
 }
 
 // children
-function findApplications(req, res) {
+/* function findApplications(req, res) {
   appStore.search(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'f')`, (results) => {
     res.json(results);
   });
@@ -37,10 +38,10 @@ function findPOCs(req, res) {
     res.json(results);
   });
 }
-
+ */
 module.exports = {
-  findApplications,
-  findPOCs,
+//  findApplications,
+  // findPOCs,
   findAll,
   findOne,
 };

@@ -18,6 +18,10 @@ class Model {
     }
   }
   apply(data) {
+	  
+	  console.log("look here: ");
+	//  console.log(data[0][0].Name);
+	  data = data[0][0];
     const obj = {};
 
     this.fields.forEach((field) => {
