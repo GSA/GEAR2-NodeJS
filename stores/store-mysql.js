@@ -35,26 +35,23 @@ class StoreMySql {
 		// console.log(rows[0]);
       if (err) {
         this.data.push(err);
+		done.call(done, this.data);
       } else {
-		  
-		// console.log('>> results: ', rows[0] );
-        // var string=JSON.stringify(rows[0]);
-        // console.log('>> string: ', string );
-        // var json =  JSON.parse(row[0]);
-        // console.log('>> json: ', rows[0]);
 
-		// this.data = rows[0];
-		// console.log(this.data);
-        // this.model.list = json;
-        // this.data.push(this.model.apply(json));
-		
-         this.data.push(this.model.apply(rows));
+		 this.data = [];
+		 for (var i = 0; i< rows[0].length; i ++){
+			this.data.push(this.model.apply(rows[0][i]));
+		 }
+		 done.call(done, this.data);
+		 // console.log(rows[0]);
+		 
+         // this.data.push(rows);
         
       }
     });
 	
 	
-	done.call(done, this.data);
+	// done.call(done, this.data);
   }
 }
 
