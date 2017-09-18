@@ -20,6 +20,9 @@ class FISMAModel extends Model {
       {
         name: 'RelOrgDisplayName',
         type: 'string',
+		mapping(o) {
+          return o.RelOrgDisplayName || o.orgName;
+        },
       },
       {
         name: 'FedContractorLoc',
