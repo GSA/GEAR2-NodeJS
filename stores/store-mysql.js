@@ -1,18 +1,9 @@
 /* eslint no-console: ["error", { allow: ["error"] }] */
 const mysql = require('mysql');
-// const dbconfig = require('../.securables/database');
+const dbconfig = require('../.securables/gear-config');
 
-/* const connection = mysql.createConnection(dbconfig.connection);
-connection.query(`USE ${dbconfig.database};`);
- */
-const connection = mysql.createConnection({
-		host: 'localhost',
-        user: 'root',
-        password: '19861029'
-	
-	
-});
-connection.query(`USE cowboy_ods;`);
+ const connection = mysql.createConnection(dbconfig.connection);
+connection.query(`USE ${dbconfig.connection.database};`);
 
 class StoreMySql {
   constructor() {
@@ -24,7 +15,7 @@ class StoreMySql {
   }
   create(done) {
     connection.query(`CALL sp_create();`, (err, rows) => {
-      // console.log('INSERT: ' + rows);
+      
       done(err, rows[0]);
     });
   }
@@ -32,7 +23,6 @@ class StoreMySql {
     search(sql, done) {
     const request = connection.query(sql, (err, rows) => {
 		
-		// console.log(rows[0]);
       if (err) {
         this.data.push(err);
 		done.call(done, this.data);
@@ -43,15 +33,10 @@ class StoreMySql {
 			this.data.push(this.model.apply(rows[0][i]));
 		 }
 		 done.call(done, this.data);
-		 // console.log(rows[0]);
-		 
-         // this.data.push(rows);
-        
+  
       }
     });
 	
-	
-	// done.call(done, this.data);
   }
 }
 
