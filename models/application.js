@@ -24,14 +24,9 @@ class Application extends Model {
       {
         name: 'OwnerShort',
         type: 'string',
-      },
-      {
-        name: 'SSOShort',
-        type: 'string',
-      },
-      {
-        name: 'Owner',
-        type: 'string',
+		mapping(o) {
+          return o.RelOrgDisplayName || o.orgName || o.SSOShort;
+        },
       },
       {
         name: 'ParentSystem',

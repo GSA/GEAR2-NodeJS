@@ -1,4 +1,4 @@
-const Store = require('./store');
+const Store = require('./store-mysql');
 const POCModel = require('../models/poc');
 
 class POCStore extends Store {

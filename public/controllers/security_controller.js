@@ -576,7 +576,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       var fismaid = '';
       // added via merge (from here to next empty line)
       var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });
-      var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
+      // var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
+      var pocs = FISMASrc.query({ id: $routeParams.id });
+	  console.log(pocs.POC);
+	  console.log("Heloollooollooo");
 
       fisma.$promise.then(function () {
         $scope.fisma = fisma[0];
@@ -584,7 +587,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;
         if(fisma[0].CSP =='N/A') $scope.fisma.CSP = '';
         if(fisma[0].ServiceType =='N/A') $scope.fisma.ServiceType = '';
+		var newpoc;
         pocs.$promise.then(function () {
+			console.log(pocs[0].POC);
+			newpoc = pocs[0].POC;
           $('#fismapocstable').bootstrapTable({
             columns: [
               {
@@ -608,7 +614,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
                 sortable: true
               },
             ],
-            data: pocs
+            data: newpoc
           });
         });
       });

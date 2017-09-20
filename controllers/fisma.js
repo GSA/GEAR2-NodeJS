@@ -32,7 +32,7 @@ function findOne(req, res, next) {
 function findPOCs(req, res) {
    const filter = req.params.id ? req.params.id : 0;
 
-  pocStore.search(`CALL get_fisma_detail( ${filter})`, (results) => {
+  fismaStore.search(`CALL get_fisma_detail( ${filter})`, (results) => {
     res.json(results);
   }); 
 }

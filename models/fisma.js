@@ -39,8 +39,9 @@ class FISMAModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
-		map(d){
-			return d.substring(0,10);
+		mapping(d){
+			let s = d.ATODate.toISOString();
+			return s.substring(0,10);
 		}
       },
       {
@@ -50,8 +51,9 @@ class FISMAModel extends Model {
       {
         name: 'RenewalDate',
         type: 'string',
-		map(d){
-			return d.substring(0,10);
+		mapping(d){
+			let s = d.RenewalDate.toISOString();
+			return s.substring(0,10);
 		}
       },
       {
@@ -81,8 +83,50 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
+        name: 'POC',
+        type: 'string',
+        mapping(d) {
+          let poc = null;
+          let poc1 = null;
+          let poctype = null;
+          if (d.POC) {
+            poc1 = d.POC.split('*');
+			for (var i = 0; i< poc1.length; i++){
+            poctype = poc1[i].split(':');
+            poc = poctype[1].split('; ');
+            poc = poc.map((art) => {
+              const pieces = art.split(',');
+              return {
+				Type: poctype[0],
+                Name: pieces[0],
+                Email: pieces[1],
+              };
+            });
+			}
+		  }
+          return poc;
+        },		
+      },
+      {
         name: 'ISSO',
         type: 'string',
+        mapping(d) {
+          let poc = null;
+          let poctype = null;
+          if (d.ISSO) {
+            poctype = d.ISSO.split(':');
+            poc = poctype[1].split('; ');
+            poc = poc.map((art) => {
+              const pieces = art.split(',');
+              return {
+				Type: poctype[0],
+                Name: pieces[0],
+                Email: pieces[1],
+              };
+            });
+          }
+          return poc;
+        },		
       },
       {
         name: 'ISSM',

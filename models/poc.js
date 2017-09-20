@@ -14,6 +14,9 @@ class POCModel extends Model {
       {
         name: 'Name',
         type: 'string',
+		mapping(data) {
+          return data.Keyname || data.name;
+        },
       },
       {
         name: 'Phone',
@@ -38,6 +41,7 @@ class POCModel extends Model {
           return data['POC Type'];
         },
       },
+	  
     ];
   }
 }
