@@ -39,6 +39,9 @@ class FISMAModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
+		map(d){
+			return d.substring(0,10);
+		}
       },
       {
         name: 'ATOType',
@@ -47,6 +50,9 @@ class FISMAModel extends Model {
       {
         name: 'RenewalDate',
         type: 'string',
+		map(d){
+			return d.substring(0,10);
+		}
       },
       {
         name: 'ComplFISMA',
