@@ -89,25 +89,30 @@ class FISMAModel extends Model {
           let poc = null;
           let poc1 = null;
           let poctype = null;
+		  let pocs = [];
           if (d.POC) {
             poc1 = d.POC.split('*');
-			for (var i = 0; i< poc1.length; i++){
-            poctype = poc1[i].split(':');
-            poc = poctype[1].split('; ');
-            poc = poc.map((art) => {
-              const pieces = art.split(',');
-              return {
-				Type: poctype[0],
-                Name: pieces[0],
-                Email: pieces[1],
-              };
-            });
+			poc1 = poc1.map((poctype, cb) =>
+			{
+				poctype = poctype.split(':');
+				poc = poctype[1].split('; ');
+				for(var i = 0; i< poc.length; i++){
+				 var pieces = poc[i].split(',');
+			//	poc = poc.map((art) => {
+				//  const pieces = art.split(',');
+				 var cb = {
+					Type: poctype[0],
+					Name: pieces[0],
+					Email: pieces[1],
+				};
+				pocs.push(cb);					
 			}
+			})
 		  }
-          return poc;
+          return pocs;
         },		
       },
-      {
+  /*     {
         name: 'ISSO',
         type: 'string',
         mapping(d) {
@@ -149,7 +154,7 @@ class FISMAModel extends Model {
         name: 'Program Manager',
         type: 'string',
         mapping: 'PM',
-      },
+      }, */
       {
         name: 'RelOrgDisplayName',
         type: 'string',
