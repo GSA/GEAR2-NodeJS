@@ -42,10 +42,11 @@ class FISMAModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
-		mapping(d){
+ 		mapping(d){
+			if(d.ATODate){
 			let s = d.ATODate.toISOString();
-			return s.substring(0,10);
-		}
+			return s.substring(0,10);}
+		},
       },
       {
         name: 'ATOType',
@@ -54,10 +55,11 @@ class FISMAModel extends Model {
       {
         name: 'RenewalDate',
         type: 'string',
-		mapping(d){
+ 		mapping(d){
+			if(d.RenewalDate){
 			let s = d.RenewalDate.toISOString();
-			return s.substring(0,10);
-		}
+			return s.substring(0,10);}
+		},
       },
       {
         name: 'ComplFISMA',
@@ -136,7 +138,6 @@ class FISMAModel extends Model {
 			  pocs += cb;
 			  // pocs.push(cb);
             });
-			console.log(pocs);
           }
           return pocs;
         },		
@@ -232,6 +233,15 @@ class FISMAModel extends Model {
         name: 'ServiceType',
         type: 'string',
       },
+	  {
+		name: 'InactiveDate',
+		type: 'string',
+ 		mapping(d){
+			if(d.InactiveDate){
+			let s = d.InactiveDate.toISOString();
+			return s.substring(0,10);}
+		},
+	  },
     ];
   }
 }

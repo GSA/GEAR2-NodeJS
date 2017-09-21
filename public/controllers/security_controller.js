@@ -287,7 +287,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       // far is to explicitly exclude by column name
       if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length)
       && field !== 'Artifacts') {
-        $location.path('/FISMA/' + row.Id);
+        $location.path('/FISMA/' + '-' + row.Id);
         $scope.$apply();
       }
     });
@@ -575,7 +575,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       var fisma = FISMASrc.query({ id: $routeParams.id });
       var fismaid = '';
       // added via merge (from here to next empty line)
-      var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });
+      var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });//$routeParams.id
       // var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
       var pocs = FISMASrc.query({ id: $routeParams.id });
 	 
