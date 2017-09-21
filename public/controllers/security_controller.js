@@ -578,9 +578,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });
       // var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
       var pocs = FISMASrc.query({ id: $routeParams.id });
-	  console.log(pocs.POC);
-	  console.log("Heloollooollooo");
-
+	 
       fisma.$promise.then(function () {
         $scope.fisma = fisma[0];
         $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
@@ -589,7 +587,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         if(fisma[0].ServiceType =='N/A') $scope.fisma.ServiceType = '';
 		var newpoc;
         pocs.$promise.then(function () {
-			console.log(pocs[0].POC);
+			
 			newpoc = pocs[0].POC;
           $('#fismapocstable').bootstrapTable({
             columns: [
@@ -820,21 +818,33 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 
     var fismaSrc = FISMASrc.query();
     fismaSrc.$promise.then(function () {
-      var pocs = FISMAPOCsSrc.query();
-      pocs.$promise.then(function () {
-        _.each(fismaSrc, function (item) {
+      var pocs = FISMASrc.query();
+	  var newpoc;
+/*      pocs.$promise.then(function () {
+		  newpoc = pocs[0].POC;
+         _.each(fismaSrc, function (item) {
           _.each(_.keys(item), function (key) {
-            var match = _.where(pocs, {Type: key, ParentId: item.Id});
+			  		console.log(item.POC);
+			  		console.log(newpoc);
+            var match = _.where(pocs, {Type: key, ParentId: item.ID});
+					console.log(match);
+            // var match = _.where(pocs, {Type: key, ParentId: item.Id});
             if (match.length) {
+				console.log(item[key]);
               item[key] = match[0].Name + " " +  "<a href=mailto:" + match[0].Email + ">" + match[0].Email + "</a>"+ " " + (match[0].Phone || '');
             }
           });
-        });
+        }); */
+
+		
         $scope.bstData = fismaSrc;
+		
         $scope.bstData = _.uniq(fismaSrc, function(item) {
+			console.log(item.Name);
           return item.Name;
         });
         bstSearchUtils.checkFilterState($scope);
+		console.log($scope.bstData[0])
         $scope.bsTableConfig = {
           columns: [{
             field: 'RelOrgDisplayName',
@@ -871,7 +881,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
         bstSearchUtils.handleSearchState($scope);
 
-      });
+  //    });
     });
   }
 

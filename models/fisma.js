@@ -35,6 +35,9 @@ class FISMAModel extends Model {
       {
         name: 'FIPS199',
         type: 'string',
+		mapping(o){
+			return o.FIPS_Impact_Level || o.FIPS199;
+		}
       },
       {
         name: 'ATODate',
@@ -112,39 +115,74 @@ class FISMAModel extends Model {
           return pocs;
         },		
       },
-  /*     {
+       {
         name: 'ISSO',
         type: 'string',
         mapping(d) {
           let poc = null;
           let poctype = null;
+		  let pocs = '';
           if (d.ISSO) {
             poctype = d.ISSO.split(':');
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              return {
-				Type: poctype[0],
+              var cb = //{
+				  pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[2] || '');
+				/* Type: poctype[0],
                 Name: pieces[0],
-                Email: pieces[1],
-              };
+                Email: pieces[1], */
+              //};
+			  pocs += cb;
+			  // pocs.push(cb);
             });
+			console.log(pocs);
           }
-          return poc;
+          return pocs;
         },		
       },
       {
         name: 'ISSM',
         type: 'string',
+        mapping(d) {
+          let poc = null;
+          let poctype = null;
+		  let pocs = [];
+          if (d.ISSM) {
+            poctype = d.ISSM.split(':');
+            poc = poctype[1].split('; ');
+            poc = poc.map((art) => {
+              const pieces = art.split(',');
+              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[1] || '');
+			  pocs += cb;
+            });
+          }
+          return pocs;
+        },
       },
       {
         name: 'AO',
-        type: 'string',
+        type: 'string',		
       },
       {
         name: 'Authorizing Official',
         type: 'string',
         mapping: 'AO',
+		mapping(d) {
+          let poc = null;
+          let poctype = null;
+		  let pocs = [];
+          if (d.AO) {
+            poctype = d.AO.split(':');
+            poc = poctype[1].split('; ');
+            poc = poc.map((art) => {
+              const pieces = art.split(',');
+              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[1] || '');
+			  pocs += cb;
+            });
+          }
+          return pocs;
+        },
       },
       {
         name: 'PM',
@@ -154,7 +192,22 @@ class FISMAModel extends Model {
         name: 'Program Manager',
         type: 'string',
         mapping: 'PM',
-      }, */
+	    mapping(d) {
+          let poc = null;
+          let poctype = null;
+		  let pocs = [];
+          if (d.PM) {
+            poctype = d.PM.split(':');
+            poc = poctype[1].split('; ');
+            poc = poc.map((art) => {
+              const pieces = art.split(',');
+              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[1] || '');
+			  pocs += cb;
+            });
+          }
+          return pocs;
+        },
+      }, 
       {
         name: 'RelOrgDisplayName',
         type: 'string',
