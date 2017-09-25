@@ -12,26 +12,26 @@ function findAll(req, res) {
   if (Object.hasOwnProperty.call(req.query, 'fields')) {
     fields = req.query.fields;
   }
-  investmentStore.query(`SELECT ${fields} FROM SAODS.udfGetInvList()`, (results) => {
+  investmentStore.search(`CALL get_investment_detail(0);`, (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  investmentStore.query(`SELECT * FROM SAODS.udfGetInvList() WHERE ID = ${req.params.id}`, (results) => {
+  investmentStore.search(`CALL get_investment_detail(${req.params.id});`, (results) => {
     res.json(results);
   });
 }
 
 // children
 function findApplications(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'i')`, (results) => {
+  appStore.search(`call get_application_detail( ${req.params.id}, 'i')`, (results) => {
     res.json(results);
   });
 }
 
 function findPOCs(req, res) {
-  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('i') WHERE ID = ${req.params.id}`, (results) => {
+  pocStore.search(`CALL get_investment_detail(${req.params.id});`, (results) => {
     res.json(results);
   });
 }
