@@ -39,6 +39,10 @@ class InvestmentModel extends Model {
         name: 'UII',
         type: 'string',
       },
+	  {
+        name: 'POC',
+        type: 'string',
+      },
     ];
   }
 }
