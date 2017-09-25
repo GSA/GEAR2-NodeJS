@@ -5,13 +5,13 @@ const itsStore = new ITSStore();
 const appStore = new AppStore();
 
 function findAll(req, res) {
-  itsStore.search('CALL `cowboy_ods`.`get_technology_detail`(0);', (results) => {
+  itsStore.search(`CALL get_technology_detail(0);`, (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  itsStore.search(`CALL get_technology_detail({req.params.id})`, (results) => {
+  itsStore.search(`CALL get_technology_detail(${req.params.id})`, (results) => {
     res.json(results);
   });
 }
