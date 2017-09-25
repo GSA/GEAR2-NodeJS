@@ -5,7 +5,7 @@ const orgStore = new OrgStore();
 const appStore = new AppStore();
 
 function findAll(req, res) {
-  orgStore.query('SELECT * FROM SAODS.udfGetOrgList()', (results) => {
+  orgStore.query('SELECT * FROM SAODS.udfGetOrgList() ORDER BY DisplayName', (results) => {
     res.json(results);
   });
 }
