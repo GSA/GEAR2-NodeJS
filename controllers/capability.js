@@ -10,7 +10,7 @@ function findAll(req, res) {
   if (Object.hasOwnProperty.call(req.query, 'fields')) {
     fields = req.query.fields;
   }
-  capabilityStore.query(`SELECT ${fields} FROM SAODS.udfGetBusCapList()`, (results) => {
+  capabilityStore.search(`CALL get_capability_detail(0);`, (results) => {
     res.json(results);
   });
 }
@@ -20,7 +20,7 @@ function findOne(req, res, next) {
   if (req.params.id === 'app-counts') {
     next();
   } else {
-    capabilityStore.query(`SELECT * FROM SAODS.udfGetBusCapList() WHERE ID = ${req.params.id}`, (results) => {
+    capabilityStore.search(`CALL get_capability_detail( ${req.params.id} );`, (results) => {
       res.json(results);
     });
   }
@@ -28,14 +28,14 @@ function findOne(req, res, next) {
 
 // children
 function findApplications(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 'c')`, (results) => {
+  appStore.search(`call get_application_detail( ${req.params.id}, 'c')`, (results) => {
     res.json(results);
   });
 }
 
 // special (reports, data viz, etc.)
 function findAppCounts(req, res) {
-  capabilityStore.query('SELECT * FROM SAODS.udfGetCapModel()', (results) => {
+  capabilityStore.search('SELECT * FROM SAODS.udfGetCapModel()', (results) => {
     res.json(results);
   });
 }
