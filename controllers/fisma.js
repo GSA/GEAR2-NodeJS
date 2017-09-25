@@ -7,7 +7,7 @@ const appStore = new AppStore();
 const pocStore = new POCStore();
 
 function findAll(req, res) {
-  fismaStore.search('CALL get_fisma_detail(0)', (results) => {
+  fismaStore.search(`CALL get_fisma_detail(0)`, (results) => {
     res.json(results);
   });
 }
