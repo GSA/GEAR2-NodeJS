@@ -526,7 +526,10 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
         root;
 
         var tree = d3.layout.tree()
-        .size([h, w]);
+        .size([h, w])
+        .sort(function(a,b){
+            return a.displayName.toLowerCase().localeCompare(b.displayName.toLowerCase());
+          });
 
         var diagonal = d3.svg.diagonal()
         .projection(function(d) { return [d.y, d.x]; });
