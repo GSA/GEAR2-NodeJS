@@ -18,15 +18,16 @@ function findAll(req, res) {
     fields = req.query.fields;
   }
   if (Object.hasOwnProperty.call(req.query, 'ownerName')) {
-    filter = ` WHERE SSOShort LIKE '%${req.query.ownerName}%'`;
+    filter = `'%${req.query.ownerName}%'`;
   }
-  appStore.query(`SELECT ${fields} FROM SAODS.udfGetAppFullSuite() ${filter}`, (results) => {
+  else filter = 0;
+  appStore.search(`call get_application_full_suite( ${filter})`, (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppFullSuite() WHERE ID = ${req.params.id}`, (results) => {
+  appStore.search(`call get_application_full_suite(${req.params.id})`, (results) => {
     res.json(results);
   });
 }
