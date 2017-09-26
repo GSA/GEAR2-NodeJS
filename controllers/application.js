@@ -33,13 +33,13 @@ function findOne(req, res) {
 }
 
 function findCapabilities(req, res) {
-  capStore.query(`SELECT * FROM SAODS.udfGetCapByApp(${req.params.id})`, (results) => {
+  capStore.search(`call get_capability_by_app(${req.params.id})`, (results) => {
     res.json(results);
   });
 }
 
 function findTechnologies(req, res) {
-  techStore.query(`SELECT * FROM SAODS.udfGetTechByApp(${req.params.id})`, (results) => {
+  techStore.search(`call get_technology_by_app(${req.params.id})`, (results) => {
     res.json(results);
   });
 }
