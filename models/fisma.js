@@ -89,7 +89,7 @@ class FISMAModel extends Model {
 				  arts = arts.map((art, cb) =>
 				{
 					 var pieces = art.split(',');
-					 var cb = '<a class="no-propagation" target="_blank" href="' + pieces[1] +  '">' + pieces[0] + '</a>' + ' ';
+					 var cb = '<a class="no-propagation" target="_blank" href="' + pieces[1] +  '">' + ' ' + pieces[0] + '</a>' ;
 					 /* var cb = {
 						Name: pieces[0],
 						ReferenceDocuments: pieces[1],
