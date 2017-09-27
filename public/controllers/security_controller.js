@@ -915,11 +915,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           field: 'Name',
           title: 'Name',
           sortable: true
-        }, {
+        }, /* {
           field: 'Organization',
           title: 'Organization',
           sortable: true
-        }, {
+        }, */ {
           field: 'SecurityRole',
           title: 'Security Role',
           sortable: true
