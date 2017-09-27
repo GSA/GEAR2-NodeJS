@@ -109,6 +109,7 @@ class FISMAModel extends Model {
 					Type: poctype[0],
 					Name: pieces[0],
 					Email: pieces[1],
+					Phone: pieces[2],
 				};
 				pocs.push(cb);					
 			}
@@ -130,7 +131,7 @@ class FISMAModel extends Model {
             poc = poc.map((art) => {
               const pieces = art.split(',');
               var cb = //{
-				  pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[2] || '');
+				  pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (pieces[2] || '') + "<br>" ;//+ (pieces[2] || '');
 				/* Type: poctype[0],
                 Name: pieces[0],
                 Email: pieces[1], */
@@ -154,7 +155,7 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[1] || '');
+              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (pieces[2] || '') + "<br>" ;//+ (pieces[1] || '');
 			  pocs += cb;
             });
           }
@@ -178,7 +179,7 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[1] || '');
+              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (pieces[2] || '') + "<br>" ;//+ (pieces[1] || '');
 			  pocs += cb;
             });
           }
@@ -202,7 +203,7 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + "<br>" ;//+ (pieces[1] || '');
+              var cb = pieces[0] + " " +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (pieces[2] || '') + "<br>" ;//+ (pieces[1] || '');
 			  pocs += cb;
             });
           }
