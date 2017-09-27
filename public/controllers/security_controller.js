@@ -906,7 +906,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       $scope.bstData = [];
       $.each(risso, function (key, val) {
         //       if ([val.SecurityRole] == 'RISSO'){
-        $scope.bstData.push({"Name" : val.Name, "Organization" : val.Owner, "SecurityRole" : "RISSO", "Region" : val.Type, "PhoneNumber" : val.Phone, "Email" : "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"});
+        $scope.bstData.push({"Name" : val.Name, "Organization" : val.Owner, "SecurityRole" : "RISSO", "Region" : val.Region, "PhoneNumber" : val.Phone, "Email" : "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"});
         //       }
       });
       bstSearchUtils.checkFilterState($scope);

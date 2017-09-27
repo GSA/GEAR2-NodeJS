@@ -26,6 +26,10 @@ class POCModel extends Model {
         name: 'Email',
         type: 'string',
       },
+	   {
+        name: 'Region',
+        type: 'string',
+      },
       {
         name: 'Owner',
         type: 'string',
