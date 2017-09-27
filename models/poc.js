@@ -29,6 +29,9 @@ class POCModel extends Model {
 	   {
         name: 'Region',
         type: 'string',
+		mapping(data) {
+          return data.Region || data.RISSO;
+        },
       },
       {
         name: 'Owner',
