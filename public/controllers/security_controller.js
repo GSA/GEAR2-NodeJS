@@ -29,7 +29,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+/*           var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -37,7 +37,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -53,7 +53,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts//artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -581,8 +581,20 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 	 
       fisma.$promise.then(function () {
         $scope.fisma = fisma[0];
-        $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
-        $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;
+        /* $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
+        $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;  */
+		/* $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].substr(fisma[0].RelatedArtifacts[0].indexOf("\">")+2,fisma[0].RelatedArtifacts[0].indexOf("</a>")-fisma[0].RelatedArtifacts[0].indexOf("\">")-2);
+		$scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].substr(fisma[0].RelatedArtifacts[0].indexOf("href=\"")+6,fisma[0].RelatedArtifacts[0].indexOf("\">")-fisma[0].RelatedArtifacts[0].indexOf("href=\"")-6)
+         */
+		$scope.fisma.RelatedArtName_test = [];
+
+		for(var i = 0; i < fisma[0].RelatedArtifacts.length; i++){
+			var cb = {
+			ArtName: fisma[0].RelatedArtifacts[i].substr(fisma[0].RelatedArtifacts[i].indexOf("\">")+2,fisma[0].RelatedArtifacts[i].indexOf("</a>")-fisma[0].RelatedArtifacts[i].indexOf("\">")-2),
+			ArtURL: fisma[0].RelatedArtifacts[i].substr(fisma[0].RelatedArtifacts[i].indexOf("href=\"")+6,fisma[0].RelatedArtifacts[0].indexOf("\">")-fisma[0].RelatedArtifacts[0].indexOf("href=\"")-6),
+			}
+		$scope.fisma.RelatedArtName_test.push(cb);
+		}
         if(fisma[0].CSP =='N/A') $scope.fisma.CSP = '';
         if(fisma[0].ServiceType =='N/A') $scope.fisma.ServiceType = '';
 		var newpoc;

@@ -70,13 +70,23 @@
                                     <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
                                     <td>{{ fisma.FISMASystemIdentifier }}</td>
                                 </tr>
-                  <tr>
+								<tr>
                                     <td><i class="fa fa-file"></i>&nbsp;Related Artifacts</td>
-                                    <td><a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
+						
+                                    <!-- <td>
+									<a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
 									<div style="height:100%;width:100%">
-									  {{fisma.RelatedArtName}}
+									   {{fisma.RelatedArtName}} 
 									</div>
 									</a>
+									</td> -->
+                                    <td  ng-repeat = "x in fisma.RelatedArtName_test">
+											<a href="{{x.ArtURL}}" + " target = '_blank'" + >
+											<!-- <div style="height:100%;width:100%"> -->
+											   {{x.ArtName}} 
+											<!-- </div> -->
+											</a>
+																		
 									</td>
                                 </tr>
                             </table>

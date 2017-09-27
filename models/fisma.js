@@ -70,7 +70,10 @@ class FISMAModel extends Model {
         type: 'array',
         mapping(d) {
           let arts = null;
-          if (d.RelatedArtifacts) {
+		  let art = null;
+		  let art1 = [];
+/*          let arts = null;
+           if (d.RelatedArtifacts) {
             arts = d.RelatedArtifacts.split('; ');
             arts = arts.map((art) => {
               const pieces = art.split(',');
@@ -79,8 +82,23 @@ class FISMAModel extends Model {
                 ReferenceDocuments: pieces[1],
               };
             });
-          }
-          return arts;
+          } */
+		  if (d.RelatedArtifacts){
+				  arts = d.RelatedArtifacts.split(';');
+				  console.log(arts);
+				  arts = arts.map((art, cb) =>
+				{
+					 var pieces = art.split(',');
+					 var cb = '<a class="no-propagation" target="_blank" href="' + pieces[1] +  '">' + pieces[0] + '</a>' + ' ';
+					 /* var cb = {
+						Name: pieces[0],
+						ReferenceDocuments: pieces[1],
+					}; */
+					console.log(cb);
+					art1.push(cb);						
+				})
+		  }
+          return art1;
         },
       },
       {
