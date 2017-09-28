@@ -31,7 +31,7 @@ function findApplications(req, res) {
 }
 
 function findPOCs(req, res) {
-  pocStore.search(`CALL get_investment_detail(${req.params.id});`, (results) => {
+  investmentStore.search(`CALL get_investment_detail(${req.params.id});`, (results) => {
     res.json(results);
   });
 }
