@@ -930,7 +930,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
       });
 
       pocs.$promise.then(function () {
-        $scope.pocs = pocs;
+        // $scope.pocs = pocs;
+        $scope.pocs = pocs[0].POC;
+		console.log($scope.pocs);
       });
 
       time.$promise.then(function () {

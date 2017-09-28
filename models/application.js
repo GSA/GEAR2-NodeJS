@@ -25,7 +25,7 @@ class Application extends Model {
         name: 'OwnerShort',
         type: 'string',
 		mapping(o) {
-          return o.RelOrgDisplayName || o.orgName || o.SSOShort;
+          return o.RelOrgDisplayName || o.orgName || o.OwnerShort;
         },
       },
       {
@@ -44,10 +44,73 @@ class Application extends Model {
       {
         name: 'BusinessPOC',
         type: 'string',
+         mapping(d) {
+          let pocs = null;
+		  let poc = null;
+		  let poc1 = [];
+		  if (d.BusinessPOC){
+				  pocs = d.BusinessPOC.split(';');
+				  pocs = pocs.map((poc, cb) =>
+				{
+					 var pieces = poc.split(',');
+					 var cb =   "<a href=mailto:" + pieces[1] + ">" + pieces[0] + "</a>" + "<br>" ;
+					console.log(cb);
+					poc1.push(cb);						
+				})
+		  }
+          return poc1;
+        }, 
       },
       {
         name: 'TechnicalPOC',
         type: 'string',
+         mapping(d) {
+          let pocs = null;
+		  let poc = null;
+		  let poc1 = [];
+		  if (d.BusinessPOC){
+				  pocs = d.BusinessPOC.split(';');
+				  pocs = pocs.map((poc, cb) =>
+				{
+					 var pieces = poc.split(',');
+					 var cb =   "<a href=mailto:" + pieces[1] + ">" + pieces[0] + "</a>" + "<br>" ;
+					console.log(cb);
+					poc1.push(cb);						
+				})
+		  }
+          return poc1;
+        }, 
+      },
+      {
+        name: 'POC',
+        type: 'string',
+        mapping(d) {
+          let poc = null;
+          let poc1 = null;
+          let poctype = null;
+		  let pocs = [];
+          if (d.POC) {
+            poc1 = d.POC.split('*');
+			poc1 = poc1.map((poctype, cb) =>
+			{
+				poctype = poctype.split(':');
+				poc = poctype[1].split('; ');
+				for(var i = 0; i< poc.length; i++){
+				 var pieces = poc[i].split(',');
+			//	poc = poc.map((art) => {
+				//  const pieces = art.split(',');
+				 var cb = {
+					Type: poctype[0],
+					Name: pieces[0],
+					Email: pieces[1],
+					Phone: pieces[2],
+				};
+				pocs.push(cb);					
+			}
+			})
+		  }
+          return pocs;
+        },		
       },
       {
         name: 'Cloud',

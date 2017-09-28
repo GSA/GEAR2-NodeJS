@@ -45,7 +45,7 @@ function findTechnologies(req, res) {
 }
 
 function findPOCs(req, res) {
-  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('a') WHERE ID = ${req.params.id}`, (results) => {
+  appStore.search(`call get_application_full_suite(${req.params.id})`, (results) => {
     res.json(results);
   });
 }
