@@ -48,7 +48,7 @@
 <!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
                                         <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
                                     </div> -->
-									{{investment.InvManager}}
+									<a href="mailto:{{investment.InvManagerEmail}}">{{investment.InvManager}}</a>
                                     <div ng-hide="!!investment.InvManager">
                                         None Provided
                                     </div>
