@@ -165,7 +165,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+  /*         var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -173,7 +173,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -190,7 +190,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts // artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -304,7 +304,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+/*           var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -312,7 +312,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -329,7 +329,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -441,7 +441,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+ /*          var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -449,7 +449,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -466,7 +466,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
