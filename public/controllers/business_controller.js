@@ -328,6 +328,11 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
                   title: 'FY20',
 				  visible: false
                 },
+				 {
+                  field: 'FY21',
+                  title: 'FY21',
+				  visible: false
+                },
                 {
                   field: 'Notes',
                   title: 'Notes',
@@ -1143,7 +1148,8 @@ $scope.createCapabilityTree = function () {
                 },
                 {
                   field: 'FY17',
-                  title: 'FY17'
+                  title: 'FY17',
+				  visible: false
                 },
                 {
                   field: 'FY18',
@@ -1156,6 +1162,10 @@ $scope.createCapabilityTree = function () {
                 {
                   field: 'FY20',
                   title: 'FY20'
+                },
+                {
+                  field: 'FY21',
+                  title: 'FY21'
                 },
                 {
                   field: 'Notes',
