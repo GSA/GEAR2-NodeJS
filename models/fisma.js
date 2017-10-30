@@ -45,11 +45,11 @@ class FISMAModel extends Model {
         name: 'RenewalDate',
         type: 'string',
       },
-      {
+/*       {
         name: 'ComplFISMA',
         type: 'string',
       },
-      {
+ */      {
         name: 'RelatedArtifacts',
         type: 'array',
         mapping(d) {

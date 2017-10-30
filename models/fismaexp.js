@@ -37,10 +37,10 @@ class FISMAexpModel extends Model {
         name: 'RenewalDate',
         type: 'string',
       },
-      {
+/*       {
         name: 'ComplFISMA',
         type: 'string',
-      },
+      }, */
       {
         name: 'RelatedArtifacts',
         type: 'array',
