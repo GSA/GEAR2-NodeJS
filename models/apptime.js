@@ -74,6 +74,10 @@ class AppTIMEModel extends Model {
 
       },
 	  {
+        name: 'FY21',
+        type: 'string',
+      },
+	  {
         name: 'Name',
         type: 'string',
 

@@ -328,6 +328,11 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
                   title: 'FY20',
 				  visible: false
                 },
+				 {
+                  field: 'FY21',
+                  title: 'FY21',
+				  visible: false
+                },
                 {
                   field: 'Notes',
                   title: 'Notes',
@@ -526,7 +531,10 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
         root;
 
         var tree = d3.layout.tree()
-        .size([h, w]);
+        .size([h, w])
+        .sort(function(a,b){
+            return a.displayName.toLowerCase().localeCompare(b.displayName.toLowerCase());
+          });
 
         var diagonal = d3.svg.diagonal()
         .projection(function(d) { return [d.y, d.x]; });
@@ -1140,7 +1148,8 @@ $scope.createCapabilityTree = function () {
                 },
                 {
                   field: 'FY17',
-                  title: 'FY17'
+                  title: 'FY17',
+				  visible: false
                 },
                 {
                   field: 'FY18',
@@ -1153,6 +1162,10 @@ $scope.createCapabilityTree = function () {
                 {
                   field: 'FY20',
                   title: 'FY20'
+                },
+                {
+                  field: 'FY21',
+                  title: 'FY21'
                 },
                 {
                   field: 'Notes',
