@@ -32,6 +32,9 @@ angular.module('dashboard')
 .factory('AppInterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/applications/:id/interfaces');
 }])
+.factory('interfacesv2Src', ['$resource', 'WcfConfig', '$location', function ($resource, WcfConfig, $location) {			
+  return $resource('/api/v0/:id/interfacesv2');}])//managerpage/:id
+  
 // replaces 'System'
 .factory('SysAppSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
   return $resource('/api/v0/parentsystems/:id/applications');
