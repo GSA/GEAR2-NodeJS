@@ -44,6 +44,13 @@
                             Interfaces
                         </a>
                     </li>
+					<li role="presentation" ng-show="!!interfacesv2.length">
+                        <a href="#interfacesv2-pane" data-toggle="tab"
+                            aria-controls="interfacesv2-pane" role="tab" aria-expanded="false"
+                            ng-click="createInterfacev2(application.Id)">
+                            PII Test
+                        </a>
+                    </li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -242,6 +249,12 @@
                 <div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfaces-tab"  id="interfaces-pane">
                     <div id="interfacessochart" style="margin-top:20px">
 					<div id = "tooltip1" > </div>
+
+                    </div>
+                </div>
+				<div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfacesv2-tab"  id="interfacesv2-pane">
+                    <div id="interfacesankey" style="margin-top:20px">
+					<!-- <div id = "tooltip1" > </div> -->
 
                     </div>
                 </div>

@@ -5,10 +5,10 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
-  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'interfacesv2Src', 'OrgInterfacesSrc',
+  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'AppInterfacesv2Src', 'OrgInterfacesSrc',
   'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
-  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, interfacesv2Src, OrgInterfacesSrc,
+  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, AppInterfacesv2Src, OrgInterfacesSrc,
   System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -911,6 +911,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
     interfaces = AppInterfacesSrc.query({ id: appId });
+    var interfacesv2 = AppInterfacesv2Src.query({ id: appId });
 	
 		
     application.$promise.then(function (d) {
@@ -939,6 +940,19 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                // };
               });
         $scope.interfaces = interfaces;
+
+      });
+	  
+	        interfacesv2.$promise.then(function () {
+               $.each(application, function (i, app) {
+                  $.each(interfacesv2, function (i, iface) {
+                    if (iface.srcAppID == app.Id || iface.destAppID == app.Id) {
+                      d3.select("#interfacesv2-tab").style("display", "block");
+                     }
+                  });
+               // };
+              }); 
+        $scope.interfacesv2 = interfacesv2;
 
       });
 
@@ -1348,11 +1362,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   
   
 	/**Applciation interfaces, Sankey Diagram (interfacesv2)**/
-		var interv2 = interfacesv2Src.query();
-		$scope.interv2 = interv2;
+	$scope.createInterfacev2 = function (appId) {
+		// var interfacesv2 = AppInterfacesv2Src.query();
+		// $scope.interfacesv2 = interfacesv2;
+		var interfacesv2 = $scope.interfacesv2;
 		var data = [];
-		interv2.$promise.then(function (populateData) {
-		$.each(interv2,function(key,val){
+		interfacesv2.$promise.then(function (populateData) {
+		$.each(interfacesv2,function(key,val){
 			data.push({
 				"sourceid":val.srcAppID,
 				"targetid":val.destAppID,
@@ -1363,8 +1379,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			})
 		})
 
-		var interfacesv2 = null,
-        CONTAINER_ID = 'interfacesankey',
+		var CONTAINER_ID = 'interfacesankey',
         SVG_ID = 'interfacev2svg';
 	  
 		var units = "PII Information";
@@ -1613,7 +1628,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			
       
 		});
-
+}
 
   }
 ]);

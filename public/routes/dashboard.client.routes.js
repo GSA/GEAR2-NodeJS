@@ -122,6 +122,9 @@ function($routeProvider, $locationProvider) {
 	when('/application_interfaces', {
 		templateUrl: 'partials/application_interface_chart.html'
 	}).
+	when('/application_interfaces', {
+		templateUrl: 'partials/application_interface_chart.html'
+	}).
 	when('/application_interfaces_BySSO/:interfaceSSO', {
 		templateUrl: 'partials/application_interface_sso.html'
 	}).
