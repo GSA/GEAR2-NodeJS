@@ -60,7 +60,7 @@ function findInterfaces(req, res) {
 }
 
 function findInterfacesv2(req, res) {
-  interfacev2Store.query(`SELECT * FROM SAODS.udfGetAppInterfacesv3() ORDER BY PII`, (results) => {
+  interfacev2Store.query(`SELECT * FROM SAODS.udfGetAppInterfacesv3(${req.params.id}) ORDER BY PII`, (results) => {
     res.json(results);
   });
 }

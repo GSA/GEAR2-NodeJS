@@ -910,8 +910,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     technologies = AppTechnologiesSrc.query({ id: appId }),
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
-    interfaces = AppInterfacesSrc.query({ id: appId });
-    var interfacesv2 = AppInterfacesv2Src.query({ id: appId });
+    interfaces = AppInterfacesSrc.query({ id: appId }),
+    interfacesv2 = AppInterfacesv2Src.query({ id: appId });
 	
 		
     application.$promise.then(function (d) {
@@ -1363,9 +1363,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   
 	/**Applciation interfaces, Sankey Diagram (interfacesv2)**/
 	$scope.createInterfacev2 = function (appId) {
-		// var interfacesv2 = AppInterfacesv2Src.query();
-		// $scope.interfacesv2 = interfacesv2;
-		var interfacesv2 = $scope.interfacesv2;
+		var interfacesv2 = AppInterfacesv2Src.query({ id: appId });
+		 $scope.interfacesv2 = interfacesv2;
+		// var interfacesv2 = $scope.interfacesv2;
 		var data = [];
 		interfacesv2.$promise.then(function (populateData) {
 		$.each(interfacesv2,function(key,val){
