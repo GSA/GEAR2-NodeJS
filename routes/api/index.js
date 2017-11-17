@@ -22,7 +22,7 @@ router.use('/fisma', fisma);
 router.use('/fismaexp', fismaexp);
 router.use('/itstandards', its);
 router.use('/interfaces', interfaces);
-router.use('/interfacev2', interfacesv2);
+router.use('/interfacesv2', interfacesv2);
 router.use('/investments', investment);
 router.use('/organizations', org);
 router.use('/parentsystems', sys);
