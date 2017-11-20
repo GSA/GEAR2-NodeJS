@@ -1307,8 +1307,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 .enter().append("svg:path")
                 .attr("class", "chord")
                 .style("stroke-opacity", .4) // set the stroke opacity
-                .style("stroke", "#3182bd")      // set the line colour, #3182bd seems GSA Blue
-                .style("fill", "#c6dbef")      // set the fill colour
+                // .style("stroke", "#3182bd")      // set the line colour, #3182bd seems GSA Blue
+                // .style("fill", "#c6dbef")      // set the fill colour
+				.style("stroke", function(d){ return chordColor(rdr(d))})      // set the line colour, #3182bd seems GSA Blue
+                .style("fill", function(d){ return chordColor(rdr(d))})      // set the fill colour "#c6dbef"
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {
                   d3.select("#tooltip1")
@@ -1319,6 +1321,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip1").style("visibility", "hidden") });
 
+		function chordColor (d) {
+            if (d.spii == 1)
+            return "#ecdcdb";
+            else 
+              return "#c6dbef";
+          }
+		  
 			g.attr("transform", "translate(-80,0)");
 			chordPaths.attr("transform", "translate(-80,0)");
 
