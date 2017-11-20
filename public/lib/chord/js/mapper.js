@@ -121,6 +121,8 @@ function chordRdr (matrix, mmap) {
       m.sdata = d.source.value;
       m.svalue = +d.source.value;
       m.stotal = _.reduce(matrix[i], function (k, n) { return k + n }, 0);
+      m.spii = s[0].data.PII;
+      m.spiitype = s[0].data.PIIType;
       m.tname = t[0].name;
       m.tid = t[0].data.id1;
       m.tsso = t[0].data.SSO1;
