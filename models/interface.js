@@ -68,6 +68,14 @@ class InterfaceModel extends Model {
         name: 'System2',
         type: 'string',
       },
+	  {
+        name: 'PII',
+        type: 'int',
+      },
+      {
+        name: 'PIIType',
+        type: 'string',
+      },
     ];
   }
 }
