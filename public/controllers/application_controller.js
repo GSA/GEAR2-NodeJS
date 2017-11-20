@@ -1494,8 +1494,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			.enter().append("path")
 			  .attr("class", "links")
 			  .attr("d", path)
-			  // .style("fill", function(d) { 
-				  // return d.color = color(d.info); })//.replace(/ .*/, "")
+			  .style("fill", function(d) { 
+				   return d.color = color(d.info); })//.replace(/ .*/, "")
 			  .style("stroke", function(d) { 
 				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
 			  .style("stroke-opacity", 0.7)

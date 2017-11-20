@@ -86,7 +86,7 @@ function chordMpr (data) {
             "Owner1": data[co].Owner1,
             "OwnerShort1": data[co].OwnerShort1,
 			"System1": data[co].System1,
-            "countApp": countApp[v]，
+            "countApp": countApp[v],
 			"PII":+data[co].PII,
             "PIIType": data[co].PIIType
             };
