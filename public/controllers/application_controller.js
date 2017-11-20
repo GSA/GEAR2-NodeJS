@@ -1157,8 +1157,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 				"OwnerShort2":val.OwnerShort2,
 				"System1":val.System1,
 				"System2":val.System2,
-				"count": 1,		
-
+				"count": 1,
+				"PII":val.PII,
+				"PIIType":val.PIIType,       
 			})
 		})
 	  //Constants for the SVG
@@ -1410,12 +1411,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			format = function(d) { return formatNumber(d) + " " + units; },
 			// color = d3.scale.category20b();
 			color =	d3.scale.ordinal()
-                 .range(['#6b6ecf','#b5cf6b','#e7ba52','#d6616b','#de9ed6','#393b79','#637939',	'#8c6d31','#843c39','#7b4173','#ce6dbd','#9c9ede','#cedb9c','#e7cb94','#e7969c','#5254a3','#8ca252','#bd9e39','#ad494a','#a55194',]);
+                 .range(['#9dc6d8','#00b3ca','#7dd0b6','#1d4e89','#d2b29b','#e38690','#f69256',	'#ead98b','#965251','#c6cccc',]);
 
 		// append the svg canvas to the page
 		var svg = d3.select('#' + CONTAINER_ID)
 			.on("touchstart", nozoom)
-      .on("touchmove", nozoom)
+			.on("touchmove", nozoom)
 			.append("svg")
 			.attr( "preserveAspectRatio", "xMinYMid meet" )
 			.attr("width", w)//width + margin.left + margin.right)
@@ -1494,16 +1495,16 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			.enter().append("path")
 			  .attr("class", "links")
 			  .attr("d", path)
-			  .style("fill", function(d) { 
-				   return d.color = color(d.info); })//.replace(/ .*/, "")
+/* 			  .style("fill", function(d) { 
+				   return d.color = color(d.info); }) *///.replace(/ .*/, "")
 			  .style("stroke", function(d) { 
 				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
 			  .style("stroke-opacity", 0.7)
-			  .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+			  .style("stroke-width", function(d) { return Math.max(1, d.dy); });
 			  //.sort(function(a, b) { return b.dy - a.dy; });
     
       link.filter( function(d) { return !d.causesCycle} )
-      .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+      .style("stroke-width", function(d) { return Math.max(1, d.dy); });
 		
     // add the link titles
 		  link.append("title")
@@ -1533,12 +1534,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .attr("width", sankey.nodeWidth())
 			  .style("fill", "#36648b")
 			  //.style("stroke", "#104e8b")
-        .attr('fill-opacity', 0.9)
+			.attr('fill-opacity', 0.9)
 			  // .style("fill", function(d) { 
 				  // return d.color = color(d.name.replace(/ .*/, "")); })
 			  // .style("stroke", function(d) { 
 				  // return d3.rgb(d.color).darker(2); })
-        .append("title")
+			.append("title")
 			  .text(function(d) { 
 				  return d.name + "\n" + format(d.value); });
 
