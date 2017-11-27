@@ -38,8 +38,8 @@ gsaea.legend = module.exports = (function () {
             itemHeight = boxMargin.top + boxSize,
             availableHeight = maxHeight,
             requiredHeight = itemHeight * dataset.length,
-            columnsNeeded = Math.ceil(requiredHeight / availableHeight),
-            maxItemsPerColumn = Math.ceil(dataset.length / columnsNeeded),
+            columnsNeeded = Math.ceil(requiredHeight / availableHeight  * 1.5),//updated 11/16 AL test 10 item per column
+            maxItemsPerColumn = Math.min(Math.ceil(dataset.length / columnsNeeded),10), //update 11/16
             columnarData = [];
 
         cls = cls || null;
