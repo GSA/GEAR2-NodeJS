@@ -1415,7 +1415,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			format = function(d) { return formatNumber(d) + " " + units; },
 			// color = d3.scale.category20b();
 			color =	d3.scale.ordinal()
-                 .range(['#9dc6d8','#00b3ca','#7dd0b6','#1d4e89','#d2b29b','#e38690','#f69256',	'#ead98b','#965251','#c6cccc',]);
+                 .range(['#9dc6d8','#00b3ca','#7dd0b6','#1d4e89','#d2b29b','#e38690','#f69256',	'#ead98b','#965251','#c6cccc','#e5dfef', '#fbdce0','#cbefe7','#fffdce','#d7ffdd',]);
 
 		// append the svg canvas to the page
 		var svg = d3.select('#' + CONTAINER_ID)
