@@ -1462,6 +1462,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			   .key(function (d) { return d.name; })
 			   .map(graph.nodes));
 			 
+/* 			 graph.links = d3.entries(d3.nest()
+			   .key(function (d) { return d.source + d.target; })
+			   .map(graph.links)); */
+			   
 			 //for graph.link to find the link
 			 graph.nodes.forEach(function (d,i){
 			  nodes_k.push(d.key) ;
@@ -1495,8 +1499,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			.enter().append("path")
 			  .attr("class", "links")
 			  .attr("d", path)
- 			  .style("fill", function(d) { 
-				   return d.color = color(d.info); }) //.replace(/ .*/, "")
+ 			  .style("fill", "#fff" /* function(d) { 
+				   return d.color = color(d.info); } */) //.replace(/ .*/, "")
 			  .style("stroke", function(d) { 
 				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
 			  .style("stroke-opacity", 0.7)
