@@ -1371,7 +1371,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
   }
   
   
-	/**Applciation interfaces, Sankey Diagram (interfacesv2)**/
+
+  
+  /**Applciation interfaces, Sankey Diagram (interfacesv2)**/
 	$scope.createInterfacev2 = function (appId) {
 		var interfacesv2 = AppInterfacesv2Src.query({ id: appId });
 		 $scope.interfacesv2 = interfacesv2;
@@ -1391,7 +1393,9 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
 		var CONTAINER_ID = 'interfacesankey',
         SVG_ID = 'interfacev2svg';
-	  
+	    if (document.getElementById(SVG_ID)) {
+		  return false;
+		}
 		var units = "PII Information";
 
 		var w = $('#' + CONTAINER_ID).parents('.panel-body').width(),
