@@ -1499,7 +1499,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			.enter().append("path")
 			  .attr("class", "links")
 			  .attr("d", path)
- 			  .style("fill", "#fff" /* function(d) { 
+ 			  .style("fill", "none" /* function(d) { 
 				   return d.color = color(d.info); } */) //.replace(/ .*/, "")
 			  .style("stroke", function(d) { 
 				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
