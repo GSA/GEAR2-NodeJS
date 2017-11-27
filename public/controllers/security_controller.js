@@ -824,14 +824,14 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
          _.each(fismaSrc, function (item) {
           _.each(_.keys(item), function (key) {
             var match = _.where(pocs, {Type: key, ParentId: item.Id});
-			for (var i = 0; i < match.length; i++ )
-          {
-              item[key] = match[i].Name + " " +  "<a href=mailto:" + match[i].Email + ">" + match[i].Email + "</a>"+ " " + (match[i].Phone || '');
-            }
-/*             if (match.length) {
-              item[key] = match[0].Name + " " +  "<a href=mailto:" + match[0].Email + ">" + match[0].Email + "</a>"+ " " + (match[0].Phone || '');
-            }
- */			
+            if (match.length) {
+              var temp = '';
+              for (var i = 0; i < match.length; i++ )
+                {
+                 temp  += match[i].Name + " " +  "<a href=mailto:" + match[i].Email + ">" + match[i].Email + "</a>"+ " " + (match[i].Phone || '') + "<br>";
+                  }
+                  item[key] = temp;
+            }			
           });
         }); 
         $scope.bstData = fismaSrc;
