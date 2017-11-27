@@ -1486,7 +1486,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  sankey
 			.nodes(graph.nodes)
 			.links(graph.links)
-		  	// Note here: if input data has a loop, the program will hange here!
+		  	// Note here: if input data has a loop, the program will hang here!
 			.layout(32);
 
 		// add in the links
@@ -1534,7 +1534,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			  .attr("width", sankey.nodeWidth())
 			  .style("fill", "#36648b")
 			  //.style("stroke", "#104e8b")
-			.attr('fill-opacity', 0.9)
+			  .attr('fill-opacity', 0.9)
 			  // .style("fill", function(d) { 
 				  // return d.color = color(d.name.replace(/ .*/, "")); })
 			  // .style("stroke", function(d) { 
