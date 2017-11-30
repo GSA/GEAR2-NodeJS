@@ -13,7 +13,8 @@
                 data-content="<b>Overview:</b> Contains a general description of the business application.<br>
                 <b>Business:</b> Contains an overview of business-related information as well as the related business capabilities for the business application.”<br>
                 <b>Technology:</b> Contains an overview of technical information as well as the related technologies/IT standards the business application uses.”<br>
-                <b>Interfaces:</b> The interface tab only appears if the business application has interfaces to other business applications. The model can be utilized by hovering over the arc to see the information of the business application, or by hovering over the chord to see the interfaces with other applications. Left click an arc to go to the detail page of that business application.
+                <b>Interfaces:</b> The interface tab only appears if the business application has interfaces to other business applications. The model can be utilized by hovering over the arc to see the information of the business application, or by hovering over the chord to see the interfaces with other applications. Left click an arc to go to the detail page of that business application. <br>
+                <b>Data Flow:</b> Similarly, the data flow tab only appears if the business application has data flow to other business applications. Left click a rectangle to go to the detail page of that business application.
                 ">Click to see how to use this report</button>
             </div>
             <div class="panel-body" style="margin : 20px">
@@ -42,6 +43,13 @@
                             aria-controls="interfaces-pane" role="tab" aria-expanded="false"
                             ng-click="createInterfaceSSOChart(application.Id)">
                             Interfaces
+                        </a>
+                    </li>
+					<li role="presentation" ng-show="!!interfacesv2.length">
+                        <a href="#interfacesv2-pane" data-toggle="tab"
+                            aria-controls="interfacesv2-pane" role="tab" aria-expanded="false"
+                            ng-click="createInterfacev2(application.Id)">
+                            Data Flow
                         </a>
                     </li>
                 </ul>
@@ -243,6 +251,10 @@
                     <div id="interfacessochart" style="margin-top:20px">
 					<div id = "tooltip1" > </div>
 
+                    </div>
+                </div>
+				<div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfacesv2-tab"  id="interfacesv2-pane">
+                    <div id="interfacesankey" style="margin-top:20px">
                     </div>
                 </div>
             </div>
