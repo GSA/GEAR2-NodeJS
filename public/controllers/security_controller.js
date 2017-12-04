@@ -47,7 +47,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             "ATODate" : val.ATODate,
             "ATOType" : val.ATOType,
             "RenewalDate" : val.RenewalDate,
-            "ComplFISMA" : val.ComplFISMA,
+            // "ComplFISMA" : val.ComplFISMA,
             "FISMASystemIdentifier" : val.FISMASystemIdentifier,
 			"PII": val.PII,
 			"CloudYN": val.CloudYN,
@@ -88,12 +88,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             field: 'RenewalDate',
             title: 'Renewal Date',
             sortable: true
-          }, {
+          }, /* {
             field: 'ComplFISMA',
             title: 'Complete Assessment For Current FY',
             sortable: true,
             visible: false
-          }, {
+          },  */{
             field: 'PII',
             title: 'PII',
             sortable: true,
@@ -183,7 +183,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             "ATODate" : val.ATODate,
             "ATOType" : val.ATOType,
             "RenewalDate" : val.RenewalDate,
-            "ComplFISMA" : val.ComplFISMA,
+            /* "ComplFISMA" : val.ComplFISMA, */
             "FISMASystemIdentifier" : val.FISMASystemIdentifier,
 			"InactiveDate" : val.InactiveDate,
 			"PII": val.PII,
@@ -226,12 +226,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             title: 'Renewal Date',
             sortable: true,
 			visible: false
-          }, {
+          }, /* {
             field: 'ComplFISMA',
             title: 'Complete Assessment For Current FY',
             sortable: true,
             visible: false
-          }, {
+          }, */ {
             field: 'PII',
             title: 'PII',
             sortable: true,
@@ -322,7 +322,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             "ATODate" : val.ATODate,
             "ATOType" : val.ATOType,
             "RenewalDate" : val.RenewalDate,
-            "ComplFISMA" : val.ComplFISMA,
+            // "ComplFISMA" : val.ComplFISMA,
             "FISMASystemIdentifier" : val.FISMASystemIdentifier,
 			"InactiveDate" : val.InactiveDate,
 			"PII": val.PII,
@@ -364,12 +364,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             field: 'RenewalDate',
             title: 'Renewal Date',
             sortable: true
-          }, {
+          },/*  {
             field: 'ComplFISMA',
             title: 'Complete Assessment For Current FY',
             sortable: true,
             visible: false
-          }, {
+          }, */ {
             field: 'PII',
             title: 'PII',
             sortable: true,
@@ -459,7 +459,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             "ATODate" : val.ATODate,
             "ATOType" : val.ATOType,
             "RenewalDate" : val.RenewalDate,
-            "ComplFISMA" : val.ComplFISMA,
+            // "ComplFISMA" : val.ComplFISMA,
             "FISMASystemIdentifier" : val.FISMASystemIdentifier,
 			"InactiveDate" : val.InactiveDate,
 			"PII": val.PII,
@@ -501,12 +501,12 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             field: 'RenewalDate',
             title: 'Renewal Date',
             sortable: true
-          }, {
+          },/*  {
             field: 'ComplFISMA',
             title: 'Complete Assessment For Current FY',
             sortable: true,
             visible: false
-          }, {
+          }, */ {
             field: 'PII',
             title: 'PII',
             sortable: true,
