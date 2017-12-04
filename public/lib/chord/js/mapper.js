@@ -86,7 +86,9 @@ function chordMpr (data) {
             "Owner1": data[co].Owner1,
             "OwnerShort1": data[co].OwnerShort1,
 			"System1": data[co].System1,
-            "countApp": countApp[v]
+            "countApp": countApp[v],
+			"PII":+data[co].PII,
+            "PIIType": data[co].PIIType
             };
           break;
           }         
@@ -119,6 +121,8 @@ function chordRdr (matrix, mmap) {
       m.sdata = d.source.value;
       m.svalue = +d.source.value;
       m.stotal = _.reduce(matrix[i], function (k, n) { return k + n }, 0);
+      m.spii = s[0].data.PII;
+      m.spiitype = s[0].data.PIIType;
       m.tname = t[0].name;
       m.tid = t[0].data.id1;
       m.tsso = t[0].data.SSO1;
@@ -130,6 +134,8 @@ function chordRdr (matrix, mmap) {
       m.tdata = d.target.value;
       m.tvalue = +d.target.value;
       m.ttotal = _.reduce(matrix[j], function (k, n) { return k + n }, 0);
+	  m.tpii = t[0].data.PII;
+      m.tpiitype = t[0].data.PIIType;
     } else {
       g = _.where(mmap, {id: d.index });
       m.gname = g[0].name;
@@ -142,6 +148,8 @@ function chordRdr (matrix, mmap) {
 	  m.gsystem = g[0].data.System1;
       m.gdata = g[0].data;
       m.gvalue = g[0].data.countApp;
+	  m.gpii = g[0].data.PII;
+      m.gpiitype = g[0].data.PIIType;
       // m.gvalue = d.value;
     }
     m.mtotal = _.reduce(matrix, function (m1, n1) { 

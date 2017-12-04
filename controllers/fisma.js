@@ -32,7 +32,7 @@ function findApplications(req, res) {
 function findPOCs(req, res) {
   const filter = req.params.id ? `WHERE ID = ${req.params.id}` : '';
 
-  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('f') ${filter}`, (results) => {
+  pocStore.query(`SELECT * FROM SAODS.udfGetPOCDetails('f') ${filter} ORDER BY 'POC Type'` , (results) => {
     res.json(results);
   });
 }
