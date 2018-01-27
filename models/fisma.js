@@ -93,9 +93,9 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'Program Manager',
+        name: 'System Owner',
         type: 'string',
-        mapping: 'PM',
+        mapping: 'PM'||'Program Manager'||'System Owner',
       },
       {
         name: 'RelOrgDisplayName',
