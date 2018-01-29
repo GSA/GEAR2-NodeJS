@@ -209,9 +209,10 @@ class FISMAModel extends Model {
         type: 'string',
       },
       {
-        name: 'Program Manager',
+        name: 'System Owner',
         type: 'string',
-        mapping: 'PM',
+
+        mapping: 'PM'||'Program Manager'||'System Owner',
 	    mapping(d) {
           let poc = null;
           let poctype = null;

@@ -407,6 +407,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     var fy18 = '';
     var fy19 = '';
     var fy20 = '';
+	var fy21 = '';
     var status = '';
     var parentsystem = '';
     appstime.$promise.then(function (populateTIME) {
@@ -428,6 +429,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           fy18 = val.FY18;
           fy19 = val.FY19;
           fy20 = val.FY20;
+		  fy21 = val.FY21;
           $.each(apps, function (key, val) {
             if (val.Name == appname){
               status = val.Status;
@@ -453,6 +455,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               "FY18" : fy18,
               "FY19" : fy19,
               "FY20" : fy20,
+			  "FY21" : fy21,
               "ParentSystem" : parentsys,
               "Id" : id,
               "Notes" : notes,
@@ -536,7 +539,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           },
 		  {
             field: 'FY17',
-            title: 'FY17'
+            title: 'FY17',
+			visible: false
           },
 		  {
             field: 'FY18',
@@ -549,6 +553,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  {
             field: 'FY20',
             title: 'FY20'
+          },
+		  {
+            field: 'FY21',
+            title: 'FY21'
           },
 		  {
             field: 'Notes',
@@ -824,6 +832,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                   title: 'FY20',
 				  visible: false
                 },
+				{
+                  field: 'FY21',
+                  title: 'FY21',
+				  visible: false
+                },
                 {
                   field: 'Notes',
                   title: 'Notes',
@@ -955,7 +968,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           },
 		  {
             field: 'FY17',
-            title: 'FY17'
+            title: 'FY17',
+			visible: false
           },
 		  {
             field: 'FY18',
@@ -968,6 +982,10 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  {
             field: 'FY20',
             title: 'FY20'
+          },
+		  {
+            field: 'FY21',
+            title: 'FY21'
           },
 		  {
             field: 'Notes',

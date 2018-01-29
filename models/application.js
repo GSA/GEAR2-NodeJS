@@ -193,6 +193,10 @@ class Application extends Model {
         type: 'string',
       },
       {
+        name: 'FY21',
+        type: 'string',
+      },
+      {
         name: 'Notes',
         type: 'string',
       },

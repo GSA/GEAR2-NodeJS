@@ -259,6 +259,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			visible: false
           },
 		  {
+            field: 'FY21',
+            title: 'FY21',
+			visible: false
+          },
+		  {
             field: 'Notes',
             title: 'Notes',
 			visible: false

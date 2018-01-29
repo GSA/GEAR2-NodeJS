@@ -764,6 +764,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 				visible: false
 			  },
 			  {
+				field: 'FY21',
+				title: 'FY21',
+				visible: false
+			  },
+			  {
 				field: 'Notes',
 				title: 'Notes',
 				visible: false
@@ -879,8 +884,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
             title: 'ISSO',
             sortable: true
           }, {
-            field: 'Program Manager', // an alias to fisma.PM so we can match poc.Type value
-            title: 'Program Manager',
+            field: 'System Owner',//'Program Manager', // an alias to fisma.PM so we can match poc.Type value
+            title:  'System Owner',//'Program Manager',
             sortable: true
           }, {
             field: 'Authorizing Official',  // an alias to fisma.AO so we can match poc.Type value
