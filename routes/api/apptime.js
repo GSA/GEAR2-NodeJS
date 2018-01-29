@@ -1,16 +1,16 @@
 /* jshint node:true */
 
 var express = require('express');
-var orgCtrl = require('../../controllers/apptime');
+var timeCtrl = require('../../controllers/apptime');
 
 console.log('appTIME routes loaded');
 
 var router = express.Router();
 
 router.route('/')
-    .get(orgCtrl.findAll);
+    .get(timeCtrl.findAll);
 
 router.route('/:id')
-    .get(orgCtrl.findOne);
+    .get(timeCtrl.findOne);
 
 module.exports = router;
