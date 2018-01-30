@@ -85,7 +85,7 @@ class FISMAModel extends Model {
           } */
 		  if (d.RelatedArtifacts){
 				  arts = d.RelatedArtifacts.split(';');
-				  console.log(arts);
+			//	  console.log(arts);
 				  arts = arts.map((art, cb) =>
 				{
 					 var pieces = art.split(',');
@@ -94,7 +94,7 @@ class FISMAModel extends Model {
 						Name: pieces[0],
 						ReferenceDocuments: pieces[1],
 					}; */
-					console.log(cb);
+				//	console.log(cb);
 					art1.push(cb);						
 				})
 		  }
@@ -204,10 +204,10 @@ class FISMAModel extends Model {
           return pocs;
         },
       },
-      {
+/*       {
         name: 'PM',
         type: 'string',
-      },
+      }, */
       {
         name: 'System Owner',
         type: 'string',

@@ -4,13 +4,13 @@ const interfaceStore = new InterfaceStore();
 
 function findAll(req, res) {
   let filter = '';
-  if (req.query.owner) {
-    filter = ` WHERE Owner1 LIKE '%${req.query.owner}%' or Owner2 LIKE '%${req.query.owner}%' ORDER BY Owner1, Owner2`;
+  if (req.search.owner) {
+    filter = ` WHERE owner1.Keyname LIKE \'%${req.search.owner}%\' or owner2.Keyname LIKE \'%${req.search.owner}%\' ORDER BY owner1.Keyname, owner2.Keyname`;
   }
-  if (req.query.sys) {
-    filter = ` WHERE System1 LIKE '%${req.query.sys}%' or System2 LIKE '%${req.query.sys}%' ORDER BY System1, System2`;
+  if (req.search.sys) {
+    filter = ` WHERE sys1.Keyname LIKE \'%${req.search.sys}%\' or sys2.Keyname LIKE \'%${req.search.sys}%\' ORDER BY sys2.Keyname, sys2.Keyname`;
   }
-  interfaceStore.query(`SELECT * FROM SAODS.udfGetAppInterfaces() ${filter} `, (results) => {
+  interfaceStore.search(`call get_application_interfaces( ${filter} )`, (results) => {
     res.set({
       'X-Record-Count': results.length,
     });

@@ -54,7 +54,7 @@ class Application extends Model {
 				{
 					 var pieces = poc.split(',');
 					 var cb =   "<a href=mailto:" + pieces[1] + ">" + pieces[0] + "</a>" + "<br>" ;
-					console.log(cb);
+					//console.log(cb);
 					poc1.push(cb);						
 				})
 		  }
@@ -74,7 +74,7 @@ class Application extends Model {
 				{
 					 var pieces = poc.split(',');
 					 var cb =   "<a href=mailto:" + pieces[1] + ">" + pieces[0] + "</a>" + "<br>" ;
-					console.log(cb);
+					//console.log(cb);
 					poc1.push(cb);						
 				})
 		  }

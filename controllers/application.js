@@ -51,8 +51,7 @@ function findPOCs(req, res) {
 }
 
 function findInterfaces(req, res) {
-  interfaceStore.query(`SELECT * FROM SAODS.udfGetAppInterfaces()
-    WHERE AppID1 = ${req.params.id} or AppID2 = ${req.params.id} ORDER BY Owner1`, (results) => {
+  interfaceStore.search(`call get_application_interfaces( ${req.params.id} )`, (results) => {
     res.json(results);
   });
 }

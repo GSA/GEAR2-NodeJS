@@ -9,7 +9,7 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  appTIMEStore.query(`SELECT * FROM SAODS.udfGetAppTIME() WHERE ID = ${req.params.id}`, (results) => {
+  appTIMEStore.query(`call get_application_full_suite( ${req.params.id})`, (results) => {
     res.json(results);
   });
 }
