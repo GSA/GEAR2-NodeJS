@@ -164,37 +164,142 @@ class Application extends Model {
         name: 'Technologies',
         type: 'string',
       },
+	  
       {
         name: 'FY14',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY14')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'FY15',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY15')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'FY16',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY16')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },		
       },
       {
         name: 'FY17',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY17')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'FY18',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY18')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'FY19',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY19')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'FY20',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY20')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'FY21',
         type: 'string',
+	    mapping(d) {
+          let apptime = null;
+		  let cb = '';
+          if (d.AppTime) {
+            apptime = d.AppTime.split('; ');
+            apptime = apptime.map((art) => {
+              const pieces = art.split(',');
+              if(pieces[0] == 'FY21')
+				cb = pieces[1] ;
+            });
+          }
+          return cb;
+        },
       },
       {
         name: 'Notes',
