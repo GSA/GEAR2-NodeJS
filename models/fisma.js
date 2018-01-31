@@ -204,21 +204,21 @@ class FISMAModel extends Model {
           return pocs;
         },
       },
-/*       {
-        name: 'PM',
+       {
+        name: 'SO',
         type: 'string',
-      }, */
+      }, 
       {
         name: 'System Owner',
         type: 'string',
 
-        mapping: 'PM'||'Program Manager'||'System Owner',
+        mapping: 'SO'||'Program Manager'||'System Owner',
 	    mapping(d) {
           let poc = null;
           let poctype = null;
 		  let pocs = [];
-          if (d.PM) {
-            poctype = d.PM.split(':');
+          if (d.SO) {
+            poctype = d.SO.split(':');
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
