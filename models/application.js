@@ -330,6 +330,10 @@ class Application extends Model {
         name: 'ProdYear',
         type: 'string',
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
     ]);
   }
 }

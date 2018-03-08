@@ -134,6 +134,11 @@ class FISMAexpModel extends Model {
 			let s = d.InactiveDate.toISOString();
 			return s.substring(0,10);}
 		},
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
+		
 	  }
     ];
   }

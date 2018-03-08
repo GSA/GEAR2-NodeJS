@@ -43,6 +43,10 @@ class InvestmentModel extends Model {
         name: 'POC',
         type: 'string',
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
     ];
   }
 }

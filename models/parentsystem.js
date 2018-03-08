@@ -26,6 +26,10 @@ class ParentSystemModel extends Model {
         type: 'string',
 
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
     ];
   }
 }

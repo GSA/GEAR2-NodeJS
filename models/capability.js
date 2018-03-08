@@ -57,6 +57,10 @@ class CapModel extends Model {
         name: 'ParentCap',
         type: 'string',
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },	  
     ];
   }
 }
