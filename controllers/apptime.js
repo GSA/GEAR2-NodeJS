@@ -9,7 +9,7 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  appTIMEStore.query(`call get_application_full_suite( ${req.params.id})`, (results) => {
+  appTIMEStore.search(`call get_application_full_suite( ${req.params.id})`, (results) => {
     res.json(results);
   });
 }
