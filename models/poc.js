@@ -48,6 +48,10 @@ class POCModel extends Model {
           return data['POC Type'];
         },
       },
+      {
+        name: 'Organization',
+        type: 'string',
+      },
 	  
     ];
   }
