@@ -17,10 +17,6 @@ class Interfacev2Model extends Model {
         type: 'string',
       },
       {
-        name: 'srcApp',
-        type: 'string',
-      },
-      {
         name: 'destApp',
         type: 'string',
       },
