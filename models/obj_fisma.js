@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	var objFisma = sequelize.define('objFisma', {
+	var Fisma = sequelize.define('Fisma', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -69,85 +69,15 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			field: 'Comments'
 		},
-
-		// artifacts: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_fismaartifact',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_fismaartifact_Id'
-		// },
-
-
-		// objFscloudspId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_fscloudsp',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_fscloudsp_Id'
-		// },
-		// objFscloudstId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_fscloudst',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_fscloudst_Id'
-		// },
-		// objPocAoId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_poc',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_poc_ao_Id'
-		// },
-		// objPocSoId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: false,
-		// 	references: {
-		// 		model: 'obj_poc',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_poc_so_Id'
-		// },
-		// objAtotypeId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_atotype',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_atotype_Id'
-		// },
-		// objOrganizationId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_organization',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_organization_Id'
-		// },
-		// objScimpactlevelId: {
-		// 	type: DataTypes.INTEGER(11),
-		// 	allowNull: true,
-		// 	references: {
-		// 		model: 'obj_scimpactlevel',
-		// 		key: 'Id'
-		// 	},
-		// 	field: 'obj_scimpactlevel_Id'
-		// },
-	}, {
+	},
+	{
 		tableName: 'obj_fisma',
 		timestamps: false,
 	});
 
-	return objFisma;
+	Fisma.associate = function (models) {
+		models.Fisma.belongsToMany(models.Artifact, { through: 'j_fisma_artifacts' });
+	}
+
+	return Fisma;
 };
