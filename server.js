@@ -8,17 +8,6 @@ var Sequelize = require('sequelize'),
     cors = require('cors'),
     models = require('./models');
 
-// before calling express()...
-// // Define your models
-// var database = new Sequelize('finale_demo', 'root', null, { dialect: 'mysql' });
-//
-// var objFismaartifact = database.import(`${__dirname}/models/obj_fismaartifact`);
-// var objFisma = database.import(`${__dirname}/models/obj_fisma`);
-//
-// // ASSOCIATIONS
-// objFisma.belongsToMany(objFismaartifact, { through: 'j_fisma_artifacts' });
-// objFismaartifact.belongsToMany(objFisma, { through: 'j_fisma_artifacts' });
-//
 // // Initialize server
 var app = express();
 app.use(bodyParser.json());
@@ -39,6 +28,7 @@ var fismaResource = finale.resource({
   model: models.Fisma,
   endpoints: ['/fisma', '/fisma/:id'],
   pagination: true,
+  // associations: true,
 });
 fismaResource.use(finaleMiddleware);
 
@@ -46,7 +36,17 @@ var fismaartResource = finale.resource({
   model: models.Artifact,
   endpoints: ['/artifacts', '/artifacts/:id'],
   pagination: true,
+  // associations: true,
 });
+fismaartResource.use(finaleMiddleware);
+
+var pocResource = finale.resource({
+  model: models.Poc,
+  endpoints: ['/pocs', '/pocs/:id'],
+  pagination: true,
+  // associations: true,
+});
+pocResource.use(finaleMiddleware);
 
 // Create database and listen
 models.sequelize.sync().then(function() {
@@ -56,9 +56,6 @@ models.sequelize.sync().then(function() {
   server.on('error', onError);
   server.on('listening', onListening);
 });
-
-
-
 
 /**
  * Event listener for HTTP server "error" event.
