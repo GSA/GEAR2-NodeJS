@@ -69,6 +69,11 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			field: 'Comments'
 		},
+		fscloudstId: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true,
+			field: 'obj_fscloudst_Id'
+		},
 	},
 	{
 		tableName: 'obj_fisma',

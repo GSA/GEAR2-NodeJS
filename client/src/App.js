@@ -4,12 +4,14 @@ import epilogueClient from 'aor-epilogue-client';
 import { FismaList, FismaEdit, FismaCreate } from './Fisma';
 import { ArtifactsList, ArtifactsEdit, ArtifactsCreate } from './Artifacts';
 import { PocsList, PocsEdit, PocsCreate } from './Pocs';
+import { FSCloudSTList, FSCloudSTEdit, FSCloudSTCreate } from './FSCloudST';
 
 const App = () => (
     <Admin restClient={epilogueClient('http://localhost:3333')}>
       <Resource name="fisma" list={FismaList} edit={FismaEdit} create={FismaCreate} remove={Delete} />
       <Resource name="artifacts" list={ArtifactsList} edit={ArtifactsEdit} create={ArtifactsCreate} remove={Delete} />
       <Resource name="pocs" list={PocsList} edit={PocsEdit} create={PocsCreate} remove={Delete} />
+      <Resource name="fscloudsts" />
     </Admin>
 );
 

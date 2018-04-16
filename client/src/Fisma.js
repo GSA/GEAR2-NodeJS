@@ -1,14 +1,14 @@
 // in src/posts.js
 import React from 'react';
 import { List, Edit, Create, ChipField, Datagrid, DateField, TextField, EditButton,
-  BooleanInput, DateInput, DisabledInput, LongTextInput,
+  BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
   SimpleForm, TextInput, ReferenceManyField, SingleFieldList, UrlField } from 'admin-on-rest';
 
 export const FismaList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-              <ReferenceManyField label="Artifacts" reference="artifacts" target="fisma_id">
+              <ReferenceManyField label="TYPES" reference="fscloudsts" target="id">
                   <SingleFieldList>
                       <UrlField source="keyname" />
                   </SingleFieldList>
@@ -40,6 +40,9 @@ export const FismaEdit = (props) => (
             <TextInput source="currentFyFismaAssessment" />
             <BooleanInput source="pii" />
             <BooleanInput source="cloudHosted" />
+            <ReferenceInput label="CloudST" source="fscloudstId" reference="fscloudsts" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
             <LongTextInput source="comments" />
         </SimpleForm>
     </Edit>
@@ -59,6 +62,9 @@ export const FismaCreate = (props) => (
           <TextInput source="currentFyFismaAssessment" />
           <BooleanInput source="pii" />
           <BooleanInput source="cloudHosted" />
+          <ReferenceInput label="CloudST" source="fscloudstId" reference="fscloudsts" allowEmpty>
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
           <LongTextInput source="comments" />
         </SimpleForm>
     </Create>

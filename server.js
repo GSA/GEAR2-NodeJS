@@ -48,6 +48,14 @@ var pocResource = finale.resource({
 });
 pocResource.use(finaleMiddleware);
 
+var fscloudstResource = finale.resource({
+  model: models.FSCloudST,
+  endpoints: ['/fscloudsts', '/fscloudsts/:id'],
+  pagination: true,
+  // associations: true,
+});
+fscloudstResource.use(finaleMiddleware);
+
 // Create database and listen
 models.sequelize.sync().then(function() {
   server.listen(3333, function() {
