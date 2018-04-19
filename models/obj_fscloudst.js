@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'Keyname'
 		},
 	}, {
+		timestamps: false,
 		tableName: 'obj_fscloudst',
 		timestamps: false,
 	});

@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 	},
 	{
+		timestamps: false,
 		tableName: 'obj_fismaartifact',
 		timestamps: false,
 	});

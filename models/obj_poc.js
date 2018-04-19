@@ -30,6 +30,7 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'RISSO'
 		},
 	}, {
+		timestamps: false,
 		tableName: 'obj_poc',
 		timestamps: false,
 	});

@@ -76,8 +76,8 @@ module.exports = function(sequelize, DataTypes) {
 		},
 	},
 	{
-		tableName: 'obj_fisma',
 		timestamps: false,
+		tableName: 'obj_fisma',
 	});
 
 	Fisma.associate = function (models) {
