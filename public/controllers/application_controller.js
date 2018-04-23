@@ -200,7 +200,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         },
 		{
           field: 'OMBUID',
-          title: 'Application UID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         },
