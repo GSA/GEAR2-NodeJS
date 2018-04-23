@@ -1,6 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
+	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
 	var Fisma = sequelize.define('Fisma', {
 		id: {
 			type: DataTypes.INTEGER(11),

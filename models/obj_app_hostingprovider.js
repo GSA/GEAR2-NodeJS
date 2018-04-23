@@ -1,6 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
+	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
 	var objAppHostingprovider = sequelize.define('objAppHostingprovider', {
 		id: {
 			type: DataTypes.INTEGER(11),
@@ -14,30 +15,30 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			field: 'Keyname'
 		},
-		createDtg: {
-			type: DataTypes.TIME,
-			allowNull: false,
-			defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-			field: 'CreateDTG'
-		},
-		changeDtg: {
-			type: DataTypes.TIME,
-			allowNull: false,
-			defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-			field: 'ChangeDTG'
-		},
-		createAudit: {
-			type: DataTypes.STRING,
-			allowNull: true,
-			defaultValue: "Admin",
-			field: 'CreateAudit'
-		},
-		changeAudit: {
-			type: DataTypes.STRING,
-			allowNull: true,
-			defaultValue: "Admin",
-			field: 'ChangeAudit'
-		}
+		// createDtg: {
+		// 	type: DataTypes.TIME,
+		// 	allowNull: false,
+		// 	defaultValue: TIMESTAMP,
+		// 	field: 'CreateDTG'
+		// },
+		// changeDtg: {
+		// 	type: DataTypes.TIME,
+		// 	allowNull: false,
+		// 	defaultValue: TIMESTAMP,
+		// 	field: 'ChangeDTG'
+		// },
+		// createAudit: {
+		// 	type: DataTypes.STRING,
+		// 	allowNull: true,
+		// 	defaultValue: "Admin",
+		// 	field: 'CreateAudit'
+		// },
+		// changeAudit: {
+		// 	type: DataTypes.STRING,
+		// 	allowNull: true,
+		// 	defaultValue: "Admin",
+		// 	field: 'ChangeAudit'
+		// }
 	}, {
 		timestamps: false,
 		tableName: 'obj_app_hostingprovider'

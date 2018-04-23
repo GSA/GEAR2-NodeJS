@@ -1,4 +1,4 @@
-var Sequelize = require('sequelize'),
+var
     finale = require('finale-rest'),
     finaleMiddleware = require('./finale-middleware'),
     http = require('http'),
@@ -6,9 +6,10 @@ var Sequelize = require('sequelize'),
     path = require('path'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
-    models = require('./models');
+    models = require('./models'),
+    orm = models.sequelize;
 
-// // Initialize server
+// Initialize server
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,44 +21,31 @@ var server = http.createServer(app);
 // Initialize finale
 finale.initialize({
   app: app,
-  sequelize: models.sequelize,
+  sequelize: orm,
 });
 
-// Create REST resource
-var fismaResource = finale.resource({
-  model: models.Fisma,
-  endpoints: ['/fisma', '/fisma/:id'],
-  pagination: true,
-  // associations: true,
-});
-fismaResource.use(finaleMiddleware);
+// Create REST resources
+Object.entries(orm.models).forEach((m) => {
+  const re = /^obj/;
+  const name = m[0];
+  const endpoint = name.replace(re, '').toLowerCase() + 's';
 
-var fismaartResource = finale.resource({
-  model: models.Artifact,
-  endpoints: ['/artifacts', '/artifacts/:id'],
-  pagination: true,
-  // associations: true,
+  // Makes sure the current model instance (orm.models) originates from the models/ directory so we
+  // can exclude any that are automatically created by the ORM like join tables
+  if (models[name]) {
+    const resource = finale.resource({
+      model: models[name],
+      endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
+      pagination: true,
+      // associations: true,
+    });
+    resource.use(finaleMiddleware);
+    console.log(`API Resource Created: ${name} @ /${endpoint}`);
+  }
 });
-fismaartResource.use(finaleMiddleware);
-
-var pocResource = finale.resource({
-  model: models.Poc,
-  endpoints: ['/pocs', '/pocs/:id'],
-  pagination: true,
-  // associations: true,
-});
-pocResource.use(finaleMiddleware);
-
-var fscloudstResource = finale.resource({
-  model: models.FSCloudST,
-  endpoints: ['/fscloudsts', '/fscloudsts/:id'],
-  pagination: true,
-  // associations: true,
-});
-fscloudstResource.use(finaleMiddleware);
 
 // Create database and listen
-models.sequelize.sync().then(function() {
+orm.sync().then(function() {
   server.listen(3333, function() {
     console.log('Express server listening on port ' + server.address().port);
   });

@@ -1,6 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
+	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
 	var objApplicationCost = sequelize.define('objApplicationCost', {
 		objApplicationId: {
 			type: DataTypes.INTEGER(11),
@@ -46,13 +47,13 @@ module.exports = function(sequelize, DataTypes) {
 		createDtg: {
 			type: DataTypes.TIME,
 			allowNull: false,
-			defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+			defaultValue: TIMESTAMP,
 			field: 'CreateDTG'
 		},
 		changeDtg: {
 			type: DataTypes.TIME,
 			allowNull: false,
-			defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+			defaultValue: TIMESTAMP,
 			field: 'ChangeDTG'
 		},
 		createAudit: {

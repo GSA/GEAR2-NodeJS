@@ -1,4 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
+	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
 	var FSCloudST = sequelize.define('FSCloudST', {
 		id: {
 			type: DataTypes.INTEGER(11),
