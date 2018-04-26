@@ -46,7 +46,7 @@ Object.entries(orm.models).forEach((m) => {
 
 // Create database and listen
 orm.sync().then(function() {
-  server.listen(3333, function() {
+  server.listen(process.env.PORT || 3333, function() {
     console.log('Express server listening on port ' + server.address().port);
   });
   server.on('error', onError);

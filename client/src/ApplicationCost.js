@@ -3,36 +3,36 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
 
-export const ArtifactsList = (props) => (
+export const ApplicationCostList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
-            <TextField source="link" />
+            <TextField source="description" />
             <EditButton />
         </Datagrid>
     </List>
 );
 
-const ArtifactsTitle = ({ record }) => {
-    return <span>Artifacts {record ? `"${record.keyname}"` : ''}</span>;
+const ApplicationCostTitle = ({ record }) => {
+    return <span>ApplicationCost {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const ArtifactsEdit = (props) => (
-    <Edit keyname={<ArtifactsTitle />} {...props}>
+export const ApplicationCostEdit = (props) => (
+    <Edit keyname={<ApplicationCostTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
-            <LongTextInput source="link" />
+            <LongTextInput source="description" />
         </SimpleForm>
     </Edit>
 );
 
-export const ArtifactsCreate = (props) => (
+export const ApplicationCostCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="keyname" />
-            <LongTextInput source="link" />
+            <LongTextInput source="description" />
         </SimpleForm>
     </Create>
 );

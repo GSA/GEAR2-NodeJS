@@ -3,7 +3,7 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput, BooleanInput } from 'admin-on-rest';
 
-export const PocsList = (props) => (
+export const PocList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
@@ -16,12 +16,12 @@ export const PocsList = (props) => (
     </List>
 );
 
-const PocsTitle = ({ record }) => {
-    return <span>Pocs {record ? `"${record.keyname}"` : ''}</span>;
+const PocTitle = ({ record }) => {
+    return <span>Poc {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const PocsEdit = (props) => (
-    <Edit keyname={<PocsTitle />} {...props}>
+export const PocEdit = (props) => (
+    <Edit keyname={<PocTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
@@ -32,7 +32,7 @@ export const PocsEdit = (props) => (
     </Edit>
 );
 
-export const PocsCreate = (props) => (
+export const PocCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="keyname" />

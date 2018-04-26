@@ -3,33 +3,36 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
 
-export const FsCloudStList = (props) => (
+export const TechnologyList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
+            <TextField source="description" />
             <EditButton />
         </Datagrid>
     </List>
 );
 
-const FsCloudStTitle = ({ record }) => {
-    return <span>FsCloudSt {record ? `"${record.keyname}"` : ''}</span>;
+const TechnologyTitle = ({ record }) => {
+    return <span>Technology {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const FsCloudStEdit = (props) => (
-    <Edit keyname={<FsCloudStTitle />} {...props}>
+export const TechnologyEdit = (props) => (
+    <Edit keyname={<TechnologyTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
+            <LongTextInput source="description" />
         </SimpleForm>
     </Edit>
 );
 
-export const FsCloudStCreate = (props) => (
+export const TechnologyCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="keyname" />
+            <LongTextInput source="description" />
         </SimpleForm>
     </Create>
 );
