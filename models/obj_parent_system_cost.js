@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var objParentSystemCost = sequelize.define('objParentSystemCost', {
+	var parentSystemCost = sequelize.define('parentSystemCost', {
 		fy: {
 			type: "YEAR(4)",
 			allowNull: false,
@@ -40,13 +40,13 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'Source'
 		},
 		createDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'CreateDTG'
 		},
 		changeDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'ChangeDTG'
@@ -65,5 +65,5 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 		tableName: 'obj_parent_system_cost'
 	});
-	return objParentSystemCost;
+	return parentSystemCost;
 };

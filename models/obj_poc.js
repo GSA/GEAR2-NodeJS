@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var Poc = sequelize.define('Poc', {
+	var poc = sequelize.define('poc', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -30,15 +30,39 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			field: 'RISSO'
 		},
+		createDtg: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: TIMESTAMP,
+			field: 'CreateDTG'
+		},
+		changeDtg: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: TIMESTAMP,
+			field: 'ChangeDTG'
+		},
+		createAudit: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			defaultValue: "Admin",
+			field: 'CreateAudit'
+		},
+		changeAudit: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			defaultValue: "Admin",
+			field: 'ChangeAudit'
+		},
 	}, {
 		timestamps: false,
 		tableName: 'obj_poc',
 		timestamps: false,
 	});
 
-	Poc.associate = function (models) {
-		models.Poc.belongsToMany(models.Fisma, { through: 'j_fisma_poc' });
+	poc.associate = function (models) {
+		models.poc.belongsToMany(models.fisma, { through: 'zk_fisma_poc' });
 	}
 
-	return Poc;
+	return poc;
 };

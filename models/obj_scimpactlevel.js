@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var objScimpactlevel = sequelize.define('objScimpactlevel', {
+	var scimpactlevel = sequelize.define('scimpactlevel', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -21,13 +21,13 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'Description'
 		},
 		createDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'CreateDTG'
 		},
 		changeDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'ChangeDTG'
@@ -46,5 +46,5 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 		tableName: 'obj_scimpactlevel'
 	});
-	return objScimpactlevel;
+	return scimpactlevel;
 };

@@ -28,7 +28,7 @@ finale.initialize({
 Object.entries(orm.models).forEach((m) => {
   const re = /^obj/;
   const name = m[0];
-  const endpoint = name.replace(re, '').toLowerCase() + 's';
+  const endpoint = name.replace(re, '');
 
   // Makes sure the current model instance (orm.models) originates from the models/ directory so we
   // can exclude any that are automatically created by the ORM like join tables

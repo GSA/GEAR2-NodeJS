@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var FSCloudST = sequelize.define('FSCloudST', {
+	var fsCloudSt = sequelize.define('fsCloudSt', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -13,11 +13,34 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			field: 'Keyname'
 		},
-	}, {
+		createDtg: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: TIMESTAMP,
+			field: 'CreateDTG'
+		},
+		changeDtg: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: TIMESTAMP,
+			field: 'ChangeDTG'
+		},
+		createAudit: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			field: 'CreateAudit'
+		},
+		changeAudit: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			field: 'ChangeAudit'
+		}
+	},
+	{
 		timestamps: false,
 		tableName: 'obj_fscloudst',
 		timestamps: false,
-	});
-
-	return FSCloudST;
+	}
+);
+	return fsCloudSt;
 };

@@ -2,8 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var objApplicationCost = sequelize.define('objApplicationCost', {
-		objApplicationId: {
+	var applicationCost = sequelize.define('applicationCost', {
+		applicationId: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
@@ -45,13 +45,13 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'Comment'
 		},
 		createDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'CreateDTG'
 		},
 		changeDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'ChangeDTG'
@@ -72,5 +72,5 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 		tableName: 'obj_application_cost'
 	});
-	return objApplicationCost;
+	return applicationCost;
 };

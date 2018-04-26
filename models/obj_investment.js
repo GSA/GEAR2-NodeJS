@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var objInvestment = sequelize.define('objInvestment', {
+	var investment = sequelize.define('investment', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -113,13 +113,13 @@ module.exports = function(sequelize, DataTypes) {
 			field: 'obj_poc_Id'
 		},
 		createDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'CreateDTG'
 		},
 		changeDtg: {
-			type: DataTypes.TIME,
+			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: TIMESTAMP,
 			field: 'ChangeDTG'
@@ -138,5 +138,5 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 		tableName: 'obj_investment'
 	});
-	return objInvestment;
+	return investment;
 };

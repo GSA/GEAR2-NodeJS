@@ -3,7 +3,7 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
 
-export const AppHostingList = (props) => (
+export const AppHostingProviderList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
@@ -14,12 +14,12 @@ export const AppHostingList = (props) => (
     </List>
 );
 
-const AppHostingTitle = ({ record }) => {
-    return <span>AppHosting {record ? `"${record.keyname}"` : ''}</span>;
+const AppHostingProviderTitle = ({ record }) => {
+    return <span>AppHostingProvider {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const AppHostingEdit = (props) => (
-    <Edit keyname={<AppHostingTitle />} {...props}>
+export const AppHostingProviderEdit = (props) => (
+    <Edit keyname={<AppHostingProviderTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
@@ -28,7 +28,7 @@ export const AppHostingEdit = (props) => (
     </Edit>
 );
 
-export const AppHostingCreate = (props) => (
+export const AppHostingProviderCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="keyname" />

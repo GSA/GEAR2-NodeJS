@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
-	var Artifact = sequelize.define('Artifact', {
+	var fismaArtifact = sequelize.define('fismaArtifact', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -20,6 +20,28 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			field: 'Link'
 		},
+		createDtg: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: TIMESTAMP,
+			field: 'CreateDTG'
+		},
+		changeDtg: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: TIMESTAMP,
+			field: 'ChangeDTG'
+		},
+		createAudit: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			field: 'CreateAudit'
+		},
+		changeAudit: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			field: 'ChangeAudit'
+		}
 	},
 	{
 		timestamps: false,
@@ -27,9 +49,9 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 	});
 
-	Artifact.associate = function (models) {
-		models.Artifact.belongsToMany(models.Fisma, { through: 'j_fisma_artifacts' });
+	fismaArtifact.associate = function (models) {
+		models.fismaArtifact.belongsToMany(models.fisma, { through: 'zk_fisma_artifact' });
 	}
 
-	return Artifact;
+	return fismaArtifact;
 };
