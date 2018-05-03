@@ -21,14 +21,14 @@ var server = http.createServer(app);
 // Initialize finale
 finale.initialize({
   app: app,
+  base: '/api/v1',
   sequelize: orm,
 });
 
 // Create REST resources
 Object.entries(orm.models).forEach((m) => {
-  const re = /^obj/;
   const name = m[0];
-  const endpoint = name.replace(re, '');
+  const endpoint = name.replace(/^obj/, '');
 
   // Makes sure the current model instance (orm.models) originates from the models/ directory so we
   // can exclude any that are automatically created by the ORM like join tables
@@ -46,7 +46,7 @@ Object.entries(orm.models).forEach((m) => {
 
 // Create database and listen
 orm.sync().then(function() {
-  server.listen(process.env.PORT || 3333, function() {
+  server.listen(process.env.PORT, function() {
     console.log('Express server listening on port ' + server.address().port);
   });
   server.on('error', onError);
