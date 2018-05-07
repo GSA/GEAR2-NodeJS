@@ -78,13 +78,13 @@ module.exports = function(sequelize, DataTypes) {
 		createDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'CreateDTG'
 		},
 		changeDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'ChangeDTG'
 		},
 		createAudit: {
@@ -105,6 +105,10 @@ module.exports = function(sequelize, DataTypes) {
 
 	fisma.associate = function (models) {
 		models.fisma.belongsToMany(models.fismaArtifact, { through: 'zk_fisma_artifact' });
+		models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_issm' });
+		models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_isso' });
+		models.fisma.belongsToMany(models.fisma, { as: 'fisma_replacer', through: 'zk_fisma_replacedby' });
+		models.fisma.belongsToMany(models.technology, { through: 'zk_fisma_technology' });
 	}
 
 	return fisma;

@@ -24,6 +24,25 @@ export const ApplicationEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="displayName" />
+            <TextInput source="applicationAlias" />
+            <TextInput source="cloudIndicator" />
+            <TextInput source="mobileAppIndicator" />
+            <TextInput source="desktopIndicator" />
+            <TextInput source="regionalClassification" />
+            <TextInput source="applicationOrWebsite" />
+            <TextInput source="numberOfUsers" />
+            <TextInput source="generateRevenueIndicator" />
+            <TextInput source="applicationNotes" />
+            <TextInput source="tier" />
+            <TextInput source="productionYear" />
+            <TextInput source="retiredYear" />
+            <TextInput source="url" />
+            <TextInput source="timeNotes" />
+            <TextInput source="cuiIndicator" />
+            <TextInput source="uniqueIdentifierCode" />
+            <TextInput source="referenceDocument" />
+
         </SimpleForm>
     </Edit>
 );
@@ -33,6 +52,25 @@ export const ApplicationCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="displayName" />
+            <TextInput source="applicationAlias" />
+            <TextInput source="cloudIndicator" />
+            <TextInput source="mobileAppIndicator" />
+            <TextInput source="desktopIndicator" />
+            <TextInput source="regionalClassification" />
+            <TextInput source="applicationOrWebsite" />
+            <TextInput source="numberOfUsers" />
+            <TextInput source="generateRevenueIndicator" />
+            <TextInput source="applicationNotes" />
+            <TextInput source="tier" />
+            <TextInput source="productionYear" />
+            <TextInput source="retiredYear" />
+            <TextInput source="url" />
+            <TextInput source="timeNotes" />
+            <TextInput source="cuiIndicator" />
+            <TextInput source="uniqueIdentifierCode" />
+            <TextInput source="referenceDocument" />
+
         </SimpleForm>
     </Create>
 );

@@ -7,8 +7,7 @@ export const ApplicationInterfaceList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
-            <TextField source="description" />
+            <TextField source="name" />
             <EditButton />
         </Datagrid>
     </List>
@@ -22,8 +21,7 @@ export const ApplicationInterfaceEdit = (props) => (
     <Edit keyname={<ApplicationInterfaceTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <TextInput source="name" />
         </SimpleForm>
     </Edit>
 );
@@ -31,8 +29,7 @@ export const ApplicationInterfaceEdit = (props) => (
 export const ApplicationInterfaceCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <TextInput source="name" />
         </SimpleForm>
     </Create>
 );

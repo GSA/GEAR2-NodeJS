@@ -33,13 +33,13 @@ module.exports = function(sequelize, DataTypes) {
 		createDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'CreateDTG'
 		},
 		changeDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'ChangeDTG'
 		},
 		createAudit: {
@@ -61,7 +61,8 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	poc.associate = function (models) {
-		models.poc.belongsToMany(models.fisma, { through: 'zk_fisma_poc' });
+		models.poc.belongsToMany(models.fisma, { through: 'zk_fisma_issm' });
+		models.poc.belongsToMany(models.fisma, { through: 'zk_fisma_isso' });
 	}
 
 	return poc;

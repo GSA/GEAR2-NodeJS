@@ -72,13 +72,13 @@ module.exports = function(sequelize, DataTypes) {
 		createDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'CreateDTG'
 		},
 		changeDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'ChangeDTG'
 		},
 		createAudit: {
@@ -106,5 +106,10 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 		tableName: 'obj_technology'
 	});
+
+	technology.associate = function (models) {
+		models.technology.belongsToMany(models.fisma, { through: 'zk_fisma_technology' });
+	}
+
 	return technology;
 };

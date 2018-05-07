@@ -1,21 +1,16 @@
-// in src/posts.js
 import React from 'react';
 import { List, Edit, Create, ChipField, Datagrid, DateField, TextField, EditButton,
   BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
   SimpleForm, TextInput, ReferenceManyField, SingleFieldList, UrlField } from 'admin-on-rest';
+import AssocListNested from './AssocListNested'
 
 export const FismaList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-              <ReferenceManyField label="TYPES" reference="fscloudsts" target="id">
-                  <SingleFieldList>
-                      <UrlField source="keyname" />
-                  </SingleFieldList>
-              </ReferenceManyField>
             <TextField source="keyname" />
-            <TextField source="description" />
-            <DateField source="atoRenewalDate" />
+            <DateField source="createDtg" showTime />
+            <DateField source="changeDtg" showTime />
             <EditButton />
         </Datagrid>
     </List>
@@ -40,7 +35,7 @@ export const FismaEdit = (props) => (
             <TextInput source="currentFyFismaAssessment" />
             <BooleanInput source="pii" />
             <BooleanInput source="cloudHosted" />
-            <ReferenceInput label="CloudST" source="fscloudstId" reference="fscloudsts" allowEmpty>
+            <ReferenceInput label="CloudST" source="fscloudstId" reference="fsCloudSt" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
             <LongTextInput source="comments" />
@@ -62,7 +57,7 @@ export const FismaCreate = (props) => (
           <TextInput source="currentFyFismaAssessment" />
           <BooleanInput source="pii" />
           <BooleanInput source="cloudHosted" />
-          <ReferenceInput label="CloudST" source="fscloudstId" reference="fscloudsts" allowEmpty>
+          <ReferenceInput label="CloudST" source="fscloudstId" reference="fsCloudSt" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
           <LongTextInput source="comments" />

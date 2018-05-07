@@ -37,7 +37,7 @@ Object.entries(orm.models).forEach((m) => {
       model: models[name],
       endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
       pagination: true,
-      // associations: true,
+      associations: true,
     });
     resource.use(finaleMiddleware);
     console.log(`API Resource Created: ${name} @ /${endpoint}`);

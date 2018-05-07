@@ -8,7 +8,12 @@ export const ApplicationCostList = (props) => (
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
-            <TextField source="description" />
+            <TextField source="fy" />
+            <TextField source="dme" />
+            <TextField source="om" />
+            <TextField source="total" />
+            <TextField source="source" />
+            <TextField source="comment" />
             <EditButton />
         </Datagrid>
     </List>
@@ -23,7 +28,12 @@ export const ApplicationCostEdit = (props) => (
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <TextField source="fy" />
+            <TextField source="dme" />
+            <TextField source="om" />
+            <TextField source="total" />
+            <TextField source="source" />
+            <LongTextInput source="comment" />
         </SimpleForm>
     </Edit>
 );
@@ -32,7 +42,12 @@ export const ApplicationCostCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="keyname" />
-            <LongTextInput source="description" />
-        </SimpleForm>
+            <TextField source="fy" />
+            <TextField source="dme" />
+            <TextField source="om" />
+            <TextField source="total" />
+            <TextField source="source" />
+            <LongTextInput source="comment" />
+          </SimpleForm>
     </Create>
 );

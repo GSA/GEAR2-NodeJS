@@ -6,7 +6,7 @@ import { AppHostingProviderList, AppHostingProviderEdit, AppHostingProviderCreat
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
 import { ApplicationCostList, ApplicationCostEdit, ApplicationCostCreate } from './ApplicationCost';
 import { ApplicationInterfaceList, ApplicationInterfaceEdit, ApplicationInterfaceCreate } from './ApplicationInterface';
-import { ApplicationLocalizationList, ApplicationLocalizationEdit, ApplicationLocalizationCreate } from './ApplicationLocalization';
+import { ApplicationRationalizationList, ApplicationRationalizationEdit, ApplicationRationalizationCreate } from './ApplicationRationalization';
 import { ApplicationStatusList, ApplicationStatusEdit, ApplicationStatusCreate } from './ApplicationStatus';
 import { AppPlatformList, AppPlatformEdit, AppPlatformCreate } from './AppPlatform';
 import { AppUserLocList, AppUserLocEdit, AppUserLocCreate } from './AppUserLoc';
@@ -50,7 +50,7 @@ const App = () => (
       <Resource name="application" list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} remove={Delete} />
       <Resource name="applicationCost" list={ApplicationCostList} edit={ApplicationCostEdit} create={ApplicationCostCreate} remove={Delete} />
       <Resource name="applicationInterfaces" list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} remove={Delete} />
-      <Resource name="applicationLocalization" list={ApplicationLocalizationList} edit={ApplicationLocalizationEdit} create={ApplicationLocalizationCreate} remove={Delete} />
+      <Resource name="applicationLocalization" list={ApplicationRationalizationList} edit={ApplicationRationalizationEdit} create={ApplicationRationalizationCreate} remove={Delete} />
       <Resource name="applicationStatus" list={ApplicationStatusList} edit={ApplicationStatusEdit} create={ApplicationStatusCreate} remove={Delete} />
       <Resource name="appPlatform" list={AppPlatformList} edit={AppPlatformEdit} create={AppPlatformCreate} remove={Delete} />
       <Resource name="appUserLoc" list={AppUserLocList} edit={AppUserLocEdit} create={AppUserLocCreate} remove={Delete} />
@@ -60,7 +60,7 @@ const App = () => (
       <Resource name="cuiCategory" list={CuiCategoryList} edit={CuiCategoryEdit} create={CuiCategoryCreate} remove={Delete} />
       <Resource name="deploymentType" list={DeploymentTypeList} edit={DeploymentTypeEdit} create={DeploymentTypeCreate} remove={Delete} />
       <Resource name="fisma" list={FismaList} edit={FismaEdit} create={FismaCreate} remove={Delete} />
-      <Resource name="fismaArtifact" list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} remove={Delete} />
+      <Resource name="fismaArtifacts" list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} remove={Delete} />
       <Resource name="fsCloudSp" list={FsCloudSpList} edit={FsCloudSpEdit} create={FsCloudSpCreate} remove={Delete} />
       <Resource name="fsCloudSt" list={FsCloudStList} edit={FsCloudStEdit} create={FsCloudStCreate} remove={Delete} />
       <Resource name="fy" list={FyList} edit={FyEdit} create={FyCreate} remove={Delete} />
