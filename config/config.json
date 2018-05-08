@@ -2,7 +2,8 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "finale_demo",
+    "foo-database": "finale_ods",
+    "database": "cowboy_ods",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

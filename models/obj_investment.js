@@ -115,13 +115,13 @@ module.exports = function(sequelize, DataTypes) {
 		createDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'CreateDTG'
 		},
 		changeDtg: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: TIMESTAMP,
+			defaultValue: DataTypes.NOW(),
 			field: 'ChangeDTG'
 		},
 		createAudit: {

@@ -23,6 +23,7 @@ const FismaTitle = ({ record }) => {
 export const FismaEdit = (props) => (
     <Edit keyname={<FismaTitle />} {...props}>
         <SimpleForm>
+            <AssocListNested source="fismaArtifacts" />
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />

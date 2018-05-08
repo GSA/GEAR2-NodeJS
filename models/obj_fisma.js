@@ -104,11 +104,15 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	fisma.associate = function (models) {
-		models.fisma.belongsToMany(models.fismaArtifact, { through: 'zk_fisma_artifact' });
-		models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_issm' });
-		models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_isso' });
-		models.fisma.belongsToMany(models.fisma, { as: 'fisma_replacer', through: 'zk_fisma_replacedby' });
-		models.fisma.belongsToMany(models.technology, { through: 'zk_fisma_technology' });
+		models.fisma.belongsToMany(models.fismaArtifact, {
+			foreignKey: 'objFismaSystem_Id',
+			through: 'zk_fisma_artifact',
+			timestamps: false,
+		});
+		// models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_issm' });
+		// models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_isso' });
+		// models.fisma.belongsToMany(models.fisma, { as: 'fisma_replacer', through: 'zk_fisma_replacedby' });
+		// models.fisma.belongsToMany(models.technology, { through: 'zk_fisma_technology' });
 	}
 
 	return fisma;

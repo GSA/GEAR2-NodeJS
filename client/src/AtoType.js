@@ -1,4 +1,3 @@
-// in src/posts.js
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';

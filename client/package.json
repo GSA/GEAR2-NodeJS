@@ -5,6 +5,7 @@
   "dependencies": {
     "admin-on-rest": "^1.4.0",
     "aor-epilogue-client": "^0.2.0",
+    "lodash.get": "^4.4.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-scripts": "1.1.4"

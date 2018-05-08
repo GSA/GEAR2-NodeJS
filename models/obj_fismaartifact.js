@@ -50,7 +50,11 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	fismaArtifact.associate = function (models) {
-		models.fismaArtifact.belongsToMany(models.fisma, { through: 'zk_fisma_artifact' });
+		models.fismaArtifact.belongsToMany(models.fisma, {
+			foreignKey: 'objFISMAartifact_Id',
+			through: 'zk_fisma_artifact',
+			timestamps: false,
+		});
 	}
 
 	return fismaArtifact;
