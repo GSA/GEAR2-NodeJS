@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  SimpleForm, TextInput } from 'react-admin';
+  LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
 export const CapabilityList = (props) => (
     <List {...props}>

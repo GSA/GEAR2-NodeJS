@@ -22,11 +22,6 @@ const FismaTitle = ({ record }) => {
 export const FismaEdit = (props) => (
     <Edit keyname={<FismaTitle />} {...props}>
         <SimpleForm>
-            <ArrayInput source="fismaArtifacts">
-              <SimpleFormIterator>
-                <TextInput source="keyname" />
-              </SimpleFormIterator>
-            </ArrayInput>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />
@@ -43,6 +38,13 @@ export const FismaEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
             <LongTextInput source="comments" />
+
+            <ArrayInput source="fismaArtifacts">
+              <SimpleFormIterator>
+                <TextInput source="keyname" />
+              </SimpleFormIterator>
+            </ArrayInput>
+
         </SimpleForm>
     </Edit>
 );
@@ -65,6 +67,13 @@ export const FismaCreate = (props) => (
             <SelectInput optionText="keyname" />
           </ReferenceInput>
           <LongTextInput source="comments" />
+
+          <ArrayInput source="fismaArtifacts">
+            <SimpleFormIterator>
+              <TextInput source="keyname" />
+            </SimpleFormIterator>
+          </ArrayInput>
+
         </SimpleForm>
     </Create>
 );

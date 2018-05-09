@@ -1,7 +1,6 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
 	var fisma = sequelize.define('fisma', {
 		id: {
 			type: DataTypes.INTEGER(11),
@@ -109,10 +108,31 @@ module.exports = function(sequelize, DataTypes) {
 			through: 'zk_fisma_artifact',
 			timestamps: false,
 		});
-		// models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_issm' });
-		// models.fisma.belongsToMany(models.poc, { through: 'zk_fisma_isso' });
-		// models.fisma.belongsToMany(models.fisma, { as: 'fisma_replacer', through: 'zk_fisma_replacedby' });
-		// models.fisma.belongsToMany(models.technology, { through: 'zk_fisma_technology' });
+		// models.fisma.belongsToMany(models.poc, {
+		// 	as: 'fisma_issm',
+		// 	foreignKey: 'objFismaSystem_Id',
+		// 	otherKey: 'objPOC_Id',
+		// 	through: 'zk_fisma_issm',
+		// 	timestamps: false,
+		// });
+		// models.fisma.belongsToMany(models.poc, {
+		// 	as: 'fisma_isso',
+		// 	foreignKey: 'objFismaSystem_Id',
+		// 	otherKey: 'objPOC_Id',
+		// 	through: 'zk_fisma_isso',
+		// 	timestamps: false,
+		// });
+		// models.fisma.belongsToMany(models.fisma, {
+		// 	as: 'fisma_replacedby',
+		// 	foreignKey: 'objFismaSystem_Id',
+		// 	through: 'zk_fisma_replacedby',
+		// 	timestamps: false,
+		// });
+		// models.fisma.belongsToMany(models.technology, {
+		// 	foreignKey: 'objFismaSystem_Id',
+		// 	through: 'zk_fisma_technology',
+		// 	timestamps: false,
+		// });
 	}
 
 	return fisma;
