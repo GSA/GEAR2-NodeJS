@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
 export const ParentSystemList = (props) => (
     <List {...props}>
@@ -24,6 +24,8 @@ export const ParentSystemEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="url" />
+            <TextInput source="objOrganizationId" />
         </SimpleForm>
     </Edit>
 );
@@ -33,6 +35,8 @@ export const ParentSystemCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="url" />
+            <TextInput source="objOrganizationId" />
         </SimpleForm>
     </Create>
 );

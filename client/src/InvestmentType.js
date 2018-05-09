@@ -1,14 +1,13 @@
 
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  SimpleForm, TextInput } from 'react-admin';
 
 export const InvestmentTypeList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
-            <TextField source="description" />
             <EditButton />
         </Datagrid>
     </List>
@@ -22,8 +21,7 @@ export const InvestmentTypeEdit = (props) => (
     <Edit keyname={<InvestmentTypeTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <TextInput source="keyname" />            
         </SimpleForm>
     </Edit>
 );
@@ -31,8 +29,7 @@ export const InvestmentTypeEdit = (props) => (
 export const InvestmentTypeCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <TextInput source="keyname" />            
         </SimpleForm>
     </Create>
 );

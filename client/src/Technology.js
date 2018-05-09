@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
 export const TechnologyList = (props) => (
     <List {...props}>
@@ -24,6 +23,15 @@ export const TechnologyEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="approvedStatusExpirationDate" />
+            <TextInput source="vendorStandardOrganization" />
+            <TextInput source="availableThroughMyview" />
+            <TextInput source="goldImage" />
+            <LongTextInput source="goldImageComment" />
+            <LongTextInput source="comments" />
+            <TextInput source="objTechnologyStatusId" />
+            <TextInput source="objDeploymentTypeId" />
+            <TextInput source="objStandardTypeId" />
         </SimpleForm>
     </Edit>
 );
@@ -33,6 +41,15 @@ export const TechnologyCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="approvedStatusExpirationDate" />
+            <TextInput source="vendorStandardOrganization" />
+            <TextInput source="availableThroughMyview" />
+            <TextInput source="goldImage" />
+            <LongTextInput source="goldImageComment" />
+            <LongTextInput source="comments" />
+            <TextInput source="objTechnologyStatusId" />
+            <TextInput source="objDeploymentTypeId" />
+            <TextInput source="objStandardTypeId" />
         </SimpleForm>
     </Create>
 );

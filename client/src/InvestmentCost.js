@@ -1,16 +1,19 @@
 
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
 export const InvestmentCostList = (props) => (
     <List {...props}>
-        <Datagrid>
-            <TextField source="id" />
-            <TextField source="keyname" />
-            <TextField source="description" />
-            <EditButton />
-        </Datagrid>
+      <Datagrid>
+        <TextField source="fy" />
+        <TextField source="objInvestmentId" />
+        <TextField source="dme" />
+        <TextField source="om" />
+        <TextField source="total" />
+        <TextField source="source" />
+        <EditButton />
+      </Datagrid>
     </List>
 );
 
@@ -21,9 +24,12 @@ const InvestmentCostTitle = ({ record }) => {
 export const InvestmentCostEdit = (props) => (
     <Edit keyname={<InvestmentCostTitle />} {...props}>
         <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <DisabledInput source="fy" />
+            <DisabledInput source="objInvestmentId" />
+            <TextInput source="dme" />
+            <TextInput source="om" />
+            <TextInput source="total" />
+            <LongTextInput source="source" />
         </SimpleForm>
     </Edit>
 );
@@ -31,8 +37,12 @@ export const InvestmentCostEdit = (props) => (
 export const InvestmentCostCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+          <TextInput source="fy" />
+          <TextInput source="objInvestmentId" />
+          <TextInput source="dme" />
+          <TextInput source="om" />
+          <TextInput source="total" />
+          <LongTextInput source="source" />
         </SimpleForm>
     </Create>
 );

@@ -1,14 +1,13 @@
-
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  SimpleForm, TextInput } from 'react-admin';
 
 export const CapabilityList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
-            <TextField source="description" />
+            <TextField source="referenceNumber" />
             <EditButton />
         </Datagrid>
     </List>
@@ -24,6 +23,8 @@ export const CapabilityEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="referenceNumber" />
+            <TextInput source="parentId" />
         </SimpleForm>
     </Edit>
 );
@@ -33,6 +34,8 @@ export const CapabilityCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="referenceNumber" />
+            <TextInput source="parentId" />
         </SimpleForm>
     </Create>
 );

@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
 export const StandardCategoryList = (props) => (
     <List {...props}>
@@ -9,6 +8,7 @@ export const StandardCategoryList = (props) => (
             <TextField source="id" />
             <TextField source="keyname" />
             <TextField source="description" />
+            <TextField source="objStandardCategoryParentId" />
             <EditButton />
         </Datagrid>
     </List>
@@ -24,6 +24,7 @@ export const StandardCategoryEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="objStandardCategoryParentId" />
         </SimpleForm>
     </Edit>
 );
@@ -33,6 +34,7 @@ export const StandardCategoryCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" />
             <LongTextInput source="description" />
+            <TextInput source="objStandardCategoryParentId" />
         </SimpleForm>
     </Create>
 );

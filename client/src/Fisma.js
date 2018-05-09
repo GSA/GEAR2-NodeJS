@@ -1,8 +1,7 @@
 import React from 'react';
 import { List, Edit, Create, ChipField, Datagrid, DateField, TextField, EditButton,
-  BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
-  SimpleForm, TextInput, ReferenceManyField, SingleFieldList, UrlField } from 'admin-on-rest';
-import AssocListNested from './AssocListNested'
+  ArrayInput, BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
+  SimpleForm, SimpleFormIterator, TextInput, UrlInput, ReferenceManyField, SingleFieldList, UrlField } from 'react-admin';
 
 export const FismaList = (props) => (
     <List {...props}>
@@ -23,7 +22,11 @@ const FismaTitle = ({ record }) => {
 export const FismaEdit = (props) => (
     <Edit keyname={<FismaTitle />} {...props}>
         <SimpleForm>
-            <AssocListNested source="fismaArtifacts" />
+            <ArrayInput source="fismaArtifacts">
+              <SimpleFormIterator>
+                <TextInput source="keyname" />
+              </SimpleFormIterator>
+            </ArrayInput>
             <DisabledInput source="id" />
             <TextInput source="keyname" />
             <LongTextInput source="description" />

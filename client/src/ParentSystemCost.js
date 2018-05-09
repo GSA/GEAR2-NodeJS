@@ -1,14 +1,14 @@
 
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'admin-on-rest';
+  LongTextInput, SimpleForm, TextInput } from 'react-admin';
 
 export const ParentSystemCostList = (props) => (
     <List {...props}>
         <Datagrid>
-            <TextField source="id" />
-            <TextField source="keyname" />
-            <TextField source="description" />
+            <TextField source="fy" />
+            <TextField source="objParentSystemId" />
+            <TextField source="source" />
             <EditButton />
         </Datagrid>
     </List>
@@ -21,9 +21,12 @@ const ParentSystemCostTitle = ({ record }) => {
 export const ParentSystemCostEdit = (props) => (
     <Edit keyname={<ParentSystemCostTitle />} {...props}>
         <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <DisabledInput source="fy" />
+            <DisabledInput source="objParentSystemId" />
+            <TextInput source="dme" />
+            <TextInput source="om" />
+            <TextInput source="total" />
+            <LongTextInput source="source" />
         </SimpleForm>
     </Edit>
 );
@@ -31,8 +34,12 @@ export const ParentSystemCostEdit = (props) => (
 export const ParentSystemCostCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" />
-            <LongTextInput source="description" />
+            <TextInput source="fy" />
+            <TextInput source="objParentSystemId" />
+            <TextInput source="dme" />
+            <TextInput source="om" />
+            <TextInput source="total" />
+            <LongTextInput source="source" />
         </SimpleForm>
     </Create>
 );
