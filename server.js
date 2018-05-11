@@ -17,10 +17,8 @@ const port = process.env.PORT || 3333;
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// Most Cross Origin Resource Sharing headers set via the cors lib, but some may be defined in
-// finaleMiddleware
+// Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
-// For React-Admin, we need a more sophisticated approach when serving those
 app.use(express.static(path.join(__dirname, 'public')));
 
 var server = http.createServer(app);
@@ -30,6 +28,10 @@ finale.initialize({
   app: app,
   base: '/api/v1',
   sequelize: orm,
+});
+
+app.get('/', function (req, res) {
+  res.send(`GEAR Will Return.`);
 });
 
 // Create REST resources

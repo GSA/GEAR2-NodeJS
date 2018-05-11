@@ -45,7 +45,7 @@ import { TimeQuadrantList, TimeQuadrantEdit, TimeQuadrantCreate } from './TimeQu
 import { YearList, YearEdit, YearCreate } from './Year';
 
 const App = () => (
-    <Admin dataProvider={epilogueClient(`http://localhost:3333/api/v1`)}>
+    <Admin dataProvider={epilogueClient(`/api/v1`)}>
       <Resource name="appHostingProvider" list={AppHostingProviderList} edit={AppHostingProviderEdit} create={AppHostingProviderCreate} remove={Delete} />
       <Resource name="application" list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} remove={Delete} />
       <Resource name="applicationCost" list={ApplicationCostList} edit={ApplicationCostEdit} create={ApplicationCostCreate} remove={Delete} />
