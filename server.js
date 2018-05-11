@@ -1,4 +1,5 @@
 var
+    dotenv = require('dotenv').config(),
     finale = require('finale-rest'),
     finaleMiddleware = require('./finale-middleware'),
     http = require('http'),
@@ -9,11 +10,17 @@ var
     models = require('./models'),
     orm = models.sequelize;
 
+// Define a default port if the env variable doesn't exist
+const port = process.env.PORT || 3333;
+
 // Initialize server
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// Most Cross Origin Resource Sharing headers set via the cors lib, but some may be defined in
+// finaleMiddleware
 app.use(cors());
+// For React-Admin, we need a more sophisticated approach when serving those
 app.use(express.static(path.join(__dirname, 'public')));
 
 var server = http.createServer(app);
@@ -40,7 +47,6 @@ Object.entries(orm.models).forEach((m) => {
       associations: true,
     });
     resource.use(finaleMiddleware);
-    console.log(`API Resource Created: ${name} @ /${endpoint}`);
   }
 });
 

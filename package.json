@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "develop": "PORT=3333 nodemon server.js",
+    "develop": "nodemon server.js",
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +21,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "cors": "^2.8.4",
     "create-react-app": "^1.5.2",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "finale-rest": "^0.1.5",
     "mysql2": "^1.5.3",
