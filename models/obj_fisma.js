@@ -108,31 +108,33 @@ module.exports = function(sequelize, DataTypes) {
 			through: 'zk_fisma_artifact',
 			timestamps: false,
 		});
-		// models.fisma.belongsToMany(models.poc, {
-		// 	as: 'fisma_issm',
-		// 	foreignKey: 'objFismaSystem_Id',
-		// 	otherKey: 'objPOC_Id',
-		// 	through: 'zk_fisma_issm',
-		// 	timestamps: false,
-		// });
-		// models.fisma.belongsToMany(models.poc, {
-		// 	as: 'fisma_isso',
-		// 	foreignKey: 'objFismaSystem_Id',
-		// 	otherKey: 'objPOC_Id',
-		// 	through: 'zk_fisma_isso',
-		// 	timestamps: false,
-		// });
-		// models.fisma.belongsToMany(models.fisma, {
-		// 	as: 'fisma_replacedby',
-		// 	foreignKey: 'objFismaSystem_Id',
-		// 	through: 'zk_fisma_replacedby',
-		// 	timestamps: false,
-		// });
-		// models.fisma.belongsToMany(models.technology, {
-		// 	foreignKey: 'objFismaSystem_Id',
-		// 	through: 'zk_fisma_technology',
-		// 	timestamps: false,
-		// });
+		models.fisma.belongsToMany(models.poc, {
+			as: 'fisma_issm',
+			foreignKey: 'objFismaSystem_Id',
+			otherKey: 'objPOC_Id',
+			through: 'zk_fisma_issm',
+			timestamps: false,
+		});
+		models.fisma.belongsToMany(models.poc, {
+			as: 'fisma_isso',
+			foreignKey: 'objFismaSystem_Id',
+			otherKey: 'objPOC_Id',
+			through: 'zk_fisma_isso',
+			timestamps: false,
+		});
+		models.fisma.belongsToMany(models.fisma, {
+			as: 'fisma_replacedby',
+			foreignKey: 'objFismaSystem_Id_Old',
+			otherKey: 'objFismaSystem_Id_New',
+			through: 'zk_fisma_replacedby',
+			timestamps: false,
+		});
+		models.fisma.belongsToMany(models.technology, {
+			foreignKey: 'obj_fisma_id',
+			otherKey: 'obj_technology_id',
+			through: 'zk_fisma_technology',
+			timestamps: false,
+		});
 	}
 
 	return fisma;

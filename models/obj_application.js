@@ -1,7 +1,6 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	const TIMESTAMP = require('sequelize-mysql-timestamp')(sequelize);
 	var application = sequelize.define('application', {
 		id: {
 			type: DataTypes.INTEGER(11),
@@ -221,5 +220,15 @@ module.exports = function(sequelize, DataTypes) {
 		timestamps: false,
 		tableName: 'obj_application'
 	});
+
+	application.associate = function (models) {
+		models.application.belongsToMany(models.capability, {
+			foreignKey: 'obj_application_Id',
+			otherKey: 'obj_capability_Id',
+			through: 'zk_application_business_capabilities',
+			timestamps: false,
+		});
+	}
+
 	return application;
 };

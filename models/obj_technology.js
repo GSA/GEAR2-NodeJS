@@ -108,7 +108,12 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	technology.associate = function (models) {
-		models.technology.belongsToMany(models.fisma, { through: 'zk_fisma_technology' });
+		models.fisma.belongsToMany(models.technology, {
+			foreignKey: 'obj_technology_id',
+			otherKey: 'obj_fisma_id',
+			through: 'zk_fisma_technology',
+			timestamps: false,
+		});
 	}
 
 	return technology;
