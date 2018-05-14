@@ -19,7 +19,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('/admin', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 var server = http.createServer(app);
 
@@ -28,10 +32,6 @@ finale.initialize({
   app: app,
   base: '/api/v1',
   sequelize: orm,
-});
-
-app.get('/', function (req, res) {
-  res.send(`GEAR Will Return.`);
 });
 
 // Create REST resources

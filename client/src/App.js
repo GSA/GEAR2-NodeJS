@@ -44,8 +44,9 @@ import { TechnologyStatusList, TechnologyStatusEdit, TechnologyStatusCreate } fr
 import { TimeQuadrantList, TimeQuadrantEdit, TimeQuadrantCreate } from './TimeQuadrant';
 import { YearList, YearEdit, YearCreate } from './Year';
 
+
 const App = () => (
-    <Admin dataProvider={epilogueClient(`/api/v1`)}>
+    <Admin title="GEAR 2.0" dataProvider={epilogueClient(`/api/v1`)}>
       <Resource name="appHostingProvider" list={AppHostingProviderList} edit={AppHostingProviderEdit} create={AppHostingProviderCreate} remove={Delete} />
       <Resource name="application" list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} remove={Delete} />
       <Resource name="applicationCost" list={ApplicationCostList} edit={ApplicationCostEdit} create={ApplicationCostCreate} remove={Delete} />
