@@ -2,24 +2,11 @@
   "name": "client",
   "version": "0.1.0",
   "dependencies": {
-    "ajv": "^6.5.0",
     "aor-epilogue-client": "^0.2.0",
     "react": "^16.3.1",
-    "react-admin": "^2.0.0-RC2",
+    "react-admin": "^2.0.0-beta4",
     "react-dom": "^16.3.1",
     "react-scripts": "1.1.4"
-  },
-  "devDependencies": {
-    "@material-ui/core": "^1.0.0-rc.0",
-    "babel-eslint": "^7.2.3",
-    "babel-cli": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "create-react-app": "^1.5.2",
-    "material-ui": "^1.0.0-beta.47"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,6 +14,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://ea.gsa.gov/admin",
+  "homepage": "http://localhost:3333/admin",
   "proxy": "http://localhost:3333"
 }
