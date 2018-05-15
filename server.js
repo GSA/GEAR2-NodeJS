@@ -19,11 +19,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'client', 'build')));
+// app.get('/admin', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+// });
 
-app.get('/admin', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});
+
 
 var server = http.createServer(app);
 
