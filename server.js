@@ -1,4 +1,5 @@
 var
+    dotenv = require('dotenv').config(),
     finale = require('finale-rest'),
     finaleMiddleware = require('./finale-middleware'),
     http = require('http'),
@@ -9,12 +10,21 @@ var
     models = require('./models'),
     orm = models.sequelize;
 
+// Define a default port if the env variable doesn't exist
+const port = process.env.PORT || 3333;
+
 // Initialize server
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('/admin', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 var server = http.createServer(app);
 
@@ -40,7 +50,6 @@ Object.entries(orm.models).forEach((m) => {
       associations: true,
     });
     resource.use(finaleMiddleware);
-    console.log(`API Resource Created: ${name} @ /${endpoint}`);
   }
 });
 
