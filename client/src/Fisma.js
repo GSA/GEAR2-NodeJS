@@ -44,6 +44,26 @@ export const FismaEdit = (props) => (
                 <TextInput source="keyname" />
               </SimpleFormIterator>
             </ArrayInput>
+            <ArrayInput source="fisma_issm">
+              <SimpleFormIterator>
+                <TextInput source="keyname" />
+              </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="fisma_isso">
+              <SimpleFormIterator>
+                <TextInput source="keyname" />
+              </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="fisma_replacedby">
+              <SimpleFormIterator>
+                <TextInput source="keyname" />
+              </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="technologies  ">
+              <SimpleFormIterator>
+                <TextInput source="keyname" />
+              </SimpleFormIterator>
+            </ArrayInput>
 
         </SimpleForm>
     </Edit>

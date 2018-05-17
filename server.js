@@ -26,6 +26,9 @@ app.get('/admin', function (req, res) {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
+app.get('/admin', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 var server = http.createServer(app);
 
 // Initialize finale

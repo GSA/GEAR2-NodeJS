@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   SimpleForm, TextInput } from 'react-admin';
