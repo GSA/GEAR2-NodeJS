@@ -3,8 +3,8 @@
 # Compile, bundle, etc. destinations
 */build/
 
-# sensitive data
-*.securables/
+# environment variables
+.env
 
 # OS-specific
 .DS_Store

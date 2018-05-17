@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'react-admin';
+  SimpleForm, TextInput } from 'react-admin';
 
 export const AppUserLocList = (props) => (
     <List {...props}>

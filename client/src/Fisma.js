@@ -1,7 +1,7 @@
 import React from 'react';
-import { List, Edit, Create, ChipField, Datagrid, DateField, TextField, EditButton,
+import { List, Edit, Create, Datagrid, DateField, TextField, EditButton,
   ArrayInput, BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
-  SimpleForm, SimpleFormIterator, TextInput, UrlInput, ReferenceManyField, SingleFieldList, UrlField } from 'react-admin';
+  SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
 
 export const FismaList = (props) => (
     <List {...props}>
