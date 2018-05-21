@@ -1,5 +1,8 @@
 ### Team-added rules
 
+# Mounted drives, devices, etc.
+mnt/
+
 # Compile, bundle, etc. destinations
 */build/
 

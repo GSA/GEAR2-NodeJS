@@ -14,13 +14,13 @@
   "license": "ISC",
   "dependencies": {
     "aor-epilogue-client": "^0.2.0",
-    "concurrently": "^3.5.1",
-    "cors": "^2.8.4",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
-    "finale-rest": "^0.1.5",
-    "mysql2": "^1.5.3",
-    "sequelize": "^4.37.6"
+    "concurrently": "3.5.1",
+    "cors": "2.8.4",
+    "dotenv": "~5.0.1",
+    "express": "~4.16.3",
+    "finale-rest": "0.1.5",
+    "mysql2": "~1.5.3",
+    "sequelize": "~4.37.6"
   },
   "bundledDependencies": [
     "concurrently",
