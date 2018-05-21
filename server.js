@@ -86,17 +86,13 @@ app.get('/admin', function (req, res) {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
-app.get('/admin', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});
-
 /********************************************************************
 PASSPORT ROUTES
 ********************************************************************/
 app.get('/pass', function (req, res) {
   const reqStr = util.inspect(req, false, null);
   if (req.isAuthenticated()) {
-    res.redirect('/admin/#/dashboard');
+    res.redirect('/admin/#/');
   } else {
     res.send('NO PASS.');
   }
