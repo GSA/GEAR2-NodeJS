@@ -7,6 +7,11 @@ var
     path = require('path'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
+    passport = require('passport'),
+    Strategy = require('passport-saml').Strategy,
+    session = require('express-session'),
+    mysql = require('mysql2'),
+    util = require('util'),
     models = require('./models'),
     orm = models.sequelize;
 
@@ -15,10 +20,65 @@ const port = process.env.PORT || 3333;
 
 // Initialize server
 var app = express();
+/********************************************************************
+ TODO: MOVE PASSPORT STUFF TO ITS OWN FILE
+********************************************************************/
+const samlConfig = {
+  protocol: process.env.SAML_PROTOCOL,
+  host: process.env.SAML_HOST,
+  port: process.env.SAML_PORT,
+  path: process.env.SAML_PATH,
+  entryPoint: process.env.SAML_ENTRY_POINT,
+  issuer: process.env.SAML_ISSUER,
+};
+// user co/dec a required passport thing
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+passport.use(new Strategy(samlConfig, (secureAuthProfile, cb) => {
+  const dbConn = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database:'acl',
+  });
+  const sqlString = `CALL acl.get_user_perms('${secureAuthProfile.nameID}');`;
+  dbConn.connect();
+  dbConn.query(sqlString, (err, results, fields) => {
+    if (err) {
+      secureAuthProfile.dbError = util.inspect(err);
+      return cb(null, secureAuthProfile);
+    } else {
+      secureAuthProfile.dbError = null;
+      secureAuthProfile.groups = JSON.parse(JSON.stringify(results[0]));
+      return cb(null, secureAuthProfile);
+    }
+  });
+}));
+/********************************************************************/
+
+// LOAD MIDDLEWARE
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
+
+/********************************************************************
+(ADDING FOR PASSPORT) MIDDLEWARE
+********************************************************************/
+app.use(session(
+  {
+    resave: true,
+    saveUninitialized: true,
+    secret: 'not used right now'
+  }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+/******************************************************************/
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'client', 'build')));
 
@@ -29,6 +89,50 @@ app.get('/admin', function (req, res) {
 app.get('/admin', function (req, res) {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
+
+/********************************************************************
+PASSPORT ROUTES
+********************************************************************/
+app.get('/pass', function (req, res) {
+  const reqStr = util.inspect(req, false, null);
+  if (req.isAuthenticated()) {
+    res.redirect('/admin/#/dashboard');
+  } else {
+    res.send('NO PASS.');
+  }
+});
+app.get('/login',
+  passport.authenticate('saml', {
+      successRedirect: '/pass',
+      failureRedirect: '/login'
+    })
+  );
+app.post(samlConfig.path,
+  passport.authenticate('saml', {successRedirect: '/pass', failureRedirect:'/pass'}),
+  (req, res) => {res.redirect('/pass')}
+);
+app.get('/logout', function (req, res) {
+  req.logout();
+  // TODO: invalidate session on IP
+  res.redirect('/pass');
+});
+app.get('/ustat', (req, res) => {
+  if (req.user) {
+    res.json({
+      id: req.session.id,
+      isLoggedIn: req.isAuthenticated(),
+      user: req.user,
+    });
+  } else {
+    res.json({
+      id: req.session.id,
+      isLoggedIn: req.isAuthenticated(),
+    });
+  }
+});
+/***************************************************/
+
+
 var server = http.createServer(app);
 
 // Initialize finale
