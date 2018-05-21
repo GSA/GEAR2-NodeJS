@@ -79,12 +79,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /******************************************************************/
+app.get('/admin', function (req, res) {
+  if (req.isAuthenticated()) {
+    res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+  } else {
+    res.redirect('/login')
+  }
+});
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-app.get('/admin', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});
 
 /********************************************************************
 PASSPORT ROUTES
