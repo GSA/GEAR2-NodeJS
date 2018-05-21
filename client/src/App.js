@@ -10,10 +10,19 @@ import { ParentSystemList, ParentSystemEdit, ParentSystemCreate } from './Parent
 import { PocList, PocEdit, PocCreate } from './Poc';
 import { TechnologyList, TechnologyEdit, TechnologyCreate } from './Technology';
 
+import authProvider from './authProvider';
+import LoginPage from './LoginPage';
+import LogoutButton from './LogoutButton';
 import Dashboard from './Dashboard';
 
 const App = () => (
-    <Admin  dashboard={Dashboard} dataProvider={epilogueClient(`/api/v1`)}>
+    <Admin
+      authProvider={authProvider}
+      loginPage={LoginPage}
+      logoutButton={LogoutButton}
+      dashboard={Dashboard}
+      dataProvider={epilogueClient(`/api/v1`)}
+    >
 
       <Resource name="application" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} remove={Delete} />
       <Resource name="capability" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} remove={Delete} />

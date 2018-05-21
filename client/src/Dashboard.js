@@ -10,7 +10,7 @@ export default () => (
     <CardHeader title="Welcome to the administration" />
     <CardContent>
       <Progress label="Forms" value="85" />
-      <Progress label="Auth" value="85" />
+      <Progress label="Auth" value="90" />
       <Progress label="Aesthetics" value="85" />
     </CardContent>
   </Card>
