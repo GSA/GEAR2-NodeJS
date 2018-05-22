@@ -28,14 +28,15 @@ function findOne(req, res, next) {
 
 // children
 function findApplications(req, res) {
-  appStore.search(`call get_application_detail( ${req.params.id}, 'c')`, (results) => {
+  appStore.search(`call get_application_detail( ${req.params.id}, 'c');`, (results) => {
     res.json(results);
   });
 }
 
 // special (reports, data viz, etc.)
 function findAppCounts(req, res) {
-  capabilityStore.search('SELECT * FROM SAODS.udfGetCapModel()', (results) => {
+ // capabilityStore.search('SELECT * FROM SAODS.udfGetCapModel()', (results) => {
+  capabilityStore.search(`CALL get_capability_app_count();`, (results) => {
     res.json(results);
   });
 }
