@@ -5,10 +5,10 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
-  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'OrgInterfacesSrc',
+  'ApplicationsSrc', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'AppInterfacesv2Src', 'OrgInterfacesSrc',
   'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
 function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
-  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, OrgInterfacesSrc,
+  ApplicationsSrc, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, AppInterfacesv2Src, OrgInterfacesSrc,
   System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
   $scope.rootPath = '';
   $scope.bstData = [];
@@ -911,7 +911,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
     interfaces = AppInterfacesSrc.query({ id: appId });
-	
+	interfacesv2 = AppInterfacesv2Src.query({ id: appId });
 		
     application.$promise.then(function (d) {
       // rule is multiple Links are single string, delimited with a comma
@@ -1347,6 +1347,280 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 
 	})
   }
+  
+    /**Applciation interfaces, Sankey Diagram (interfacesv2)**/
+	$scope.createInterfacev2 = function (appId) {
+		var interfacesv2 = AppInterfacesv2Src.query({ id: appId });
+		 $scope.interfacesv2 = interfacesv2;
+		// var interfacesv2 = $scope.interfacesv2;
+		var data = [];
+		interfacesv2.$promise.then(function (populateData) {
+		$.each(interfacesv2,function(key,val){
+			data.push({
+				"sourceid":val.srcAppID,
+				"targetid":val.destAppID,
+				"source":val.srcApp,
+				"target":val.destApp,
+				"count":val.Count,
+				"PII":val.PII,
+			})
+		})
+
+		var CONTAINER_ID = 'interfacesankey',
+        SVG_ID = 'interfacev2svg';
+	    if (document.getElementById(SVG_ID)) {
+		  return false;
+		}
+		var units = "PII Information";
+
+		var w = $('#' + CONTAINER_ID).parents('.panel-body').width(),
+		  h = 650;
+
+		  // Because sometimes in IE, $.width() returns 0
+		  if (!w) {
+			w = 930; // best fit @1280px screen width in IE11
+		  }
+		  
+		var margin = {top: 5, right: (0.13*w), bottom: 5, left: (0.13*w)},
+			width = (w - margin.left - margin.right)*0.9,//700
+			height = (h - margin.top - margin.bottom)*0.9;//300
+		
+
+		var formatNumber = d3.format(",.0f"),    // zero decimal places
+			format = function(d) { return formatNumber(d) + " " + units; },
+			// color = d3.scale.category20b();
+			color =	d3.scale.ordinal()
+                 .range(['#9dc6d8','#00b3ca','#7dd0b6','#1d4e89','#d2b29b','#e38690','#f69256',	'#ead98b','#965251','#c6cccc','#e5dfef', '#fbdce0','#cbefe7','#fffdce','#d7ffdd',]);
+
+		// append the svg canvas to the page
+		var svg = d3.select('#' + CONTAINER_ID)
+			.on("touchstart", nozoom)
+			.on("touchmove", nozoom)
+			.append("svg")
+			.attr( "preserveAspectRatio", "xMinYMid meet" )
+			.attr("width", w)//width + margin.left + margin.right)
+			.attr("height", h)//height + margin.top + margin.bottom)
+			.attr("id", SVG_ID)
+			.append("g")
+			.attr("transform", 
+				  "translate(" + margin.left + "," + margin.top + ")");
+
+//			svg.append(SVG_ID);
+			   
+		// Set the sankey diagram properties
+		var sankey = d3.sankey()
+			.nodeWidth(26)
+			.nodePadding(30)
+			.size([width, height]);
+
+		var path = sankey.link();
+		
+
+		// load the data
+		  //set up graph in same style as original example but empty
+		 var  graph = {"nodes" : [], "links" : []};
+		 var nodes_k = [];
+
+			data.forEach(function (d) {
+			  // graph.nodes.push({ "name": d.source });
+			  graph.nodes.push({ "name": d.source,
+								 "id": d.sourceid});
+			  // graph.nodes.push({ "name": d.target });
+			  graph.nodes.push({ "name": d.target,
+								 "id": d.targetid });
+			  graph.links.push({ "source": d.source,
+								 "target": d.target,
+								 "sourceid": d.sourceid,
+								 "targetid": d.targetid,
+								 "value": +d.count,
+								 "info": d.PII});
+			 });
+
+			 // return only the distinct / unique nodes
+			 graph.nodes = d3.entries(d3.nest()
+			   .key(function (d) { return d.name; })
+			   .map(graph.nodes));
+			 
+/* 			 graph.links = d3.entries(d3.nest()
+			   .key(function (d) { return d.source + d.target; })
+			   .map(graph.links)); */
+			   
+			 //for graph.link to find the link
+			 graph.nodes.forEach(function (d,i){
+			  nodes_k.push(d.key) ;
+			  });
+			 
+			 // loop through each link replacing the text with its index from node
+			 graph.links.forEach(function (d, i) {
+			   graph.links[i].source = nodes_k.indexOf(graph.links[i].source);
+			   graph.links[i].target = nodes_k.indexOf(graph.links[i].target);
+			 });
+        
+       graph.links.sort(function(a,b){
+         return (a.source <= b.source) && (a.target <= b.target)
+       });
+			 //now loop through each nodes to make nodes an array of objects
+			 // rather than an array of strings
+			 graph.nodes.forEach(function (d, i) {
+			   // graph.nodes[i] = { "name": d };
+			   graph.nodes[i] = { "name": d.key, "id": d.value[0].id  };
+			 });
+
+		  sankey
+			.nodes(graph.nodes)
+			.links(graph.links)
+		  	// Note here: if input data has a loop, the program will hang here!
+			.layout(32);
+
+		// add in the links
+		  var link = svg.append("g").selectAll(".link")
+			  .data(graph.links)
+			.enter().append("path")
+			  .attr("class", "links")
+			  .attr("d", path)
+ 			  .style("fill", "none" /* function(d) { 
+				   return d.color = color(d.info); } */) //.replace(/ .*/, "")
+			  .style("stroke", function(d) { 
+				   return d.color = color(d.info); })//d3.rgb(d.color).brighter(1); })
+			  .style("stroke-opacity", 0.7)
+			  .style("stroke-width", function(d) { return Math.max(1, d.dy); });
+			  //.sort(function(a, b) { return b.dy - a.dy; });
+    
+      link.filter( function(d) { return !d.causesCycle} )
+      .style("stroke-width", function(d) { return Math.max(1, d.dy); });
+		
+    // add the link titles
+		  link.append("title")
+				.text(function(d) {
+					return d.source.name + " → " + 
+						d.target.name + "\n" + 
+						format(d.value) + "\n" + 
+						d.info; });
+
+		// add in the nodes
+		  var node = svg.append("g").selectAll(".node")
+			  .data(graph.nodes)
+			  .enter().append("g")
+			  .attr("class", "node")
+			  .attr("transform", function(d) { 
+				  return "translate(" + d.x + "," + d.y + ")"; })
+			  .on("click", mouseclick)
+			  .call(d3.behavior.drag()
+			  .origin(function(d) { return d; })
+			//  .on("dragstart", function() { 
+			//	  this.parentNode.appendChild(this); })
+			  .on("drag", dragmove));
+
+		// add the rectangles for the nodes
+		  node.append("rect")
+			  .attr("height", function(d) { return d.dy; })
+			  .attr("width", sankey.nodeWidth())
+			  .style("fill", "#36648b")
+			  //.style("stroke", "#104e8b")
+			  .attr('fill-opacity', 0.9)
+			  // .style("fill", function(d) { 
+				  // return d.color = color(d.name.replace(/ .*/, "")); })
+			  // .style("stroke", function(d) { 
+				  // return d3.rgb(d.color).darker(2); })
+			.append("title")
+			  .text(function(d) { 
+				  return d.name + "\n" + format(d.value); });
+
+		// add in the title for the nodes
+		  node.append("text")
+			  .attr("x", -6)
+			  .attr("y", function(d) { return d.dy / 2; })
+			  .attr("dy", ".35em")            
+			  .style("font-family", "helvetica, arial, sans-serif")
+			  .style("font-size", "10px")
+              .style("font-weight", "bold")
+			  .attr("text-anchor", "end")
+			  .attr("transform", null)
+			  .text(function(d) { return d.name; })
+			.filter(function(d) { return d.x < width / 2; })
+			  .attr("x", 6 + sankey.nodeWidth())
+			  .attr("text-anchor", "start");
+			  
+		// the function for moving the nodes, both vertically and horizontally
+		  function dragmove(d) {
+        d[0] = d3.event.x, d[1] = d3.event.y;
+        if (this.nextSibling) this.parentNode.appendChild(this);
+        d3.select(this).attr("transform", 
+          "translate(" + (
+               d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
+            ) + "," + (
+                 d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+            ) + ")");
+        sankey.relayout();
+        link.attr("d", path);
+		  }
+		  
+		  function mouseclick(d) {
+        if (d3.event.defaultPrevented) return; // dragged
+        // if( d3.select(this).attr("data-clicked") == "1" ){
+            // d3.select(this).attr("data-clicked","0"); 
+            var appid = d.id;
+            window.location = window.location.pathname + ('#!/applications/' + appid);
+          // }
+        // else{
+            // d3.select(this).attr("data-clicked","1");         
+        //}
+      	//	$scope.$apply();
+        }
+
+      function nozoom() {
+        d3.event.preventDefault();
+      }			
+			
+        // I need to learn javascript
+  var numCycles = 0;
+  for( var i = 0; i< sankey.links().length; i++ ) {
+    if( sankey.links()[i].causesCycle ) {
+      numCycles++;
+    }
+  }
+ //var cycleTopMarginSize = -10; 
+ //var horizontalMarginSize = 5;
+  // var cycleTopMarginSize = (sankey.cycleLaneDistFromFwdPaths() -
+	    // ( (sankey.cycleLaneNarrowWidth() + sankey.cycleSmallWidthBuffer() ) * numCycles ) )
+  // var horizontalMarginSize = ( sankey.cycleDistFromNode() + sankey.cycleControlPointDist() ); 
+
+    svg = d3.select('#' + CONTAINER_ID).select("svg")
+   /* .attr( "viewBox",
+	  "" + (0 - horizontalMarginSize ) + " "         // left
+	  + cycleTopMarginSize + " "                     // top
+	  + (w + horizontalMarginSize * 2 ) + " "     // width
+	  + (h + (-1 * cycleTopMarginSize)) + " " );  // height  
+       */
+	   //Insert Legend			
+		    var legend = svg.selectAll(".legend")
+
+			  .data(color.domain())
+			  .enter().append("g")
+			  .attr("class", "legend")
+			  .attr("transform", function(d, i) { return "translate( 0," + i * 15 + ")"; }); //"translate(" + w / 6 + "," + h / 4 + ")"  " + (- w/15) + "
+
+			
+	
+			  legend.append("rect")
+			  .attr("x", w-15)
+			  .attr("width", 12)
+			  .attr("height", 12)
+			  .style("fill", color);
+
+			  legend.append("text")
+			  .attr("x", w - 20)
+			  .attr("y", 8)
+			  .attr("dy", ".35em")
+			  .style("font-size", "12px")
+			  .style("font-weight", "bold")
+			  .style("text-anchor", "end")
+			  .text(function(d) { return d; });  
+
+
+			
+      
+		});
 
   }
 ]);
