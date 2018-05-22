@@ -7,11 +7,9 @@ import Progress from './Progress';
 
 export default () => (
   <Card>
-    <CardHeader title="Welcome to the administration" />
+    <CardHeader title="Welcome to the brand new GEAR admin" />
     <CardContent>
-      <Progress label="Forms" value="85" />
-      <Progress label="Auth" value="90" />
-      <Progress label="Aesthetics" value="85" />
+      Select an item in the menu on the left to get started.
     </CardContent>
   </Card>
 );

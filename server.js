@@ -121,6 +121,7 @@ app.get('/ustat', (req, res) => {
     res.json({
       id: req.session.id,
       isLoggedIn: req.isAuthenticated(),
+      groups: req.user.groups,
       user: req.user,
     });
   } else {

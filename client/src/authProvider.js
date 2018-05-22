@@ -1,23 +1,43 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'react-admin';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK } from 'react-admin';
+
+const fetchStatus = () => {
+  return fetch('/ustat')
+    .then(response => {
+        if (response.status < 200 || response.status >= 300) {
+            throw new Error(response.statusText);
+        }
+        return response.json();
+    })
+    .then(({ isLoggedIn, groups, user }) => {
+      if (isLoggedIn !== 'true') {
+        Promise.reject({ redirectTo: '/pass' });
+      }
+      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('groups', groups);
+      localStorage.setItem('user', user);
+    });
+}
 
 export default (type, params) => {
-    if (type === AUTH_LOGIN) {
-        // ...
+  console.log(type);
+  if (type === AUTH_LOGIN) {
+    if (localStorage.isLoggedIn === "false") {
+      fetchStatus();
     }
-    if (type === AUTH_LOGOUT) {
-        // ...
+  }
+  if (type === AUTH_LOGOUT) {
+    localStorage.removeItem('ustat');
+    return Promise.resolve();
+  }
+  if (type === AUTH_CHECK) {
+    if (localStorage.isLoggedIn === "false") {
+      fetchStatus();
+    } else {
+      const { resource } = params;
+      if (resource === 'application') {
+        console.log('WE CAN START APPLYING RESTRITCIONS NOW');
+      }
     }
-    if (type === AUTH_ERROR) {
-        // ...
-    }
-    if (type === AUTH_CHECK) {
-        const { resource } = params;
-        if (resource === 'posts') {
-            // check credentials for the posts resource
-        }
-        if (resource === 'comments') {
-            // check credentials for the comments resource
-        }
-    }
-    return Promise.reject('Unkown method');
-};
+  }
+  return Promise.resolve();
+}

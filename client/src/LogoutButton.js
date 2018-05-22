@@ -10,7 +10,6 @@ const LogoutButton = ({ userLogout, ...rest }) => (
         xsmall={
             <MenuItem
                 onClick={userLogout}
-                {...sanitizeRestProps(rest)}
             >
                 <ExitIcon /> Logout
             </MenuItem>
@@ -19,11 +18,10 @@ const LogoutButton = ({ userLogout, ...rest }) => (
             <Button
                 onClick={userLogout}
                 size="small"
-                {...sanitizeRestProps(rest)}
             >
                 <ExitIcon /> Logout
             </Button>
         }
     />
 );
-export default connect(undefined, { userLogout: userLogout() })(LogoutButton);
+export default connect(undefined, { userLogout: userLogout('http://localhost:3333/pass') })(LogoutButton);
