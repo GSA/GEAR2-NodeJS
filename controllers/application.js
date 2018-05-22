@@ -3,12 +3,14 @@ const CapStore = require('../stores/capability');
 const TechStore = require('../stores/technology');
 const POCStore = require('../stores/poc');
 const InterfaceStore = require('../stores/interface');
+const Interfacev2Store = require('../stores/interfacev2');
 
 const appStore = new AppStore();
 const capStore = new CapStore();
 const techStore = new TechStore();
 const pocStore = new POCStore();
 const interfaceStore = new InterfaceStore();
+const interfacev2Store = new Interfacev2Store();
 
 function findAll(req, res) {
   let fields = '*';
@@ -56,11 +58,18 @@ function findInterfaces(req, res) {
   });
 }
 
+function findInterfacesv2(req, res) {
+  interfacev2Store.search(`CALL get_application_interfacesv3( ${req.params.id} )`, (results) => {
+    res.json(results);
+  });
+}
+
 module.exports = {
   findCapabilities,
   findTechnologies,
   findPOCs,
   findInterfaces,
+  findInterfacesv2,
   findAll,
   findOne,
 };

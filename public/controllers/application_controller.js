@@ -910,7 +910,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     technologies = AppTechnologiesSrc.query({ id: appId }),
     pocs = AppPOCsSrc.query({ id: appId }),
     time = AppTIMESrc.query({ id: appId }),
-    interfaces = AppInterfacesSrc.query({ id: appId });
+    interfaces = AppInterfacesSrc.query({ id: appId }),
 	interfacesv2 = AppInterfacesv2Src.query({ id: appId });
 		
     application.$promise.then(function (d) {
@@ -939,6 +939,19 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
                // };
               });
         $scope.interfaces = interfaces;
+
+      });
+	  
+	  interfacesv2.$promise.then(function () {
+               $.each(application, function (i, app) {
+                  $.each(interfacesv2, function (i, iface) {
+                    if (iface.srcAppID == app.Id || iface.destAppID == app.Id) {
+                      d3.select("#interfacesv2-tab").style("display", "block");
+                     }
+                  });
+               // };
+              }); 
+        $scope.interfacesv2 = interfacesv2;
 
       });
 
@@ -1621,6 +1634,6 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 			
       
 		});
-
+}
   }
 ]);
