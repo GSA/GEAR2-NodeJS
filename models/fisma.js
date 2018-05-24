@@ -148,8 +148,10 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = //{
-				  pieces[1] + " " +  "<a href=mailto:" + pieces[2] + ">" + pieces[2] + "</a>" + " " + (pieces[3] || '') + "<br>" ;//+ (pieces[2] || '');
+              var cb = '-';
+			  if (pieces[0] !== '') 
+				  cb = pieces[0] + " " + '<br>' +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>" ;//+ (pieces[2] || '');
+			  //cb = {
 				/* Type: poctype[0],
                 Name: pieces[0],
                 Email: pieces[1], */
@@ -173,7 +175,9 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = pieces[1] + " " +  "<a href=mailto:" + pieces[2] + ">" + pieces[2] + "</a>" + " " + (pieces[3] || '') + "<br>" ;//+ (pieces[1] || '');
+			  var cb = '-';
+			  if (pieces[0] !== '') 
+				cb = (pieces[0] + " " + '<br>' + "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>") || '-' ;//+ (pieces[1] || '');
 			  pocs += cb;
             });
           }
@@ -197,7 +201,9 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = pieces[1] + " " +  "<a href=mailto:" + pieces[2] + ">" + pieces[2] + "</a>" + " " + (pieces[3] || '') + "<br>" ;//+ (pieces[1] || '');
+			  var cb = '-';
+			  if (pieces[0] !== '') 
+				cb = pieces[0] + " " + '<br>' + "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>" ;//+ (pieces[1] || '');
 			  pocs += cb;
             });
           }
@@ -222,7 +228,9 @@ class FISMAModel extends Model {
             poc = poctype[1].split('; ');
             poc = poc.map((art) => {
               const pieces = art.split(',');
-              var cb = pieces[1] + " " +  "<a href=mailto:" + pieces[2] + ">" + pieces[2] + "</a>" + " " + (pieces[3] || '') + "<br>" ;//+ (pieces[1] || '');
+			  var cb = '-';
+			  if (pieces[0] !== '') 
+				cb = pieces[0] + " " + '<br>' + "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>" ;//+ (pieces[1] || '');
 			  pocs += cb;
             });
           }
