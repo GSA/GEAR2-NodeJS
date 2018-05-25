@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, DateField, TextField, EditButton,
-  ArrayInput, BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
+  ArrayInput,AutocompleteInput, BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
   SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
 
 export const FismaList = (props) => (
@@ -35,15 +35,17 @@ export const FismaEdit = (props) => (
             <BooleanInput source="pii" />
             <BooleanInput source="cloudHosted" />
             <ReferenceInput label="CloudST" source="fscloudstId" reference="fsCloudSt" allowEmpty>
-              <SelectInput optionText="keyname" />
+              <SelectInput optionText="keyname" optionValue="id" />
             </ReferenceInput>
             <LongTextInput source="comments" />
 
-            <ArrayInput source="fismaArtifacts">
+            <ArrayInput source="fismaArtifact">
               <SimpleFormIterator>
                 <TextInput source="keyname" />
+                <TextInput source="link" />
               </SimpleFormIterator>
             </ArrayInput>
+
             <ArrayInput source="fisma_issm">
               <SimpleFormIterator>
                 <TextInput source="keyname" />

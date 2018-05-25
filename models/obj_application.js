@@ -121,7 +121,7 @@ module.exports = function(sequelize, DataTypes) {
     uniqueIdentifierCode: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "0233-0000-0000000-objApplicationx",
+      defaultValue: "0233-0000-0000000-xxxx",
       field: 'Unique_Identifier_Code'
     },
     referenceDocument: {
@@ -223,6 +223,7 @@ module.exports = function(sequelize, DataTypes) {
 
   application.associate = function (models) {
     models.application.belongsToMany(models.capability, {
+      as: 'capability',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_capability_Id',
       through: 'zk_application_business_capabilities',

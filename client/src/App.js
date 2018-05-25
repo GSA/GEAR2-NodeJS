@@ -42,7 +42,7 @@ const App = () => (
       <Resource name="atoType" />
       <Resource name="cuiCategory" />
       <Resource name="deploymentType" />
-      <Resource name="fismaArtifacts" />
+      <Resource name="fismaArtifact" />
       <Resource name="fsCloudSp" />
       <Resource name="fsCloudSt" />
       <Resource name="fy" />

@@ -69,6 +69,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       field: 'Comments'
     },
+    obj_poc_so_Id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      field: 'obj_poc_so_Id'
+    },
     fscloudstId: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
@@ -104,6 +109,7 @@ module.exports = function(sequelize, DataTypes) {
 
   fisma.associate = function (models) {
     models.fisma.belongsToMany(models.fismaArtifact, {
+      as: 'fismaArtifact',
       foreignKey: 'objFismaSystem_Id',
       through: 'zk_fisma_artifact',
       timestamps: false,

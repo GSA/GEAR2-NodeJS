@@ -24,4 +24,4 @@ const LogoutButton = ({ userLogout, ...rest }) => (
         }
     />
 );
-export default connect(undefined, { userLogout: userLogout('http://localhost:3333/pass') })(LogoutButton);
+export default connect(undefined, { userLogout: userLogout('/logout') })(LogoutButton);
