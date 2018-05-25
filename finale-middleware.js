@@ -9,24 +9,19 @@ module.exports = {
   },
   update:
     {
-      // start: (req, res, context) => { console.log(context); return context.continue; },
-      // auth: (req, res, context) => { console.log(context); return context.continue; },
-      // fetch: (req, res, context) => { console.log(context); return context.continue; },
-      // data: (req, res, context) => { console.log(context); return context.continue; },
-      write: (req, res, context) => {
-        console.log(`\n\nMIDDLEWARE IN EFFECT\n`);
-        // console.log(context.instance.dataValues);
-        // console.log('Iterate over "include" objects);
-
-        context.instance.dataValues['fismaArtifact'].forEach((instance) => {
-          console.log(instance);
-          console.log('--------------');
-        });
-
-        console.log(`\nMIDDLEWARE EFFECT OVER\n\n`);
-        return context.continue;
-      },
-      // send: (req, res, context) => { console.log(`\nSEND\n ${context.instance.dataValues['fismaArtifact']}`); return context.continue; },
-      // complete: (req, res, context) => { console.log(context); return context.continue; },
+      // NOTE: 'write' fires immediately following the SQL UPDATE call for parent record
+      // write: (req, res, context) => {
+      //   console.log(`\n\nMIDDLEWARE IN EFFECT\n`);
+      //   // console.log(context.instance.dataValues);
+      //   // console.log('Iterate over "include" objects);
+      //
+      //   context.instance.dataValues['fismaArtifact'].forEach((instance) => {
+      //     console.log(instance);
+      //     console.log('--------------');
+      //   });
+      //
+      //   console.log(`\nMIDDLEWARE EFFECT OVER\n\n`);
+      //   return context.continue;
+      // },
     }
 };
