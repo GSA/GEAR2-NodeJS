@@ -27,7 +27,7 @@ export const PocEdit = (props) => (
             <TextInput source="keyname" />
             <TextInput source="email" />
             <TextInput source="phNum" />
-            <BooleanInput source="risso" />
+            <TextInput source="risso" />
         </SimpleForm>
     </Edit>
 );
@@ -38,7 +38,7 @@ export const PocCreate = (props) => (
             <TextInput source="keyname" />
             <TextInput source="email" />
             <TextInput source="phNum" />
-            <BooleanInput source="risso" />
+            <TextInput source="risso" />
         </SimpleForm>
     </Create>
 );

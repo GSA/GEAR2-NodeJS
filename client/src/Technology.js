@@ -78,7 +78,7 @@ export const TechnologyCreate = (props) => (
             <ReferenceInput label="Standard Type" source="objStandardTypeId"
               reference="standardType"
               allowEmpty>
-              <SelectInput optionText="keyname" />
+              <SelectInput optionText="keyName" />
             </ReferenceInput>
 
         </SimpleForm>
