@@ -1,4 +1,9 @@
 import React from 'react';
+
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
 import { List, Edit, Create, Datagrid, DateField, TextField, EditButton,
   ArrayInput,AutocompleteInput, BooleanInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
   SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
@@ -39,33 +44,44 @@ export const FismaEdit = (props) => (
             </ReferenceInput>
             <LongTextInput source="comments" />
 
-            <ArrayInput source="fismaArtifact">
-              <SimpleFormIterator>
-                <TextInput source="keyname" />
-                <TextInput source="link" />
-              </SimpleFormIterator>
-            </ArrayInput>
+              <ArrayInput source="fismaArtifacts"  label="FISMA Artifacts">
+                <SimpleFormIterator>
+                  <TextInput source="keyname" />
+                  <TextInput source="link" />
+                </SimpleFormIterator>
+              </ArrayInput>
 
-            <ArrayInput source="fisma_issm">
-              <SimpleFormIterator>
-                <TextInput source="keyname" />
-              </SimpleFormIterator>
-            </ArrayInput>
-            <ArrayInput source="fisma_isso">
-              <SimpleFormIterator>
-                <TextInput source="keyname" />
-              </SimpleFormIterator>
-            </ArrayInput>
-            <ArrayInput source="fisma_replacedby">
-              <SimpleFormIterator>
-                <TextInput source="keyname" />
-              </SimpleFormIterator>
-            </ArrayInput>
-            <ArrayInput source="technologies  ">
-              <SimpleFormIterator>
-                <TextInput source="keyname" />
-              </SimpleFormIterator>
-            </ArrayInput>
+              <Card>
+                <CardContent>
+                  <Typography variant="Title">
+                    Contacts
+                  </Typography>
+                  <ArrayInput source="fisma_issm" label="ISSM">
+                    <SimpleFormIterator>
+                      <TextInput source="keyname" />
+                      <TextInput source="email" />
+                    </SimpleFormIterator>
+                  </ArrayInput>
+                  <ArrayInput source="fisma_isso" label="ISSO">
+                    <SimpleFormIterator>
+                      <TextInput source="keyname" />
+                      <TextInput source="email" />
+                    </SimpleFormIterator>
+                  </ArrayInput>
+                </CardContent>
+              </Card>
+
+              <ArrayInput source="fisma_replacedby">
+                <SimpleFormIterator>
+                  <TextInput source="keyname" />
+                </SimpleFormIterator>
+              </ArrayInput>
+
+              <ArrayInput source="technologies">
+                <SimpleFormIterator>
+                  <TextInput source="keyname" />
+                </SimpleFormIterator>
+              </ArrayInput>
 
         </SimpleForm>
     </Edit>
@@ -76,21 +92,59 @@ export const FismaCreate = (props) => (
         <SimpleForm>
           <TextInput source="keyname" />
           <LongTextInput source="description" />
-          <TextInput source="fismaSysId" />
+          <TextInput source="fismaSysId" label="FISMA System ID"/>
           <TextInput source="fedCtrLocated" />
-          <DateInput source="atoDate" />
-          <BooleanInput source="interimAto" />
-          <DateInput source="atoRenewalDate" />
-          <DateInput source="inactiveDate" />
-          <TextInput source="currentFyFismaAssessment" />
-          <BooleanInput source="pii" />
-          <BooleanInput source="cloudHosted" />
-          <ReferenceInput label="CloudST" source="fscloudstId" reference="fsCloudSt" allowEmpty>
+          <DateInput source="atoDate" label="ATO Date" />
+          <BooleanInput source="interimAto" label="Interim ATO" />
+          <DateInput source="atoRenewalDate" label="ATO Renewal Date" />
+          <DateInput source="inactiveDate" label="Inactive Date" />
+          <TextInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment" />
+          <BooleanInput source="pii" label="PII" />
+          <ReferenceInput label="SO" source="obj_poc_so_Id"
+            reference="poc" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
+          <BooleanInput source="cloudHosted" label="Cloud-Hosted" />
+          <ReferenceInput label="Cloud Service Type" source="fscloudstId" reference="fsCloudSt" allowEmpty>
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
+
           <LongTextInput source="comments" />
 
-          <ArrayInput source="fismaArtifacts">
+          <ArrayInput source="fismaArtifacts"  label="FISMA Artifacts">
+            <SimpleFormIterator>
+              <TextInput source="keyname" />
+              <TextInput source="link" />
+            </SimpleFormIterator>
+          </ArrayInput>
+
+          <Card>
+            <CardContent>
+              <Typography variant="Title">
+                Contacts
+              </Typography>
+              <ArrayInput source="fisma_issm" label="ISSM">
+                <SimpleFormIterator>
+                  <TextInput source="keyname" />
+                  <TextInput source="email" />
+                </SimpleFormIterator>
+              </ArrayInput>
+              <ArrayInput source="fisma_isso" label="ISSO">
+                <SimpleFormIterator>
+                  <TextInput source="keyname" />
+                  <TextInput source="email" />
+                </SimpleFormIterator>
+              </ArrayInput>
+            </CardContent>
+          </Card>
+
+          <ArrayInput source="fisma_replacedby">
+            <SimpleFormIterator>
+              <TextInput source="keyname" />
+            </SimpleFormIterator>
+          </ArrayInput>
+
+          <ArrayInput source="technologies">
             <SimpleFormIterator>
               <TextInput source="keyname" />
             </SimpleFormIterator>

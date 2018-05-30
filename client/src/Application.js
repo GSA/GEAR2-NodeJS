@@ -26,9 +26,9 @@ export const ApplicationEdit = (props) => (
           <LongTextInput source="description" />
           <TextInput source="displayName" />
           <TextInput source="applicationAlias" />
-          <BooleanInput source="cloudIndicator" />
-          <BooleanInput source="mobileAppIndicator" />
-          <BooleanInput source="desktopIndicator" />
+          <BooleanInput source="cloudIndicator" label="Cloud" />
+          <BooleanInput source="mobileAppIndicator" label="Mobile" />
+          <BooleanInput source="desktopIndicator" label="Desktop" />
           <SelectInput source="regionalClassification"
             choices={[
               { id: 1, name: 'Regional' },
@@ -106,31 +106,32 @@ export const ApplicationCreate = (props) => (
           <TextInput source="keyname" />
           <LongTextInput source="description" />
           <TextInput source="displayName" />
-          <TextInput source="applicationAlias" />
-          <BooleanInput source="cloudIndicator" />
-          <BooleanInput source="mobileAppIndicator" />
-          <BooleanInput source="desktopIndicator" />
+          <TextInput source="applicationAlias" label="Alias" />
+          <BooleanInput source="cloudIndicator" label="Cloud" />
+          <BooleanInput source="mobileAppIndicator" label="Mobile" />
+          <BooleanInput source="desktopIndicator" label="Desktop" />
           <SelectInput source="regionalClassification"
             choices={[
-              { id: 1, name: 'Regional' },
-              { id: 2, name: 'National' },
+              { id: 'Regional', name: 'Regional' },
+              { id: 'National', name: 'National' },
             ]}
           />
-        <SelectInput source="applicationOrWebsite"
+          <SelectInput source="applicationOrWebsite"
+            value="Application"
             choices={[
-              { id: 1, name: 'Application' },
-              { id: 2, name: 'Website' }
+              { id: 'Application', name: 'Application' },
+              { id: 'Website', name: 'Website' }
             ]}
           />
           <NumberInput source="numberOfUsers" />
-          <BooleanInput source="generateRevenueIndicator" />
+          <BooleanInput source="generateRevenueIndicator" label="Generates Revenue" />
           <LongTextInput source="applicationNotes" />
           <TextInput source="tier" />
           <NumberInput source="productionYear" />
           <NumberInput source="retiredYear" />
           <TextInput source="url" />
           <LongTextInput source="timeNotes" />
-          <BooleanInput source="cuiIndicator" />
+          <BooleanInput source="cuiIndicator"  label="CUI" />
           <TextInput source="uniqueIdentifierCode" defaultValue="0233-0000-0000000-xxxx" />
           <TextInput source="referenceDocument" />
 

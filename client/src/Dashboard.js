@@ -7,7 +7,7 @@ import Progress from './Progress';
 
 export default () => (
   <Card>
-    <CardHeader title="Welcome to the brand new GEAR admin" />
+    <CardHeader title="GEAR 2.0 Pre-Release Admin Portal" />
     <CardContent>
       Select an item in the menu on the left to get started.
     </CardContent>

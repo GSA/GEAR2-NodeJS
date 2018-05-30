@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'react-admin';
+  LongTextInput, SimpleForm, TextInput, ReferenceInput, SelectInput } from 'react-admin';
 
 export const CapabilityList = (props) => (
     <List {...props}>
@@ -24,7 +24,12 @@ export const CapabilityEdit = (props) => (
             <TextInput source="keyname" />
             <LongTextInput source="description" />
             <TextInput source="referenceNumber" />
-            <TextInput source="parentId" />
+
+            <ReferenceInput label="Parent" source="parentId"
+              reference="capability" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
+
         </SimpleForm>
     </Edit>
 );
@@ -35,7 +40,12 @@ export const CapabilityCreate = (props) => (
             <TextInput source="keyname" />
             <LongTextInput source="description" />
             <TextInput source="referenceNumber" />
-            <TextInput source="parentId" />
+
+            <ReferenceInput label="Parent" source="parentId"
+              reference="capability" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
+
         </SimpleForm>
     </Create>
 );

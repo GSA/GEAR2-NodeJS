@@ -42,7 +42,8 @@ module.exports = function(sequelize, DataTypes) {
     desktopIndicator: {
       type: DataTypes.STRING,
       allowNull: true,
-      field: 'Desktop_Indicator'
+      field: 'Desktop_Indicator',
+      label: 'Desktop (Y/N)',
     },
     regionalClassification: {
       type: DataTypes.STRING,
