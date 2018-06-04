@@ -25,7 +25,14 @@ export const InvestmentEdit = (props) => (
             <TextInput source="keyname" />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
-            <TextInput source="active" />
+              <SelectInput source="active" allowEmpty
+                optionText="name" optionValue="name"
+                choices={[
+                  {id: 1, name: "TBD"},
+                  {id: 2, name: "Yes"},
+                  {id: 3, name: "No"},
+                ]}
+              />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
             <TextInput source="primaryServiceArea" />
@@ -67,7 +74,6 @@ export const InvestmentEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
-
         </SimpleForm>
     </Edit>
 );
@@ -78,7 +84,14 @@ export const InvestmentCreate = (props) => (
             <TextInput source="keyname" />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
-            <TextInput source="active" />
+            <SelectInput source="active" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
             <TextInput source="primaryServiceArea" />

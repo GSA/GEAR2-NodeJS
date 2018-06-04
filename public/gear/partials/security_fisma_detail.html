@@ -1,0 +1,124 @@
+<!-- The detail view -->
+<section class="row" data-ng-controller="SecurityController" data-ng-init="createFISMADetail()">
+<script>$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+    <div class="col-md-12">
+        <div id="function" class="panel panel-default" style="height: auto;">
+            <div id="functionheader" class="panel-heading">
+                <h3><i class="fa fa-lock fa-fw"></i>&nbsp;{{ fisma.Name }} </h3>
+				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
+				data-content="<b>Overview:</b> Contains general properties of the FISMA system.<br>
+				<b>Certified Business Applications:</b> Lists all the business applications that are certified under this FISMA system.<br>
+				">Help using this report</button>
+			</div>
+                <div class="panel-body" style="margin : 20px">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+							              <li ng-hide="!applications.length" role="presentation"><a href="#apps" aria-controls="apps" role="tab" data-toggle="tab">Certified Business Applications</a></li>
+                        </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
+						                <br>
+                            <h4>Business Overview</h4>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Value</th>
+                                </tr>
+								                <tr>
+                                    <td><i class="fa fa-sitemap"></i>&nbsp;Responsible Org</td>
+                                    <td>{{ fisma.RelOrgDisplayName }}</td>
+                                </tr>
+								                <tr>
+                                    <td><i class="fa fa-calendar"></i>&nbsp;ATO Date</td>
+                                    <td>{{ fisma.ATODate }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;ATO Type</td>
+                                    <td>{{ fisma.ATOType }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-calendar"></i>&nbsp;Renewal Date</td>
+                                    <td>{{ fisma.RenewalDate }}</td>
+                                </tr>
+								<tr>
+                                    <td><i class="fa fa-info-circle"></i>&nbsp;PII</td>
+                                    <td>{{ fisma.PII }}</td>
+                                </tr>
+								<tr>
+                                    <td><i class="fa fa-cloud"></i>&nbsp;Cloud Hosted?</td>
+                                    <td>{{ fisma.CloudYN }}</td>
+                                </tr>
+								<tr ng-show="!!fisma.CSP">
+						
+                                    <td><i class="fa fa-cloud"></i>&nbsp;Cloud Service Provider</td>
+                                    <td>{{ fisma.CSP }}</td>
+					
+                                </tr>
+								<tr ng-show="!!fisma.ServiceType">
+							
+                                    <td><i class="fa fa-certificate"></i>&nbsp;Type of Service</td>
+                                    <td>{{ fisma.ServiceType }}</td>
+							
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
+                                    <td>{{ fisma.FISMASystemIdentifier }}</td>
+                                </tr>
+                  <tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;Related Artifacts</td>
+                                    <td><a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
+									<div style="height:100%;width:100%">
+									  {{fisma.RelatedArtName}}
+									</div>
+									</a>
+									</td>
+                                </tr>
+                            </table>
+              							<br>
+                            <h4>Points Of Contact</h4>
+              							<table id="fismapocstable" style="cursor: pointer;"
+              							data-search="false"
+              							data-advanced-search="false"
+              							data-id-table="fismapocstable"
+              							data-trim-on-search="false"
+              							data-show-columns="false"
+              							data-show-export="false"
+              							data-classes="table table-no-bordered table-hover table-condensed"
+              							data-striped="false"
+              							data-pagination="false"
+              							data-show-pagination-switch="false"
+              							>
+              							</table>
+
+          						</div>
+          						<div role="tabpanel" class="tab-pane" id="apps">
+          							<h4>Certified Business Applications</h4>
+          							<table id="fismaappstable" style="cursor: pointer;"
+          							data-search="true"
+          							data-advanced-search="true"
+          							data-id-table="appstable"
+          							data-trim-on-search="false"
+          							data-show-columns="true"
+          							data-show-export="true"
+          							data-classes="table table-no-bordered table-hover table-condensed"
+          							data-striped="true"
+          							data-pagination="true"
+          							data-show-pagination-switch="true"
+          							data-sort-name="Name"
+          							data-sort-order="asc"
+          							>
+          							</table>
+          						</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

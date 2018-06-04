@@ -1,0 +1,494 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+.img-full-stage {
+    width: 100%;
+}
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+.panel{
+  height:300px;
+  overflow-y: auto;
+}
+.panel-body{
+  margin:0;
+  padding:0;
+}
+
+.panel-heading h5{
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.panel.panel-default.goal{
+  height: 100%;
+}
+/*
+ * Global add-ons
+ */
+
+.nv-legendWrap{
+  width: 50px;
+}
+
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.modal-dialog{
+  margin-top: 75px;
+}
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+#stage{
+background-color: #777;
+height: 100%;
+overflow: scroll;
+position: fixed;
+padding-bottom: 100px;
+}
+.footer {
+  position: fixed;
+  height: 20px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  color: #9d9d9d;
+  text-align: center;
+  background-color: #222;
+  border: 0;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.ng-table-rowselected tr {
+    cursor: pointer;
+}
+/* these need to be namespaced before they can be commented back in
+svg {
+    display: block;
+}
+*/
+.dashboard {
+    margin: 0px;
+    padding-bottom: 20px;
+    height: 250px;
+ /*   width: 400px;  */
+
+}
+
+.dashcloud {
+    margin: 0px;
+/*    padding-bottom: 20px;  */
+    height: 240px;
+    width: 100%;
+	margin-bottom: 10px;
+}
+
+#org {
+  height: 1100px;
+}
+
+#org{
+  padding-left: 40px;
+}
+
+/* these need to be namespaced before they can be commented back in
+path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
+*/
+
+
+#orgchart .node circle {
+  cursor: pointer;
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+#orgchart .node text {
+  font-size: 11px;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+.fixed-table-body td.hover {
+    cursor: hand;
+}
+.chart {
+  display: block;
+  margin: auto;
+  margin-top: 60px;
+  font-size: 11px;
+}
+/* these need to be namespaced before they can be commented back in
+rect {
+  stroke: #eee;
+  fill: #aaa;
+  fill-opacity: .8;
+}
+*/
+rect.parent {
+  cursor: pointer;
+  fill: steelblue;
+}
+/* these need to be namespaced before they can be commented back in
+text {
+  pointer-events: none;
+}
+*/
+#tooltip {
+	color: white;
+	opacity: .9;
+	background: #333;
+	padding: 5px;
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	position: absolute;
+	z-index: 10;
+	visibility: hidden;
+	white-space: nowrap;
+	pointer-events: none;
+  }
+  #circle circle {
+	fill: none;
+	pointer-events: all;
+  }
+  path.group {
+	fill-opacity: .8;
+  }
+  path.chord {
+	fill-opacity: .8;
+	stroke: #000;
+	stroke-width: .25px;
+  }
+  #circle:hover path.fade {
+	display: none;
+  }
+
+/*  #interfacesso .link line {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+#interfacesso .node g {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+.legend {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+*/
+.link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+#contextMenu {
+  position: absolute;
+  display:none;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    border:1px solid #222;
+    position:absolute;
+  }
+
+/* Newly Added */
+.dashboard-chart svg {
+    overflow: visible!important;
+}
+.load-indicator {
+	bottom: 0;
+	color: steelblue;
+	font-size: 100px;
+	height: 100px;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100px;
+ }
+.investment-cntr {
+    position: relative;
+    overflow: visible;
+}
+.investment-cntr .nvtooltip h3 {
+    font-size: 14px;
+    font-weight: bold;
+}
+.investment-cntr .nvtooltip p {
+    font-size: 14px;
+}
+.investment-chart-body .load-indicator {
+    top: -25px;
+}
+.ea-bar {
+  cursor: pointer;
+  fill: #315a7d;
+  opacity: 0.85; }
+
+.ea-axis {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges; }
+  .ea-axis text {
+    fill: #666;
+    stroke: none; }
+  .ea-axis .tick > line {
+    opacity: 0.25 !important; }
+
+.ea-bar-inner-label {
+  fill: white;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.ea-tooltip {
+  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  position: absolute;
+  text-align: center; }
+  .ea-tooltip h5 {
+    background-color: #ececec;
+    border: solid 1px #ccc;
+    border-bottom: none;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    text-align: center; }
+  .ea-tooltip h6 {
+    background-color: white;
+    border: solid 1px #ccc;
+    border-top: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px; }
+
+ /* Bootstrap accordion plugin in left nav */
+.sidebar[role='navigation'] {
+    background-color: #ececec;
+    padding: 0;
+}
+#side-menu a:link,
+#side-menu a:visited {
+    background-color: #ececec;
+}
+#side-menu a:hover {
+    background-color: #dae1e8;
+    color: #23527c;
+}
+#side-menu a:active { /* onmousedown*/
+    background-color: #ccc;
+    color: #146;
+}
+#side-menu .active a:link { /* currently expanded accordion item */
+    background-color: #cde;
+    color: rgb(35,82,124);
+}
+#side-menu > li > a {
+    border-bottom: solid 1px #ccc;
+}
+#side-menu .nav-second-level  {
+    border-bottom: solid 1px #ccc;
+    font-size: 0.85em;
+}
+#side-menu .nav-second-level > li {
+    background-color: white;
+}
+#side-menu .active .nav-second-level > li a {
+    background-color: white;
+    border-top: dotted 1px #ccc;
+    outline: none;
+    padding: 10px 12px;
+}
+#side-menu .nav-second-level > li a:hover {
+    background-color: #ecf3fb;
+}
+#side-menu .nav-second-level > li a:target{
+    color: darkorange;
+}
+#side-menu .nav-second-level > li a:first-child {
+    border-top: none;
+}
+#side-menu > li > a {
+    padding: 12px 8px;
+}
+#side-menu .fa {
+    font-size: 1.5em;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+}
+#side-menu span.arrow {
+    display: none;
+}
+
+#tooltip1 {
+        color: #2F4F4F;
+        opacity: .9;
+        /* background: #333; */
+        background: #f6f6f6;
+        padding: 5px;
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+        font-weight: bold;
+        position: fixed;
+        z-index: 10;
+        visibility: hidden;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+/* BOOTSTRAP-TABLE DROPDOWN */
+.bootstrap-table ul.dropdown-menu {
+  padding-left: 5px;
+}
+.bootstrap-table ul.dropdown-menu label {
+  cursor: pointer;
+}
+.bootstrap-table ul.dropdown-menu input[type="checkbox"]{
+  margin-left: -17px;
+  margin-top: 0;
+  position: relative;
+  top: 2px;
+}
+
+.ea-panel {
+    height:auto;
+    width:auto;
+}
+/* 508 */
+.ea-skip-link {
+ position: absolute;
+ clip: 0 0 0 0;
+ left: -150px;
+ top: -150px;
+}

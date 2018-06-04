@@ -1,0 +1,51 @@
+<!-- The detail view -->
+<section class="row" data-ng-controller="BusinessController" data-ng-init="createFuncDetail()">
+<script>$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+    <div class="col-md-12">
+        <div id="function" class="panel panel-default" style="height: auto;">
+            <div id="functionheader" class="panel-heading">
+                <h3><i class="fa fa-sitemap fa-fw"></i>&nbsp;{{ capability.ReferenceNum }} {{ capability.Name }} </h3>
+				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
+				data-content="<b>Overview:</b> Contains a general description of the business capability.<br>
+				<b>Supporting Business Applications:</b> Lists all the business applications that support the business capability.<br>
+				">Help using this report</button>
+			</div>
+                <div class="panel-body" style="margin : 20px">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                            <li role="presentation"><a href="#technology" aria-controls="technology" id="relappstab" style="display:none;" role="tab" data-toggle="tab">Supporting Business Applications</a></li>
+                        </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
+                            <h4>Description</h4>
+                            <p>{{ capability.Description }}</p>
+                        </div>
+						<div role= "tabpanel" class="tab-pane fade" id = "technology">
+							<table id="funcappstable" style="cursor: pointer;"
+							data-search="true"
+							data-advanced-search="true"
+							data-id-table="appstable"
+							data-trim-on-search="false"
+							data-show-columns="true"
+							data-show-export="true"
+							data-classes="table table-no-bordered table-hover table-condensed"
+							data-striped="true"
+							data-pagination="true"
+							data-show-pagination-switch="true"
+							data-sort-name="Name"
+							data-sort-order="asc"
+							>
+							</table>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -29,22 +29,42 @@ export const ApplicationEdit = (props) => (
           <BooleanInput source="cloudIndicator" label="Cloud" />
           <BooleanInput source="mobileAppIndicator" label="Mobile" />
           <BooleanInput source="desktopIndicator" label="Desktop" />
-          <SelectInput source="regionalClassification"
+          <SelectInput source="regionalClassification" allowEmpty
+            optionText="name" optionValue="name"
             choices={[
               { id: 1, name: 'Regional' },
               { id: 2, name: 'National' },
             ]}
           />
-          <SelectInput source="applicationOrWebsite"
+          <SelectInput source="applicationOrWebsite" allowEmpty
+            optionText="name" optionValue="name"
             choices={[
               { id: 1, name: 'Application' },
               { id: 2, name: 'Website' }
             ]}
           />
-          <NumberInput source="numberOfUsers" />
+          <SelectInput source="numberOfUsers" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: 'TBD'},
+              {id: 2, name: '0-9'},
+              {id: 3, name: '10-49'},
+              {id: 4, name: '50-99'},
+              {id: 5, name: '100-499'},
+              {id: 6, name: '500-999'},
+              {id: 7, name: '1000-5000'},
+              {id: 8, name: '5000+'},
+            ]}
+          />
           <BooleanInput source="generateRevenueIndicator" />
           <LongTextInput source="applicationNotes" />
-          <TextInput source="tier" />
+          <SelectInput source="tier" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: '1A'},
+              {id: 2, name: '1B'},
+              {id: 3, name: '2'},
+          ]}/>
           <NumberInput source="productionYear" />
           <NumberInput source="retiredYear" />
           <TextInput source="url" />
@@ -110,23 +130,42 @@ export const ApplicationCreate = (props) => (
           <BooleanInput source="cloudIndicator" label="Cloud" />
           <BooleanInput source="mobileAppIndicator" label="Mobile" />
           <BooleanInput source="desktopIndicator" label="Desktop" />
-          <SelectInput source="regionalClassification"
+          <SelectInput source="regionalClassification" allowEmpty
+            optionText="name" optionValue="name"
             choices={[
-              { id: 'Regional', name: 'Regional' },
-              { id: 'National', name: 'National' },
+              { id: 1, name: 'Regional' },
+              { id: 2, name: 'National' },
             ]}
           />
-          <SelectInput source="applicationOrWebsite"
-            value="Application"
+          <SelectInput source="applicationOrWebsite" allowEmpty
+            optionText="name" optionValue="name"
             choices={[
-              { id: 'Application', name: 'Application' },
-              { id: 'Website', name: 'Website' }
+              { id: 1, name: 'Application' },
+              { id: 2, name: 'Website' }
             ]}
           />
-          <NumberInput source="numberOfUsers" />
+          <SelectInput source="numberOfUsers" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: 'TBD'},
+              {id: 2, name: '0-9'},
+              {id: 3, name: '10-49'},
+              {id: 4, name: '50-99'},
+              {id: 5, name: '100-499'},
+              {id: 6, name: '500-999'},
+              {id: 7, name: '1000-5000'},
+              {id: 8, name: '5000+'},
+            ]}
+          />
           <BooleanInput source="generateRevenueIndicator" label="Generates Revenue" />
           <LongTextInput source="applicationNotes" />
-          <TextInput source="tier" />
+          <SelectInput source="tier" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: '1A'},
+              {id: 2, name: '1B'},
+              {id: 3, name: '2'},
+          ]}/>
           <NumberInput source="productionYear" />
           <NumberInput source="retiredYear" />
           <TextInput source="url" />

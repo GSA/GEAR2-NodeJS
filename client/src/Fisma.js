@@ -31,12 +31,24 @@ export const FismaEdit = (props) => (
             <TextInput source="keyname" />
             <LongTextInput source="description" />
             <TextInput source="fismaSysId" />
-            <TextInput source="fedCtrLocated" />
+            <SelectInput source="fedCtrLocated" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: 'Federal'},
+                {id: 2, name: 'Contractor'},
+              ]}
+            />
             <DateInput source="atoDate" />
             <BooleanInput source="interimAto" />
             <DateInput source="atoRenewalDate" />
             <DateInput source="inactiveDate" />
-            <TextInput source="currentFyFismaAssessment" />
+            <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
+              allowEmpty optionText="name" optionValue="name" choices={[
+                {id: 1, name: 'TBD'},
+                {id: 2, name: 'Yes'},
+                {id: 3, name: 'No'},
+              ]}
+            />
             <BooleanInput source="pii" />
             <BooleanInput source="cloudHosted" />
             <ReferenceInput label="CloudST" source="fscloudstId" reference="fsCloudSt" allowEmpty>
@@ -93,12 +105,24 @@ export const FismaCreate = (props) => (
           <TextInput source="keyname" />
           <LongTextInput source="description" />
           <TextInput source="fismaSysId" label="FISMA System ID"/>
-          <TextInput source="fedCtrLocated" />
+          <SelectInput source="fedCtrLocated" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: 'Federal'},
+              {id: 2, name: 'Contractor'},
+            ]}
+          />
           <DateInput source="atoDate" label="ATO Date" />
           <BooleanInput source="interimAto" label="Interim ATO" />
           <DateInput source="atoRenewalDate" label="ATO Renewal Date" />
           <DateInput source="inactiveDate" label="Inactive Date" />
-          <TextInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment" />
+          <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
+            allowEmpty optionText="name" optionValue="name" choices={[
+              {id: 1, name: 'TBD'},
+              {id: 2, name: 'Yes'},
+              {id: 3, name: 'No'},
+            ]}
+          />
           <BooleanInput source="pii" label="PII" />
           <ReferenceInput label="SO" source="obj_poc_so_Id"
             reference="poc" allowEmpty>
