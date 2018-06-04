@@ -13,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const content = {
-  tstamp: `01 JUN 2018 3:15 PM`,
+  tstamp: `04 JUN 2018 10:00 AM`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
 }
 
