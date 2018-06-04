@@ -10,6 +10,10 @@ class Application extends Model {
         type: 'string',
       },
       {
+        name: 'Alias',
+        type: 'string',
+      },
+      {
         name: 'SSO',
         type: 'string',
       },

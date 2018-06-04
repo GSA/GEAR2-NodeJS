@@ -46,13 +46,13 @@ class CapModel extends Model {
         name: 'ParRefNum',
         type: 'string',
       },
-      {
+     /*  {
         name: 'Ref',
         type: 'string',
 		mapping(o){
 			return o.RefNum || o.ReferenceNum;
 		}
-      },
+      }, */
       {
         name: 'ParentCap',
         type: 'string',
