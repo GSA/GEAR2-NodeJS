@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  SimpleForm, TextInput, BooleanInput } from 'react-admin';
+  SimpleForm, TextInput } from 'react-admin';
 
 export const PocList = (props) => (
     <List {...props}>

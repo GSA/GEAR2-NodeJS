@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, BooleanInput, DateInput, TextInput, SelectInput,
+  LongTextInput, SimpleForm, DateInput, TextInput, SelectInput,
   ReferenceInput } from 'react-admin';
 
 export const TechnologyList = (props) => (
@@ -26,13 +26,27 @@ export const TechnologyEdit = (props) => (
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate" />
             <TextInput source="vendorStandardOrganization" />
-            <BooleanInput source="availableThroughMyview" label="Available through MyView" />
-            <BooleanInput source="goldImage" />
+            <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
+            <SelectInput source="goldImage" label="Gold Image" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
             <LongTextInput source="goldImageComment" />
             <LongTextInput source="comments" />
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"
-              reference="technologyStatus">
+              reference="technologyStatus" >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -59,13 +73,28 @@ export const TechnologyCreate = (props) => (
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate" />
             <TextInput source="vendorStandardOrganization" />
-            <BooleanInput source="availableThroughMyview" label="Available through MyView" />
-            <BooleanInput source="goldImage" />
+            <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
+            <SelectInput source="goldImage" label="Gold Image" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
             <LongTextInput source="goldImageComment" />
             <LongTextInput source="comments" />
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"
-              reference="technologyStatus">
+              reference="technologyStatus"
+              allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 

@@ -35,7 +35,10 @@ export const InvestmentEdit = (props) => (
               />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
-            <TextInput source="primaryServiceArea" />
+            <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
+              reference="capability" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
 
           <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
               reference="investmentType"
@@ -45,12 +48,14 @@ export const InvestmentEdit = (props) => (
 
             <ReferenceInput label="Organization" source="objOrganizationId"
               reference="organization"
+              perPage={100000000}
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 1" source="secServArea1"
-              reference="capability" allowEmpty>
+              reference="capability"
+              allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -70,7 +75,9 @@ export const InvestmentEdit = (props) => (
             </ReferenceInput>
 
             <ReferenceInput label="POC" source="objPocId"
-              reference="poc" allowEmpty>
+              reference="poc"
+              perPage={1000000}
+              allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -94,7 +101,10 @@ export const InvestmentCreate = (props) => (
             />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
-            <TextInput source="primaryServiceArea" />
+            <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
+              reference="capability" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
 
             <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
               reference="investmentType"
@@ -104,6 +114,7 @@ export const InvestmentCreate = (props) => (
 
             <ReferenceInput label="Organization" source="objOrganizationId"
               reference="organization"
+              perPage={1000000}
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
@@ -129,7 +140,9 @@ export const InvestmentCreate = (props) => (
             </ReferenceInput>
 
             <ReferenceInput label="POC" source="objPocId"
-              reference="poc" allowEmpty>
+              reference="poc"
+              perPage={1000000}
+              allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 

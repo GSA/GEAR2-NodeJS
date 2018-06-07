@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, SimpleForm,
-  DisabledInput, LongTextInput, TextInput, BooleanInput, NumberInput,
-  ReferenceInput, SelectInput, ArrayInput, SimpleFormIterator  } from 'react-admin';
+  DisabledInput, LongTextInput, TextInput, NumberInput,
+  ReferenceInput, SelectInput, ArrayInput, SimpleFormIterator } from 'react-admin';
 
 export const ApplicationList = (props) => (
     <List {...props}>
@@ -26,9 +26,31 @@ export const ApplicationEdit = (props) => (
           <LongTextInput source="description" />
           <TextInput source="displayName" />
           <TextInput source="applicationAlias" />
-          <BooleanInput source="cloudIndicator" label="Cloud" />
-          <BooleanInput source="mobileAppIndicator" label="Mobile" />
-          <BooleanInput source="desktopIndicator" label="Desktop" />
+
+          <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: "TBD"},
+              {id: 2, name: "Yes"},
+              {id: 3, name: "No"},
+            ]}
+          />
+          <SelectInput source="mobileAppIndicator" label="Mobile" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
+          <SelectInput source="desktopIndicator" label="Desktop" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
           <SelectInput source="regionalClassification" allowEmpty
             optionText="name" optionValue="name"
             choices={[
@@ -36,7 +58,7 @@ export const ApplicationEdit = (props) => (
               { id: 2, name: 'National' },
             ]}
           />
-          <SelectInput source="applicationOrWebsite" allowEmpty
+          <SelectInput source="applicationOrWebsite"
             optionText="name" optionValue="name"
             choices={[
               { id: 1, name: 'Application' },
@@ -56,26 +78,55 @@ export const ApplicationEdit = (props) => (
               {id: 8, name: '5000+'},
             ]}
           />
-          <BooleanInput source="generateRevenueIndicator" />
-          <LongTextInput source="applicationNotes" />
-          <SelectInput source="tier" allowEmpty
-            optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: '1A'},
-              {id: 2, name: '1B'},
-              {id: 3, name: '2'},
-          ]}/>
-          <NumberInput source="productionYear" />
-          <NumberInput source="retiredYear" />
-          <TextInput source="url" />
-          <LongTextInput source="timeNotes" />
-          <BooleanInput source="cuiIndicator" />
+        <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
+          optionText="name" optionValue="name"
+          choices={[
+            {id: 1, name: "TBD"},
+            {id: 2, name: "Yes"},
+            {id: 3, name: "No"},
+          ]}
+        />
+        <LongTextInput source="applicationNotes" />
+        <ReferenceInput source="objAppPlatformId" label="Application Platform"
+          reference="appPlatform"
+          sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={1000000}
+          allowEmpty>
+          <SelectInput optionText="keyname" />
+        </ReferenceInput>
+        <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
+          reference="appHostingProvider"
+          sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={1000000}
+          allowEmpty>
+          <SelectInput optionText="keyname" />
+        </ReferenceInput>
+        <SelectInput source="tier" allowEmpty
+          optionText="name" optionValue="name"
+          choices={[
+            {id: 1, name: '1A'},
+            {id: 2, name: '1B'},
+            {id: 3, name: '2'},
+        ]}/>
+        <NumberInput source="productionYear" />
+        <NumberInput source="retiredYear" />
+        <TextInput source="url" />
+        <LongTextInput source="timeNotes" />
+        <SelectInput source="cuiIndicator" label="CUI" allowEmpty
+          optionText="name" optionValue="name"
+          choices={[
+            {id: 1, name: "TBD"},
+            {id: 2, name: "Yes"},
+            {id: 3, name: "No"},
+          ]}
+        />
           <TextInput source="uniqueIdentifierCode" defaultValue="0233-0000-0000000-xxxx" />
           <TextInput source="referenceDocument" />
 
           <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
             sort={{ field: 'keyname', order: 'ASC' }}
             filter={{ Parent_Id: null }}
+            perPage={1000000}
             allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
@@ -107,10 +158,15 @@ export const ApplicationEdit = (props) => (
 
           <ReferenceInput label="Application Status" source="objApplicationStatusId"
             reference="applicationStatus">
-            <SelectInput optionText="keyname" />
+            <SelectInput optionText="keyname" optionValue="id" />
           </ReferenceInput>
 
-          <ArrayInput source="capability">
+          <ArrayInput source="capability" label="Capabilities">
+            <SimpleFormIterator>
+              <TextInput source="keyname" />
+            </SimpleFormIterator>
+          </ArrayInput>
+          <ArrayInput source="technology" label="Technologies">
             <SimpleFormIterator>
               <TextInput source="keyname" />
             </SimpleFormIterator>
@@ -127,9 +183,30 @@ export const ApplicationCreate = (props) => (
           <LongTextInput source="description" />
           <TextInput source="displayName" />
           <TextInput source="applicationAlias" label="Alias" />
-          <BooleanInput source="cloudIndicator" label="Cloud" />
-          <BooleanInput source="mobileAppIndicator" label="Mobile" />
-          <BooleanInput source="desktopIndicator" label="Desktop" />
+          <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: "TBD"},
+              {id: 2, name: "Yes"},
+              {id: 3, name: "No"},
+            ]}
+          />
+          <SelectInput source="mobileAppIndicator" label="Mobile" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
+          <SelectInput source="desktopIndicator" label="Desktop" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
           <SelectInput source="regionalClassification" allowEmpty
             optionText="name" optionValue="name"
             choices={[
@@ -137,7 +214,7 @@ export const ApplicationCreate = (props) => (
               { id: 2, name: 'National' },
             ]}
           />
-          <SelectInput source="applicationOrWebsite" allowEmpty
+          <SelectInput source="applicationOrWebsite"
             optionText="name" optionValue="name"
             choices={[
               { id: 1, name: 'Application' },
@@ -157,8 +234,29 @@ export const ApplicationCreate = (props) => (
               {id: 8, name: '5000+'},
             ]}
           />
-          <BooleanInput source="generateRevenueIndicator" label="Generates Revenue" />
+          <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
+            optionText="name" optionValue="name"
+            choices={[
+              {id: 1, name: "TBD"},
+              {id: 2, name: "Yes"},
+              {id: 3, name: "No"},
+            ]}
+          />
           <LongTextInput source="applicationNotes" />
+          <ReferenceInput source="objAppPlatformId" label="Application Platform"
+            reference="appPlatform"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={1000000}
+            allowEmpty>
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
+          <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
+            reference="appHostingProvider"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={1000000}
+            allowEmpty>
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
           <SelectInput source="tier" allowEmpty
             optionText="name" optionValue="name"
             choices={[
@@ -170,13 +268,22 @@ export const ApplicationCreate = (props) => (
           <NumberInput source="retiredYear" />
           <TextInput source="url" />
           <LongTextInput source="timeNotes" />
-          <BooleanInput source="cuiIndicator"  label="CUI" />
+
+        <SelectInput source="cuiIndicator" label="CUI" allowEmpty
+          optionText="name" optionValue="name"
+          choices={[
+            {id: 1, name: "TBD"},
+            {id: 2, name: "Yes"},
+            {id: 3, name: "No"},
+          ]}
+        />
           <TextInput source="uniqueIdentifierCode" defaultValue="0233-0000-0000000-xxxx" />
           <TextInput source="referenceDocument" />
 
           <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
             sort={{ field: 'keyname', order: 'ASC' }}
             filter={{ Parent_Id: null }}
+            perPage={1000000}
             allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
@@ -211,7 +318,17 @@ export const ApplicationCreate = (props) => (
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
-          <ArrayInput source="capability">
+          <ArrayInput source="capability" label="Capabilities">
+            <SimpleFormIterator>
+              <TextInput source="keyname" />
+            </SimpleFormIterator>
+          </ArrayInput>
+          <ArrayInput source="technology" label="Technologies">
+            <SimpleFormIterator>
+              <TextInput source="keyname" />
+            </SimpleFormIterator>
+          </ArrayInput>
+          <ArrayInput source="organization" label="Users">
             <SimpleFormIterator>
               <TextInput source="keyname" />
             </SimpleFormIterator>

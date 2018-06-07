@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 const content = {
-  tstamp: `04 JUN 2018 10:00 AM`,
+  tstamp: `06 JUN 2018 4:15 PM`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
 }
 
@@ -59,39 +55,6 @@ function SimpleCard(props) {
           <Typography variant="headline" component="h2">
             {content.pageTitle}
           </Typography>
-          <List
-            className={classes.list}
-            subheader={
-              <ListSubheader className={classes.listsub} color="textPrimary" disableSticky={true}>
-                What's new?
-              </ListSubheader>
-            }
-          >
-            <ListItem disableGutters={true}>
-              {bull} Dasboard lists for what's new and what's on deck
-            </ListItem>
-            <ListItem disableGutters={true}>
-              {bull} Readonly site (Work In Progress) at&#160;&#160;<a href="/gear">/gear</a>
-            </ListItem>
-            <ListItem disableGutters={true}>
-              {bull} Missing value lists for existing fields, missing fields in progress
-            </ListItem>
-          </List>
-          <List
-            className={classes.list}
-            subheader={
-              <ListSubheader className={classes.listsub} color="textPrimary" disableSticky={true}>
-                What's on deck?
-              </ListSubheader>
-            }
-          >
-            <ListItem disableGutters={true}>
-              {bull} Missing fields and their value lists if needed
-            </ListItem>
-            <ListItem disableGutters={true}>
-              {bull} Update readonly API endpoints
-            </ListItem>
-          </List>
         </CardContent>
       </Card>
     </div>

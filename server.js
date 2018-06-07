@@ -143,7 +143,7 @@ finale.initialize({
   sequelize: orm,
 });
 
-// Create REST resources
+// Create default REST resources
 Object.entries(orm.models).forEach((m) => {
   const name = m[0];
   const endpoint = name.replace(/^obj/, '');
