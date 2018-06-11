@@ -4,12 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
 
 const content = {
-  tstamp: `06 JUN 2018 4:15 PM`,
+  tstamp: `11 JUN 2018 8:30 AM`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
 }
 
@@ -43,7 +40,6 @@ const styles = {
 
 function SimpleCard(props) {
   const { classes } = props;
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <div>

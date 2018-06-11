@@ -1,7 +1,8 @@
-
+/* jshint indent: 2 */
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput, SelectInput, ReferenceInput } from 'react-admin';
+import { required } from './validators';
 
 export const InvestmentList = (props) => (
     <List {...props}>
@@ -22,7 +23,7 @@ export const InvestmentEdit = (props) => (
     <Edit keyname={<InvestmentTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" />
+            <TextInput source="keyname" validate={required} />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
               <SelectInput source="active" allowEmpty
@@ -88,7 +89,7 @@ export const InvestmentEdit = (props) => (
 export const InvestmentCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" />
+            <TextInput source="keyname" validate={required} />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
             <SelectInput source="active" allowEmpty

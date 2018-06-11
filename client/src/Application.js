@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, SimpleForm,
   DisabledInput, LongTextInput, TextInput, NumberInput,
   ReferenceInput, SelectInput, ArrayInput, SimpleFormIterator } from 'react-admin';
+import { required } from './validators';
 
 export const ApplicationList = (props) => (
     <List {...props}>
@@ -22,7 +23,7 @@ export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
-          <TextInput source="keyname" />
+          <TextInput source="keyname" validate={required} />
           <LongTextInput source="description" />
           <TextInput source="displayName" />
           <TextInput source="applicationAlias" />
@@ -163,12 +164,12 @@ export const ApplicationEdit = (props) => (
 
           <ArrayInput source="capability" label="Capabilities">
             <SimpleFormIterator>
-              <TextInput source="keyname" />
+              <TextInput source="keyname" validate={required} />
             </SimpleFormIterator>
           </ArrayInput>
           <ArrayInput source="technology" label="Technologies">
             <SimpleFormIterator>
-              <TextInput source="keyname" />
+              <TextInput source="keyname" validate={required} />
             </SimpleFormIterator>
           </ArrayInput>
 
@@ -179,7 +180,7 @@ export const ApplicationEdit = (props) => (
 export const ApplicationCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-          <TextInput source="keyname" />
+          <TextInput source="keyname" validate={required} />
           <LongTextInput source="description" />
           <TextInput source="displayName" />
           <TextInput source="applicationAlias" label="Alias" />
@@ -320,17 +321,17 @@ export const ApplicationCreate = (props) => (
 
           <ArrayInput source="capability" label="Capabilities">
             <SimpleFormIterator>
-              <TextInput source="keyname" />
+              <TextInput source="keyname" validate={required} />
             </SimpleFormIterator>
           </ArrayInput>
           <ArrayInput source="technology" label="Technologies">
             <SimpleFormIterator>
-              <TextInput source="keyname" />
+              <TextInput source="keyname" validate={required} />
             </SimpleFormIterator>
           </ArrayInput>
           <ArrayInput source="organization" label="Users">
             <SimpleFormIterator>
-              <TextInput source="keyname" />
+              <TextInput source="keyname" validate={required} />
             </SimpleFormIterator>
           </ArrayInput>
 

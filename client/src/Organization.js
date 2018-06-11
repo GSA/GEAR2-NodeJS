@@ -2,6 +2,7 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
   LongTextInput, SimpleForm, TextInput } from 'react-admin';
+import { required } from './validators';
 
 export const OrganizationList = (props) => (
     <List {...props}>
@@ -22,7 +23,7 @@ export const OrganizationEdit = (props) => (
     <Edit keyname={<OrganizationTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" />
+            <TextInput source="keyname" validate={required} />
             <LongTextInput source="description" />
             <TextInput source="displayName" />
             <TextInput source="link" />
@@ -34,7 +35,7 @@ export const OrganizationEdit = (props) => (
 export const OrganizationCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" />
+            <TextInput source="keyname" validate={required} />
             <LongTextInput source="description" />
             <TextInput source="displayName" />
             <TextInput source="link" />
