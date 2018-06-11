@@ -205,7 +205,7 @@ class AppTIMEModel extends Model {
 
       // },
 	  {
-        name: 'Notes',
+        name: 'TIME_Notes',
         type: 'string',
 
       },

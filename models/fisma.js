@@ -125,9 +125,9 @@ class FISMAModel extends Model {
 				//  const pieces = art.split(',');
 				 var cb = {
 					Type: poctype[0],
-					Name: pieces[1],
-					Email: pieces[2],
-					Phone: pieces[3],
+					Name: pieces[0],
+					Email: pieces[1],
+					Phone: pieces[2],
 				};
 				pocs.push(cb);					
 			}

@@ -420,7 +420,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 		  appname = val.Name;
           owner = val.OwnerShort;
           id = val.AppId;
-          notes = val.Notes;
+          notes = val.TIME_Notes;
           var parentsys = '';
           fy14 = val.FY14;
           fy15 = val.FY15;
@@ -1016,7 +1016,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         $('#appcaptable').bootstrapTable({
           columns: [
 		{
-            field: 'Ref',
+            field: 'ReferenceNum',
             title: 'Hierarchy number',
         //    sortable: true
           },

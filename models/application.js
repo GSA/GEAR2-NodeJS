@@ -72,8 +72,8 @@ class Application extends Model {
           let pocs = null;
 		  let poc = null;
 		  let poc1 = [];
-		  if (d.BusinessPOC){
-				  pocs = d.BusinessPOC.split(';');
+		  if (d.TechnicalPOC){
+				  pocs = d.TechnicalPOC.split(';');
 				  pocs = pocs.map((poc, cb) =>
 				{
 					 var pieces = poc.split(',');
