@@ -944,8 +944,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
 	  
 	  interfacesv2.$promise.then(function () {
                $.each(application, function (i, app) {
-                  $.each(interfacesv2, function (i, iface) {
-                    if (iface.srcAppID == app.Id || iface.destAppID == app.Id) {
+                  $.each(interfacesv2, function (i, iface2) {
+                    if (iface2.srcAppID == app.Id || iface2.destAppID == app.Id) {
                       d3.select("#interfacesv2-tab").style("display", "block");
                      }
                   });
