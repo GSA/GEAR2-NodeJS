@@ -1,8 +1,9 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, DateInput, TextInput, SelectInput,
-  ReferenceInput } from 'react-admin';
-import { required } from './validators';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , DisabledInput, LongTextInput, SimpleForm, DateInput
+  , TextInput, SelectInput, ReferenceInput
+  , required, maxLength } from 'react-admin';
+
 
 export const TechnologyList = (props) => (
     <List {...props}>
@@ -23,54 +24,7 @@ export const TechnologyEdit = (props) => (
     <Edit keyname={<TechnologyTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={required} />
-            <LongTextInput source="description" />
-            <DateInput source="approvedStatusExpirationDate" />
-            <TextInput source="vendorStandardOrganization" />
-            <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
-              optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
-            />
-            <SelectInput source="goldImage" label="Gold Image" allowEmpty
-              optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
-            />
-            <LongTextInput source="goldImageComment" />
-            <LongTextInput source="comments" />
-
-            <ReferenceInput label="Status" source="objTechnologyStatusId"
-              reference="technologyStatus" >
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
-            <ReferenceInput label="Deployment Type" source="objDeploymentTypeId"
-              reference="deploymentType"
-              allowEmpty>
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
-            <ReferenceInput label="Standard Type" source="objStandardTypeId"
-              reference="standardType"
-              allowEmpty>
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
-        </SimpleForm>
-    </Edit>
-);
-
-export const TechnologyCreate = (props) => (
-    <Create {...props}>
-        <SimpleForm>
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate" />
             <TextInput source="vendorStandardOrganization" />
@@ -95,7 +49,8 @@ export const TechnologyCreate = (props) => (
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"
               reference="technologyStatus"
-              allowEmpty>
+              validate={required()}
+            >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -107,8 +62,57 @@ export const TechnologyCreate = (props) => (
 
             <ReferenceInput label="Standard Type" source="objStandardTypeId"
               reference="standardType"
+              validate={required()}>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
+
+        </SimpleForm>
+    </Edit>
+);
+
+export const TechnologyCreate = (props) => (
+    <Create {...props}>
+        <SimpleForm>
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <LongTextInput source="description" />
+            <DateInput source="approvedStatusExpirationDate" />
+            <TextInput source="vendorStandardOrganization" />
+            <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
+            <SelectInput source="goldImage" label="Gold Image" allowEmpty
+              optionText="name" optionValue="name"
+              choices={[
+                {id: 1, name: "TBD"},
+                {id: 2, name: "Yes"},
+                {id: 3, name: "No"},
+              ]}
+            />
+            <LongTextInput source="goldImageComment" />
+            <LongTextInput source="comments" />
+
+            <ReferenceInput label="Status" source="objTechnologyStatusId"
+              reference="technologyStatus"
+              validate={required()}
+            >
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
+
+            <ReferenceInput label="Deployment Type" source="objDeploymentTypeId"
+              reference="deploymentType"
               allowEmpty>
-              <SelectInput optionText="keyName" />
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
+
+            <ReferenceInput label="Standard Type" source="objStandardTypeId"
+              reference="standardType"
+              validate={required()}>
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
         </SimpleForm>

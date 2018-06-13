@@ -1,8 +1,8 @@
-
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput } from 'react-admin';
-import { required } from './validators';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , DisabledInput, LongTextInput, SimpleForm, TextInput
+  , required, maxLength } from 'react-admin';
+
 
 export const OrganizationList = (props) => (
     <List {...props}>
@@ -23,9 +23,9 @@ export const OrganizationEdit = (props) => (
     <Edit keyname={<OrganizationTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
-            <TextInput source="displayName" />
+            <TextInput source="displayName" validate={[required(), maxLength(25)]} />
             <TextInput source="link" />
             <TextInput source="parentId" />
         </SimpleForm>
@@ -35,9 +35,9 @@ export const OrganizationEdit = (props) => (
 export const OrganizationCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
-            <TextInput source="displayName" />
+            <TextInput source="displayName" validate={[required(), maxLength(25)]} />
             <TextInput source="link" />
             <TextInput source="parentId" />
         </SimpleForm>

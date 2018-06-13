@@ -1,8 +1,8 @@
-
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  SimpleForm, TextInput } from 'react-admin';
-import { required } from './validators';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , DisabledInput, SimpleForm, TextInput
+  , required, maxLength, email } from 'react-admin';
+
 
 export const PocList = (props) => (
     <List {...props}>
@@ -25,8 +25,8 @@ export const PocEdit = (props) => (
     <Edit keyname={<PocTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={required} />
-            <TextInput source="email" />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="email" validate={[required(), email()]} />
             <TextInput source="phNum" />
             <TextInput source="risso" />
         </SimpleForm>
@@ -36,8 +36,8 @@ export const PocEdit = (props) => (
 export const PocCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={required} />
-            <TextInput source="email" />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="email" validate={[required(), email()]} />
             <TextInput source="phNum" />
             <TextInput source="risso" />
         </SimpleForm>

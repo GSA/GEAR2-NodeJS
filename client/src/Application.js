@@ -1,8 +1,9 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton, SimpleForm,
-  DisabledInput, LongTextInput, TextInput, NumberInput,
-  ReferenceInput, SelectInput, ArrayInput, SimpleFormIterator } from 'react-admin';
-import { required } from './validators';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
+  , ReferenceInput, SelectInput, ArrayInput, ReferenceArrayInput
+  , SelectArrayInput, SimpleFormIterator
+  , required, maxLength } from 'react-admin';
 
 export const ApplicationList = (props) => (
     <List {...props}>
@@ -23,9 +24,9 @@ export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" validate={[required(), maxLength(80)]} />
           <LongTextInput source="description" />
-          <TextInput source="displayName" />
+          <TextInput source="displayName" validate={[required(), maxLength(20)]} />
           <TextInput source="applicationAlias" />
 
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
@@ -59,8 +60,9 @@ export const ApplicationEdit = (props) => (
               { id: 2, name: 'National' },
             ]}
           />
-          <SelectInput source="applicationOrWebsite"
+        <SelectInput source="applicationOrWebsite"
             optionText="name" optionValue="name"
+            validate={required()}
             choices={[
               { id: 1, name: 'Application' },
               { id: 2, name: 'Website' }
@@ -121,7 +123,10 @@ export const ApplicationEdit = (props) => (
             {id: 3, name: "No"},
           ]}
         />
-          <TextInput source="uniqueIdentifierCode" defaultValue="0233-0000-0000000-xxxx" />
+          <TextInput source="uniqueIdentifierCode"
+            defaultValue="0233-0000-0000000-xxxx"
+            validate={[required(), maxLength(80)]}
+          />
           <TextInput source="referenceDocument" />
 
           <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
@@ -158,20 +163,33 @@ export const ApplicationEdit = (props) => (
           </ReferenceInput>
 
           <ReferenceInput label="Application Status" source="objApplicationStatusId"
-            reference="applicationStatus">
-            <SelectInput optionText="keyname" optionValue="id" />
+            reference="applicationStatus" validate={required()} >
+            <SelectInput optionText="keyname" />
           </ReferenceInput>
 
-          <ArrayInput source="capability" label="Capabilities">
-            <SimpleFormIterator>
-              <TextInput source="keyname" validate={required} />
-            </SimpleFormIterator>
-          </ArrayInput>
-          <ArrayInput source="technology" label="Technologies">
-            <SimpleFormIterator>
-              <TextInput source="keyname" validate={required} />
-            </SimpleFormIterator>
-          </ArrayInput>
+          <ReferenceArrayInput source="capability" label="Capabilities"
+            reference="capability"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={1000000}
+          >
+            <SelectArrayInput optionText="keyname" />
+          </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="technology" label="Technologies"
+            reference="technology"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={1000000}
+          >
+            <SelectArrayInput optionText="keyname" />
+          </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="organization" label="Users"
+            reference="organization"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={1000000}
+          >
+            <SelectArrayInput optionText="keyname" />
+          </ReferenceArrayInput>
 
         </SimpleForm>
     </Edit>
@@ -180,9 +198,9 @@ export const ApplicationEdit = (props) => (
 export const ApplicationCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" validate={[required(), maxLength(80)]} />
           <LongTextInput source="description" />
-          <TextInput source="displayName" />
+          <TextInput source="displayName" validate={[required(), maxLength(0)]} />
           <TextInput source="applicationAlias" label="Alias" />
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
@@ -217,6 +235,7 @@ export const ApplicationCreate = (props) => (
           />
           <SelectInput source="applicationOrWebsite"
             optionText="name" optionValue="name"
+            validate={required()}
             choices={[
               { id: 1, name: 'Application' },
               { id: 2, name: 'Website' }
@@ -278,7 +297,10 @@ export const ApplicationCreate = (props) => (
             {id: 3, name: "No"},
           ]}
         />
-          <TextInput source="uniqueIdentifierCode" defaultValue="0233-0000-0000000-xxxx" />
+          <TextInput source="uniqueIdentifierCode"
+            defaultValue="0233-0000-0000000-xxxx"
+            validate={[required(), maxLength(80)]}
+          />
           <TextInput source="referenceDocument" />
 
           <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
@@ -315,25 +337,9 @@ export const ApplicationCreate = (props) => (
           </ReferenceInput>
 
           <ReferenceInput label="Application Status" source="objApplicationStatusId"
-            reference="applicationStatus">
+            reference="applicationStatus" validate={required()} >
             <SelectInput optionText="keyname" />
           </ReferenceInput>
-
-          <ArrayInput source="capability" label="Capabilities">
-            <SimpleFormIterator>
-              <TextInput source="keyname" validate={required} />
-            </SimpleFormIterator>
-          </ArrayInput>
-          <ArrayInput source="technology" label="Technologies">
-            <SimpleFormIterator>
-              <TextInput source="keyname" validate={required} />
-            </SimpleFormIterator>
-          </ArrayInput>
-          <ArrayInput source="organization" label="Users">
-            <SimpleFormIterator>
-              <TextInput source="keyname" validate={required} />
-            </SimpleFormIterator>
-          </ArrayInput>
 
         </SimpleForm>
     </Create>

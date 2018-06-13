@@ -1,8 +1,8 @@
-/* jshint indent: 2 */
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput, SelectInput, ReferenceInput } from 'react-admin';
-import { required } from './validators';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , DisabledInput, LongTextInput, SimpleForm, TextInput
+  , SelectInput, ReferenceInput
+  , required, maxLength } from 'react-admin';
 
 export const InvestmentList = (props) => (
     <List {...props}>
@@ -23,7 +23,7 @@ export const InvestmentEdit = (props) => (
     <Edit keyname={<InvestmentTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
               <SelectInput source="active" allowEmpty
@@ -41,9 +41,10 @@ export const InvestmentEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
-          <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
+            <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
               reference="investmentType"
-              allowEmpty>
+              validate={required()}
+            >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -89,7 +90,7 @@ export const InvestmentEdit = (props) => (
 export const InvestmentCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
             <SelectInput source="active" allowEmpty
@@ -109,7 +110,8 @@ export const InvestmentCreate = (props) => (
 
             <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
               reference="investmentType"
-              allowEmpty>
+              validate={required()}
+            >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 

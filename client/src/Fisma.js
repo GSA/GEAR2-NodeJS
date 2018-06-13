@@ -1,9 +1,10 @@
 import React from 'react';
+import { List, Edit, Create, Datagrid, DateField, TextField
+  , EditButton, ArrayInput, DateInput, DisabledInput
+  , LongTextInput, ReferenceInput, SelectInput, SimpleForm
+  , SimpleFormIterator, TextInput
+  , required, maxLength } from 'react-admin';
 
-import { List, Edit, Create, Datagrid, DateField, TextField, EditButton,
-  ArrayInput, DateInput, DisabledInput, LongTextInput, ReferenceInput, SelectInput,
-  SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
-import { required } from './validators';
 
 export const FismaList = (props) => (
   <List {...props}>
@@ -25,7 +26,7 @@ export const FismaEdit = (props) => (
   <Edit keyname={<FismaTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
-      <TextInput source="keyname" validate={required} />
+      <TextInput source="keyname" validate={[required(), maxLength(80)]} />
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" />
       <SelectInput source="fedCtrLocated" allowEmpty
@@ -75,30 +76,30 @@ export const FismaEdit = (props) => (
       <LongTextInput source="comments" />
       <ArrayInput source="fismaArtifacts"  label="FISMA Artifacts">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
           <TextInput source="link" />
         </SimpleFormIterator>
       </ArrayInput>
       <ArrayInput source="fisma_issm" label="ISSM">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
           <TextInput source="email" />
         </SimpleFormIterator>
       </ArrayInput>
       <ArrayInput source="fisma_isso" label="ISSO">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
           <TextInput source="email" />
         </SimpleFormIterator>
       </ArrayInput>
       <ArrayInput source="fisma_replacedby">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
         </SimpleFormIterator>
       </ArrayInput>
       <ArrayInput source="technologies">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
         </SimpleFormIterator>
       </ArrayInput>
 
@@ -109,7 +110,7 @@ export const FismaEdit = (props) => (
 export const FismaCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="keyname" validate={required} />
+      <TextInput source="keyname" validate={[required(), maxLength(80)]} />
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" label="FISMA System ID"/>
       <SelectInput source="fedCtrLocated" allowEmpty
@@ -163,33 +164,33 @@ export const FismaCreate = (props) => (
       <LongTextInput source="comments" />
       <ArrayInput source="fismaArtifacts"  label="FISMA Artifacts">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
           <TextInput source="link" />
         </SimpleFormIterator>
       </ArrayInput>
 
       <ArrayInput source="fisma_issm" label="ISSM">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
           <TextInput source="email" />
         </SimpleFormIterator>
       </ArrayInput>
       <ArrayInput source="fisma_isso" label="ISSO">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
           <TextInput source="email" />
         </SimpleFormIterator>
       </ArrayInput>
 
       <ArrayInput source="fisma_replacedby">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
         </SimpleFormIterator>
       </ArrayInput>
 
       <ArrayInput source="technologies">
         <SimpleFormIterator>
-          <TextInput source="keyname" validate={required} />
+          <TextInput source="keyname" />
         </SimpleFormIterator>
       </ArrayInput>
 

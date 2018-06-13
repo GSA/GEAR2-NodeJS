@@ -1,9 +1,11 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput,
-  LongTextInput, SimpleForm, TextInput, ReferenceInput, SelectInput } from 'react-admin';
-import { required } from './validators';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , DisabledInput, LongTextInput, SimpleForm, TextInput
+  , ReferenceInput, SelectInput
+  , required, maxLength } from 'react-admin';
 
-export const CapabilityList = (props) => (
+
+export const CapabilityList  = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
@@ -22,7 +24,7 @@ export const CapabilityEdit = (props) => (
     <Edit keyname={<CapabilityTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <TextInput source="referenceNumber" />
 
@@ -38,7 +40,7 @@ export const CapabilityEdit = (props) => (
 export const CapabilityCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={required} />
+            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <TextInput source="referenceNumber" />
 
