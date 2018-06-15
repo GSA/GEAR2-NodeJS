@@ -17,7 +17,7 @@ function findOne(req, res) {
 }
 
 function findApplications(req, res) {
-  appStore.search(`call get_application_detail( ${req.params.id}, 'o')`, (results) => {
+  appStore.search(`call get_application_detail( ${req.params.id}, 'oo')`, (results) => {
     res.json(results);
   });
 }

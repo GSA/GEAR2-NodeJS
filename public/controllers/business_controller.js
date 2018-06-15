@@ -352,7 +352,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           visible: false
         },
 		{
-          field: 'FismaSystem',
+          field: 'FISMASystem',
           title: 'FISMA System',
           sortable: true,
           visible: false
@@ -1216,7 +1216,7 @@ $scope.createCapabilityTree = function () {
                   visible: false
                 },
                 {
-                  field: 'FismaSystem',
+                  field: 'FISMASystem',
                   title: 'FISMA System',
                   sortable: true,
                   visible: false
