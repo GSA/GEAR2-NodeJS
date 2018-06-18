@@ -4,7 +4,6 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , SelectInput, ReferenceInput
   , required, maxLength } from 'react-admin';
 
-
 export const ParentSystemList = (props) => (
     <List {...props}>
         <Datagrid>

@@ -3,7 +3,6 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , DisabledInput, SimpleForm, TextInput
   , required, maxLength, email } from 'react-admin';
 
-
 export const PocList = (props) => (
     <List {...props}>
         <Datagrid>

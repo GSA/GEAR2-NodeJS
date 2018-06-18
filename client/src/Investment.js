@@ -4,6 +4,8 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , SelectInput, ReferenceInput
   , required, maxLength } from 'react-admin';
 
+import { ConfirmChoices } from './valuelists';
+
 export const InvestmentList = (props) => (
     <List {...props}>
         <Datagrid>
@@ -28,11 +30,7 @@ export const InvestmentEdit = (props) => (
             <LongTextInput source="comments" />
               <SelectInput source="active" allowEmpty
                 optionText="name" optionValue="name"
-                choices={[
-                  {id: 1, name: "TBD"},
-                  {id: 2, name: "Yes"},
-                  {id: 3, name: "No"},
-                ]}
+                choices={ ConfirmChoices }
               />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
@@ -50,7 +48,7 @@ export const InvestmentEdit = (props) => (
 
             <ReferenceInput label="Organization" source="objOrganizationId"
               reference="organization"
-              perPage={100000000}
+              perPage={ 1000000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
@@ -95,11 +93,7 @@ export const InvestmentCreate = (props) => (
             <LongTextInput source="comments" />
             <SelectInput source="active" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />

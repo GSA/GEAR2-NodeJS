@@ -3,7 +3,6 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , DisabledInput, LongTextInput, SimpleForm, TextInput
   , required, maxLength } from 'react-admin';
 
-
 export const OrganizationList = (props) => (
     <List {...props}>
         <Datagrid>

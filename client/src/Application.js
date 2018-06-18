@@ -5,6 +5,8 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , SelectArrayInput, SimpleFormIterator
   , required, maxLength } from 'react-admin';
 
+import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
+
 export const ApplicationList = (props) => (
     <List {...props}>
         <Datagrid>
@@ -31,97 +33,58 @@ export const ApplicationEdit = (props) => (
 
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: "TBD"},
-              {id: 2, name: "Yes"},
-              {id: 3, name: "No"},
-            ]}
+            choices={ ConfirmChoices }
           />
           <SelectInput source="mobileAppIndicator" label="Mobile" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
           <SelectInput source="desktopIndicator" label="Desktop" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
           <SelectInput source="regionalClassification" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              { id: 1, name: 'Regional' },
-              { id: 2, name: 'National' },
-            ]}
+            choices={ RegionChoices }
           />
         <SelectInput source="applicationOrWebsite"
             optionText="name" optionValue="name"
             validate={required()}
-            choices={[
-              { id: 1, name: 'Application' },
-              { id: 2, name: 'Website' }
-            ]}
+            choices={ AppOrWebChoices }
           />
           <SelectInput source="numberOfUsers" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: 'TBD'},
-              {id: 2, name: '0-9'},
-              {id: 3, name: '10-49'},
-              {id: 4, name: '50-99'},
-              {id: 5, name: '100-499'},
-              {id: 6, name: '500-999'},
-              {id: 7, name: '1000-5000'},
-              {id: 8, name: '5000+'},
-            ]}
+            choices={ UserCountBreakdown }
           />
         <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
           optionText="name" optionValue="name"
-          choices={[
-            {id: 1, name: "TBD"},
-            {id: 2, name: "Yes"},
-            {id: 3, name: "No"},
-          ]}
+          choices={ ConfirmChoices }
         />
         <LongTextInput source="applicationNotes" />
         <ReferenceInput source="objAppPlatformId" label="Application Platform"
           reference="appPlatform"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={1000000}
+          perPage={ 1000000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
           reference="appHostingProvider"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={1000000}
+          perPage={ 1000000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <SelectInput source="tier" allowEmpty
           optionText="name" optionValue="name"
-          choices={[
-            {id: 1, name: '1A'},
-            {id: 2, name: '1B'},
-            {id: 3, name: '2'},
-        ]}/>
+          choices={ TierChoices }/>
         <NumberInput source="productionYear" />
         <NumberInput source="retiredYear" />
         <TextInput source="url" />
         <LongTextInput source="timeNotes" />
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
-          choices={[
-            {id: 1, name: "TBD"},
-            {id: 2, name: "Yes"},
-            {id: 3, name: "No"},
-          ]}
+          choices={ ConfirmChoices }
         />
           <TextInput source="uniqueIdentifierCode"
             defaultValue="0233-0000-0000000-xxxx"
@@ -132,7 +95,7 @@ export const ApplicationEdit = (props) => (
           <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
             sort={{ field: 'keyname', order: 'ASC' }}
             filter={{ Parent_Id: null }}
-            perPage={1000000}
+            perPage={ 1000000 }
             allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
@@ -170,7 +133,7 @@ export const ApplicationEdit = (props) => (
           <ReferenceArrayInput source="capability" label="Capabilities"
             reference="capability"
             sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={1000000}
+            perPage={ 1000000 }
           >
             <SelectArrayInput optionText="keyname" />
           </ReferenceArrayInput>
@@ -178,7 +141,7 @@ export const ApplicationEdit = (props) => (
           <ReferenceArrayInput source="technology" label="Technologies"
             reference="technology"
             sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={1000000}
+            perPage={ 1000000 }
           >
             <SelectArrayInput optionText="keyname" />
           </ReferenceArrayInput>
@@ -186,7 +149,7 @@ export const ApplicationEdit = (props) => (
           <ReferenceArrayInput source="organization" label="Users"
             reference="organization"
             sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={1000000}
+            perPage={ 1000000 }
           >
             <SelectArrayInput optionText="keyname" />
           </ReferenceArrayInput>
@@ -204,86 +167,51 @@ export const ApplicationCreate = (props) => (
           <TextInput source="applicationAlias" label="Alias" />
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: "TBD"},
-              {id: 2, name: "Yes"},
-              {id: 3, name: "No"},
-            ]}
+            choices={ ConfirmChoices }
           />
           <SelectInput source="mobileAppIndicator" label="Mobile" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
           <SelectInput source="desktopIndicator" label="Desktop" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
           <SelectInput source="regionalClassification" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              { id: 1, name: 'Regional' },
-              { id: 2, name: 'National' },
-            ]}
+            choices={ RegionChoices }
           />
           <SelectInput source="applicationOrWebsite"
             optionText="name" optionValue="name"
             validate={required()}
-            choices={[
-              { id: 1, name: 'Application' },
-              { id: 2, name: 'Website' }
-            ]}
+            choices={ AppOrWebChoices }
           />
           <SelectInput source="numberOfUsers" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: 'TBD'},
-              {id: 2, name: '0-9'},
-              {id: 3, name: '10-49'},
-              {id: 4, name: '50-99'},
-              {id: 5, name: '100-499'},
-              {id: 6, name: '500-999'},
-              {id: 7, name: '1000-5000'},
-              {id: 8, name: '5000+'},
-            ]}
+            choices={ UserCountBreakdown }
           />
           <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
-            optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: "TBD"},
-              {id: 2, name: "Yes"},
-              {id: 3, name: "No"},
-            ]}
+            optionText="name" optionValue="name"t
+            choices={ ConfirmChoices }
           />
           <LongTextInput source="applicationNotes" />
           <ReferenceInput source="objAppPlatformId" label="Application Platform"
             reference="appPlatform"
             sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={1000000}
+            perPage={ 1000000 }
             allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
           <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
             reference="appHostingProvider"
             sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={1000000}
+            perPage={ 1000000 }
             allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
           <SelectInput source="tier" allowEmpty
             optionText="name" optionValue="name"
-            choices={[
-              {id: 1, name: '1A'},
-              {id: 2, name: '1B'},
-              {id: 3, name: '2'},
-          ]}/>
+            choices={ TierChoices }/>
           <NumberInput source="productionYear" />
           <NumberInput source="retiredYear" />
           <TextInput source="url" />
@@ -291,11 +219,7 @@ export const ApplicationCreate = (props) => (
 
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
-          choices={[
-            {id: 1, name: "TBD"},
-            {id: 2, name: "Yes"},
-            {id: 3, name: "No"},
-          ]}
+          choices={ ConfirmChoices }
         />
           <TextInput source="uniqueIdentifierCode"
             defaultValue="0233-0000-0000000-xxxx"
@@ -306,7 +230,7 @@ export const ApplicationCreate = (props) => (
           <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
             sort={{ field: 'keyname', order: 'ASC' }}
             filter={{ Parent_Id: null }}
-            perPage={1000000}
+            perPage={ 1000000 }
             allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>

@@ -5,6 +5,7 @@ import { List, Edit, Create, Datagrid, DateField, TextField
   , SimpleFormIterator, TextInput
   , required, maxLength } from 'react-admin';
 
+import { ConfirmChoices, FedOrContractor } from './valuelists';
 
 export const FismaList = (props) => (
   <List {...props}>
@@ -31,44 +32,26 @@ export const FismaEdit = (props) => (
       <TextInput source="fismaSysId" />
       <SelectInput source="fedCtrLocated" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: 'Federal'},
-          {id: 2, name: 'Contractor'},
-        ]}
+        choices={ FedOrContractor }
       />
       <DateInput source="atoDate" />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: "TBD"},
-          {id: 2, name: "Yes"},
-          {id: 3, name: "No"},
-        ]}
+        choices={ ConfirmChoices }
       />
       <DateInput source="atoRenewalDate" />
       <DateInput source="inactiveDate" />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
-        allowEmpty optionText="name" optionValue="name" choices={[
-          {id: 1, name: 'TBD'},
-          {id: 2, name: 'Yes'},
-          {id: 3, name: 'No'},
-        ]}
+        allowEmpty optionText="name" optionValue="name"
+        choices={ ConfirmChoices }
       />
       <SelectInput source="pii" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: "TBD"},
-          {id: 2, name: "Yes"},
-          {id: 3, name: "No"},
-        ]}
+        choices={ ConfirmChoices }
       />
       <SelectInput source="cloudHosted" label="Cloud Hosted" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: "TBD"},
-          {id: 2, name: "Yes"},
-          {id: 3, name: "No"},
-        ]}
+        choices={ ConfirmChoices }
       />
       <ReferenceInput label="Cloud Service Type" source="fscloudstId" reference="fsCloudSt" allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
@@ -115,36 +98,22 @@ export const FismaCreate = (props) => (
       <TextInput source="fismaSysId" label="FISMA System ID"/>
       <SelectInput source="fedCtrLocated" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: 'Federal'},
-          {id: 2, name: 'Contractor'},
-        ]}
+        choices={ FedOrContractor }
       />
       <DateInput source="atoDate" label="ATO Date" />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: "TBD"},
-          {id: 2, name: "Yes"},
-          {id: 3, name: "No"},
-        ]}
+        choices={ ConfirmChoices }
       />
       <DateInput source="atoRenewalDate" label="ATO Renewal Date" />
       <DateInput source="inactiveDate" label="Inactive Date" />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
-        allowEmpty optionText="name" optionValue="name" choices={[
-          {id: 1, name: 'TBD'},
-          {id: 2, name: 'Yes'},
-          {id: 3, name: 'No'},
-        ]}
+        allowEmpty optionText="name" optionValue="name"
+        choices={ ConfirmChoices }
       />
       <SelectInput source="pii" label="PII" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: "TBD"},
-          {id: 2, name: "Yes"},
-          {id: 3, name: "No"},
-        ]}
+        choices={ ConfirmChoices }
       />
       <ReferenceInput label="SO" source="obj_poc_so_Id"
         reference="poc" allowEmpty>
@@ -152,11 +121,7 @@ export const FismaCreate = (props) => (
       </ReferenceInput>
       <SelectInput source="cloudHosted" label="Cloud Hosted" allowEmpty
         optionText="name" optionValue="name"
-        choices={[
-          {id: 1, name: "TBD"},
-          {id: 2, name: "Yes"},
-          {id: 3, name: "No"},
-        ]}
+        choices={ ConfirmChoices }
       />
       <ReferenceInput label="Cloud Service Type" source="fscloudstId" reference="fsCloudSt" allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />

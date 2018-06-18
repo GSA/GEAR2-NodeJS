@@ -4,7 +4,6 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , ReferenceInput, SelectInput
   , required, maxLength } from 'react-admin';
 
-
 export const CapabilityList  = (props) => (
     <List {...props}>
         <Datagrid>

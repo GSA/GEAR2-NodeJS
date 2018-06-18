@@ -4,6 +4,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , TextInput, SelectInput, ReferenceInput
   , required, maxLength } from 'react-admin';
 
+import { ConfirmChoices } from './valuelists';
 
 export const TechnologyList = (props) => (
     <List {...props}>
@@ -30,19 +31,11 @@ export const TechnologyEdit = (props) => (
             <TextInput source="vendorStandardOrganization" />
             <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
             <SelectInput source="goldImage" label="Gold Image" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
             <LongTextInput source="goldImageComment" />
             <LongTextInput source="comments" />
@@ -79,19 +72,11 @@ export const TechnologyCreate = (props) => (
             <TextInput source="vendorStandardOrganization" />
             <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
             <SelectInput source="goldImage" label="Gold Image" allowEmpty
               optionText="name" optionValue="name"
-              choices={[
-                {id: 1, name: "TBD"},
-                {id: 2, name: "Yes"},
-                {id: 3, name: "No"},
-              ]}
+              choices={ ConfirmChoices }
             />
             <LongTextInput source="goldImageComment" />
             <LongTextInput source="comments" />
