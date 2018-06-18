@@ -163,7 +163,7 @@ export const ApplicationCreate = (props) => (
         <SimpleForm>
           <TextInput source="keyname" validate={[required(), maxLength(80)]} />
           <LongTextInput source="description" />
-          <TextInput source="displayName" validate={[required(), maxLength(0)]} />
+          <TextInput source="displayName" validate={[required(), maxLength(20)]} />
           <TextInput source="applicationAlias" label="Alias" />
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
