@@ -1,8 +1,7 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
-  , ReferenceInput, SelectInput, ArrayInput, ReferenceArrayInput
-  , SelectArrayInput, SimpleFormIterator
+  , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
@@ -191,24 +190,10 @@ export const ApplicationCreate = (props) => (
             choices={ UserCountBreakdown }
           />
           <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
-            optionText="name" optionValue="name"t
+            optionText="name" optionValue="name"
             choices={ ConfirmChoices }
           />
           <LongTextInput source="applicationNotes" />
-          <ReferenceInput source="objAppPlatformId" label="Application Platform"
-            reference="appPlatform"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-            allowEmpty>
-            <SelectInput optionText="keyname" />
-          </ReferenceInput>
-          <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
-            reference="appHostingProvider"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-            allowEmpty>
-            <SelectInput optionText="keyname" />
-          </ReferenceInput>
           <SelectInput source="tier" allowEmpty
             optionText="name" optionValue="name"
             choices={ TierChoices }/>
