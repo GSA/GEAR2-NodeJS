@@ -12,8 +12,9 @@ var
     session = require('express-session'),
     mysql = require('mysql2'),
     util = require('util'),
-    models = require('./models'),
-    orm = models.sequelize;
+    models = require('./models');
+
+const orm = models.sequelize;
 
 // Define a default port if the env variable doesn't exist
 const port = process.env.PORT || 3333;

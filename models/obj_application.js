@@ -221,7 +221,6 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_application'
   });
-
   application.associate = function (models) {
     models.application.belongsToMany(models.capability, {
       as: 'capability',
@@ -231,6 +230,5 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: false,
     });
   }
-
   return application;
 };

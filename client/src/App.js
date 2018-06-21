@@ -1,6 +1,6 @@
 import React from 'react';
 import { Admin, Resource, Delete } from 'react-admin';
-import epilogueClient from 'aor-epilogue-client';
+import epilogueClient from './client-config';
 
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
 import { CapabilityList, CapabilityEdit, CapabilityCreate } from './Capability';

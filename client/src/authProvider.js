@@ -19,7 +19,7 @@ const fetchStatus = () => {
 }
 
 export default (type, params) => {
-  console.log(type);
+  // console.log(type);
   if (type === AUTH_LOGIN) {
     if (localStorage.isLoggedIn === "false") {
       fetchStatus();

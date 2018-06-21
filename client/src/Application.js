@@ -1,13 +1,32 @@
 import React from 'react';
+import Divider from '@material-ui/core/Divider';
 import { List, Edit, Create, Datagrid, TextField, EditButton
+  , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
+import AlphaNav from './controls/AlphaNav';
+
+const PostActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
+    <CardActions>
+        {filters && React.cloneElement(filters, {
+            resource,
+            showFilter,
+            displayedFilters,
+            filterValues,
+            context: 'button',
+        }) }
+        <CreateButton basePath={basePath} />
+        <RefreshButton />
+         {/* Add your custom actions */}
+        <AlphaNav {...resource} />
+    </CardActions>
+);
 
 export const ApplicationList = (props) => (
-    <List {...props}>
+    <List {...props} actions={<PostActions />} title="Applications">
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
@@ -134,25 +153,8 @@ export const ApplicationEdit = (props) => (
             sort={{ field: 'keyname', order: 'ASC' }}
             perPage={ 1000000 }
           >
-            <SelectArrayInput optionText="keyname" />
+            <SelectArrayInput optionText="keyname" optionValue="id" />
           </ReferenceArrayInput>
-
-          <ReferenceArrayInput source="technology" label="Technologies"
-            reference="technology"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" />
-          </ReferenceArrayInput>
-
-          <ReferenceArrayInput source="organization" label="Users"
-            reference="organization"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" />
-          </ReferenceArrayInput>
-
         </SimpleForm>
     </Edit>
 );
