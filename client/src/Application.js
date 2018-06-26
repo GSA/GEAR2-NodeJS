@@ -155,6 +155,13 @@ export const ApplicationEdit = (props) => (
           >
             <SelectArrayInput optionText="keyname" optionValue="id" />
           </ReferenceArrayInput>
+          <ReferenceArrayInput source="technology" label="Technologies"
+            reference="technology"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+          >
+            <SelectArrayInput optionText="keyname" optionValue="id" />
+          </ReferenceArrayInput>
         </SimpleForm>
     </Edit>
 );

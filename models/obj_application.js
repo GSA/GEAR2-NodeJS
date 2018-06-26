@@ -175,15 +175,6 @@ module.exports = function(sequelize, DataTypes) {
       },
       field: 'obj_fisma_Id'
     },
-    objAppUserlocId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      references: {
-        model: 'obj_app_userloc',
-        key: 'Id'
-      },
-      field: 'obj_app_userloc_Id'
-    },
     createDtg: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -223,10 +214,17 @@ module.exports = function(sequelize, DataTypes) {
   });
   application.associate = function (models) {
     models.application.belongsToMany(models.capability, {
-      as: 'capability',
+      as: 'capabilities',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_capability_Id',
       through: 'zk_application_business_capabilities',
+      timestamps: false,
+    });
+    models.application.belongsToMany(models.technology, {
+      as: 'technology',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_technology_Id',
+      through: 'zk_application_technology',
       timestamps: false,
     });
   }

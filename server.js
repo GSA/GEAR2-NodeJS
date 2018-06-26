@@ -157,8 +157,34 @@ Object.entries(orm.models).forEach((m) => {
       endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
       pagination: true,
       associations: true,
+      search: {
+        param: 'kn',
+        attributes: ['keyname']
+      }
     });
     resource.use(finaleMiddleware);
+    if (name === 'application') {
+      console.log('\n\n'+name+'\n\n')
+      console.log(resource.update.write);
+      resource.update.write((req, res, context) => {
+        if (context.attributes.hasOwnProperty('capability')) {
+
+          console.log('\n\nWITH CAPS!');
+          console.log(context.attributes.capability);
+          console.log('--------------------------------');
+          console.log(req.body.capability);
+          console.log('\n\n')
+
+          res.status(200).json({
+            capabilities: {
+              context: context.attributes.capability,
+              payload: req.body.capability
+            }
+          });
+          context.stop();
+        }
+      });
+    }
   }
 });
 

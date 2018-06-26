@@ -34,7 +34,7 @@ export const FismaEdit = (props) => (
         optionText="name" optionValue="name"
         choices={ FedOrContractor }
       />
-      <DateInput source="atoDate" />
+    <DateInput source="atoDate" showTime />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }

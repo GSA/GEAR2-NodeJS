@@ -61,14 +61,14 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_capability'
   });
-  capability.associate = function (models) {
-    models.capability.belongsToMany(models.application, {
-      as: 'application',
-      foreignKey: 'obj_capability_Id',
-      otherKey: 'obj_application_Id',
-      through: 'zk_application_business_capabilities',
-      timestamps: false,
-    });
-  }
+  // capability.associate = function (models) {
+  //   models.capability.belongsToMany(models.application, {
+  //     as: 'application',
+  //     foreignKey: 'obj_capability_Id',
+  //     otherKey: 'obj_application_Id',
+  //     through: 'zk_application_business_capabilities',
+  //     timestamps: false,
+  //   });
+  // }
   return capability;
 };

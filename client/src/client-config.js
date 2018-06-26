@@ -37,6 +37,7 @@ export default (apiUrl, httpClient = fetchJson) => {
     };
     switch (type) {
       case GET_LIST: {
+        console.log('GET LIST')
         const { page, perPage } = params.pagination;
         const query = {
           ...params.filter,
