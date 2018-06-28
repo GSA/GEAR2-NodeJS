@@ -1,5 +1,4 @@
 import React from 'react';
-import Divider from '@material-ui/core/Divider';
 import { List, Edit, Create, Datagrid, TextField, EditButton
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
@@ -8,6 +7,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 import AlphaNav from './controls/AlphaNav';
+import { isSelf } from './validators';
 
 const PostActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
     <CardActions>
@@ -20,7 +20,6 @@ const PostActions = ({ resource, filters, displayedFilters, filterValues, basePa
         }) }
         <CreateButton basePath={basePath} />
         <RefreshButton />
-         {/* Add your custom actions */}
         <AlphaNav {...resource} />
     </CardActions>
 );
@@ -155,6 +154,7 @@ export const ApplicationEdit = (props) => (
           >
             <SelectArrayInput optionText="keyname" optionValue="id" />
           </ReferenceArrayInput>
+
           <ReferenceArrayInput source="technology" label="Technologies"
             reference="technology"
             sort={{ field: 'keyname', order: 'ASC' }}
@@ -162,6 +162,47 @@ export const ApplicationEdit = (props) => (
           >
             <SelectArrayInput optionText="keyname" optionValue="id" />
           </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="replacedby" label="Replaced by"
+            reference="application"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+            validate={ isSelf(this) }>
+            <SelectArrayInput optionText="keyname" optionValue="id" />
+          </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="organization" label="Users"
+            reference="organization"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+          >
+            <SelectArrayInput optionText="keyname" optionValue="id" />
+          </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="business_poc" label="Business POC"
+            reference="poc"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+          >
+            <SelectArrayInput optionText="keyname" optionValue="id" />
+          </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="business_poc" label="Business POC"
+            reference="poc"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+          >
+            <SelectArrayInput optionText="keyname" optionValue="id" />
+          </ReferenceArrayInput>
+
+          <ReferenceArrayInput source="technical_poc" label="Technical POC"
+            reference="poc"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+          >
+            <SelectArrayInput optionText="keyname" optionValue="id" />
+          </ReferenceArrayInput>
+
         </SimpleForm>
     </Edit>
 );

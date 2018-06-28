@@ -227,6 +227,38 @@ module.exports = function(sequelize, DataTypes) {
       through: 'zk_application_technology',
       timestamps: false,
     });
-  }
+    models.application.belongsToMany(models.application, {
+      as: 'replacedby',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_application_Id1',
+      through: 'zk_application_replacedby',
+      timestamps: false,
+    });
+    models.application.belongsToMany(models.organization, {
+      as: 'users',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_org_user_Id',
+      through: 'zk_application_users',
+      timestamps: false,
+    });
+    models.application.belongsToMany(models.poc, {
+      as: 'business_poc',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_bus_poc_Id',
+      through: 'zk_application_business_poc',
+      timestamps: false,
+    });
+    models.application.belongsToMany(models.poc, {
+      as: 'technical_poc',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_tech_poc_Id',
+      through: 'zk_application_technical_poc',
+      timestamps: false,
+    });
+    // models.application.hasMany(models.applicationRationalization, {
+    //   as: 'applicationRationalization',
+    //   foreignKey: 'obj_application_Id',
+    // });
+  };
   return application;
 };

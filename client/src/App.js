@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { Admin, Resource, Delete } from 'react-admin';
 import epilogueClient from './client-config';
 
@@ -35,7 +35,7 @@ const App = () => (
       <Resource name="appHostingProvider" />
       <Resource name="applicationCost" />
       <Resource name="applicationInterfaces" />
-      <Resource name="applicationLocalization" />
+      <Resource name="applicationRationalization" />
       <Resource name="applicationStatus" />
       <Resource name="appPlatform" />
       <Resource name="appUserLoc" />

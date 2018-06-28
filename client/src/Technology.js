@@ -27,7 +27,8 @@ export const TechnologyEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
-            <DateInput source="approvedStatusExpirationDate" />
+            <DateInput source="approvedStatusExpirationDate"
+              format={dateFormatter} parse={dateParser} />
             <TextInput source="vendorStandardOrganization" />
             <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
               optionText="name" optionValue="name"
@@ -68,7 +69,8 @@ export const TechnologyCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
-            <DateInput source="approvedStatusExpirationDate" />
+            <DateInput source="approvedStatusExpirationDate"
+              format={dateFormatter} parse={dateParser} />
             <TextInput source="vendorStandardOrganization" />
             <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
               optionText="name" optionValue="name"

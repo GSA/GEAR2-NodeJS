@@ -119,6 +119,8 @@ export default (apiUrl, httpClient = fetchJson) => {
      * @returns {Promise} the Promise for a REST response
      */
   return (type, resource, params) => {
+    // HANDLES n:m CHILDREN. On GET responses, children are full db records, embedded as nested
+    // objects instead of the expected array of Id integers.
     // json-server doesn't handle WHERE IN requests, so we fallback to calling GET_ONE n times instead
     if (type === GET_MANY) {
       if (isNaN(params.ids[0])) {

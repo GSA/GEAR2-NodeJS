@@ -6,6 +6,7 @@ import { List, Edit, Create, Datagrid, DateField, TextField
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, FedOrContractor } from './valuelists';
+import { dateFormatter, dateParser } from './formatters/DateTime';
 
 export const FismaList = (props) => (
   <List {...props}>
@@ -34,13 +35,16 @@ export const FismaEdit = (props) => (
         optionText="name" optionValue="name"
         choices={ FedOrContractor }
       />
-    <DateInput source="atoDate" showTime />
+    <DateInput source="atoDate"
+      format={dateFormatter} parse={dateParser} />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      <DateInput source="atoRenewalDate" />
-      <DateInput source="inactiveDate" />
+      <DateInput source="atoRenewalDate"
+        format={dateFormatter} parse={dateParser} />
+      <DateInput source="inactiveDate"
+        format={dateFormatter} parse={dateParser} />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
         allowEmpty optionText="name" optionValue="name"
         choices={ ConfirmChoices }
@@ -85,7 +89,6 @@ export const FismaEdit = (props) => (
           <TextInput source="keyname" />
         </SimpleFormIterator>
       </ArrayInput>
-
     </SimpleForm>
   </Edit>
 );
@@ -100,13 +103,16 @@ export const FismaCreate = (props) => (
         optionText="name" optionValue="name"
         choices={ FedOrContractor }
       />
-      <DateInput source="atoDate" label="ATO Date" />
+      <DateInput source="atoDate" label="ATO Date"
+        format={dateFormatter} parse={dateParser} />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      <DateInput source="atoRenewalDate" label="ATO Renewal Date" />
-      <DateInput source="inactiveDate" label="Inactive Date" />
+      <DateInput source="atoRenewalDate" label="ATO Renewal Date"
+        format={dateFormatter} parse={dateParser} />
+      <DateInput source="inactiveDate" label="Inactive Date"
+        format={dateFormatter} parse={dateParser} />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
         allowEmpty optionText="name" optionValue="name"
         choices={ ConfirmChoices }

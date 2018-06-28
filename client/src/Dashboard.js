@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 const content = {
-  tstamp: `21 JUN 2018 8:30 AM`,
+  tstamp: `28 JUN 2018 8:30 AM`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
 }
 
@@ -32,8 +32,6 @@ const styles = {
     color:'#333',
     fontSize: 18,
     fontWeight: 700,
-    // margin: 0,
-    // lineHeight: 1,
     padding: 0,
   }
 };
