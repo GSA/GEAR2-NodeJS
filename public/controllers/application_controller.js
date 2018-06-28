@@ -441,7 +441,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
               }
             }
           });
-          if (status != 'Retired') {
+          if (status != 'Retired' && [val.SSO] != "External") {
             $scope.bstData.push({
               "Owner" : owner,
 			  "SSO" : sso,
@@ -1001,7 +1001,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             title: 'FY21'
           },
 		  {
-            field: 'Notes',
+            field: 'TIME_Notes',
             title: 'Notes',
             // visible: false,
             sortable: true
