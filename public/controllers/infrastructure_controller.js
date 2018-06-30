@@ -345,7 +345,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
           },
           {
             field: 'OMBUID',
-            title: 'OMB Unique ID',
+            title: 'Application ID',
             sortable: true,
             visible: false
         }],

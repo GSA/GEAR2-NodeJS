@@ -200,7 +200,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         },
 		{
           field: 'OMBUID',
-          title: 'OMB Unique ID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         },
@@ -374,7 +374,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         },
     {
           field: 'OMBUID',
-          title: 'OMB Unique ID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         }
@@ -586,7 +586,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           },
       {
           field: 'OMBUID',
-          title: 'OMB Unique ID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         }],
@@ -875,7 +875,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         },
      {
           field: 'OMBUID',
-          title: 'OMB Unique ID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         }],

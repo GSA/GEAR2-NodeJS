@@ -128,7 +128,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           sortable: true
         }, {
           field: 'UII',
-          title: 'UII',
+          title: 'Investment UII',
           visible: false,
           sortable: true
         }],
@@ -326,7 +326,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         },
             {
           field: 'OMBUID',
-          title: 'OMB Unique ID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         }],

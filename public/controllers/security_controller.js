@@ -807,7 +807,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			},
           {
           field: 'OMBUID',
-          title: 'OMB Unique ID',
+          title: 'Application ID',
           sortable: true,
           visible: false
         }],
@@ -857,11 +857,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         $scope.bstData = fismaSrc;
 		
         $scope.bstData = _.uniq(fismaSrc, function(item) {
-			console.log(item.Name);
+			// console.log(item.Name);
           return item.Name;
         });
         bstSearchUtils.checkFilterState($scope);
-		console.log($scope.bstData[0])
+		// console.log($scope.bstData[0])
         $scope.bsTableConfig = {
           columns: [{
             field: 'RelOrgDisplayName',
