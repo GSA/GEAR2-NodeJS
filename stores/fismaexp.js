@@ -1,5 +1,5 @@
-const Store = require('./store');
-const FISMAexpModel = require('../models/fismaexp');
+const Store = require('./store-mysql');
+const FISMAexpModel = require('../models/fisma');
 
 class FISMAexpStore extends Store {
   constructor() {

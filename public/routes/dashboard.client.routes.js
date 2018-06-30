@@ -164,7 +164,7 @@ function($routeProvider, $locationProvider) {
 	when('/FISMA', {
 		templateUrl: 'partials/security_fisma_report.html'
 	}).
-	when('/FISMAexp/find/:query*', {
+ 	when('/FISMAexp/find/:query*', {
 		templateUrl: 'partials/security_fismaexp_report.html'
 	}).
 	when('/FISMAexp', {
@@ -181,7 +181,7 @@ function($routeProvider, $locationProvider) {
 	}).
 	when('/FISMAexp2', {
 		templateUrl: 'partials/security_fismaexp2_report.html'
-	}).
+	}). 	
 	when('/FISMA/:id', {
 		templateUrl: 'partials/security_fisma_detail.html'
 	}).

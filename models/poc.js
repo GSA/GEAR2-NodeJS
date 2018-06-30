@@ -14,6 +14,9 @@ class POCModel extends Model {
       {
         name: 'Name',
         type: 'string',
+		mapping(data) {
+          return data.Keyname || data.name || data.Name;
+        },
       },
       {
         name: 'Phone',
@@ -22,6 +25,13 @@ class POCModel extends Model {
       {
         name: 'Email',
         type: 'string',
+      },
+	   {
+        name: 'Region',
+        type: 'string',
+		mapping(data) {
+          return data.Region || data.RISSO;
+        },
       },
       {
         name: 'Owner',
@@ -38,6 +48,11 @@ class POCModel extends Model {
           return data['POC Type'];
         },
       },
+      {
+        name: 'Organization',
+        type: 'string',
+      },
+	  
     ];
   }
 }

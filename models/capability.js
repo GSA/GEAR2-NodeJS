@@ -26,6 +26,9 @@ class CapModel extends Model {
       {
         name: 'ReferenceNum',
         type: 'string',
+		mapping(o){
+			return o.RefNum || o.ReferenceNum;
+		}
       },
       // next 3 fields are used by cap visualization
       {
@@ -35,19 +38,29 @@ class CapModel extends Model {
       {
         name: 'RefNum',
         type: 'string',
+		mapping(o){
+			return o.RefNum || o.ReferenceNum;
+		}
       },
       {
         name: 'ParRefNum',
         type: 'string',
       },
-      {
+     /*  {
         name: 'Ref',
         type: 'string',
-      },
+		mapping(o){
+			return o.RefNum || o.ReferenceNum;
+		}
+      }, */
       {
         name: 'ParentCap',
         type: 'string',
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },	  
     ];
   }
 }

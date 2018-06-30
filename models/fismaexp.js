@@ -16,6 +16,9 @@ class FISMAexpModel extends Model {
       {
         name: 'RelOrgDisplayName',
         type: 'string',
+		mapping(o) {
+          return o.RelOrgDisplayName || o.orgName;
+        },
       },
       {
         name: 'FedContractorLoc',
@@ -28,6 +31,11 @@ class FISMAexpModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
+ 		mapping(d){
+			if(d.ATODate){
+			let s = d.ATODate.toISOString();
+			return s.substring(0,10);}
+		}, 
       },
       {
         name: 'ATOType',
@@ -36,6 +44,11 @@ class FISMAexpModel extends Model {
       {
         name: 'RenewalDate',
         type: 'string',
+ 		mapping(d){
+			if(d.RenewalDate){
+			let s = d.RenewalDate.toISOString();
+			return s.substring(0,10);}
+		},
       },
       {
         name: 'ComplFISMA',
@@ -116,7 +129,17 @@ class FISMAexpModel extends Model {
 	  {
 		name: 'InactiveDate',
 		type: 'string',
-	  }
+ 		mapping(d){
+			if(d.InactiveDate){
+			let s = d.InactiveDate.toISOString();
+			return s.substring(0,10);}
+		},
+	
+	  },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
     ];
   }
 }

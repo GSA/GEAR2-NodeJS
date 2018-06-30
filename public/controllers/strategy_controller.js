@@ -312,7 +312,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
         },
 
 		{
-          field: 'FismaSystem',
+          field: 'FISMASystem',
           title: 'FISMA System',
           sortable: true,
           visible: false

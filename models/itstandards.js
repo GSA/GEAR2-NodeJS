@@ -80,6 +80,11 @@ class ITStandardsModel extends Model {
       {
         name: 'ApprovalExpirationDate',
         type: 'string',
+ 		mapping(d){
+			if(d.ApprovalExpirationDate){
+			let s = d.ApprovalExpirationDate.toISOString();
+			return s.substring(0,10);}
+		},
 
       },
     ];
