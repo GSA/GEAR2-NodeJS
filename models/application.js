@@ -40,6 +40,14 @@ class Application extends Model {
         },
 
       },
+	  {
+        name: 'BusPOC',
+        type: 'string',
+      },
+	  {
+        name: 'TechPOC',
+        type: 'string',
+      },
 /*       {
         name: 'System',
         type: 'string',
