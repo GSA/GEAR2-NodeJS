@@ -31,6 +31,10 @@ class OrganizationModel extends Model {
         type: 'string',
 
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
     ];
   }
 }

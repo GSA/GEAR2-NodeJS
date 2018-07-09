@@ -303,6 +303,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             visible: false
           },
           {
+            field: 'FY21',
+            title: 'FY21',
+            visible: false
+          },
+          {
             field: 'Notes',
             title: 'Notes',
             visible: false
@@ -321,7 +326,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
         },
 
           {
-            field: 'FismaSystem',
+            field: 'FISMASystem',
             title: 'FISMA System',
             sortable: true,
             visible: false
@@ -340,7 +345,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
           },
           {
             field: 'OMBUID',
-            title: 'OMB Unique ID',
+            title: 'Application ID',
             sortable: true,
             visible: false
         }],

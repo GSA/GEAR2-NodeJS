@@ -1,4 +1,4 @@
-const Store = require('./store');
+const Store = require('./store-mysql');
 const ApplicationModel = require('../models/application');
 
 class AppStore extends Store {

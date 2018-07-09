@@ -24,7 +24,14 @@ class ParentSystemModel extends Model {
 	  {
         name: 'SSO',
         type: 'string',
+		mapping(o) {
+          return o.orgSSO || o.SSO;
+        },
 
+      },
+	  {
+        name: 'old_Id',
+        type: 'string',
       },
     ];
   }

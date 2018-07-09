@@ -1,4 +1,4 @@
-const Store = require('./store');
+const Store = require('./store-mysql');
 const FISMAModel = require('../models/fisma');
 
 class FISMAStore extends Store {

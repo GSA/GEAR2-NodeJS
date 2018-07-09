@@ -17,7 +17,7 @@
                     <b>Overview:</b> Contains a general description of the business application.<br>
                     <b>Related Business Applications:</b> Lists all of the business applications that have been aligned to that investment.<br>
                 ">
-                <span>Click to see how to use this report</span>
+                <span>Help using this report</span>
             </button>
         </div>
         <div class="panel-body" style="margin : 20px">
@@ -45,9 +45,10 @@
                             <tr>
                                 <td><i class="fa fa-user"></i>&nbsp;Investment Manager</td>
                                 <td>
-                                    <div ng-show="!!investment.InvManager" ng-repeat="p in pocs | filter: {Type:'Investment'}">
+<!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
                                         <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
-                                    </div>
+                                    </div> -->
+									<a href="mailto:{{investment.InvManagerEmail}}">{{investment.InvManager}}</a>
                                     <div ng-hide="!!investment.InvManager">
                                         None Provided
                                     </div>
@@ -55,7 +56,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-tag"></i>&nbsp;UII</td>
+                                <td><i class="fa fa-tag"></i>&nbsp;Investment UII</td>
                                 <td>{{ investment.UII }}</td>
                             </tr>
                             <tr>

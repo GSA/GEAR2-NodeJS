@@ -17,7 +17,7 @@ router.route('/:id')
 // router.route('/:id/technologies/')
     // .get(testCtrl.findTechnologies);
 
- // router.route('/:id/pocs/')
-     // .get(fismapocCtrl.findPOCs);
+ //router.route('/:id/pocs/')
+ //     .get(fismapocCtrl.findPOCs);
 
 module.exports = router;

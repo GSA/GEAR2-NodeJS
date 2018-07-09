@@ -11,7 +11,7 @@
 				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
 				data-content="<b>Overview:</b> Contains general properties of the FISMA system.<br>
 				<b>Certified Business Applications:</b> Lists all the business applications that are certified under this FISMA system.<br>
-				">Click to see how to use this report</button>
+				">Help using this report</button>
 			</div>
                 <div class="panel-body" style="margin : 20px">
                     <div role="tabpanel">
@@ -70,13 +70,25 @@
                                     <td><i class="fa fa-tag"></i>&nbsp;FISMA System Identifier</td>
                                     <td>{{ fisma.FISMASystemIdentifier }}</td>
                                 </tr>
-                  <tr>
+								<tr>
                                     <td><i class="fa fa-file"></i>&nbsp;Related Artifacts</td>
-                                    <td><a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
+						
+                                    <!-- <td>
+									<a href="{{fisma.RelatedArtURL}}" + " target = '_blank'">
 									<div style="height:100%;width:100%">
-									  {{fisma.RelatedArtName}}
+									   {{fisma.RelatedArtName}} 
 									</div>
 									</a>
+									</td> -->
+                                    <td>
+										<div	ng-repeat = "x in fisma.RelatedArtName_test">
+												<a href="{{x.ArtURL}}" + " target = '_blank'" + >
+												<!-- <div style="height:100%;width:100%"> -->
+												   {{x.ArtName}} 
+												<!-- </div> -->
+												 
+												</a>
+										</div>																		
 									</td>
                                 </tr>
                             </table>

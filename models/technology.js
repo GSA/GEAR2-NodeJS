@@ -40,6 +40,10 @@ class TechnologyModel extends Model {
         name: 'Category',
         type: 'string',
       },
+	  {
+        name: 'old_Id',
+        type: 'string',
+      },
     ];
   }
 }
