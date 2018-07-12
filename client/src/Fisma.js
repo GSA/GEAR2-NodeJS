@@ -1,15 +1,35 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, DateField, TextField
-  , EditButton, ArrayInput, DateInput, DisabledInput
-  , LongTextInput, ReferenceInput, SelectInput, SimpleForm
-  , SimpleFormIterator, TextInput
+import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
+  , CardActions, CreateButton, RefreshButton
+  , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
+  , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, FedOrContractor } from './valuelists';
-import { dateFormatter, dateParser } from './formatters/DateTime';
+import { formatDate, parseDate } from './formatters/DateTime';
+
+const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
+    <CardActions>
+        {filters && React.cloneElement(filters, {
+            resource,
+            showFilter,
+            displayedFilters,
+            filterValues,
+            context: 'button',
+        }) }
+        <CreateButton basePath={basePath} />
+        <RefreshButton />
+    </CardActions>
+);
+
+const KeynameFilter = props => (
+    <Filter {...props}>
+      <TextInput label="keyname" source="kn" />
+    </Filter>
+);
 
 export const FismaList = (props) => (
-  <List {...props}>
+  <List {...props} actions={<ListActions />}>
     <Datagrid>
       <TextField source="id" />
       <TextField source="keyname" />
@@ -36,15 +56,15 @@ export const FismaEdit = (props) => (
         choices={ FedOrContractor }
       />
     <DateInput source="atoDate"
-      format={dateFormatter} parse={dateParser} />
+      format={formatDate} parse={parseDate} />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
       <DateInput source="atoRenewalDate"
-        format={dateFormatter} parse={dateParser} />
+        format={formatDate} parse={parseDate} />
       <DateInput source="inactiveDate"
-        format={dateFormatter} parse={dateParser} />
+        format={formatDate} parse={parseDate} />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
         allowEmpty optionText="name" optionValue="name"
         choices={ ConfirmChoices }
@@ -104,15 +124,15 @@ export const FismaCreate = (props) => (
         choices={ FedOrContractor }
       />
       <DateInput source="atoDate" label="ATO Date"
-        format={dateFormatter} parse={dateParser} />
+        format={formatDate} parse={parseDate} />
       <SelectInput source="interimAto" label="Interim ATO" allowEmpty
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
       <DateInput source="atoRenewalDate" label="ATO Renewal Date"
-        format={dateFormatter} parse={dateParser} />
+        format={formatDate} parse={parseDate} />
       <DateInput source="inactiveDate" label="Inactive Date"
-        format={dateFormatter} parse={dateParser} />
+        format={formatDate} parse={parseDate} />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
         allowEmpty optionText="name" optionValue="name"
         choices={ ConfirmChoices }

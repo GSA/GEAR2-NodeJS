@@ -1,15 +1,14 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton
+import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
-import AlphaNav from './controls/AlphaNav';
 import { isSelf } from './validators';
 
-const PostActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
+const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
         {filters && React.cloneElement(filters, {
             resource,
@@ -20,12 +19,17 @@ const PostActions = ({ resource, filters, displayedFilters, filterValues, basePa
         }) }
         <CreateButton basePath={basePath} />
         <RefreshButton />
-        <AlphaNav {...resource} />
     </CardActions>
 );
 
+const KeynameFilter = props => (
+    <Filter {...props}>
+      <TextInput label="keyname" source="kn" />
+    </Filter>
+);
+
 export const ApplicationList = (props) => (
-    <List {...props} actions={<PostActions />} title="Applications">
+    <List {...props} actions={<ListActions />} title="Applications" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />

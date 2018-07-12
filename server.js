@@ -157,10 +157,11 @@ Object.entries(orm.models).forEach((m) => {
       endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
       pagination: true,
       associations: true,
-      search: {
+      search: [{
         param: 'kn',
+        operator: '$like',
         attributes: ['keyname']
-      }
+      }]
     });
     resource.use(finaleMiddleware);
     if (name === 'application') {

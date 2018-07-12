@@ -1,13 +1,35 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton
-  , DisabledInput, LongTextInput, SimpleForm, DateInput
-  , TextInput, SelectInput, ReferenceInput
+import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
+  , CardActions, CreateButton, RefreshButton
+  , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
+  , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices } from './valuelists';
+import { formatDate, parseDate } from './formatters/DateTime';
+
+const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
+    <CardActions>
+        {filters && React.cloneElement(filters, {
+            resource,
+            showFilter,
+            displayedFilters,
+            filterValues,
+            context: 'button',
+        }) }
+        <CreateButton basePath={basePath} />
+        <RefreshButton />
+    </CardActions>
+);
+
+const KeynameFilter = props => (
+    <Filter {...props}>
+      <TextInput label="keyname" source="kn" />
+    </Filter>
+);
 
 export const TechnologyList = (props) => (
-    <List {...props}>
+    <List {...props} actions={<ListActions />}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
@@ -28,7 +50,7 @@ export const TechnologyEdit = (props) => (
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate"
-              format={dateFormatter} parse={dateParser} />
+              parse={parseDate} format={formatDate} />
             <TextInput source="vendorStandardOrganization" />
             <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
               optionText="name" optionValue="name"
@@ -70,7 +92,7 @@ export const TechnologyCreate = (props) => (
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate"
-              format={dateFormatter} parse={dateParser} />
+              format={formatDate} parse={parseDate} />
             <TextInput source="vendorStandardOrganization" />
             <SelectInput source="availableThroughMyview" label="Available through MyView" allowEmpty
               optionText="name" optionValue="name"

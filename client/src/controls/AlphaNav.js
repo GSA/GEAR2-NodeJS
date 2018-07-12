@@ -33,9 +33,10 @@ class AlphaNav extends React.Component {
 
   handleClick = ind => () => {
     this.setState({ currentChip: ind });
-    window.location.assign(
-      `${window.location.href.replace(window.location.hash, '')}/#/application/?keyname=${String.fromCharCode(ind + 64)}$bw`
-    );
+    this.props.push(String.fromCharCode(ind + 64))
+    // window.location.assign(
+    //   `${window.location.href.replace(window.location.hash, '')}/#/application/?keyname=${String.fromCharCode(ind + 64)}$bw`
+    // );
   };
 
   render() {
