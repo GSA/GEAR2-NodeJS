@@ -220,13 +220,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStand
             // visible: false
           // }
           {
-            field: 'BusinessPOC',
+            field: 'BusPOC',
             title: 'Business POC',
             sortable: true,
             visible: false
           },
           {
-            field: 'TechnicalPOC',
+            field: 'TechPOC',
             title: 'Technical POC',
             sortable: true,
             visible: false

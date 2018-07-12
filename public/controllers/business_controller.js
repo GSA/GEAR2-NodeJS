@@ -246,13 +246,13 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true
             },
 			{
-              field: 'BusinessPOC',
+              field: 'BusPOC',
               title: 'Business POC',
               sortable: true,
 			  visible: false
             },
 			{
-              field: 'TechnicalPOC',
+              field: 'TechPOC',
               title: 'Technical POC',
               sortable: true,
 			  visible: false
@@ -1174,13 +1174,13 @@ $scope.createCapabilityTree = function () {
 
                 },
                 {
-                  field: 'BusinessPOC',
+                  field: 'BusPOC',
                   title: 'Business POC',
                   sortable: true,
                   visible: false
                 },
                 {
-                  field: 'TechnicalPOC',
+                  field: 'TechPOC',
                   title: 'Technical POC',
                   sortable: true,
                   visible: false
