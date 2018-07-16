@@ -57,7 +57,24 @@ class ITStandardsModel extends Model {
       {
         name: 'ReferenceDocuments',
         type: 'string',
-        mapping(d)
+		mapping(d) {
+          let its = null;
+		  let s = [];
+		  if (d.ReferenceDocuments){
+				  its = d.ReferenceDocuments.split(';');
+				  its = its.map((it, cb) =>
+				{
+					 cb = "<a href=" + "'" + it + "'" + " target = '_blank'> " + it + "</a>"
+					//console.log(cb);
+					s.push(cb);						
+				})
+		  }
+		   else{
+            s.push(d.ReferenceDocuments);
+          }
+          return s;
+        }, 
+/*         mapping(d)
         {
           let s = '';
           if(d.ReferenceDocuments){
@@ -67,7 +84,7 @@ class ITStandardsModel extends Model {
             s = d.ReferenceDocuments;
           }
           return s;
-        },
+        }, */
       },
 	    {
         name: 'Refdocdetail',
