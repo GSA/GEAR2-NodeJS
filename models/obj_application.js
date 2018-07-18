@@ -255,10 +255,16 @@ module.exports = function(sequelize, DataTypes) {
       through: 'zk_application_technical_poc',
       timestamps: false,
     });
-    // models.application.hasMany(models.applicationRationalization, {
-    //   as: 'applicationRationalization',
-    //   foreignKey: 'obj_application_Id',
-    // });
+    models.application.hasMany(models.applicationRationalization, {
+      as: 'applicationRationalization',
+      foreignKey: 'obj_application_Id',
+      timestamps: false,
+    });
+    models.application.hasMany(models.applicationInterfaces, {
+      as: 'applicationInterfaces',
+      foreignKey: 'obj_application_Id',
+      timestamps: false,
+    });
   };
   return application;
 };

@@ -69,7 +69,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       field: 'Comments'
     },
-    obj_poc_so_Id: {
+    authorizingOfficialId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      field: 'obj_poc_ao_Id'
+    },
+    systemOwnerId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       field: 'obj_poc_so_Id'
@@ -78,6 +83,30 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       field: 'obj_fscloudst_Id'
+    },
+    fscloudspId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      field: 'obj_fscloudst_Id'
+    },
+    atoTypeId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      field: 'obj_atotype_Id'
+    },
+    ssoId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      references: {
+        model: 'obj_organization',
+        key: 'Id'
+      },
+      field: 'obj_organization_Id'
+    },
+    scImpactLevelId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      field: 'obj_scimpactlevel_Id'
     },
     createDtg: {
       type: DataTypes.DATE,
@@ -115,27 +144,28 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: false,
     });
     models.fisma.belongsToMany(models.poc, {
-      as: 'fisma_issm',
+      as: 'issm',
       foreignKey: 'objFismaSystem_Id',
       otherKey: 'objPOC_Id',
       through: 'zk_fisma_issm',
       timestamps: false,
     });
     models.fisma.belongsToMany(models.poc, {
-      as: 'fisma_isso',
+      as: 'isso',
       foreignKey: 'objFismaSystem_Id',
       otherKey: 'objPOC_Id',
       through: 'zk_fisma_isso',
       timestamps: false,
     });
     models.fisma.belongsToMany(models.fisma, {
-      as: 'fisma_replacedby',
+      as: 'replacedby',
       foreignKey: 'objFismaSystem_Id_Old',
       otherKey: 'objFismaSystem_Id_New',
       through: 'zk_fisma_replacedby',
       timestamps: false,
     });
     models.fisma.belongsToMany(models.technology, {
+      as: 'technology',
       foreignKey: 'obj_fisma_id',
       otherKey: 'obj_technology_id',
       through: 'zk_fisma_technology',

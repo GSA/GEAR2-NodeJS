@@ -3,6 +3,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
+  , ArrayInput, SimpleFormIterator
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
@@ -151,6 +152,24 @@ export const ApplicationEdit = (props) => (
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
+          <ArrayInput source="applicationRationalization"
+            label="Application Rationalization">
+            <SimpleFormIterator>
+              <TextInput source="FY" />
+              <TextInput source="TIME_Val" />
+              <TextInput source="Comment" />
+            </SimpleFormIterator>
+          </ArrayInput>
+
+          {/*}<ArrayInput source="applicationInterfaces"
+            label="Application Interfaces">
+            <SimpleFormIterator>
+              <ReferenceInput label="PII" source="pii" reference="piiCategory" allowEmpty>
+                <SelectInput optionText="keyname" optionValue="id" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput> */}
+
           <ReferenceArrayInput source="capability" label="Capabilities"
             reference="capability"
             sort={{ field: 'keyname', order: 'ASC' }}
@@ -177,14 +196,6 @@ export const ApplicationEdit = (props) => (
 
           <ReferenceArrayInput source="organization" label="Users"
             reference="organization"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
-
-          <ReferenceArrayInput source="business_poc" label="Business POC"
-            reference="poc"
             sort={{ field: 'keyname', order: 'ASC' }}
             perPage={ 1000000 }
           >

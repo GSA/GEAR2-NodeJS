@@ -25,50 +25,38 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
       </Filter>
   );
 
-export const CapabilityList  = (props) => (
-    <List {...props} actions={<ListActions />} title="Business Capabilities" filters={<KeynameFilter />} >
+export const FismaArtifactList  = (props) => (
+    <List {...props} actions={<ListActions />} title="Fisma Artifacts" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
-            <TextField source="referenceNumber" />
+            <TextField source="link" />
             <EditButton />
         </Datagrid>
     </List>
 );
 
-const CapabilityTitle = ({ record }) => {
-    return <span>Capability {record ? `"${record.keyname}"` : ''}</span>;
+const FismaArtifactTitle = ({ record }) => {
+    return <span>FismaArtifact {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const CapabilityEdit = (props) => (
-    <Edit keyname={<CapabilityTitle />} {...props}>
+export const FismaArtifactEdit = (props) => (
+    <Edit keyname={<FismaArtifactTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="link" validate={[required(), maxLength(500)]} />
             <LongTextInput source="description" />
-            <TextInput source="referenceNumber" />
-
-            <ReferenceInput label="Parent" source="parentId"
-              reference="capability" allowEmpty>
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
         </SimpleForm>
     </Edit>
 );
 
-export const CapabilityCreate = (props) => (
+export const FismaArtifactCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
-            <LongTextInput source="description" />
-            <TextInput source="referenceNumber" />
-
-            <ReferenceInput label="Parent" source="parentId"
-              reference="capability" allowEmpty>
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
+          <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+          <TextInput source="link" validate={[required(), maxLength(500)]} />
+          <LongTextInput source="description" />
         </SimpleForm>
     </Create>
 );

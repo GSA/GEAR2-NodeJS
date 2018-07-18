@@ -5,10 +5,12 @@ import epilogueClient from './client-config';
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
 import { CapabilityList, CapabilityEdit, CapabilityCreate } from './Capability';
 import { FismaList, FismaEdit, FismaCreate } from './Fisma';
+import { FismaArtifactList, FismaArtifactEdit, FismaArtifactCreate } from './FismaArtifact';
 import { InvestmentList, InvestmentEdit, InvestmentCreate } from './Investment';
 import { ParentSystemList, ParentSystemEdit, ParentSystemCreate } from './ParentSystem';
 import { PocList, PocEdit, PocCreate } from './Poc';
 import { TechnologyList, TechnologyEdit, TechnologyCreate } from './Technology';
+import { ReferenceDocumentList, ReferenceDocumentEdit, ReferenceDocumentCreate } from './ReferenceDocument';
 
 import authProvider from './authProvider';
 import LoginPage from './LoginPage';
@@ -28,9 +30,11 @@ const App = () => (
       <Resource name="capability" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} remove={Delete} />
       <Resource name="poc" options={{ label: 'Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} remove={Delete} />
       <Resource name="fisma" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} remove={Delete} />
+      <Resource name="fismaArtifact" options={{ label: 'FISMA Artifacts' }} list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} />
       <Resource name="investment" options={{ label: 'Investments' }} list={InvestmentList} edit={InvestmentEdit} create={InvestmentCreate} remove={Delete} />
       <Resource name="parentSystem" options={{ label: 'Parent Systems' }} list={ParentSystemList} edit={ParentSystemEdit} create={ParentSystemCreate} remove={Delete} />
       <Resource name="technology" options={{ label: 'Technologies' }} list={TechnologyList} edit={TechnologyEdit} create={TechnologyCreate} remove={Delete} />
+      <Resource name="referenceDocuments" options={{ label: 'Technology Ref Doc' }} list={ReferenceDocumentList} edit={ReferenceDocumentEdit} create={ReferenceDocumentCreate} remove={Delete} />
 
       <Resource name="appHostingProvider" />
       <Resource name="applicationCost" />
@@ -42,7 +46,6 @@ const App = () => (
       <Resource name="atoType" />
       <Resource name="cuiCategory" />
       <Resource name="deploymentType" />
-      <Resource name="fismaArtifact" />
       <Resource name="fsCloudSp" />
       <Resource name="fsCloudSt" />
       <Resource name="fy" />
@@ -59,7 +62,6 @@ const App = () => (
       <Resource name="parentSystemCost" />
       <Resource name="piiCategory" />
       <Resource name="portfolio" />
-      <Resource name="referenceDocument" />
       <Resource name="scImpactLevel" />
       <Resource name="standardCategory" />
       <Resource name="standardType" />

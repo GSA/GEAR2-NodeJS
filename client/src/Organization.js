@@ -1,10 +1,31 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton
+  , CardActions, CreateButton, RefreshButton, Filter
   , DisabledInput, LongTextInput, SimpleForm, TextInput
   , required, maxLength } from 'react-admin';
 
-export const OrganizationList = (props) => (
-    <List {...props}>
+  const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
+      <CardActions>
+          {filters && React.cloneElement(filters, {
+              resource,
+              showFilter,
+              displayedFilters,
+              filterValues,
+              context: 'button',
+          }) }
+          <CreateButton basePath={basePath} />
+          <RefreshButton />
+      </CardActions>
+  );
+
+  const KeynameFilter = props => (
+      <Filter {...props}>
+        <TextInput label="keyname" source="kn" />
+      </Filter>
+  );
+
+  export const OrganizationList = (props) => (
+      <List {...props} actions={<ListActions />} title="Organizations" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />

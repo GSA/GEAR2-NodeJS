@@ -24,14 +24,17 @@ export const UserCountBreakdown = [
   {id: 7, name: '1000-5000'},
   {id: 8, name: '5000+'},
 ];
-
 export const TierChoices = [
   {id: 1, name: '1A'},
   {id: 2, name: '1B'},
   {id: 3, name: '2'},
 ];
-
 export const FedOrContractor = [
   {id: 1, name: 'Federal'},
   {id: 2, name: 'Contractor'},
+];
+export const Fips199 = [
+  {id: 1, name: 'Low'},
+  {id: 2, name: 'Med'},
+  {id: 2, name: 'High'},
 ];

@@ -25,8 +25,8 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
       </Filter>
   );
 
-  export const ParentSystemList = (props) => (
-      <List {...props} actions={<ListActions />} title="Parent Systems" filters={<KeynameFilter />} >
+  export const ReferenceDocumentList = (props) => (
+      <List {...props} actions={<ListActions />} title="Technology Reference Documents" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
@@ -36,39 +36,23 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
     </List>
 );
 
-const ParentSystemTitle = ({ record }) => {
-    return <span>ParentSystem {record ? `"${record.keyname}"` : ''}</span>;
+const ReferenceDocumentTitle = ({ record }) => {
+    return <span>ReferenceDocument {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const ParentSystemEdit = (props) => (
-    <Edit keyname={<ParentSystemTitle />} {...props}>
+export const ReferenceDocumentEdit = (props) => (
+    <Edit keyname={<ReferenceDocumentTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
-            <LongTextInput source="description" />
-            <TextInput source="url" />
-            <ReferenceInput label="Organization" source="objOrganizationId"
-              reference="organization"
-              allowEmpty>
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
         </SimpleForm>
     </Edit>
 );
 
-export const ParentSystemCreate = (props) => (
+export const ReferenceDocumentCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
-            <LongTextInput source="description" />
-            <TextInput source="url" />
-            <ReferenceInput label="Organization" source="objOrganizationId"
-              reference="organization"
-              allowEmpty>
-              <SelectInput optionText="keyname" />
-            </ReferenceInput>
-
         </SimpleForm>
     </Create>
 );

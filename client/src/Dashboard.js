@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 const content = {
-  tstamp: `28 JUN 2018 8:30 AM`,
+  tstamp: `16 JUL 2018 11:00 AM`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
 }
 
@@ -14,25 +14,12 @@ const styles = {
   card: {
     minWidth: 275,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     fontSize: 14,
   },
-  pos: {
-  },
-  list: {
-    fontSize: 16,
-    listStyle: 'disc',
-  },
-  listsub: {
-    color:'#333',
-    fontSize: 18,
-    fontWeight: 700,
-    padding: 0,
+  warn: {
+    marginTop: 1,
+    lineHeight: 1.25,
   }
 };
 
@@ -48,6 +35,16 @@ function SimpleCard(props) {
           </Typography>
           <Typography variant="headline" component="h2">
             {content.pageTitle}
+          </Typography>
+        </CardContent>
+      </Card>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography className={classes.title} color="textSecondary" align="center">
+            Warning: Official Use Only
+          </Typography>
+          <Typography className={classes.warn} variant="body2" align="center">
+            ****WARNING*** This is a U.S. General Services Administration Federal Government computer system that is "FOR OFFICIAL USE ONLY." This system is subject to monitoring. Individuals found performing unauthorized activities are subject to disciplinary action including criminal prosecution.
           </Typography>
         </CardContent>
       </Card>

@@ -2,7 +2,9 @@
 
 // called using special `all` controller reference (see the docs for more)
 const addContentRange = function (res, context) {
-  res.set('X-Total-Count', context.instance.length);
+  if (context.instance.length) {
+    res.set('X-Total-Count', context.instance.length);    
+  }
   res.set('Access-Control-Expose-Headers', 'Content-Range, X-Total-Count');
 };
 

@@ -107,10 +107,39 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   technology.associate = function (models) {
-    models.fisma.belongsToMany(models.technology, {
-      foreignKey: 'obj_technology_id',
-      otherKey: 'obj_fisma_id',
-      through: 'zk_fisma_technology',
+    models.technology.belongsToMany(models.application, {
+      as: 'application',
+      foreignKey: 'obj_technology_Id',
+      otherKey: 'obj_application_Id',
+      through: 'zk_application_technology',
+      timestamps: false,
+    });
+    models.technology.belongsToMany(models.technology, {
+      as: 'replacedby',
+      foreignKey: 'obj_technology_Id',
+      otherKey: 'obj_replaced_by_technology_Id',
+      through: 'zk_technology_replaced_by',
+      timestamps: false,
+    });
+    models.technology.belongsToMany(models.standardCategory, {
+      as: 'category',
+      foreignKey: 'obj_technology_Id',
+      otherKey: 'obj_standard_category_Id',
+      through: 'zk_technology_standard_category',
+      timestamps: false,
+    });
+    models.technology.belongsToMany(models.poc, {
+      as: 'poc',
+      foreignKey: 'obj_technology_Id',
+      otherKey: 'obj_poc_Id',
+      through: 'zk_technology_poc',
+      timestamps: false,
+    });
+    models.technology.belongsToMany(models.referenceDocuments, {
+      as: 'referenceDocuments',
+      foreignKey: 'obj_technology_Id',
+      otherKey: 'obj_reference_documents_Id',
+      through: 'zk_technology_reference_documents',
       timestamps: false,
     });
   }

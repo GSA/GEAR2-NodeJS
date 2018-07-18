@@ -1,8 +1,9 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
-  , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
+  , SimpleForm, DisabledInput, LongTextInput, TextInput, DateInput
   , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
+  , ArrayInput, SimpleFormIterator
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices } from './valuelists';
@@ -29,7 +30,7 @@ const KeynameFilter = props => (
 );
 
 export const TechnologyList = (props) => (
-    <List {...props} actions={<ListActions />}>
+    <List {...props} actions={<ListActions />} title="Technology" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
@@ -82,6 +83,22 @@ export const TechnologyEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
+            <ReferenceArrayInput source="poc" label="POCs"
+              reference="poc"
+              sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+            >
+              <SelectArrayInput optionText="keyname" optionValue="id" />
+            </ReferenceArrayInput>
+
+            <ArrayInput source="referenceDocument"  label="Reference Documents">
+              <SimpleFormIterator>
+                <ReferenceInput label="Name" source="referenceDocument" reference="referenceDocument" allowEmpty>
+                  <SelectInput optionText="keyname" optionValue="id" />
+                </ReferenceInput>
+              </SimpleFormIterator>
+            </ArrayInput>
+
         </SimpleForm>
     </Edit>
 );
@@ -109,7 +126,7 @@ export const TechnologyCreate = (props) => (
               reference="technologyStatus"
               validate={required()}
             >
-              <SelectInput optionText="keyname" />
+              <SelectInput optionText="keyname" value={1} />
             </ReferenceInput>
 
             <ReferenceInput label="Deployment Type" source="objDeploymentTypeId"
@@ -123,6 +140,14 @@ export const TechnologyCreate = (props) => (
               validate={required()}>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
+
+            <ReferenceArrayInput source="poc" label="POCs"
+              reference="poc"
+              sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+            >
+              <SelectArrayInput optionText="keyname" optionValue="id" />
+            </ReferenceArrayInput>
 
         </SimpleForm>
     </Create>

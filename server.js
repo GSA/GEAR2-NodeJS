@@ -152,39 +152,55 @@ Object.entries(orm.models).forEach((m) => {
   // Makes sure the current model instance (orm.models) originates from the models/ directory so we
   // can exclude any that are automatically created by the ORM like join tables
   if (models[name]) {
-    const resource = finale.resource({
-      model: models[name],
-      endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
-      pagination: true,
-      associations: true,
-      search: [{
-        param: 'kn',
-        operator: '$like',
-        attributes: ['keyname']
-      }]
-    });
-    resource.use(finaleMiddleware);
-    if (name === 'application') {
-      console.log('\n\n'+name+'\n\n')
-      console.log(resource.update.write);
-      resource.update.write((req, res, context) => {
-        if (context.attributes.hasOwnProperty('capability')) {
-
-          console.log('\n\nWITH CAPS!');
-          console.log(context.attributes.capability);
-          console.log('--------------------------------');
-          console.log(req.body.capability);
-          console.log('\n\n')
-
-          res.status(200).json({
-            capabilities: {
-              context: context.attributes.capability,
-              payload: req.body.capability
-            }
-          });
-          context.stop();
-        }
+    if (models[name]==='application') {
+      console.log('Im an application');
+      // detail
+      const resourceA = finale.resource({
+        model: models[name],
+        endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
+        pagination: true,
+        include: [''],
       });
+      resourceA.use(finaleMiddleware);
+      // // list
+      const resourceB = finale.resource({
+        model: models[name],
+        endpoints: [`/${endpoint}Short`, `/${endpoint}Short:id`],
+        pagination: true,
+        associations: false,
+        search: [{
+          param: 'kn',
+          operator: '$like',
+          attributes: ['keyname']
+        },{
+          param: 'id',
+          operator: '$eq',
+          attributes: ['id']
+        }]
+      });
+      resourceB.use(finaleMiddleware);
+    } else {
+      // detail
+      const resourceA = finale.resource({
+        model: models[name],
+        endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
+        pagination: true,
+        associations: true,
+      });
+      resourceA.use(finaleMiddleware);
+      // // list
+      const resourceB = finale.resource({
+        model: models[name],
+        endpoints: [`/${endpoint}Short`, `/${endpoint}Short:id`],
+        pagination: true,
+        associations: false,
+        search: [{
+          param: 'kn',
+          operator: '$like',
+          attributes: ['keyname']
+        }]
+      });
+      resourceB.use(finaleMiddleware);
     }
   }
 });
