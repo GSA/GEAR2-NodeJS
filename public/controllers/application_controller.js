@@ -247,8 +247,8 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
             "Owner": val.Owner,
 			"OwnerShort": val.OwnerShort,
             "System": val.ParentSystem,
-            "BusinessPOC": val.BusinessPOC,
-            "TechnicalPOC": val.TechnicalPOC,
+            "BusinessPOC": val.BusPOC,
+            "TechnicalPOC": val.TechPOC,
             "Cloud": val.Cloud,
             "TechnologyPlatform": val.TechnologyPlatform,
             "Status": val.Status,
@@ -301,6 +301,18 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
           title: 'Two Letter Org (Short)',
           sortable: true,
 		  visible: false
+        },
+		{
+          field: 'BusinessPOC',
+          title: 'Business POC',
+          sortable: true,
+          visible: false
+        },
+		{
+          field: 'TechnicalPOC',
+          title: 'Technical POC',
+          sortable: true,
+          visible: false
         },
 		{
           field: 'System',
