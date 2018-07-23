@@ -49,7 +49,7 @@ export const CapabilityEdit = (props) => (
             <TextInput source="referenceNumber" />
 
             <ReferenceInput label="Parent" source="parentId"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -65,7 +65,7 @@ export const CapabilityCreate = (props) => (
             <TextInput source="referenceNumber" />
 
             <ReferenceInput label="Parent" source="parentId"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 

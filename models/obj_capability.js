@@ -58,12 +58,16 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'capability',
+      plural: 'capabilities',
+    },
     timestamps: false,
     tableName: 'obj_capability'
   });
   capability.associate = function (models) {
     models.capability.belongsToMany(models.capability, {
-      as: 'replacedby',
+      as: 'replaced_by',
       foreignKey: 'obj_capability_Id',
       otherKey: 'obj_capability_Id1',
       through: 'zk_capability_replacedby',

@@ -209,29 +209,36 @@ module.exports = function(sequelize, DataTypes) {
       field: 'obj_application_status_Id'
     }
   }, {
+    name: {
+      singular: 'application',
+      plural: 'applications',
+    },
     timestamps: false,
     tableName: 'obj_application'
   });
   application.associate = function (models) {
-    models.application.belongsToMany(models.capability, {
-      as: 'capabilities',
-      foreignKey: 'obj_application_Id',
-      otherKey: 'obj_capability_Id',
-      through: 'zk_application_business_capabilities',
-      timestamps: false,
-    });
-    models.application.belongsToMany(models.technology, {
-      as: 'technology',
-      foreignKey: 'obj_application_Id',
-      otherKey: 'obj_technology_Id',
-      through: 'zk_application_technology',
-      timestamps: false,
-    });
     models.application.belongsToMany(models.application, {
       as: 'replacedby',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_application_Id1',
       through: 'zk_application_replacedby',
+      timestamps: false,
+    });
+    models.application.hasMany(models.applicationInterface, {
+      as: 'application_interfaces',
+      foreignKey: 'obj_application_Id',
+      timestamps: false,
+    });
+    models.application.hasMany(models.applicationRationalization, {
+      as: 'application_rationalizations',
+      foreignKey: 'obj_application_Id',
+      timestamps: false,
+    });
+    models.application.belongsToMany(models.capability, {
+      as: 'capabilities',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_capability_Id',
+      through: 'zk_application_business_capabilities',
       timestamps: false,
     });
     models.application.belongsToMany(models.organization, {
@@ -242,27 +249,24 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: false,
     });
     models.application.belongsToMany(models.poc, {
-      as: 'business_poc',
+      as: 'business_pocs',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_bus_poc_Id',
       through: 'zk_application_business_poc',
       timestamps: false,
     });
     models.application.belongsToMany(models.poc, {
-      as: 'technical_poc',
+      as: 'technical_pocs',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_tech_poc_Id',
       through: 'zk_application_technical_poc',
       timestamps: false,
     });
-    models.application.hasMany(models.applicationRationalization, {
-      as: 'applicationRationalization',
+    models.application.belongsToMany(models.technology, {
+      as: 'technologies',
       foreignKey: 'obj_application_Id',
-      timestamps: false,
-    });
-    models.application.hasMany(models.applicationInterfaces, {
-      as: 'applicationInterfaces',
-      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_technology_Id',
+      through: 'zk_application_technology',
       timestamps: false,
     });
   };

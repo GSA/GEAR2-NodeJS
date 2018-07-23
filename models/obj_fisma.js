@@ -130,16 +130,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       field: 'ChangeAudit'
     }
-  },
-  {
+  }, {
+    name: {
+      singular: 'fisma',
+      plural: 'fismas',
+    },
     timestamps: false,
     tableName: 'obj_fisma',
   });
 
   fisma.associate = function (models) {
     models.fisma.belongsToMany(models.fismaArtifact, {
-      as: 'fismaArtifact',
+      as: 'fisma_artifacts',
       foreignKey: 'objFismaSystem_Id',
+      otherKey: 'objFISMAartifact_Id',
       through: 'zk_fisma_artifact',
       timestamps: false,
     });
@@ -158,14 +162,14 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: false,
     });
     models.fisma.belongsToMany(models.fisma, {
-      as: 'replacedby',
+      as: 'replaced_by',
       foreignKey: 'objFismaSystem_Id_Old',
       otherKey: 'objFismaSystem_Id_New',
       through: 'zk_fisma_replacedby',
       timestamps: false,
     });
     models.fisma.belongsToMany(models.technology, {
-      as: 'technology',
+      as: 'technologies',
       foreignKey: 'obj_fisma_id',
       otherKey: 'obj_technology_id',
       through: 'zk_fisma_technology',

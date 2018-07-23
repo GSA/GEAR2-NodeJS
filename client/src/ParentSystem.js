@@ -48,7 +48,7 @@ export const ParentSystemEdit = (props) => (
             <LongTextInput source="description" />
             <TextInput source="url" />
             <ReferenceInput label="Organization" source="objOrganizationId"
-              reference="organization"
+              reference="organizations"
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
@@ -64,7 +64,7 @@ export const ParentSystemCreate = (props) => (
             <LongTextInput source="description" />
             <TextInput source="url" />
             <ReferenceInput label="Organization" source="objOrganizationId"
-              reference="organization"
+              reference="organizations"
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>

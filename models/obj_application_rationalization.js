@@ -53,6 +53,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'application_rationalization',
+      plural: 'application_rationalizations',
+    },
     timestamps: false,
     tableName: 'obj_application_rationalization'
   });

@@ -37,6 +37,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'standard_type',
+      plural: 'standard_types',
+    },
     timestamps: false,
     tableName: 'obj_standard_type'
   });

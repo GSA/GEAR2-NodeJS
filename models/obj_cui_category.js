@@ -39,6 +39,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'cui_category',
+      plural: 'cui_categories',
+    },
     timestamps: false,
     tableName: 'obj_cui_category'
   });

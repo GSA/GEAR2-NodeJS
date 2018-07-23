@@ -58,6 +58,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'parent_system',
+      plural: 'parent_systems',
+    },
     timestamps: false,
     tableName: 'obj_parent_system'
   });

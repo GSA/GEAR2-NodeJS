@@ -39,6 +39,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'portfolio',
+      plural: 'portfolios',
+    },
     timestamps: false,
     tableName: 'obj_portfolio'
   });

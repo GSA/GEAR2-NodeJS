@@ -37,6 +37,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'omb_srm_info',
+      plural: 'omb_srm_infos',
+    },
     timestamps: false,
     tableName: 'obj_omb_srm_info'
   });

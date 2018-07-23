@@ -39,6 +39,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'app_user_loc',
+      plural: 'app_user_locs',
+    },
     timestamps: false,
     tableName: 'obj_app_userloc'
   });

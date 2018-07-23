@@ -2,12 +2,11 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
-  , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
+  , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
-import { isSelf } from './validators';
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
@@ -84,22 +83,25 @@ export const ApplicationEdit = (props) => (
         />
         <LongTextInput source="applicationNotes" />
         <ReferenceInput source="objAppPlatformId" label="Application Platform"
-          reference="appPlatform"
+          reference="app_platforms"
           sort={{ field: 'keyname', order: 'ASC' }}
           perPage={ 1000000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
+
         <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
-          reference="appHostingProvider"
+          reference="app_hostingproviders"
           sort={{ field: 'keyname', order: 'ASC' }}
           perPage={ 1000000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
+
         <SelectInput source="tier" allowEmpty
           optionText="name" optionValue="name"
-          choices={ TierChoices }/>
+          choices={ TierChoices }
+        />
         <NumberInput source="productionYear" />
         <NumberInput source="retiredYear" />
         <TextInput source="url" />
@@ -114,7 +116,7 @@ export const ApplicationEdit = (props) => (
           />
           <TextInput source="referenceDocument" />
 
-          <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
+          <ReferenceInput label="SSO" source="objOrgSsoId" reference="organizations"
             sort={{ field: 'keyname', order: 'ASC' }}
             filter={{ Parent_Id: null }}
             perPage={ 1000000 }
@@ -123,32 +125,32 @@ export const ApplicationEdit = (props) => (
           </ReferenceInput>
 
           <ReferenceInput label="Parent System" source="objParentSystemId"
-            reference="parentSystem" allowEmpty>
+            reference="parent_systems" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Investment" source="objInvestmentId"
-            reference="investment" allowEmpty>
+            reference="investments" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Portfolio" source="objPortfolioId"
-            reference="portfolio" allowEmpty>
+            reference="portfolios" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="FISMA System" source="objFismaId"
-            reference="fisma" allowEmpty>
+            reference="fismas" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="User Location" source="objAppUserlocId"
-            reference="appUserLoc" allowEmpty>
+            reference="app_user_locs" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Application Status" source="objApplicationStatusId"
-            reference="applicationStatus" validate={required()} >
+            reference="application_statuses" validate={required()} >
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
@@ -170,53 +172,59 @@ export const ApplicationEdit = (props) => (
             </SimpleFormIterator>
           </ArrayInput> */}
 
-          <ReferenceArrayInput source="capability" label="Capabilities"
-            reference="capability"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
+          <ArrayInput source="capabilities"
+            label="Capabilities">
+            <SimpleFormIterator>
+              <ReferenceInput label="" source="id" reference="capabilities" allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput>
 
-          <ReferenceArrayInput source="technology" label="Technologies"
-            reference="technology"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
+          <ArrayInput source="technologies"
+            label="Technologies">
+            <SimpleFormIterator>
+              <ReferenceInput label="" source="id" reference="technologies" allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput>
 
-          <ReferenceArrayInput source="replacedby" label="Replaced by"
-            reference="application"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-            validate={ isSelf(this) }>
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
+          <ArrayInput source="replacedby"
+            label="Replaced By">
+            <SimpleFormIterator>
+              <ReferenceInput label="" source="id" reference="applications" allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput>
 
-          <ReferenceArrayInput source="organization" label="Users"
-            reference="organization"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
+          <ArrayInput source="users"
+            label="Users">
+            <SimpleFormIterator>
+              <ReferenceInput label="" source="id" reference="organizations" allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput>
 
-          <ReferenceArrayInput source="business_poc" label="Business POC"
-            reference="poc"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
+          <ArrayInput source="business_pocs"
+            label="Business POCs">
+            <SimpleFormIterator>
+              <ReferenceInput label="" source="id" reference="pocs" allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput>
 
-          <ReferenceArrayInput source="technical_poc" label="Technical POC"
-            reference="poc"
-            sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-          >
-            <SelectArrayInput optionText="keyname" optionValue="id" />
-          </ReferenceArrayInput>
+          <ArrayInput source="technical_pocs"
+            label="Technical POCs">
+            <SimpleFormIterator>
+              <ReferenceInput label="" source="id" reference="pocs" allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+          </ArrayInput>
 
         </SimpleForm>
     </Edit>
@@ -277,7 +285,7 @@ export const ApplicationCreate = (props) => (
           />
           <TextInput source="referenceDocument" />
 
-          <ReferenceInput label="SSO" source="objOrgSsoId" reference="organization"
+          <ReferenceInput label="SSO" source="objOrgSsoId" reference="organizations"
             sort={{ field: 'keyname', order: 'ASC' }}
             filter={{ Parent_Id: null }}
             perPage={ 1000000 }
@@ -286,32 +294,32 @@ export const ApplicationCreate = (props) => (
           </ReferenceInput>
 
           <ReferenceInput label="Parent System" source="objParentSystemId"
-            reference="parentSystem" allowEmpty>
+            reference="parent_systems" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Investment" source="objInvestmentId"
-            reference="investment" allowEmpty>
+            reference="investments" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Portfolio" source="objPortfolioId"
-            reference="portfolio" allowEmpty>
+            reference="portfolios" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="FISMA System" source="objFismaId"
-            reference="fisma" allowEmpty>
+            reference="fismas" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="User Location" source="objAppUserlocId"
-            reference="appUserLoc" allowEmpty>
+            reference="app_user_locs" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Application Status" source="objApplicationStatusId"
-            reference="applicationStatus" validate={required()} >
+            reference="application_statuses" validate={required()} >
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 

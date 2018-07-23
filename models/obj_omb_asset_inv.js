@@ -120,6 +120,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'obj_poc_Id'
     }
   }, {
+    name: {
+      singular: 'omb_asset_inv',
+      plural: 'omb_asset_invs',
+    },
     timestamps: false,
     tableName: 'obj_omb_asset_inv'
   });

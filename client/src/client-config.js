@@ -1,3 +1,4 @@
+import { stringify } from 'query-string';
 import { queryParameters, fetchJson } from 'admin-on-rest/lib/util/fetch';
 import {
   GET_LIST,
@@ -44,7 +45,7 @@ export default (apiUrl, httpClient = fetchJson) => {
           page: page - 1,
           count: perPage,
         };
-        url = `${apiUrl}/${resource}Short?${queryParameters(query)}`;
+        url = `${apiUrl}/${resource}?${queryParameters(query)}`;
         break;
       }
       case GET_ONE:
@@ -121,15 +122,22 @@ export default (apiUrl, httpClient = fetchJson) => {
     // HANDLES n:m CHILDREN. On GET responses, children are full db records, embedded as nested
     // objects instead of the expected array of Id integers.
     // json-server doesn't handle WHERE IN requests, so we fallback to calling GET_ONE n times instead
+    console.log(`DATA PROVIDER REQUESTING ${type} of ${resource} with`);
+    console.log(params);
     if (type === GET_MANY) {
       if (isNaN(params.ids[0])) {
         var idsArray = params.ids.map(el => el.id);
         params.ids = idsArray;
       }
 
-      return Promise.all(
-        params.ids.map(id => httpClient(`${apiUrl}/${resource}/${id}`)),
-      ).then(responses => ({ data: responses.map(response => response.json) }));
+      console.log(stringify({id:idsArray}));
+
+      return httpClient(`${apiUrl}/${resource}?${stringify({id:idsArray})}`).then(response =>
+        convertHTTPResponseToREST(response, type, resource, params),
+      );
+      // return Promise.all(
+      //   params.ids.map(id => httpClient(`${apiUrl}/${resource}/${id}`)),
+      // ).then(responses => ({ data: responses.map(response => response.json) }));
     }
     const { url, options } = convertRESTRequestToHTTP(type, resource, params);
     return httpClient(url, options).then(response =>

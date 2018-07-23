@@ -41,20 +41,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       field: 'ChangeAudit'
     }
-  },
-  {
-    timestamps: false,
+  }, {
+    name: {
+      singular: 'fisma_artifact',
+      plural: 'fisma_artifacts',
+    },
     tableName: 'obj_fismaartifact',
     timestamps: false,
   });
 
-  fismaArtifact.associate = function (models) {
-    models.fismaArtifact.belongsToMany(models.fisma, {
-      foreignKey: 'objFISMAartifact_Id',
-      through: 'zk_fisma_artifact',
-      timestamps: false,
-    });
-  }
+  // fismaArtifact.associate = function (models) {
+  //   models.fismaArtifact.belongsToMany(models.fisma, {
+  //     as: 'fismas',
+  //     foreignKey: 'objFISMAartifact_Id',
+  //     through: 'zk_fisma_artifact',
+  //     timestamps: false,
+  //   });
+  // }
 
   return fismaArtifact;
 };

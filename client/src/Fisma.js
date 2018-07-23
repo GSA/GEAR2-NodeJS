@@ -3,11 +3,13 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , DateField
   , SimpleForm, DisabledInput, LongTextInput, TextInput, DateInput
-  , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
+  , ReferenceInput, SelectInput 
   , SimpleFormIterator, ArrayInput
   , required, maxLength } from 'react-admin';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
-import { ConfirmChoices, FedOrContractor, Fips199 } from './valuelists';
+import { ConfirmChoices, FedOrContractor } from './valuelists';
 import { formatDate, parseDate } from './formatters/DateTime';
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
@@ -79,76 +81,108 @@ export const FismaEdit = (props) => (
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      <ReferenceInput label="Cloud Service Type" source="fscloudstId" reference="fsCloudSt" allowEmpty>
+      <ReferenceInput label="Cloud Service Type" source="fscloudstId"
+        reference="fscloudsts" allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <LongTextInput source="comments" />
 
 {/* ARTIFACTS */}
-      <ArrayInput source="fismaArtifacts"  label="FISMA Artifacts">
+<Button component={Link} target="_blank"
+  to={{
+    pathname: '/fisma_artifacts/create',
+    state: { record: { fisma_id: 1 } },
+  }}
+>
+CREATE
+</Button>
+      <ArrayInput source="fisma_artifacts"  label="FISMA Artifacts">
         <SimpleFormIterator>
-          <ReferenceInput label="Art" source="art" reference="fismaArtifact" allowEmpty>
+          <ReferenceInput label="Artifacts" source="art"
+            reference="fisma_artifacts" allowEmpty>
             <SelectInput optionText="keyname" optionValue="id" />
           </ReferenceInput>
         </SimpleFormIterator>
       </ArrayInput>
 {/* POC isso,issm,ao,so */}
       <ReferenceInput source="authorizingOfficialId" label="Authorizing Official"
-        reference="poc"
+        reference="pocs"
+        validate={required()}
         sort={{ field: 'keyname', order: 'ASC' }}
         perPage={ 1000000 }
       >
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <ReferenceInput source="systemOwnerId" label="System Owner"
-        reference="poc"
+        reference="pocs"
+        validate={required()}
         sort={{ field: 'keyname', order: 'ASC' }}
         perPage={ 1000000 }
       >
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
-      <ReferenceArrayInput source="isso" label="ISSO"
-        reference="poc"
-        sort={{ field: 'keyname', order: 'ASC' }}
-        perPage={ 1000000 }
-      >
-        <SelectArrayInput optionText="keyname" optionValue="id" />
-      </ReferenceArrayInput>
-      <ReferenceArrayInput source="issm" label="ISSM"
-        reference="poc"
-        sort={{ field: 'keyname', order: 'ASC' }}
-        perPage={ 1000000 }
-      >
-        <SelectArrayInput optionText="keyname" optionValue="id" />
-      </ReferenceArrayInput>
-      <ArrayInput source="fisma_replacedby">
+
+      <ArrayInput source="isso" label="ISSO">
         <SimpleFormIterator>
-          <TextInput source="keyname" />
+          <ReferenceInput label="" source="id"
+            reference="pocs"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+            allowEmpty
+          >
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
         </SimpleFormIterator>
       </ArrayInput>
-      <ArrayInput source="technologies">
+
+      <ArrayInput source="issm" label="ISSM">
         <SimpleFormIterator>
-          <TextInput source="keyname" />
+          <ReferenceInput label="" source="id"
+            reference="pocs"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+            allowEmpty
+          >
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
+        </SimpleFormIterator>
+      </ArrayInput>
+
+      <ArrayInput source="replacedby"
+        label="Replaced By">
+        <SimpleFormIterator>
+          <ReferenceInput label="" source="id" reference="applications" allowEmpty>
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
+        </SimpleFormIterator>
+      </ArrayInput>
+
+      <ArrayInput source="technologies"
+        label="Technologies">
+        <SimpleFormIterator>
+          <ReferenceInput label="" source="id" reference="technologies" allowEmpty>
+            <SelectInput optionText="keyname" />
+          </ReferenceInput>
         </SimpleFormIterator>
       </ArrayInput>
 {/* RECENT ADDITIONS */}
       <ReferenceInput source="scImpactLevelId" label="FIPS 199"
-        reference="scImpactLevel"
+        reference="sc_impact_levels"
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <ReferenceInput source="ssoId" label="Responsible SSO"
-        reference="organization"
+        reference="organizations"
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <ReferenceInput source="atoTypeId" label="ATO Type"
-        reference="atoType"
+        reference="ato_types"
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <ReferenceInput source="fscloudspId" label="Cloud Service Provider"
-        reference="fsCloudSp"
+        reference="fscloudsts"
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
@@ -185,49 +219,32 @@ export const FismaCreate = (props) => (
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      <ReferenceInput label="SO" source="obj_poc_so_Id"
-        reference="poc" allowEmpty>
-        <SelectInput optionText="keyname" />
+      <ReferenceInput source="authorizingOfficialId"
+        reference="pocs"
+        label="Authorizing Official"
+        validate={required()}
+        sort={{ field: 'keyname', order: 'ASC' }}
+        perPage={ 1000000 }
+      >
+        <SelectInput optionText="keyname" optionValue="id" />
+      </ReferenceInput>
+      <ReferenceInput source="systemOwnerId" label="System Owner"
+        reference="pocs"
+        validate={required()}
+        sort={{ field: 'keyname', order: 'ASC' }}
+        perPage={ 1000000 }
+      >
+        <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <SelectInput source="cloudHosted" label="Cloud Hosted" allowEmpty
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      <ReferenceInput label="Cloud Service Type" source="fscloudstId" reference="fsCloudSt" allowEmpty>
+      <ReferenceInput label="Cloud Service Type" source="fscloudstId"
+        reference="fscloudsts" allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <LongTextInput source="comments" />
-      <ArrayInput source="fismaArtifacts"  label="FISMA Artifacts">
-        <SimpleFormIterator>
-          <TextInput source="keyname" />
-          <TextInput source="link" />
-        </SimpleFormIterator>
-      </ArrayInput>
-
-      <ArrayInput source="fisma_issm" label="ISSM">
-        <SimpleFormIterator>
-          <TextInput source="keyname" />
-          <TextInput source="email" />
-        </SimpleFormIterator>
-      </ArrayInput>
-      <ArrayInput source="fisma_isso" label="ISSO">
-        <SimpleFormIterator>
-          <TextInput source="keyname" />
-          <TextInput source="email" />
-        </SimpleFormIterator>
-      </ArrayInput>
-
-      <ArrayInput source="fisma_replacedby">
-        <SimpleFormIterator>
-          <TextInput source="keyname" />
-        </SimpleFormIterator>
-      </ArrayInput>
-
-      <ArrayInput source="technologies">
-        <SimpleFormIterator>
-          <TextInput source="keyname" />
-        </SimpleFormIterator>
-      </ArrayInput>
 
     </SimpleForm>
   </Create>

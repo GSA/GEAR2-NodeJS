@@ -102,41 +102,45 @@ module.exports = function(sequelize, DataTypes) {
       field: 'obj_standard_type_Id'
     }
   }, {
+    name: {
+      singular: 'technology',
+      plural: 'technologies',
+    },
     timestamps: false,
     tableName: 'obj_technology'
   });
 
   technology.associate = function (models) {
     models.technology.belongsToMany(models.application, {
-      as: 'application',
+      as: 'applications',
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_application_Id',
       through: 'zk_application_technology',
       timestamps: false,
     });
     models.technology.belongsToMany(models.technology, {
-      as: 'replacedby',
+      as: 'replaced_by',
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_replaced_by_technology_Id',
       through: 'zk_technology_replaced_by',
       timestamps: false,
     });
     models.technology.belongsToMany(models.standardCategory, {
-      as: 'category',
+      as: 'categories',
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_standard_category_Id',
       through: 'zk_technology_standard_category',
       timestamps: false,
     });
     models.technology.belongsToMany(models.poc, {
-      as: 'poc',
+      as: 'pocs',
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_poc_Id',
       through: 'zk_technology_poc',
       timestamps: false,
     });
-    models.technology.belongsToMany(models.referenceDocuments, {
-      as: 'referenceDocuments',
+    models.technology.belongsToMany(models.referenceDocument, {
+      as: 'reference_documents',
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_reference_documents_Id',
       through: 'zk_technology_reference_documents',

@@ -61,6 +61,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'parent_system_cost',
+      plural: 'parent_system_costs',
+    },
     timestamps: false,
     tableName: 'obj_parent_system_cost'
   });

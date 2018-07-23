@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  var referenceDocuments = sequelize.define('referenceDocuments', {
+  var referenceDocument = sequelize.define('referenceDocument', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -37,8 +37,12 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'reference_document',
+      plural: 'reference_documents',
+    },
     timestamps: false,
     tableName: 'obj_reference_documents'
   });
-  return referenceDocuments;
+  return referenceDocument;
 };

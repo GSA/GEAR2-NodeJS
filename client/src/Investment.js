@@ -35,47 +35,47 @@ export const InvestmentEdit = (props) => (
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
             <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
-              reference="investmentType"
+              reference="investment_types"
               validate={required()}
             >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Organization" source="objOrganizationId"
-              reference="organization"
+              reference="organizations"
               perPage={ 1000000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 1" source="secServArea1"
-              reference="capability"
+              reference="capabilities"
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 2" source="secServArea2"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 3" source="secServArea3"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 4" source="secServArea4"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="POC" source="objPocId"
-              reference="poc"
+              reference="pocs"
               perPage={1000000}
               allowEmpty>
               <SelectInput optionText="keyname" />
@@ -98,46 +98,46 @@ export const InvestmentCreate = (props) => (
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
             <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
-              reference="investmentType"
+              reference="investment_types"
               validate={required()}
             >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Organization" source="objOrganizationId"
-              reference="organization"
+              reference="organizations"
               perPage={1000000}
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 1" source="secServArea1"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 2" source="secServArea2"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 3" source="secServArea3"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 4" source="secServArea4"
-              reference="capability" allowEmpty>
+              reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="POC" source="objPocId"
-              reference="poc"
+              reference="pocs"
               perPage={1000000}
               allowEmpty>
               <SelectInput optionText="keyname" />

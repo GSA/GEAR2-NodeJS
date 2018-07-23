@@ -37,6 +37,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'time_quadrant',
+      plural: 'time_quadrants',
+    },
     timestamps: false,
     tableName: 'obj_time_quadrant'
   });

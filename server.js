@@ -2,6 +2,7 @@ var
     dotenv = require('dotenv').config(),
     finale = require('finale-rest'),
     finaleMiddleware = require('./finale-middleware'),
+    finaleVar = require('./finale-var'),
     http = require('http'),
     express = require('express'),
     path = require('path'),
@@ -79,17 +80,18 @@ app.use(session(
 app.use(passport.initialize());
 app.use(passport.session());
 
+/**** TEMPORARYILY DISABLED!! ****/
+/* to restore, uncomment 'if-else' block and delete preceding 'res.sendFile' line */
 /******************************************************************/
 app.get('/admin', function (req, res) {
-  if (req.isAuthenticated()) {
-    res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  } else {
-    res.redirect('/login')
-  }
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+  // if (req.isAuthenticated()) {
+  //   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+  // } else {
+  //   res.redirect('/login')
+  // }
 });
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, 'client', 'build')));
-
 
 /********************************************************************
 PASSPORT ROUTES
@@ -144,64 +146,42 @@ finale.initialize({
   sequelize: orm,
 });
 
-// Create default REST resources
+// Create default REST resources from orm.models
+// (`orm.models` are sequelize instances where local `models` are static)
 Object.entries(orm.models).forEach((m) => {
-  const name = m[0];
-  const endpoint = name.replace(/^obj/, '');
+  // console.log(`\n\nINSPECT FOR API ${m[0]}`);
+  const modelClassName = m[0];
+  const modelInstance = m[1];
+  const modelRefName = m[1].options.name; // { singular, plural }
+  // const getModelIncludes = finaleVar.finaleVar.getModelIncludes;
 
   // Makes sure the current model instance (orm.models) originates from the models/ directory so we
   // can exclude any that are automatically created by the ORM like join tables
-  if (models[name]) {
-    if (models[name]==='application') {
-      console.log('Im an application');
-      // detail
-      const resourceA = finale.resource({
-        model: models[name],
-        endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
-        pagination: true,
-        include: [''],
-      });
-      resourceA.use(finaleMiddleware);
-      // // list
-      const resourceB = finale.resource({
-        model: models[name],
-        endpoints: [`/${endpoint}Short`, `/${endpoint}Short:id`],
-        pagination: true,
-        associations: false,
-        search: [{
-          param: 'kn',
-          operator: '$like',
-          attributes: ['keyname']
-        },{
-          param: 'id',
-          operator: '$eq',
-          attributes: ['id']
-        }]
-      });
-      resourceB.use(finaleMiddleware);
-    } else {
-      // detail
-      const resourceA = finale.resource({
-        model: models[name],
-        endpoints: [`/${endpoint}`, `/${endpoint}/:id`],
-        pagination: true,
-        associations: true,
-      });
-      resourceA.use(finaleMiddleware);
-      // // list
-      const resourceB = finale.resource({
-        model: models[name],
-        endpoints: [`/${endpoint}Short`, `/${endpoint}Short:id`],
-        pagination: true,
-        associations: false,
-        search: [{
-          param: 'kn',
-          operator: '$like',
-          attributes: ['keyname']
-        }]
-      });
-      resourceB.use(finaleMiddleware);
-    }
+  if (models[modelClassName]) {
+    // console.log(`CREATE RESOURCE FOR ${m[0]} with assocs: ${finaleVar.getModelIncludes(modelClassName)}`);
+
+    // Detail
+    const detailedResource = finale.resource({
+      model: modelInstance,
+      endpoints: [`/${modelRefName.plural}_inc_all`, `/${modelRefName.plural}_inc_all/:id`],
+      pagination: true,
+      include: finaleVar.getModelIncludes(modelClassName),
+    });
+    detailedResource.use(finaleMiddleware);
+
+    // List
+    const summaryResource = finale.resource({
+      model: modelInstance,
+      endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
+      pagination: true,
+      include: finaleVar.getModelIncludes(modelClassName),
+      search: [{
+        param: 'kn',
+        operator: '$like',
+        attributes: ['keyname']
+      }]
+    });
+    summaryResource.use(finaleMiddleware);
   }
 });
 

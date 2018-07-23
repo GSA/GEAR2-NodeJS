@@ -39,6 +39,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'app_hostingprovider',
+      plural: 'app_hostingproviders',
+    },
     timestamps: false,
     tableName: 'obj_app_hostingprovider'
   });

@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  var ombDataTopics = sequelize.define('ombDataTopics', {
+  var ombDataTopic = sequelize.define('ombDataTopic', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -37,8 +37,12 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'omb_data_topic',
+      plural: 'omb_data_topics',
+    },
     timestamps: false,
     tableName: 'obj_omb_data_topics'
   });
-  return ombDataTopics;
+  return ombDataTopic;
 };

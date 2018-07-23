@@ -2,7 +2,6 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput
-  , ReferenceInput, SelectInput
   , required, maxLength } from 'react-admin';
 
   const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (

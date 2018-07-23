@@ -42,6 +42,10 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'sc_impact_level',
+      plural: 'sc_impact_levels',
+    },
     timestamps: false,
     tableName: 'obj_scimpactlevel'
   });

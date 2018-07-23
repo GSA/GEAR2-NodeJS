@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, DateInput
-  , ReferenceInput, SelectInput, ReferenceArrayInput, SelectArrayInput
+  , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength } from 'react-admin';
 
@@ -65,36 +65,48 @@ export const TechnologyEdit = (props) => (
             <LongTextInput source="comments" />
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"
-              reference="technologyStatus"
+              reference="technology_statuses"
               validate={required()}
             >
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Deployment Type" source="objDeploymentTypeId"
-              reference="deploymentType"
+              reference="deployment_types"
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Standard Type" source="objStandardTypeId"
-              reference="standardType"
+              reference="standard_types"
               validate={required()}>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
-            <ReferenceArrayInput source="poc" label="POCs"
-              reference="poc"
-              sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
-            >
-              <SelectArrayInput optionText="keyname" optionValue="id" />
-            </ReferenceArrayInput>
-
-            <ArrayInput source="referenceDocument"  label="Reference Documents">
+            <ArrayInput source="pocs" label="POCs">
               <SimpleFormIterator>
-                <ReferenceInput label="Name" source="referenceDocument" reference="referenceDocument" allowEmpty>
-                  <SelectInput optionText="keyname" optionValue="id" />
+                <ReferenceInput label="" source="id"
+                  reference="pocs"
+                  sort={{ field: 'keyname', order: 'ASC' }}
+                  perPage={ 1000000 }
+                  allowEmpty
+                >
+                  <SelectInput optionText="keyname" />
+                </ReferenceInput>
+              </SimpleFormIterator>
+            </ArrayInput>
+
+            <ArrayInput source="reference_documents"
+              label="Reference Documents"
+            >
+              <SimpleFormIterator>
+                <ReferenceInput label="Name" source="id"
+                  reference="reference_documents"
+                  sort={{ field: 'keyname', order: 'ASC' }}
+                  perPage={ 1000000 }
+                  allowEmpty
+                >
+                  <SelectInput optionText="keyname" />
                 </ReferenceInput>
               </SimpleFormIterator>
             </ArrayInput>
@@ -123,31 +135,23 @@ export const TechnologyCreate = (props) => (
             <LongTextInput source="comments" />
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"
-              reference="technologyStatus"
+              reference="technology_statuses"
               validate={required()}
             >
               <SelectInput optionText="keyname" value={1} />
             </ReferenceInput>
 
             <ReferenceInput label="Deployment Type" source="objDeploymentTypeId"
-              reference="deploymentType"
+              reference="deployment_types"
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Standard Type" source="objStandardTypeId"
-              reference="standardType"
+              reference="standard_types"
               validate={required()}>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
-
-            <ReferenceArrayInput source="poc" label="POCs"
-              reference="poc"
-              sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
-            >
-              <SelectArrayInput optionText="keyname" optionValue="id" />
-            </ReferenceArrayInput>
 
         </SimpleForm>
     </Create>

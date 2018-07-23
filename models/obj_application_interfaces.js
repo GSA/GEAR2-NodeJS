@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  var applicationInterfaces = sequelize.define('applicationInterfaces', {
+  var applicationInterface = sequelize.define('applicationInterface', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -55,8 +55,12 @@ module.exports = function(sequelize, DataTypes) {
       field: 'obj_application_Id1'
     }
   }, {
+    name: {
+      singular: 'application_interface',
+      plural: 'application_interfaces',
+    },
     timestamps: false,
     tableName: 'obj_application_interfaces'
   });
-  return applicationInterfaces;
+  return applicationInterface;
 };

@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  var ombSupportedGoals = sequelize.define('ombSupportedGoals', {
+  var ombSupportedGoal = sequelize.define('ombSupportedGoal', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -37,8 +37,12 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'omb_supported_goal',
+      plural: 'omb_supported_goals',
+    },
     timestamps: false,
     tableName: 'obj_omb_supported_goals'
   });
-  return ombSupportedGoals;
+  return ombSupportedGoal;
 };

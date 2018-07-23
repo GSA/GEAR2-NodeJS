@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  var ombIrmCategories = sequelize.define('ombIrmCategories', {
+  var ombIrmCategory = sequelize.define('ombIrmCategory', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -37,8 +37,12 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     }
   }, {
+    name: {
+      singular: 'omb_irm_category',
+      plural: 'omb_irm_categories',
+    },
     timestamps: false,
     tableName: 'obj_omb_irm_categories'
   });
-  return ombIrmCategories;
+  return ombIrmCategory;
 };

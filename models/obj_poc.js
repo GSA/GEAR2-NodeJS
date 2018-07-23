@@ -54,27 +54,30 @@ module.exports = function(sequelize, DataTypes) {
       field: 'ChangeAudit'
     },
   }, {
-    timestamps: false,
+    name: {
+      singular: 'poc',
+      plural: 'pocs',
+    },
     tableName: 'obj_poc',
     timestamps: false,
   });
 
-  poc.associate = function (models) {
-    models.poc.belongsToMany(models.fisma, {
-      as: 'fisma_issm',
-      foreignKey: 'objPOC_Id',
-      otherKey: 'objFismaSystem_Id',
-      through: 'zk_fisma_issm',
-      timestamps: false,
-    });
-    models.poc.belongsToMany(models.fisma, {
-      as: 'fisma_isso',
-      foreignKey: 'objPOC_Id',
-      otherKey: 'objPOC_Id',
-      through: 'zk_fisma_isso',
-      timestamps: false,
-    });
-  }
+  // poc.associate = function (models) {
+  //   models.poc.belongsToMany(models.fisma, {
+  //     as: 'fisma_issm',
+  //     foreignKey: 'objPOC_Id',
+  //     otherKey: 'objFismaSystem_Id',
+  //     through: 'zk_fisma_issm',
+  //     timestamps: false,
+  //   });
+  //   models.poc.belongsToMany(models.fisma, {
+  //     as: 'fisma_isso',
+  //     foreignKey: 'objPOC_Id',
+  //     otherKey: 'objPOC_Id',
+  //     through: 'zk_fisma_isso',
+  //     timestamps: false,
+  //   });
+  // }
 
   return poc;
 };

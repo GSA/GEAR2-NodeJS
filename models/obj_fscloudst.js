@@ -36,9 +36,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       field: 'ChangeAudit'
     }
-  },
-  {
-    timestamps: false,
+  }, {
+    name: {
+      singular: 'fscloudst',
+      plural: 'fscloudsts',
+    },
     tableName: 'obj_fscloudst',
     timestamps: false,
   }
