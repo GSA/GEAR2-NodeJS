@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 const content = {
-  tstamp: `23 JUL 2018 8:15 AM`,
+  tstamp: `24 JUL 2018 9:00 PM`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
 }
 

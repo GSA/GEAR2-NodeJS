@@ -149,28 +149,14 @@ finale.initialize({
 // Create default REST resources from orm.models
 // (`orm.models` are sequelize instances where local `models` are static)
 Object.entries(orm.models).forEach((m) => {
-  // console.log(`\n\nINSPECT FOR API ${m[0]}`);
   const modelClassName = m[0];
   const modelInstance = m[1];
   const modelRefName = m[1].options.name; // { singular, plural }
-  // const getModelIncludes = finaleVar.finaleVar.getModelIncludes;
 
   // Makes sure the current model instance (orm.models) originates from the models/ directory so we
   // can exclude any that are automatically created by the ORM like join tables
   if (models[modelClassName]) {
-    // console.log(`CREATE RESOURCE FOR ${m[0]} with assocs: ${finaleVar.getModelIncludes(modelClassName)}`);
-
-    // Detail
-    const detailedResource = finale.resource({
-      model: modelInstance,
-      endpoints: [`/${modelRefName.plural}_inc_all`, `/${modelRefName.plural}_inc_all/:id`],
-      pagination: true,
-      include: finaleVar.getModelIncludes(modelClassName),
-    });
-    detailedResource.use(finaleMiddleware);
-
-    // List
-    const summaryResource = finale.resource({
+    const resource = finale.resource({
       model: modelInstance,
       endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
       pagination: true,
@@ -181,7 +167,7 @@ Object.entries(orm.models).forEach((m) => {
         attributes: ['keyname']
       }]
     });
-    summaryResource.use(finaleMiddleware);
+    resource.use(finaleMiddleware);
   }
 });
 

@@ -207,7 +207,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'Id'
       },
       field: 'obj_application_status_Id'
-    }
+    },
   }, {
     name: {
       singular: 'application',
