@@ -74,7 +74,7 @@ export const ApplicationEdit = (props) => (
             choices={ AppOrWebChoices }
           />
           <SelectInput source="numberOfUsers" allowEmpty
-            optionText="name" optionValue="name"
+            optionText="name"
             choices={ UserCountBreakdown }
           />
         <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
@@ -145,7 +145,7 @@ export const ApplicationEdit = (props) => (
           </ReferenceInput>
 
           <ReferenceInput label="User Location" source="objAppUserlocId"
-            reference="app_user_locs" allowEmpty>
+            reference="user_locations" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
@@ -259,7 +259,7 @@ export const ApplicationCreate = (props) => (
             choices={ AppOrWebChoices }
           />
           <SelectInput source="numberOfUsers" allowEmpty
-            optionText="name" optionValue="name"
+            optionText="name"
             choices={ UserCountBreakdown }
           />
           <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty

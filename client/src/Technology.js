@@ -96,6 +96,21 @@ export const TechnologyEdit = (props) => (
               </SimpleFormIterator>
             </ArrayInput>
 
+            <ArrayInput source="categories"
+              label="Standard Categories">
+              <SimpleFormIterator>
+                <ReferenceInput label=""
+                  source="id"
+                  reference="standard_categories"
+                  sort={{ field: 'keyname', order: 'ASC' }}
+                  perPage={ 1000000 }
+                  allowEmpty
+                >
+                  <SelectInput optionText="keyname" />
+                </ReferenceInput>
+              </SimpleFormIterator>
+            </ArrayInput>
+
             <ArrayInput source="reference_documents"
               label="Reference Documents"
             >
@@ -110,6 +125,22 @@ export const TechnologyEdit = (props) => (
                 </ReferenceInput>
               </SimpleFormIterator>
             </ArrayInput>
+
+            <ArrayInput source="replaced_by"
+              label="Replaced By">
+              <SimpleFormIterator>
+                <ReferenceInput label=""
+                  source="id"
+                  reference="technologies"
+                  sort={{ field: 'keyname', order: 'ASC' }}
+                  perPage={ 1000000 }
+                  allowEmpty
+                >
+                  <SelectInput optionText="keyname" />
+                </ReferenceInput>
+              </SimpleFormIterator>
+            </ArrayInput>
+
 
         </SimpleForm>
     </Edit>

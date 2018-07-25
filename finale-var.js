@@ -19,7 +19,6 @@ module.exports = {
           'technical_pocs',
           'technologies',
         ],
-        capability: [ 'replaced_by' ],
         fisma: [
           'fisma_artifacts',
           'issm',

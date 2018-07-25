@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton
   , CardActions, CreateButton, RefreshButton, Filter
   , DisabledInput, SimpleForm, TextInput
+  , ReferenceInput, SelectInput, ReferenceField
   , required, maxLength, email } from 'react-admin';
 
   const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
@@ -31,7 +32,13 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
             <TextField source="keyname" />
             <TextField source="email" />
             <TextField source="phNum" />
-            <TextField source="risso" />
+            <ReferenceField source="risso"
+              reference="user_locations"
+              label="RISSO"
+              linkType={false}
+            >
+              <TextField source="keyname" />
+            </ReferenceField>
             <EditButton />
         </Datagrid>
     </List>
@@ -48,7 +55,10 @@ export const PocEdit = (props) => (
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <TextInput source="email" validate={[required(), email()]} />
             <TextInput source="phNum" />
-            <TextInput source="risso" />
+            <ReferenceInput label="RISSO" source="risso"
+              reference="user_locations" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
         </SimpleForm>
     </Edit>
 );

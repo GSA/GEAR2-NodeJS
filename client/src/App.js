@@ -43,7 +43,6 @@ const App = () => (
       <Resource name="application_rationalizations" />
       <Resource name="application_statuses" />
       <Resource name="app_platforms" />
-      <Resource name="app_user_locs" />
       <Resource name="ato_types" />
       <Resource name="cui_categories" />
       <Resource name="deployment_types" />
@@ -61,6 +60,7 @@ const App = () => (
       <Resource name="standard_types" />
       <Resource name="technology_statuses" />
       <Resource name="time_quadrants" />
+      <Resource name="user_locations" />
       <Resource name="years" />
     </Admin>
 );

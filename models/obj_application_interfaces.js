@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: true,
-      field: 'Name'
+      field: 'Keyname'
     },
     createDtg: {
       type: DataTypes.DATE,

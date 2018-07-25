@@ -30,10 +30,12 @@ module.exports = {
       // TODO: formal documentation
       // Fixes bug where child associations would never get written to the db
       after: (req, res, context) => {
-        context.options.include.forEach((field) => {
-          const setter = 'set' + field[0].toUpperCase() + field.slice(1);
-          context.instance[setter].call(context.instance, context.instance[field]);
-        })
+        if (context.options && context.options.include) {
+          context.options.include.forEach((field) => {
+            const setter = 'set' + field[0].toUpperCase() + field.slice(1);
+            context.instance[setter].call(context.instance, context.instance[field]);
+          })
+        }
         return context.continue;
       }
     }

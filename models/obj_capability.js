@@ -65,14 +65,5 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_capability'
   });
-  capability.associate = function (models) {
-    models.capability.belongsToMany(models.capability, {
-      as: 'replaced_by',
-      foreignKey: 'obj_capability_Id',
-      otherKey: 'obj_capability_Id1',
-      through: 'zk_capability_replacedby',
-      timestamps: false,
-    });
-  }
   return capability;
 };

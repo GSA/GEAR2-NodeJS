@@ -3,11 +3,9 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , DateField
   , SimpleForm, DisabledInput, LongTextInput, TextInput, DateInput
-  , ReferenceInput, SelectInput 
+  , ReferenceInput, SelectInput
   , SimpleFormIterator, ArrayInput
   , required, maxLength } from 'react-admin';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 
 import { ConfirmChoices, FedOrContractor } from './valuelists';
 import { formatDate, parseDate } from './formatters/DateTime';
@@ -56,7 +54,7 @@ export const FismaEdit = (props) => (
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" />
       <SelectInput source="fedCtrLocated" allowEmpty
-        optionText="name" optionValue="name"
+        optionText="name"
         choices={ FedOrContractor }
       />
     <DateInput source="atoDate"
@@ -70,7 +68,7 @@ export const FismaEdit = (props) => (
       <DateInput source="inactiveDate"
         format={formatDate} parse={parseDate} />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
-        allowEmpty optionText="name" optionValue="name"
+        allowEmpty optionText="name"
         choices={ ConfirmChoices }
       />
       <SelectInput source="pii" allowEmpty
@@ -88,14 +86,6 @@ export const FismaEdit = (props) => (
       <LongTextInput source="comments" />
 
 {/* ARTIFACTS */}
-<Button component={Link} target="_blank"
-  to={{
-    pathname: '/fisma_artifacts/create',
-    state: { record: { fisma_id: 1 } },
-  }}
->
-CREATE
-</Button>
       <ArrayInput source="fisma_artifacts"  label="FISMA Artifacts">
         <SimpleFormIterator>
           <ReferenceInput label="Artifacts" source="art"
@@ -198,7 +188,7 @@ export const FismaCreate = (props) => (
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" label="FISMA System ID"/>
       <SelectInput source="fedCtrLocated" allowEmpty
-        optionText="name" optionValue="name"
+        optionText="name"
         choices={ FedOrContractor }
       />
       <DateInput source="atoDate" label="ATO Date"
@@ -212,7 +202,7 @@ export const FismaCreate = (props) => (
       <DateInput source="inactiveDate" label="Inactive Date"
         format={formatDate} parse={parseDate} />
       <SelectInput source="currentFyFismaAssessment" label="Current FY FISMA Assessment"
-        allowEmpty optionText="name" optionValue="name"
+        allowEmpty optionText="name"
         choices={ ConfirmChoices }
       />
       <SelectInput source="pii" label="PII" allowEmpty

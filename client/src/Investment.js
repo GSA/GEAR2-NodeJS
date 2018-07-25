@@ -29,7 +29,7 @@ export const InvestmentEdit = (props) => (
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
               <SelectInput source="active" allowEmpty
-                optionText="name" optionValue="name"
+                optionText="name" 
                 choices={ ConfirmChoices }
               />
             <TextInput source="budgetYear" />
@@ -92,7 +92,7 @@ export const InvestmentCreate = (props) => (
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
             <SelectInput source="active" allowEmpty
-              optionText="name" optionValue="name"
+              optionText="name" 
               choices={ ConfirmChoices }
             />
             <TextInput source="budgetYear" />

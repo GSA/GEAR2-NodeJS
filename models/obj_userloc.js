@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  var appUserloc = sequelize.define('appUserloc', {
+  var userLocation = sequelize.define('userLocation', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -40,11 +40,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     name: {
-      singular: 'app_user_loc',
-      plural: 'app_user_locs',
+      singular: 'user_location',
+      plural: 'user_locations',
     },
     timestamps: false,
-    tableName: 'obj_app_userloc'
+    tableName: 'obj_userloc'
   });
-  return appUserloc;
+  return userLocation;
 };
