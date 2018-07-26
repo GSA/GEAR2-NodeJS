@@ -9,6 +9,8 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
 import { ConfirmChoices } from './valuelists';
 import { formatDate, parseDate } from './formatters/DateTime';
 
+import { Link } from 'react-router-dom';
+
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
         {filters && React.cloneElement(filters, {
@@ -62,6 +64,7 @@ export const TechnologyEdit = (props) => (
               choices={ ConfirmChoices }
             />
             <LongTextInput source="goldImageComment" />
+            <LongTextInput source="reference_documents" />
             <LongTextInput source="comments" />
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"
@@ -111,21 +114,6 @@ export const TechnologyEdit = (props) => (
               </SimpleFormIterator>
             </ArrayInput>
 
-            <ArrayInput source="reference_documents"
-              label="Reference Documents"
-            >
-              <SimpleFormIterator>
-                <ReferenceInput label="Name" source="id"
-                  reference="reference_documents"
-                  sort={{ field: 'keyname', order: 'ASC' }}
-                  perPage={ 1000000 }
-                  allowEmpty
-                >
-                  <SelectInput optionText="keyname" />
-                </ReferenceInput>
-              </SimpleFormIterator>
-            </ArrayInput>
-
             <ArrayInput source="replaced_by"
               label="Replaced By">
               <SimpleFormIterator>
@@ -163,6 +151,7 @@ export const TechnologyCreate = (props) => (
               choices={ ConfirmChoices }
             />
             <LongTextInput source="goldImageComment" />
+            <LongTextInput source="reference_documents" />
             <LongTextInput source="comments" />
 
             <ReferenceInput label="Status" source="objTechnologyStatusId"

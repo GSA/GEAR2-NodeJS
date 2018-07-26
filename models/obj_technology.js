@@ -68,6 +68,11 @@ module.exports = function(sequelize, DataTypes) {
       },
       field: 'obj_deployment_type_Id'
     },
+    reference_documents: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      field: 'Reference_documents'
+    },
     createDtg: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -111,6 +116,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   technology.associate = function (models) {
+
     models.technology.belongsToMany(models.application, {
       as: 'applications',
       foreignKey: 'obj_technology_Id',
@@ -137,13 +143,6 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_poc_Id',
       through: 'zk_technology_poc',
-      timestamps: false,
-    });
-    models.technology.belongsToMany(models.referenceDocument, {
-      as: 'reference_documents',
-      foreignKey: 'obj_technology_Id',
-      otherKey: 'obj_reference_documents_Id',
-      through: 'zk_technology_reference_documents',
       timestamps: false,
     });
   }

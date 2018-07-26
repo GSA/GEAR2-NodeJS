@@ -31,7 +31,6 @@ module.exports = {
           'replaced_by',
           'categories',
           'pocs',
-          'reference_documents',
         ],
       };
       return modelClassName? config[modelClassName]: config;

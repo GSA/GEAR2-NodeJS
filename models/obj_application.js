@@ -268,6 +268,8 @@ module.exports = function(sequelize, DataTypes) {
       otherKey: 'obj_technology_Id',
       through: 'zk_application_technology',
       timestamps: false,
+      onDelete: 'cascade',
+      constraints: false,
     });
   };
   return application;

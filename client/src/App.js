@@ -27,19 +27,18 @@ const App = () => (
       dataProvider={epilogueClient(`/api/v1`)}
     >
 
-      <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} remove={Delete} />
-      <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} remove={Delete} />
-      <Resource name="pocs" options={{ label: 'Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} remove={Delete} />
-      <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} remove={Delete} />
+      <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} />
+      <Resource name="application_interfaces"  options={{ label: 'Business Applications Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} />
+      <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} />
+      <Resource name="pocs" options={{ label: 'Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} />
+      <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} />
       <Resource name="fisma_artifacts" options={{ label: 'FISMA Artifacts' }} list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} />
-      <Resource name="investments" options={{ label: 'Investments' }} list={InvestmentList} edit={InvestmentEdit} create={InvestmentCreate} remove={Delete} />
-      <Resource name="parent_systems" options={{ label: 'Parent Systems' }} list={ParentSystemList} edit={ParentSystemEdit} create={ParentSystemCreate} remove={Delete} />
-      <Resource name="technologies" options={{ label: 'Technologies' }} list={TechnologyList} edit={TechnologyEdit} create={TechnologyCreate} remove={Delete} />
-      <Resource name="reference_documents" options={{ label: 'Technology Ref Doc' }} list={ReferenceDocumentList} edit={ReferenceDocumentEdit} create={ReferenceDocumentCreate} remove={Delete} />
+      <Resource name="investments" options={{ label: 'Investments' }} list={InvestmentList} edit={InvestmentEdit} create={InvestmentCreate} />
+      <Resource name="parent_systems" options={{ label: 'Parent Systems' }} list={ParentSystemList} edit={ParentSystemEdit} create={ParentSystemCreate} />
+      <Resource name="technologies" options={{ label: 'Technologies' }} list={TechnologyList} edit={TechnologyEdit} create={TechnologyCreate} />
 
       <Resource name="app_hostingproviders" />
       <Resource name="application_costs" />
-      <Resource name="application_interfaces" />
       <Resource name="application_rationalizations" />
       <Resource name="application_statuses" />
       <Resource name="app_platforms" />
@@ -56,6 +55,7 @@ const App = () => (
       <Resource name="pii_categories" />
       <Resource name="portfolios" />
       <Resource name="sc_impact_levels" />
+      <Resource name="reference_documents"/>
       <Resource name="standard_categories" />
       <Resource name="standard_types" />
       <Resource name="technology_statuses" />

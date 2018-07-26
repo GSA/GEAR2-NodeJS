@@ -29,7 +29,6 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
-            <TextField source="description" />
             <EditButton />
         </Datagrid>
     </List>
