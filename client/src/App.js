@@ -1,9 +1,10 @@
 import React from 'react';
-import { Admin, Resource, Delete } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import epilogueClient from './client-config';
 //import epilogueClient from './data-provider';
 
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
+import { ApplicationInterfaceList, ApplicationInterfaceEdit, ApplicationInterfaceCreate } from './ApplicationInterface';
 import { CapabilityList, CapabilityEdit, CapabilityCreate } from './Capability';
 import { FismaList, FismaEdit, FismaCreate } from './Fisma';
 import { FismaArtifactList, FismaArtifactEdit, FismaArtifactCreate } from './FismaArtifact';
@@ -11,7 +12,6 @@ import { InvestmentList, InvestmentEdit, InvestmentCreate } from './Investment';
 import { ParentSystemList, ParentSystemEdit, ParentSystemCreate } from './ParentSystem';
 import { PocList, PocEdit, PocCreate } from './Poc';
 import { TechnologyList, TechnologyEdit, TechnologyCreate } from './Technology';
-import { ReferenceDocumentList, ReferenceDocumentEdit, ReferenceDocumentCreate } from './ReferenceDocument';
 
 import authProvider from './authProvider';
 import LoginPage from './LoginPage';
@@ -28,7 +28,7 @@ const App = () => (
     >
 
       <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} />
-      <Resource name="application_interfaces"  options={{ label: 'Business Applications Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} />
+      <Resource name="application_interfaces"  options={{ label: 'Application Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} />
       <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} />
       <Resource name="pocs" options={{ label: 'Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} />
       <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} />

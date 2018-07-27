@@ -9,8 +9,6 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
 import { ConfirmChoices } from './valuelists';
 import { formatDate, parseDate } from './formatters/DateTime';
 
-import { Link } from 'react-router-dom';
-
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
         {filters && React.cloneElement(filters, {
@@ -136,7 +134,7 @@ export const TechnologyEdit = (props) => (
 
 export const TechnologyCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
+        <SimpleForm defaultValue={{objTechnologyStatusId: 1}}>
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate"
@@ -157,8 +155,9 @@ export const TechnologyCreate = (props) => (
             <ReferenceInput label="Status" source="objTechnologyStatusId"
               reference="technology_statuses"
               validate={required()}
+              sort={{ field: 'id', order: 'DESC' }}
             >
-              <SelectInput optionText="keyname" value={1} />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Deployment Type" source="objDeploymentTypeId"

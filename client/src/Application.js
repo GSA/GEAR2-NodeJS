@@ -163,15 +163,6 @@ export const ApplicationEdit = (props) => (
             </SimpleFormIterator>
           </ArrayInput>
 
-          {/*}<ArrayInput source="applicationInterfaces"
-            label="Application Interfaces">
-            <SimpleFormIterator>
-              <ReferenceInput label="PII" source="pii" reference="piiCategory" allowEmpty>
-                <SelectInput optionText="keyname" optionValue="id" />
-              </ReferenceInput>
-            </SimpleFormIterator>
-          </ArrayInput> */}
-
           <ArrayInput source="capabilities"
             label="Capabilities">
             <SimpleFormIterator>
@@ -185,15 +176,6 @@ export const ApplicationEdit = (props) => (
             label="Technologies">
             <SimpleFormIterator>
               <ReferenceInput label="" source="id" reference="technologies" allowEmpty>
-                <SelectInput optionText="keyname" />
-              </ReferenceInput>
-            </SimpleFormIterator>
-          </ArrayInput>
-
-          <ArrayInput source="replacedby"
-            label="Replaced By">
-            <SimpleFormIterator>
-              <ReferenceInput label="" source="id" reference="applications" allowEmpty>
                 <SelectInput optionText="keyname" />
               </ReferenceInput>
             </SimpleFormIterator>

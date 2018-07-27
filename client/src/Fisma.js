@@ -85,15 +85,19 @@ export const FismaEdit = (props) => (
       </ReferenceInput>
       <LongTextInput source="comments" />
 
-{/* ARTIFACTS */}
-      <ArrayInput source="fisma_artifacts"  label="FISMA Artifacts">
+      <ArrayInput source="fisma_artifacts" label="FISMA Artifacts">
         <SimpleFormIterator>
-          <ReferenceInput label="Artifacts" source="art"
-            reference="fisma_artifacts" allowEmpty>
-            <SelectInput optionText="keyname" optionValue="id" />
+          <ReferenceInput label="Artifacts" source="id"
+            reference="fisma_artifacts"
+            sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }
+            allowEmpty
+          >
+            <SelectInput optionText="keyname" />
           </ReferenceInput>
         </SimpleFormIterator>
       </ArrayInput>
+
 {/* POC isso,issm,ao,so */}
       <ReferenceInput source="authorizingOfficialId" label="Authorizing Official"
         reference="pocs"
