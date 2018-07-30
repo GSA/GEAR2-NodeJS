@@ -176,7 +176,7 @@ export const FismaEdit = (props) => (
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <ReferenceInput source="fscloudspId" label="Cloud Service Provider"
-        reference="fscloudsts"
+        reference="fscloudsps"
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
