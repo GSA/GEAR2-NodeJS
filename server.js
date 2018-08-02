@@ -84,12 +84,12 @@ app.use(passport.session());
 /* to restore, uncomment 'if-else' block and delete preceding 'res.sendFile' line */
 /******************************************************************/
 app.get('/admin', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  // if (req.isAuthenticated()) {
-  //   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  // } else {
-  //   res.redirect('/login')
-  // }
+  // res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+  if (req.isAuthenticated()) {
+    res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+  } else {
+    res.redirect('/login')
+  }
 });
 app.use(express.static(path.join(__dirname, 'public')));
 
