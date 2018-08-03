@@ -4,14 +4,15 @@
 
 ### Prerequisites
 
-Assumes you have NodeJS (with NPM) installed and appropriate MS SQL configuration params from the GEAR project admin (TBD).
+Requires NodeJS (with NPM) and MySQL Server to be installed prior to setup
 
 ### Overview
 
 1. [Clone the repository](#1-clone-the-repository)
 2. [Install Node dependencies](#2-install-node-dependencies)
-3. [Configure the database connection](#3-configure-the-database-connection)
-4. [Start the server](#4-start-the-server)
+3. [Configure dotenv environment variables](#3-configure-dotenv)
+4. [Sync Databases](#4-sync-sequelize)
+5. [Start Server](#5-start-server)
 
 
 ### Steps
