@@ -163,7 +163,6 @@ Object.entries(orm.models).forEach((m) => {
       include: finaleVar.getModelIncludes(modelClassName),
       search: [{
         param: 'kn',
-        operator: '$like',
         attributes: ['keyname']
       }]
     });
