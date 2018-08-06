@@ -10,9 +10,7 @@ var
     cors = require('cors'),
     passport = require('passport'),
     SAMLStrategy = require('passport-saml').Strategy,
-    JwtStrategy = require('passport-jwt').Strategy,
-    ExtractJwt = require('passport-jwt').ExtractJwt,
-    session = require('express-session'),
+    jwt = require('express-jwt'),
     mysql = require('mysql2'),
     util = require('util'),
     models = require('./models');
@@ -24,7 +22,9 @@ const port = process.env.PORT || 3333;
 
 // Initialize server
 var app = express();
+
 /********************************************************************
+PASSPORT BEGIN
  TODO: MOVE PASSPORT STUFF TO ITS OWN FILE
 ********************************************************************/
 const samlConfig = {
@@ -35,158 +35,131 @@ const samlConfig = {
   entryPoint: process.env.SAML_ENTRY_POINT,
   issuer: process.env.SAML_ISSUER,
 };
-// these 2 serialize & deserialize user functions are a passport pattern
+// Receives SAML user data
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
 passport.deserializeUser(function (user, done) {
+  user.resources = 'ALL';
   done(null, user);
 });
 // PASSPORT SAML STRATEGY
 passport.use(new SAMLStrategy(samlConfig, (secureAuthProfile, cb) => {
-  const dbConn = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database:'acl',
-  });
-  //TODO: IS THIS SQL UP TO DATE?? 8/3/18
-  const sqlString = `CALL acl.get_user_perms('${secureAuthProfile.nameID}');`;
-  dbConn.connect();
-  dbConn.query(sqlString, (err, results, fields) => {
-    if (err) {
-      secureAuthProfile.dbError = util.inspect(err);
-      // PURPOSELY AVOIDING A LOG-IN ERROR & SENDING DB ERROR ALONG WITH PROFILE.
-      return cb(null, secureAuthProfile);
-    } else {
-      secureAuthProfile.dbError = null;
-      secureAuthProfile.groups = JSON.parse(JSON.stringify(results[0]));
-      return cb(null, secureAuthProfile);
-    }
-  });
+  return cb(null, secureAuthProfile);
 }));
-// PASSPORT JWT STRATEGY
-// TODO: do NOT got to production without securing signing key
-passport.use(new JwtStrategy({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey   : 'your_jwt_secret'
-    },
-    function (jwtPayload, cb) {
-      //find the user in db if needed
-      console.log('\n\nFFFAAAARRRBBL\n\n');
-      return cb(null, {
-        id:1,
-        un:'mfagjhzf',
-      })
-      // return UserModel.findOneById(jwtPayload.id)
-      //     .then(user => {
-      //         return cb(null, user);
-      //     })
-      //     .catch(err => {
-      //         return cb(err);
-      //     });
-    }
-));
-
 /********************************************************************/
-// LOAD MIDDLEWARE
+
+// LOAD EXPRESS MIDDLEWARE
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
-
-/********************************************************************
-PASSPORT & SESSION MIDDLEWARE (Introduced with Passport-SAML)
-********************************************************************/
-app.use(session(
-  {
-    resave: true,
-    saveUninitialized: true,
-    secret: 'not used right now'
-  }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
 
 /********************************************************************
 ADMIN GATEWAY
 ********************************************************************/
-app.get('/admin', function (req, res) {
-  if (req.isAuthenticated()) {
-    res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  } else {
-    res.redirect('/login')
-  }
+app.get('/admin', function (req, res, next) {
+  // TODO: determine if this needs to be wrapped in an auth conditional
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
-/********************************************************************
-PUBLIC STATIC
-********************************************************************/
-app.use(express.static(path.join(__dirname, 'public')));
-
 /********************************************************************
 PASSPORT ROUTES
 ********************************************************************/
-app.get('/pass', function (req, res) {
-  const reqStr = util.inspect(req, false, null);
-  if (req.isAuthenticated()) {
-    res.redirect('/admin/#/');
-  } else {
-    res.status = 403
-    res.send('UNAUTHORIZED');
-  }
-});
 /********************************************************************
-LOG IN
+REQUEST A JWT
 ********************************************************************/
-app.get('/pp', passport.authenticate('jwt', { session: false }),
-    function(req, res) {
-        res.send(req.user.profile);
-    }
-);
-app.get('/login',
+app.get('/authenticate',
   passport.authenticate('saml', {
-      successRedirect: '/pass',
-      failureRedirect: '/login'
-    })
-  );
+    successRedirect: '/pass',
+    failureRedirect: '/authenticate'
+  })
+);
 /********************************************************************
-SAML CALLBACK ROUTE. This will receive SAML assertion response
+SAML IdP RESPONSE HANDLER (CONCLUDES FIRST PASS & BEGINS THE SECOND)
 ********************************************************************/
 app.post(samlConfig.path,
-  passport.authenticate('saml',{ successRedirect: '/pass', failureRedirect:'/pass' }),
-  (req, res) => {
-    res.redirect('/pass')
-  }
+  passport.authenticate('saml', {
+    successRedirect: '/pass',
+    failureRedirect:'/pass'
+  })
 );
 /********************************************************************
-LOG OUT
+SAML FALL-THROUGH (CONCLUDES SECOND PASS)
 ********************************************************************/
-app.get('/logout', function (req, res) {
-  req.logout();
-  // TODO: invalidate session on IP
-  res.redirect('/pass');
+/********************************************************************
+BIG DB TODO!!! VERY IMPORTANT! reduce JOINs by QUERYING if admin first
+AND USE PREPARED STATEMENTS INSTEAD
+********************************************************************/
+app.get('/pass', (req, res, next) => {
+  // TODO: GET USER NAME DYNAMICALLY
+  const samlProfile = { nameId: 'matthew.dodson@gsa.gov' };
+
+  const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.ACL_DB,
+  });
+  db.connect();
+  db.query(`CALL acl.get_user_perms('${samlProfile.nameId}');`,
+    (err, results, fields) => {
+      if (err) {
+        // 401 UNABLE TO FIND USER
+      } else {
+        // 200 NOW ATTACH ADD'L DATA
+        // TODO: IF ADMIN, JUST FLAG AS SUCH AND MOVE ON--NO NEED TO JOIN GROUPS, etc.
+        samlProfile.roles =  JSON.parse(JSON.stringify(results[0]));
+        const token = jwt.sign(samlProfile, process.env.SECRET, {
+          expiresIn: 86400 // expires in 24 hours
+        });
+        res.set('authorization', 'BEARER ' + token);
+        res.json({
+          status: 'okay',
+          user: samlProfile,
+          userToken: token,
+        });
+      }
+    }
+  );
+  db.close();
 });
 /********************************************************************
-GET USER STATUS
+GET USER TOKEN (again?? can't we use GET /authenticate)
 ********************************************************************/
-app.get('/ustat', (req, res) => {
-  if (req.user) {
-    res.json({
-      id: req.session.id,
-      isLoggedIn: req.isAuthenticated(),
-      groups: req.user.groups,
-      user: req.user,
-    });
-  } else {
-    res.json({
-      id: req.session.id,
-      isLoggedIn: req.isAuthenticated(),
-    });
-  }
+app.get('/me', (req, res, next) => {
 });
-/*******************************************************************/
-/*******************************************************************/
 
-
+/********************************************************************
+GET USER STATUS <-- legacy endpoint. replaced by GET /authenticate
+********************************************************************/
+// app.get('/ustat', (req, res) => {
+//   if (req.user) {
+//     res.json({
+//       id: req.user.id,
+//       isLoggedIn: req.isAuthenticated(),
+//       groups: req.user.groups,
+//       user: req.user,
+//     });
+//   } else {
+//     res.json({
+//       user: req.user || 'null',
+//       isLoggedIn: req.isAuthenticated(),
+//     });
+//   }
+// });
+/********************************************************************
+LOG OUT (needs to expire JWT with 0 min)
+********************************************************************/
+// app.get('/logout', function (req, res) {
+//   req.logout();
+//   // TODO: invalidate JWT
+//   res.redirect('/');
+// });
+/*******************************************************************/
+//  DONE WITH PASSPORT
+/*******************************************************************/
 var server = http.createServer(app);
 
 // Initialize finale
