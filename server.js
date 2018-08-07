@@ -10,6 +10,7 @@ var
     cors = require('cors'),
     passport = require('passport'),
     SAMLStrategy = require('passport-saml').Strategy,
+    jsonwebtoken = require('jsonwebtoken'),
     jwt = require('express-jwt'),
     mysql = require('mysql2'),
     util = require('util'),
@@ -40,7 +41,6 @@ passport.serializeUser(function (user, done) {
   done(null, user);
 });
 passport.deserializeUser(function (user, done) {
-  user.resources = 'ALL';
   done(null, user);
 });
 // PASSPORT SAML STRATEGY
@@ -89,8 +89,8 @@ app.post(samlConfig.path,
 SAML FALL-THROUGH (CONCLUDES SECOND PASS)
 ********************************************************************/
 /********************************************************************
-BIG DB TODO!!! VERY IMPORTANT! reduce JOINs by QUERYING if admin first
-AND USE PREPARED STATEMENTS INSTEAD
+Can we reduce JOINs by QUERYING if admin first?
+AND USE PREPARED STATEMENTS INSTEAD?
 ********************************************************************/
 app.get('/pass', (req, res, next) => {
   // TODO: GET USER NAME DYNAMICALLY
@@ -107,13 +107,28 @@ app.get('/pass', (req, res, next) => {
     (err, results, fields) => {
       if (err) {
         // 401 UNABLE TO FIND USER
+        res.status = 401;
+        res.json({
+          status: 401,
+          msg: err
+        })
       } else {
         // 200 NOW ATTACH ADD'L DATA
         // TODO: IF ADMIN, JUST FLAG AS SUCH AND MOVE ON--NO NEED TO JOIN GROUPS, etc.
-        samlProfile.roles =  JSON.parse(JSON.stringify(results[0]));
-        const token = jwt.sign(samlProfile, process.env.SECRET, {
-          expiresIn: 86400 // expires in 24 hours
-        });
+        const serializedRoles = JSON.parse(JSON.stringify(results[0]));
+        samlProfile.scopes = [
+          "poc: CREATE",
+          "referenceDocument: CREATE",
+          "technology: CREATE",
+          "poc: UPDATE",
+          "referenceDocument: UPDATE",
+          "technology: UPDATE",
+        ];
+        // if (samlProfile.roles.includes({Keyname:"Admin"})) {
+        //   samlProfile.admin = true;
+        // }
+        samlProfile.admin = true;
+        const token = jsonwebtoken.sign(samlProfile, process.env.SECRET);
         res.set('authorization', 'BEARER ' + token);
         res.json({
           status: 'okay',
@@ -123,7 +138,6 @@ app.get('/pass', (req, res, next) => {
       }
     }
   );
-  db.close();
 });
 /********************************************************************
 GET USER TOKEN (again?? can't we use GET /authenticate)
