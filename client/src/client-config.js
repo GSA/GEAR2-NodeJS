@@ -32,7 +32,12 @@ export default (apiUrl, httpClient = fetchJson) => {
      */
   const convertRESTRequestToHTTP = (type, resource, params) => {
     let url = '';
-    const options = {};
+    // add auth header (see documentation for specifics https://marmelab.com/react-admin/Authentication.html)
+    const headers = new Headers();
+    headers.append('Authorization', localStorage.jwt);
+    const options = {
+      headers: headers
+    };
     const sortValue = ({field, order}) => {
       return order === 'DESC' ? `-${field}` : field;
     };

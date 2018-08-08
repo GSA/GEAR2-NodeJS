@@ -13,18 +13,20 @@ module.exports = {
   all: {
     send:{
       before: (req, res, context) => {
+        // console.log('\n\nSEND\n\n');
         addContentRange.call(this, res, context);
         return context.continue;
       }
     },
   },
-  // list: {
-  //   fetch: {
-  //     before: (req, res, context) => {
-  //       // TODO: determine if we can move the edits to Finale source code here.
-  //     }
-  //   },
-  // },
+  list: {
+    start: {
+      before: (req, res, context) => {
+          console.log('\n\n\nAUTH\n\n\n');
+        // TODO: determine if we can move the edits to Finale source code here.
+      }
+    },
+  },
   update: {
     write: {
       // TODO: formal documentation

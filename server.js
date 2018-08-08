@@ -16,6 +16,11 @@ var
     util = require('util'),
     models = require('./models');
 
+    // TODO: clean this up
+    const passportJWT = require("passport-jwt");
+    const JWTStrategy   = passportJWT.Strategy;
+    const ExtractJWT = passportJWT.ExtractJwt;
+
 const orm = models.sequelize;
 
 // Define a default port if the env variable doesn't exist
@@ -45,10 +50,30 @@ passport.deserializeUser(function (user, done) {
 });
 // PASSPORT SAML STRATEGY
 passport.use(new SAMLStrategy(samlConfig, (secureAuthProfile, cb) => {
+  // TODO: error catch??
   return cb(null, secureAuthProfile);
 }));
-/********************************************************************/
+// PASSPORT JWT STRATEGY
+passport.use(new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromHeader('authorization'),
+        secretOrKey   : process.env.SECRET
+    },
+    function (jwtPayload, cb) {
+        // TODO: error catch
+        console.log('\nPAYLOAD\n')
+        return cb(null, jwtPayload);
+        // //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
+        // return UserModel.findOneById(jwtPayload.id)
+        //     .then(user => {
+        //         return cb(null, user);
+        //     })
+        //     .catch(err => {
+        //         return cb(err);
+        //     });
+    }
+));
 
+/********************************************************************/
 // LOAD EXPRESS MIDDLEWARE
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -67,23 +92,74 @@ app.get('/admin', function (req, res, next) {
 /********************************************************************
 PASSPORT ROUTES
 ********************************************************************/
+app.get('/api/beginAuth', (req, res) => {
+  console.log('BEGIN AUTH');
+  res.send('Hello World');
+  // res.redirect(process.env.SAML_ENTRY_POINT);
+});
 /********************************************************************
-REQUEST A JWT
+VERIFY A JWT
 ********************************************************************/
-app.get('/authenticate',
-  passport.authenticate('saml', {
-    successRedirect: '/pass',
-    failureRedirect: '/authenticate'
-  })
+app.get('/verify', function (req, res, next) {
+  passport.authenticate('jwt', function (err, user, info) {
+    console.log('VER');
+    res.json(req.user);
+  });
+  // TODO: validate exiration, structure etc. then pass along
+
+}
 );
 /********************************************************************
 SAML IdP RESPONSE HANDLER (CONCLUDES FIRST PASS & BEGINS THE SECOND)
 ********************************************************************/
 app.post(samlConfig.path,
-  passport.authenticate('saml', {
-    successRedirect: '/pass',
-    failureRedirect:'/pass'
-  })
+  passport.authenticate('saml'),
+  (req, res) => {
+    const samlProfile = req.user;
+
+    console.log(samlProfile);
+
+    // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
+    const jwt = {
+      sub: samlProfile.nameID,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60, // TODO <-- proper value
+    };
+    const token = jsonwebtoken.sign(jwt, process.env.SECRET);
+    const html =
+`
+<html>
+<body>
+<script>
+  const path = localStorage.redirectPath || '';
+  delete localStorage.redirectPath;
+  localStorage.jwt = '${token}';
+  console.log(localStorage.jwt)
+  window.location.assign('/admin/#/' + path);
+</script>
+</body>
+</html>
+`
+    res.send(html);
+
+    // const db = mysql.createConnection({
+    //   host: process.env.DB_HOST,
+    //   user: process.env.DB_USER,
+    //   password: process.env.DB_PASS,
+    //   database: process.env.ACL_DB,
+    // });
+    // db.connect();
+    // db.query(`CALL acl.get_user_perms_al('${samlProfile.nameID}');`,
+    //   (err, results, fields) => {
+    //     if (err) {
+    //       res.json({error: err});
+    //     }
+    //     else {
+    //       res.json({success: results});
+    //     }
+    //
+    //   }
+    // );
+  }
 );
 /********************************************************************
 SAML FALL-THROUGH (CONCLUDES SECOND PASS)
@@ -92,6 +168,7 @@ SAML FALL-THROUGH (CONCLUDES SECOND PASS)
 Can we reduce JOINs by QUERYING if admin first?
 AND USE PREPARED STATEMENTS INSTEAD?
 ********************************************************************/
+// rm hard-coded; go back to SAML and try different users
 app.get('/pass', (req, res, next) => {
   // TODO: GET USER NAME DYNAMICALLY
   const samlProfile = { nameId: 'matthew.dodson@gsa.gov' };
@@ -116,6 +193,7 @@ app.get('/pass', (req, res, next) => {
         // 200 NOW ATTACH ADD'L DATA
         // TODO: IF ADMIN, JUST FLAG AS SUCH AND MOVE ON--NO NEED TO JOIN GROUPS, etc.
         const serializedRoles = JSON.parse(JSON.stringify(results[0]));
+
         samlProfile.scopes = [
           "poc: CREATE",
           "referenceDocument: CREATE",
@@ -124,53 +202,30 @@ app.get('/pass', (req, res, next) => {
           "referenceDocument: UPDATE",
           "technology: UPDATE",
         ];
-        // if (samlProfile.roles.includes({Keyname:"Admin"})) {
-        //   samlProfile.admin = true;
-        // }
         samlProfile.admin = true;
+        // TODO: RESTORE EXPIRES!!
         const token = jsonwebtoken.sign(samlProfile, process.env.SECRET);
-        res.set('authorization', 'BEARER ' + token);
-        res.json({
-          status: 'okay',
-          user: samlProfile,
-          userToken: token,
-        });
+        const html =
+`
+  <html>
+  <body>
+    <script>
+      const path = localStorage.redirectPath;
+      delete localStorage.redirectPath;
+      localStorage.jwt = '${token}';
+      console.log(localStorage.jwt)
+      if (path) {
+        window.location.replace(path);
+      }
+    </script>
+  </body>
+  </html>
+`
+        res.send(html);
       }
     }
   );
 });
-/********************************************************************
-GET USER TOKEN (again?? can't we use GET /authenticate)
-********************************************************************/
-app.get('/me', (req, res, next) => {
-});
-
-/********************************************************************
-GET USER STATUS <-- legacy endpoint. replaced by GET /authenticate
-********************************************************************/
-// app.get('/ustat', (req, res) => {
-//   if (req.user) {
-//     res.json({
-//       id: req.user.id,
-//       isLoggedIn: req.isAuthenticated(),
-//       groups: req.user.groups,
-//       user: req.user,
-//     });
-//   } else {
-//     res.json({
-//       user: req.user || 'null',
-//       isLoggedIn: req.isAuthenticated(),
-//     });
-//   }
-// });
-/********************************************************************
-LOG OUT (needs to expire JWT with 0 min)
-********************************************************************/
-// app.get('/logout', function (req, res) {
-//   req.logout();
-//   // TODO: invalidate JWT
-//   res.redirect('/');
-// });
 /*******************************************************************/
 //  DONE WITH PASSPORT
 /*******************************************************************/
@@ -203,6 +258,16 @@ Object.entries(orm.models).forEach((m) => {
         operator: '$like',
         attributes: ['keyname']
       }]
+    });
+    resource.all.auth((req, res, context) => {
+      passport.authenticate('jwt', function (unknown, jwt, error) {
+        if (error) {
+          res.status(401).json({});
+          return context.stop();
+        }
+        //TODO: determine if jwt value allows me to do the thing I'm trying to do on this resource
+        context.continue();
+      })(req, res);
     });
     resource.use(finaleMiddleware);
   }
