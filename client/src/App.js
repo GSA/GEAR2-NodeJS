@@ -30,7 +30,7 @@ const App = () => (
       <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} />
       <Resource name="application_interfaces"  options={{ label: 'Application Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} />
       <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} />
-      <Resource name="pocs" options={{ label: 'Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} />
+      <Resource name="pocs" options={{ label: 'Point of Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} />
       <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} />
       <Resource name="fisma_artifacts" options={{ label: 'FISMA Artifacts' }} list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} />
       <Resource name="investments" options={{ label: 'Investments' }} list={InvestmentList} edit={InvestmentEdit} create={InvestmentCreate} />

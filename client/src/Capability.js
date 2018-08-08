@@ -21,7 +21,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
 
   const KeynameFilter = props => (
       <Filter {...props}>
-        <TextInput label="keyname" source="kn" />
+        <TextInput  label="Capability Name" source="kn" />
       </Filter>
   );
 
@@ -44,7 +44,7 @@ export const CapabilityEdit = (props) => (
     <Edit keyname={<CapabilityTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Capability Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <TextInput source="referenceNumber" />
 
@@ -60,7 +60,7 @@ export const CapabilityEdit = (props) => (
 export const CapabilityCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Capability Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <TextInput source="referenceNumber" />
 
