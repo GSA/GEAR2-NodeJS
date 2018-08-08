@@ -4,7 +4,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
-  , required, maxLength } from 'react-admin';
+  , required, maxLength, minValue, maxValue, } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 
@@ -102,7 +102,7 @@ export const ApplicationEdit = (props) => (
           optionText="name" optionValue="name"
           choices={ TierChoices }
         />
-        <NumberInput source="productionYear" />
+        <NumberInput source="productionYear" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
         <NumberInput source="retiredYear" />
         <TextInput source="url" />
         <LongTextInput source="timeNotes" />
@@ -166,25 +166,7 @@ export const ApplicationEdit = (props) => (
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         
-		<ArrayInput source="applicationRationalization"
-          label="Application Rationalization">
-          <SimpleFormIterator>
-		  
-			<ReferenceInput label="Application Name" source="objApplicationId"
-			  reference="applications"
-			  sort={{ field: 'keyname', order: 'ASC' }}
-			  perPage={ 1000000 }
-			  allowEmpty>
-			  <SelectInput optionText="keyname" />
-            </ReferenceInput>
-			
-            <TextInput source="FY" />
-            <TextInput source="TIME_Val" />
-            <TextInput source="Comment" />
-          </SimpleFormIterator>
-        </ArrayInput>
-		
-		
+	
         <ArrayInput source="capabilities"
           label="Capabilities">
           <SimpleFormIterator>
@@ -197,6 +179,7 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
+		
         <ArrayInput source="technologies"
           label="Technologies">
           <SimpleFormIterator>
