@@ -66,7 +66,7 @@ export const PocEdit = (props) => (
 export const PocCreate = (props) => (
     <Create title="POC" {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Name" validate={[required(), maxLength(80)]} />
             <TextInput source="email" validate={[required(), email()]} />
             <TextInput source="phNum" />
             <ReferenceInput label="RISSO (for FISMA use only)" source="risso"

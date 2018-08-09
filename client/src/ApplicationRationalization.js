@@ -39,8 +39,8 @@ import { timeValues } from './valuelists';
             <ReferenceField label="Application Name" source="objApplicationId" reference="applications">
                 <TextField source="keyname" />
             </ReferenceField>
-            <TextField source="fy" />
-            <TextField source="timeVal" />
+            <TextField source="fy" label= "FY" />
+            <TextField source="timeVal"label="TIME Value"  />
             <EditButton />
         </Datagrid>
     </List>
@@ -63,7 +63,7 @@ export const ApplicationRationalizationEdit = (props) => (
 			</ReferenceInput>
 			
 			<TextInput source="fy" label="FY"  validate={[required(), minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
-			<TextInput source="timeVal" label="TIME Val" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
+			<TextInput source="timeVal" label="TIME Value" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
 			<LongTextInput source="comment" label="TIME Notes"  />
 
         </SimpleForm>

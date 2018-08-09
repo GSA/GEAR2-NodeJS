@@ -10,7 +10,7 @@ export const InvestmentList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Investment Name"/>
             <TextField source="description" />
             <EditButton />
         </Datagrid>

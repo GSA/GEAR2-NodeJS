@@ -32,7 +32,7 @@ export const ApplicationList = (props) => (
     <List {...props}  actions={<ListActions />} title="Applications" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Application Name" />
             <TextField source="description" />
             <EditButton />
         </Datagrid>
@@ -49,7 +49,7 @@ export const ApplicationEdit = (props) => (
           <DisabledInput source="id" />
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
           <TextInput source="applicationAlias" />
-          <TextInput source="displayName" label="Short name will appear in graphic)" validate={[required(), maxLength(20)]} />
+          <TextInput source="displayName" label="Short name will appear in graphic" validate={[required(), maxLength(20)]} />
 		  <LongTextInput source="description" validate={[required()]} />          
 
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
@@ -102,8 +102,8 @@ export const ApplicationEdit = (props) => (
           optionText="name" optionValue="name"
           choices={ TierChoices }
         />
-        <NumberInput source="productionYear" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
-        <NumberInput source="retiredYear" />
+        <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
+        <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
         <TextInput source="url" />
        
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
@@ -284,8 +284,8 @@ export const ApplicationCreate = (props) => (
           <SelectInput source="tier" allowEmpty
             optionText="name" optionValue="name"
             choices={ TierChoices }/>
-          <NumberInput source="productionYear" />
-          <NumberInput source="retiredYear" />
+          <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
+		  <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
           <TextInput source="url" />
         
 

@@ -29,8 +29,8 @@ export const CapabilityList  = (props) => (
     <List {...props} actions={<ListActions />} title="Business Capabilities" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
-            <TextField source="referenceNumber" />
+            <TextField source="keyname" label="Capability Name" />
+            <TextField source="referenceNumber" label="Reference Number"/>
             <EditButton />
         </Datagrid>
     </List>

@@ -28,8 +28,8 @@ export const FismaArtifactList  = (props) => (
     <List {...props} actions={<ListActions />} title="FISMA Artifacts" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
-            <TextField source="link" />
+            <TextField source="keyname" label="FISMA Artifacts Name"/>
+            <TextField source="link" label="Link"/>
             <EditButton />
         </Datagrid>
     </List>

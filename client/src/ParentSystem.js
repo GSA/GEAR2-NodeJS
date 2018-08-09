@@ -29,7 +29,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
       <List {...props} actions={<ListActions />} title="Parent Systems" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Parent System Name"/>
             <TextField source="description" />
             <EditButton />
         </Datagrid>
@@ -44,7 +44,7 @@ export const ParentSystemEdit = (props) => (
     <Edit keyname={<ParentSystemTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Parent System Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <TextInput source="url" />
             <ReferenceInput label="Organization" source="objOrganizationId"
@@ -60,7 +60,7 @@ export const ParentSystemEdit = (props) => (
 export const ParentSystemCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Parent System Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <TextInput source="url" />
             <ReferenceInput label="Organization" source="objOrganizationId"

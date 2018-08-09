@@ -35,8 +35,8 @@ export const FismaList = (props) => (
     <Datagrid>
       <TextField source="id" />
       <TextField source="keyname" label="FISMA System Name"/>
-      <DateField source="createDtg" showTime />
-      <DateField source="changeDtg" showTime />
+      <DateField source="createDtg" showTime label="Create Time"/>
+      <DateField source="changeDtg" showTime label="Last Change Time"/>
       <EditButton />
     </Datagrid>
   </List>
