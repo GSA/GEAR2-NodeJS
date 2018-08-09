@@ -13,7 +13,6 @@ module.exports = {
   all: {
     send:{
       before: (req, res, context) => {
-        // console.log('\n\nSEND\n\n');
         addContentRange.call(this, res, context);
         return context.continue;
       }
@@ -22,7 +21,6 @@ module.exports = {
   list: {
     start: {
       before: (req, res, context) => {
-          console.log('\n\n\nAUTH\n\n\n');
         // TODO: determine if we can move the edits to Finale source code here.
       }
     },

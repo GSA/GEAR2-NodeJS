@@ -14,12 +14,11 @@ var
     jwt = require('express-jwt'),
     mysql = require('mysql2'),
     util = require('util'),
-    models = require('./models');
+    models = require('./models')
+    passportJWT = require("passport-jwt");
 
-    // TODO: clean this up
-    const passportJWT = require("passport-jwt");
-    const JWTStrategy   = passportJWT.Strategy;
-    const ExtractJWT = passportJWT.ExtractJwt;
+const JWTStrategy   = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 
 const orm = models.sequelize;
 
@@ -50,25 +49,15 @@ passport.deserializeUser(function (user, done) {
 });
 // PASSPORT SAML STRATEGY
 passport.use(new SAMLStrategy(samlConfig, (secureAuthProfile, cb) => {
-  // TODO: error catch??
   return cb(null, secureAuthProfile);
 }));
 // PASSPORT JWT STRATEGY
 passport.use(new JWTStrategy({
-        jwtFromRequest: ExtractJWT.fromHeader('authorization'),
-        secretOrKey   : process.env.SECRET
+      jwtFromRequest: ExtractJWT.fromHeader('authorization'),
+      secretOrKey   : process.env.SECRET
     },
     function (jwtPayload, cb) {
-        // TODO: error catch
-        return cb(null, jwtPayload);
-        // //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-        // return UserModel.findOneById(jwtPayload.id)
-        //     .then(user => {
-        //         return cb(null, user);
-        //     })
-        //     .catch(err => {
-        //         return cb(err);
-        //     });
+      return cb(null, jwtPayload);
     }
 ));
 

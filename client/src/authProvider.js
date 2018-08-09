@@ -28,19 +28,19 @@ const extractScopes = () => {
 }
 
 export default (type, params) => {
-  console.log('AUTH PROVIDING:  ' + type);
+  // console.log('AUTH PROVIDING:  ' + type);
   if (type === AUTH_LOGIN) {
     // should no longer be triggered (see LoginPage.js)
   }
   if (type === AUTH_LOGOUT) {
-    console.log('AUTH logout');
+    // console.log('AUTH logout');
     // TODO: remove jwt? or set exp to expire now?
     localStorage.removeItem('jwt');
     return Promise.resolve();
     // return Promise.reject({ redirectTo: authEntry });
   }
   if (type === AUTH_ERROR) {
-    console.log('AUTH error');
+    // console.log('AUTH error');
     const status = params.status;
     if (status === 401 || status === 403) {
       localStorage.removeItem('token');
@@ -59,7 +59,7 @@ export default (type, params) => {
   if (type === AUTH_GET_PERMISSIONS) {
       // would not reach this event without passing AUTH_CHECK
       extractScopes();
-      console.log('SCOPES PULLED: ' + localStorage.scopes);
+      // console.log('SCOPES PULLED: ' + localStorage.scopes);
       return Promise.resolve();
   }
   return Promise.reject('UNKNOWN METHOD');
