@@ -32,6 +32,9 @@ module.exports = {
           'categories',
           'pocs',
         ],
+		applicationInterface: [
+          'piis',
+        ],
       };
       return modelClassName? config[modelClassName]: config;
     }

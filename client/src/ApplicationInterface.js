@@ -66,7 +66,10 @@ export const ApplicationInterfaceEdit = (props) => (
             label="PII">
             <SimpleFormIterator>
               <ReferenceInput label="PII"
-			  source="id" reference="pii_categories" allowEmpty>
+			  source="id" reference="pii_categories" 
+			   sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+              allowEmpty>
                 <SelectInput optionText="keyname" />
               </ReferenceInput>
             </SimpleFormIterator>
