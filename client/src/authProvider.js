@@ -1,61 +1,66 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_GET_PERMISSIONS, AUTH_ERROR } from 'react-admin';
-//import decodeJwt from 'jwt-decode';
+import decodeJwt from 'jwt-decode';
 
-const fetchStatus = () => {
-  return fetch('/authenticate')
-    .then(response => {
-        console.log('STATUS HAS BEEN FETCHED')
-        console.log(response || 'NO RESP??')
-        if (response.status < 200 || response.status >= 300) {
-            throw new Error(response.statusText);
-        }
-        return response.json();
-    })
-    .then(({ isLoggedIn, groups, user }) => {
-      if (isLoggedIn !== 'true') {
-        Promise.reject({ redirectTo: '/pass' });
-      }
-      console.log('PROMISE AFTER AUTH');
-      localStorage.setItem('isLoggedIn', isLoggedIn);
-      localStorage.setItem('groups', groups);
-      localStorage.setItem('user', user);
-    });
+const authEntry = 'http://localhost:7000';
+
+const isValidJwt = () => {
+  const decodedToken = decodeJwt(localStorage.jwt);
+  if (!decodedToken.hasOwnProperty('scopes')
+      || !decodedToken.hasOwnProperty('exp')
+      || !decodedToken.hasOwnProperty('sub')) {
+    return false;
+  }
+  if (decodedToken.hasOwnProperty('exp')) {
+    if (decodedToken.exp <= Math.floor(Date.now() / 1000)) {
+      return false;
+    }
+  }
+  if (decodedToken.hasOwnProperty('scopes') && decodedToken.scopes.length == 0) {
+    return false;
+  }
+  return true;
 }
 
-const allIsLost = () => {
-  const frag = '';
-  localStorage.redirectPath = frag;
-  window.location = 'http://localhost:7000';
-};
+const extractScopes = () => {
+  // only called if valid token
+  const decodedToken = decodeJwt(localStorage.jwt);
+  localStorage.setItem('scopes', decodedToken.scopes);
+}
 
 export default (type, params) => {
-  console.log('AUTH SWITCH HAS BEEN CALLED');
-  console.log(type);
+  console.log('AUTH PROVIDING:  ' + type);
   if (type === AUTH_LOGIN) {
-    if (localStorage.isLoggedIn === "false") {
-      // console.log('NOW FETCH STATUS');
-      // fetchStatus();
-    }
+    // should no longer be triggered (see LoginPage.js)
   }
   if (type === AUTH_LOGOUT) {
-    localStorage.removeItem('ustat');
+    console.log('AUTH logout');
+    // TODO: remove jwt? or set exp to expire now?
+    localStorage.removeItem('jwt');
     return Promise.resolve();
+    // return Promise.reject({ redirectTo: authEntry });
   }
   if (type === AUTH_ERROR) {
-    console.log('AUTH ERROR');
-    allIsLost();
+    console.log('AUTH error');
+    const status = params.status;
+    if (status === 401 || status === 403) {
+      localStorage.removeItem('token');
+      return Promise.reject({ redirectTo: authEntry });
+    }
     return Promise.resolve();
   }
+  // AUTH_CHECK is intended to only validate the jwt
   if (type === AUTH_CHECK) {
-    console.log('AUTH CHECK CALLED')
-    if (localStorage.isLoggedIn === "false") {
-      // fetchStatus();
+    if (isValidJwt()) {
+      return Promise.resolve();
     } else {
-      const { resource } = params;
-      if (resource === 'application') {
-        console.log('WE CAN START APPLYING RESTRITCIONS NOW');
-      }
+      Promise.reject({ redirectTo: authEntry });
     }
   }
-  return Promise.resolve();
+  if (type === AUTH_GET_PERMISSIONS) {
+      // would not reach this event without passing AUTH_CHECK
+      extractScopes();
+      console.log('SCOPES PULLED: ' + localStorage.scopes);
+      return Promise.resolve();
+  }
+  return Promise.reject('UNKNOWN METHOD');
 }

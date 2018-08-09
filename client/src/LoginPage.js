@@ -4,11 +4,7 @@ import { userLogin } from 'react-admin';
 
 class LoginPage extends Component {
   componentDidMount() {
-    console.log('TRIGGER LOGIN!')
-    // using SAML so no creds, just trigger AUTH_LOGIN in authProvider
-    const credentials = {};
-    // dispatches userLogin action
-    this.props.userLogin(credentials);
+    window.location = 'http://localhost:7000'
   }
 
   // nothing to render, really, but for now, show a div as a sanity check

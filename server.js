@@ -60,7 +60,6 @@ passport.use(new JWTStrategy({
     },
     function (jwtPayload, cb) {
         // TODO: error catch
-        console.log('\nPAYLOAD\n')
         return cb(null, jwtPayload);
         // //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
         // return UserModel.findOneById(jwtPayload.id)
@@ -90,53 +89,54 @@ app.get('/admin', function (req, res, next) {
   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 /********************************************************************
-PASSPORT ROUTES
+(TK) PASSPORT ROUTES
 ********************************************************************/
 app.get('/api/beginAuth', (req, res) => {
-  console.log('BEGIN AUTH');
+  // console.log('BEGIN AUTH');
   res.send('Hello World');
   // res.redirect(process.env.SAML_ENTRY_POINT);
 });
 /********************************************************************
-VERIFY A JWT
+(TK) VERIFY A JWT
 ********************************************************************/
-app.get('/verify', function (req, res, next) {
-  passport.authenticate('jwt', function (err, user, info) {
-    console.log('VER');
-    res.json(req.user);
-  });
-  // TODO: validate exiration, structure etc. then pass along
-
-}
+app.get('/verify',
+  (req, res, next) => {
+    passport.authenticate('jwt', function (err, user, info) {
+      res.json(req.user);
+    });
+    // TODO: validate exp, structure etc. then pass along
+  }
 );
 /********************************************************************
-SAML IdP RESPONSE HANDLER (CONCLUDES FIRST PASS & BEGINS THE SECOND)
+SAML IdP RESPONSE HANDLER
 ********************************************************************/
 app.post(samlConfig.path,
   passport.authenticate('saml'),
   (req, res) => {
     const samlProfile = req.user;
 
-    console.log(samlProfile);
-
+    // TODO get 'results' from DB server
+    const results = 'technologyStatus:GET,technology:GET,technology:POST,standardType:GET,deploymentType:GET,fisma:PUT';
     // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
+    // TODO proper values for JWT
     const jwt = {
       sub: samlProfile.nameID,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60, // TODO <-- proper value
+      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      scopes: results,
     };
     const token = jsonwebtoken.sign(jwt, process.env.SECRET);
     const html =
 `
 <html>
-<body>
-<script>
-  const path = localStorage.redirectPath || '';
-  delete localStorage.redirectPath;
-  localStorage.jwt = '${token}';
-  console.log(localStorage.jwt)
-  window.location.assign('/admin/#/' + path);
-</script>
-</body>
+  <body>
+    <script>
+      const path = localStorage.redirectPath || '';
+      delete localStorage.redirectPath;
+      localStorage.jwt = '${token}';
+      // console.log(localStorage.jwt)
+      window.location.assign('/admin/#/' + path);
+    </script>
+  </body>
 </html>
 `
     res.send(html);
@@ -161,71 +161,7 @@ app.post(samlConfig.path,
     // );
   }
 );
-/********************************************************************
-SAML FALL-THROUGH (CONCLUDES SECOND PASS)
-********************************************************************/
-/********************************************************************
-Can we reduce JOINs by QUERYING if admin first?
-AND USE PREPARED STATEMENTS INSTEAD?
-********************************************************************/
-// rm hard-coded; go back to SAML and try different users
-app.get('/pass', (req, res, next) => {
-  // TODO: GET USER NAME DYNAMICALLY
-  const samlProfile = { nameId: 'matthew.dodson@gsa.gov' };
 
-  const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.ACL_DB,
-  });
-  db.connect();
-  db.query(`CALL acl.get_user_perms('${samlProfile.nameId}');`,
-    (err, results, fields) => {
-      if (err) {
-        // 401 UNABLE TO FIND USER
-        res.status = 401;
-        res.json({
-          status: 401,
-          msg: err
-        })
-      } else {
-        // 200 NOW ATTACH ADD'L DATA
-        // TODO: IF ADMIN, JUST FLAG AS SUCH AND MOVE ON--NO NEED TO JOIN GROUPS, etc.
-        const serializedRoles = JSON.parse(JSON.stringify(results[0]));
-
-        samlProfile.scopes = [
-          "poc: CREATE",
-          "referenceDocument: CREATE",
-          "technology: CREATE",
-          "poc: UPDATE",
-          "referenceDocument: UPDATE",
-          "technology: UPDATE",
-        ];
-        samlProfile.admin = true;
-        // TODO: RESTORE EXPIRES!!
-        const token = jsonwebtoken.sign(samlProfile, process.env.SECRET);
-        const html =
-`
-  <html>
-  <body>
-    <script>
-      const path = localStorage.redirectPath;
-      delete localStorage.redirectPath;
-      localStorage.jwt = '${token}';
-      console.log(localStorage.jwt)
-      if (path) {
-        window.location.replace(path);
-      }
-    </script>
-  </body>
-  </html>
-`
-        res.send(html);
-      }
-    }
-  );
-});
 /*******************************************************************/
 //  DONE WITH PASSPORT
 /*******************************************************************/
@@ -260,12 +196,21 @@ Object.entries(orm.models).forEach((m) => {
       }]
     });
     resource.all.auth((req, res, context) => {
+      // token will store 'scopes' where a 'scope' is a concatenation of resource name and HTTP
+      // verb (e.g. 'applications:GET')
       passport.authenticate('jwt', function (unknown, jwt, error) {
+        console.log('\nAT FINALE AUTH...');
+        console.log('TEST: ' + modelClassName + ':' + req.method + ' in scopes');
         if (error) {
-          res.status(401).json({});
+          res.status(401).send('UNAUTHORIZED');
           return context.stop();
         }
-        //TODO: determine if jwt value allows me to do the thing I'm trying to do on this resource
+        if (!jwt.scopes || !jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
+          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+          return context.stop();
+        }
+        console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
+        console.log('AUTH COMPLETE\n');
         context.continue();
       })(req, res);
     });
