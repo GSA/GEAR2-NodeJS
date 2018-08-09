@@ -9,11 +9,16 @@ var
     bodyParser = require('body-parser'),
     cors = require('cors'),
     passport = require('passport'),
-    Strategy = require('passport-saml').Strategy,
-    session = require('express-session'),
+    SAMLStrategy = require('passport-saml').Strategy,
+    jsonwebtoken = require('jsonwebtoken'),
+    jwt = require('express-jwt'),
     mysql = require('mysql2'),
     util = require('util'),
-    models = require('./models');
+    models = require('./models')
+    passportJWT = require("passport-jwt");
+
+const JWTStrategy   = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 
 const orm = models.sequelize;
 
@@ -22,7 +27,9 @@ const port = process.env.PORT || 3333;
 
 // Initialize server
 var app = express();
+
 /********************************************************************
+PASSPORT BEGIN
  TODO: MOVE PASSPORT STUFF TO ITS OWN FILE
 ********************************************************************/
 const samlConfig = {
@@ -33,110 +40,120 @@ const samlConfig = {
   entryPoint: process.env.SAML_ENTRY_POINT,
   issuer: process.env.SAML_ISSUER,
 };
-// user co/dec a required passport thing
+// Receives SAML user data
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
-passport.use(new Strategy(samlConfig, (secureAuthProfile, cb) => {
-  const dbConn = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database:'acl',
-  });
-  const sqlString = `CALL acl.get_user_perms('${secureAuthProfile.nameID}');`;
-  dbConn.connect();
-  dbConn.query(sqlString, (err, results, fields) => {
-    if (err) {
-      secureAuthProfile.dbError = util.inspect(err);
-      return cb(null, secureAuthProfile);
-    } else {
-      secureAuthProfile.dbError = null;
-      secureAuthProfile.groups = JSON.parse(JSON.stringify(results[0]));
-      return cb(null, secureAuthProfile);
-    }
-  });
+// PASSPORT SAML STRATEGY
+passport.use(new SAMLStrategy(samlConfig, (secureAuthProfile, cb) => {
+  return cb(null, secureAuthProfile);
 }));
-/********************************************************************/
+// PASSPORT JWT STRATEGY
+passport.use(new JWTStrategy({
+      jwtFromRequest: ExtractJWT.fromHeader('authorization'),
+      secretOrKey   : process.env.SECRET
+    },
+    function (jwtPayload, cb) {
+      return cb(null, jwtPayload);
+    }
+));
 
-// LOAD MIDDLEWARE
+/********************************************************************/
+// LOAD EXPRESS MIDDLEWARE
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Cross Origin Resource Sharing headers set via the cors lib & finaleMiddleware
 app.use(cors());
-
-/********************************************************************
-(ADDING FOR PASSPORT) MIDDLEWARE
-********************************************************************/
-app.use(session(
-  {
-    resave: true,
-    saveUninitialized: true,
-    secret: 'not used right now'
-  }));
 app.use(passport.initialize());
-app.use(passport.session());
-
-/**** TEMPORARYILY DISABLED!! ****/
-/* to restore, uncomment 'if-else' block and delete preceding 'res.sendFile' line */
-/******************************************************************/
-app.get('/admin', function (req, res) {
-  // res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  if (req.isAuthenticated()) {
-    res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  } else {
-    res.redirect('/login')
-  }
-});
 app.use(express.static(path.join(__dirname, 'public')));
 
 /********************************************************************
-PASSPORT ROUTES
+ADMIN GATEWAY
 ********************************************************************/
-app.get('/pass', function (req, res) {
-  const reqStr = util.inspect(req, false, null);
-  if (req.isAuthenticated()) {
-    res.redirect('/admin/#/');
-  } else {
-    res.send('NO PASS.');
-  }
+app.get('/admin', function (req, res, next) {
+  // TODO: determine if this needs to be wrapped in an auth conditional
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
-app.get('/login',
-  passport.authenticate('saml', {
-      successRedirect: '/pass',
-      failureRedirect: '/login'
-    })
-  );
-app.post(samlConfig.path,
-  passport.authenticate('saml', {successRedirect: '/pass', failureRedirect:'/pass'}),
-  (req, res) => {res.redirect('/pass')}
+/********************************************************************
+(TK) PASSPORT ROUTES
+********************************************************************/
+app.get('/api/beginAuth', (req, res) => {
+  // console.log('BEGIN AUTH');
+  res.send('Hello World');
+  // res.redirect(process.env.SAML_ENTRY_POINT);
+});
+/********************************************************************
+(TK) VERIFY A JWT
+********************************************************************/
+app.get('/verify',
+  (req, res, next) => {
+    passport.authenticate('jwt', function (err, user, info) {
+      res.json(req.user);
+    });
+    // TODO: validate exp, structure etc. then pass along
+  }
 );
-app.get('/logout', function (req, res) {
-  req.logout();
-  // TODO: invalidate session on IP
-  res.redirect('/pass');
-});
-app.get('/ustat', (req, res) => {
-  if (req.user) {
-    res.json({
-      id: req.session.id,
-      isLoggedIn: req.isAuthenticated(),
-      groups: req.user.groups,
-      user: req.user,
-    });
-  } else {
-    res.json({
-      id: req.session.id,
-      isLoggedIn: req.isAuthenticated(),
-    });
+/********************************************************************
+SAML IdP RESPONSE HANDLER
+********************************************************************/
+app.post(samlConfig.path,
+  passport.authenticate('saml'),
+  (req, res) => {
+    const samlProfile = req.user;
+
+    // TODO get 'results' from DB server
+    const results = 'technologyStatus:GET,technology:GET,technology:POST,standardType:GET,deploymentType:GET,fisma:PUT';
+    // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
+    // TODO proper values for JWT
+    const jwt = {
+      sub: samlProfile.nameID,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      scopes: results,
+    };
+    const token = jsonwebtoken.sign(jwt, process.env.SECRET);
+    const html =
+`
+<html>
+  <body>
+    <script>
+      const path = localStorage.redirectPath || '';
+      delete localStorage.redirectPath;
+      localStorage.jwt = '${token}';
+      // console.log(localStorage.jwt)
+      window.location.assign('/admin/#/' + path);
+    </script>
+  </body>
+</html>
+`
+    res.send(html);
+
+    // const db = mysql.createConnection({
+    //   host: process.env.DB_HOST,
+    //   user: process.env.DB_USER,
+    //   password: process.env.DB_PASS,
+    //   database: process.env.ACL_DB,
+    // });
+    // db.connect();
+    // db.query(`CALL acl.get_user_perms_al('${samlProfile.nameID}');`,
+    //   (err, results, fields) => {
+    //     if (err) {
+    //       res.json({error: err});
+    //     }
+    //     else {
+    //       res.json({success: results});
+    //     }
+    //
+    //   }
+    // );
   }
-});
-/***************************************************/
+);
 
-
+/*******************************************************************/
+//  DONE WITH PASSPORT
+/*******************************************************************/
 var server = http.createServer(app);
 
 // Initialize finale
@@ -165,6 +182,25 @@ Object.entries(orm.models).forEach((m) => {
         param: 'kn',
         attributes: ['keyname']
       }]
+    });
+    resource.all.auth((req, res, context) => {
+      // token will store 'scopes' where a 'scope' is a concatenation of resource name and HTTP
+      // verb (e.g. 'applications:GET')
+      passport.authenticate('jwt', function (unknown, jwt, error) {
+        console.log('\nAT FINALE AUTH...');
+        console.log('TEST: ' + modelClassName + ':' + req.method + ' in scopes');
+        if (error) {
+          res.status(401).send('UNAUTHORIZED');
+          return context.stop();
+        }
+        if (!jwt.scopes || !jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
+          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+          return context.stop();
+        }
+        console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
+        console.log('AUTH COMPLETE\n');
+        context.continue();
+      })(req, res);
     });
     resource.use(finaleMiddleware);
   }

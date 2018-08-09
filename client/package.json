@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@material-ui/core": "^1.2.1",
+    "jwt-decode": "^2.2.0",
     "react": "~16.3.1",
     "react-admin": "^2.1.2",
     "react-dom": "~16.3.1",
