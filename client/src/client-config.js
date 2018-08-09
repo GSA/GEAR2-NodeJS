@@ -32,7 +32,12 @@ export default (apiUrl, httpClient = fetchJson) => {
      */
   const convertRESTRequestToHTTP = (type, resource, params) => {
     let url = '';
-    const options = {};
+    // add auth header (see documentation for specifics https://marmelab.com/react-admin/Authentication.html)
+    const headers = new Headers();
+    headers.append('Authorization', localStorage.jwt);
+    const options = {
+      headers: headers
+    };
     const sortValue = ({field, order}) => {
       return order === 'DESC' ? `-${field}` : field;
     };
@@ -122,15 +127,15 @@ export default (apiUrl, httpClient = fetchJson) => {
     // HANDLES n:m CHILDREN. On GET responses, children are full db records, embedded as nested
     // objects instead of the expected array of Id integers.
     // json-server doesn't handle WHERE IN requests, so we fallback to calling GET_ONE n times instead
-    console.log(`DATA PROVIDER REQUESTING ${type} of ${resource} with`);
-    console.log(params);
+    // console.log(`DATA PROVIDER REQUESTING ${type} of ${resource} with`);
+    // console.log(params);
     if (type === GET_MANY) {
       if (isNaN(params.ids[0])) {
         var idsArray = params.ids.map(el => el.id);
         params.ids = idsArray;
       }
 
-      console.log(stringify({id:idsArray}));
+      // console.log(stringify({id:idsArray}));
 
       return httpClient(`${apiUrl}/${resource}?${stringify({id:idsArray})}`).then(response =>
         convertHTTPResponseToREST(response, type, resource, params),

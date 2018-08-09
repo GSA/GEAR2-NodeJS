@@ -42,7 +42,12 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       return sym;
     };
     let url = '';
-    const options = {};
+    // add auth header (see documentation for specifics https://marmelab.com/react-admin/Authentication.html)
+    const options = {
+      headers: {
+        Authorization: localStorage.jwt
+      }
+    };
     // console.log(`DATA PROVIDER Convert to HTTP; SWITCH ON ${type}`);
     switch (type) {
       case GET_LIST: {
