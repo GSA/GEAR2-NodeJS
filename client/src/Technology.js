@@ -25,7 +25,7 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
 
 const KeynameFilter = props => (
     <Filter {...props}>
-      <TextInput label="keyname" label="Technology Name" source="kn" />
+      <TextInput label="Technology Name" source="kn" />
     </Filter>
 );
 

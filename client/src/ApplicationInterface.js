@@ -65,7 +65,8 @@ export const ApplicationInterfaceEdit = (props) => (
         <ArrayInput source="piis"
             label="PII">
             <SimpleFormIterator>
-              <ReferenceInput label="" source="id" reference="pii_categories" allowEmpty>
+              <ReferenceInput label="PII"
+			  source="id" reference="pii_categories" allowEmpty>
                 <SelectInput optionText="keyname" />
               </ReferenceInput>
             </SimpleFormIterator>

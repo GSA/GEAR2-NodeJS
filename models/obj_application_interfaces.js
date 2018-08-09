@@ -62,5 +62,14 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_application_interfaces'
   });
+  applicationInterface.associate = function (models) {
+    models.applicationInterface.belongsToMany(models.piiCategory, {
+      as: 'piis',
+      foreignKey: 'obj_application_interfaces_Id',
+      otherKey: 'obj_pii_category_Id',
+      through: 'zk_app_interfaces_pii',
+      timestamps: false,
+    });	  
+  }
   return applicationInterface;
 };
