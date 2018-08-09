@@ -5,6 +5,7 @@ import epilogueClient from './client-config';
 
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
 import { ApplicationInterfaceList, ApplicationInterfaceEdit, ApplicationInterfaceCreate } from './ApplicationInterface';
+import { ApplicationRationalizationList, ApplicationRationalizationEdit, ApplicationRationalizationCreate } from './ApplicationRationalization';
 import { CapabilityList, CapabilityEdit, CapabilityCreate } from './Capability';
 import { FismaList, FismaEdit, FismaCreate } from './Fisma';
 import { FismaArtifactList, FismaArtifactEdit, FismaArtifactCreate } from './FismaArtifact';
@@ -29,6 +30,7 @@ const App = () => (
 
       <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} />
       <Resource name="application_interfaces"  options={{ label: 'Application Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} />
+      <Resource name="application_rationalizations"  options={{ label: 'App Rationalization' }} list={ApplicationRationalizationList} edit={ApplicationRationalizationEdit} create={ApplicationRationalizationCreate} />
       <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} />
       <Resource name="pocs" options={{ label: 'Point of Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} />
       <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} />
@@ -39,7 +41,6 @@ const App = () => (
 
       <Resource name="app_hostingproviders" />
       <Resource name="application_costs" />
-      <Resource name="application_rationalizations" />
       <Resource name="application_statuses" />
       <Resource name="app_platforms" />
       <Resource name="ato_types" />

@@ -4,7 +4,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
-  , required, maxLength, minValue, maxValue, } from 'react-admin';
+  , required, maxLength, minValue, maxValue } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 
@@ -49,7 +49,7 @@ export const ApplicationEdit = (props) => (
           <DisabledInput source="id" />
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
           <TextInput source="applicationAlias" />
-          <TextInput source="displayName" label="Short name will appear in graphic" validate={[required(), maxLength(20)]} />
+          <TextInput source="displayName" label="Short name will appear in graphic)" validate={[required(), maxLength(20)]} />
 		  <LongTextInput source="description" validate={[required()]} />          
 
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
@@ -105,7 +105,7 @@ export const ApplicationEdit = (props) => (
         <NumberInput source="productionYear" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
         <NumberInput source="retiredYear" />
         <TextInput source="url" />
-        <LongTextInput source="timeNotes" />
+       
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
           choices={ ConfirmChoices }
@@ -287,7 +287,7 @@ export const ApplicationCreate = (props) => (
           <NumberInput source="productionYear" />
           <NumberInput source="retiredYear" />
           <TextInput source="url" />
-          <LongTextInput source="timeNotes" />
+        
 
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
