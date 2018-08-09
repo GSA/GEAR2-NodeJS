@@ -73,14 +73,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 /********************************************************************
 ADMIN GATEWAY
 ********************************************************************/
-app.get('/admin', function (req, res, next) {
-  // TODO: determine if this needs to be wrapped in an auth conditional
+app.get('/admin', passport.authenticate('saml'), function (req, res, next) {
   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 /********************************************************************
 (TK) PASSPORT ROUTES
 ********************************************************************/
-app.get('/api/beginAuth', (req, res) => {
+app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
   // console.log('BEGIN AUTH');
   res.send('Hello World');
   // res.redirect(process.env.SAML_ENTRY_POINT);

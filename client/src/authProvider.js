@@ -1,7 +1,7 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_GET_PERMISSIONS, AUTH_ERROR } from 'react-admin';
 import decodeJwt from 'jwt-decode';
 
-const authEntry = 'http://localhost:7000';
+const authEntry = '/beginAuth';
 
 const isValidJwt = () => {
   const decodedToken = decodeJwt(localStorage.jwt);
