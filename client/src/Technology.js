@@ -25,7 +25,7 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
 
 const KeynameFilter = props => (
     <Filter {...props}>
-      <TextInput label="keyname" source="kn" />
+      <TextInput label="Technology Name" source="kn" />
     </Filter>
 );
 
@@ -33,7 +33,7 @@ export const TechnologyList = (props) => (
     <List {...props} actions={<ListActions />} title="Technology" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Technology Name"/>
             <TextField source="description" />
             <EditButton />
         </Datagrid>
@@ -48,7 +48,7 @@ export const TechnologyEdit = (props) => (
     <Edit keyname={<TechnologyTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Technology Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate"
               parse={parseDate} format={formatDate} />
@@ -135,7 +135,7 @@ export const TechnologyEdit = (props) => (
 export const TechnologyCreate = (props) => (
     <Create {...props}>
         <SimpleForm defaultValue={{objTechnologyStatusId: 1}}>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Technology Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <DateInput source="approvedStatusExpirationDate"
               format={formatDate} parse={parseDate} />

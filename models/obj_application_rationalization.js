@@ -51,6 +51,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: "Admin",
       field: 'ChangeAudit'
+    },
+	keyname: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: 'Keyname'
+    },
+	id: {
+      type: DataTypes.INTEGER(11),
+      field: 'Id'
     }
   }, {
     name: {

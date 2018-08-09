@@ -26,7 +26,7 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
 
 const KeynameFilter = props => (
     <Filter {...props}>
-      <TextInput label="keyname" source="kn" />
+      <TextInput label="FISMA System Name" source="kn" />
     </Filter>
 );
 
@@ -34,25 +34,25 @@ export const FismaList = (props) => (
   <List {...props} actions={<ListActions />} title="FISMA Systems" filters={<KeynameFilter />} >
     <Datagrid>
       <TextField source="id" />
-      <TextField source="keyname" />
-      <DateField source="createDtg" showTime />
-      <DateField source="changeDtg" showTime />
+      <TextField source="keyname" label="FISMA System Name"/>
+      <DateField source="createDtg" showTime label="Create Time"/>
+      <DateField source="changeDtg" showTime label="Last Change Time"/>
       <EditButton />
     </Datagrid>
   </List>
 );
 
 const FismaTitle = ({ record }) => {
-  return <span>Fisma {record ? `"${record.keyname}"` : ''}</span>;
+  return <span>FISMA {record ? `"${record.keyname}"` : ''}</span>;
 };
 
 export const FismaEdit = (props) => (
-  <Edit keyname={<FismaTitle />} {...props}>
+  <Edit title="FISMA System" keyname={<FismaTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
-      <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+      <TextInput source="keyname" label="FISMA System Name" validate={[required(), maxLength(80)]} />
       <LongTextInput source="description" />
-      <TextInput source="fismaSysId" />
+      <TextInput source="fismaSysId" label="FISMA System ID" />
       <SelectInput source="fedCtrLocated" allowEmpty
         optionText="name"
         choices={ FedOrContractor }
@@ -145,7 +145,7 @@ export const FismaEdit = (props) => (
       <ArrayInput source="replacedby"
         label="Replaced By">
         <SimpleFormIterator>
-          <ReferenceInput label="" source="id" reference="applications" allowEmpty>
+          <ReferenceInput label="" source="id" reference="fismas" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
         </SimpleFormIterator>
@@ -186,9 +186,9 @@ export const FismaEdit = (props) => (
 );
 
 export const FismaCreate = (props) => (
-  <Create {...props}>
+  <Create title="FISMA System" {...props}>
     <SimpleForm>
-      <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+      <TextInput source="keyname" label="FISMA System Name" validate={[required(), maxLength(80)]} />
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" label="FISMA System ID"/>
       <SelectInput source="fedCtrLocated" allowEmpty

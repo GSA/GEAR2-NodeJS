@@ -20,7 +20,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
 
   const KeynameFilter = props => (
       <Filter {...props}>
-        <TextInput label="keyname" source="kn" />
+        <TextInput label="Organization Name" source="kn" />
       </Filter>
   );
 
@@ -28,7 +28,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
       <List {...props} actions={<ListActions />} title="Organizations" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Organization Name"/>
             <TextField source="description" />
             <EditButton />
         </Datagrid>

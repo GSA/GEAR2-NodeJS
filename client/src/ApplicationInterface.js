@@ -22,7 +22,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
 
   const KeynameFilter = props => (
       <Filter {...props}>
-        <TextInput label="keyname" source="kn" />
+        <TextInput label="Interfaces Name" source="kn" />
       </Filter>
   );
 
@@ -30,7 +30,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
       <List {...props} actions={<ListActions />} title="Application Interfaces" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Interfaces Name" />
             <EditButton />
         </Datagrid>
     </List>
@@ -44,9 +44,9 @@ export const ApplicationInterfaceEdit = (props) => (
     <Edit keyname={<ApplicationInterfaceTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Interfaces Name" validate={[required(), maxLength(80)]} />
 
-    <ReferenceInput source="objApplicationId" label="Application Id 1"
+    <ReferenceInput source="objApplicationId" label="Source Application"
           reference="applications"
           sort={{ field: 'keyname', order: 'ASC' }}
           perPage={ 1000000 }
@@ -54,7 +54,7 @@ export const ApplicationInterfaceEdit = (props) => (
           <SelectInput optionText="keyname" />
         </ReferenceInput>
 
-    <ReferenceInput source="objApplicationId1" label="Application Id 2"
+    <ReferenceInput source="objApplicationId1" label="Destination Application"
           reference="applications"
           sort={{ field: 'keyname', order: 'ASC' }}
           perPage={ 1000000 }
@@ -65,7 +65,11 @@ export const ApplicationInterfaceEdit = (props) => (
         <ArrayInput source="piis"
             label="PII">
             <SimpleFormIterator>
-              <ReferenceInput label="" source="id" reference="pii_categories" allowEmpty>
+              <ReferenceInput label="PII"
+			  source="id" reference="pii_categories" 
+			   sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+              allowEmpty>
                 <SelectInput optionText="keyname" />
               </ReferenceInput>
             </SimpleFormIterator>
@@ -78,7 +82,22 @@ export const ApplicationInterfaceEdit = (props) => (
 export const ApplicationInterfaceCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
-        </SimpleForm>
+            <TextInput source="keyname" label="Interfaces Name" validate={[required(), maxLength(80)]} />
+		    <ReferenceInput source="objApplicationId" label="Source Application"
+		      reference="applications" validate={[required()]}
+			  sort={{ field: 'keyname', order: 'ASC' }}
+			  perPage={ 10000 }
+			  allowEmpty>
+			  <SelectInput optionText="keyname" />
+			</ReferenceInput>				
+			<ReferenceInput source="objApplicationId1" label="Destination Application"
+			  reference="applications" validate={[required()]}
+			  sort={{ field: 'keyname', order: 'ASC' }}
+			  perPage={ 10000 }
+			  allowEmpty>
+			  <SelectInput optionText="keyname" />
+			</ReferenceInput>
+
+ </SimpleForm>
     </Create>
 );

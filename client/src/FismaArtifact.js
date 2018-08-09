@@ -20,16 +20,16 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
 
   const KeynameFilter = props => (
       <Filter {...props}>
-        <TextInput label="keyname" source="kn" />
+        <TextInput label="FISMA Artifacts Name" source="kn" />
       </Filter>
   );
 
 export const FismaArtifactList  = (props) => (
-    <List {...props} actions={<ListActions />} title="Fisma Artifacts" filters={<KeynameFilter />} >
+    <List {...props} actions={<ListActions />} title="FISMA Artifacts" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
-            <TextField source="link" />
+            <TextField source="keyname" label="FISMA Artifacts Name"/>
+            <TextField source="link" label="Link"/>
             <EditButton />
         </Datagrid>
     </List>
@@ -40,10 +40,10 @@ const FismaArtifactTitle = ({ record }) => {
 };
 
 export const FismaArtifactEdit = (props) => (
-    <Edit keyname={<FismaArtifactTitle />} {...props}>
+    <Edit title="FISMA Artifact" keyname={<FismaArtifactTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname"  label="FISMA Artifact Name" validate={[required(), maxLength(80)]} />
             <TextInput source="link" validate={[required(), maxLength(500)]} />
             <LongTextInput source="description" />
         </SimpleForm>
@@ -51,9 +51,9 @@ export const FismaArtifactEdit = (props) => (
 );
 
 export const FismaArtifactCreate = (props) => (
-    <Create {...props}>
+    <Create title="FISMA Artifact" {...props}>
         <SimpleForm>
-          <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+          <TextInput source="keyname" label="FISMA Artifact Name" validate={[required(), maxLength(80)]} />
           <TextInput source="link" validate={[required(), maxLength(500)]} />
           <LongTextInput source="description" />
         </SimpleForm>

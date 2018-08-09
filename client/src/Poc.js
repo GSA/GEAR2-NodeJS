@@ -21,19 +21,19 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
 
   const KeynameFilter = props => (
       <Filter {...props}>
-        <TextInput label="keyname" source="kn" />
+        <TextInput label="Name" source="kn" />
       </Filter>
   );
 
   export const PocList = (props) => (
-      <List {...props} actions={<ListActions />} title="Contacts" filters={<KeynameFilter />} >
+      <List {...props} actions={<ListActions />} title="POCs" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />
             <TextField source="email" />
             <TextField source="phNum" />
             <ReferenceField source="risso"
-              reference="user_locations"
+              reference="user_locations" 
               label="RISSO"
               linkType={false}
             >
@@ -49,14 +49,14 @@ const PocTitle = ({ record }) => {
 };
 
 export const PocEdit = (props) => (
-    <Edit keyname={<PocTitle />} {...props}>
+    <Edit title="POC" keyname={<PocTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
-            <TextInput source="email" validate={[required(), email()]} />
+            <TextInput source="keyname" label="Name" validate={[required(), maxLength(80)]} />
+            <TextInput source="email" label="Email" validate={[required(), email()]} />
             <TextInput source="phNum" />
-            <ReferenceInput label="RISSO" source="risso"
-              reference="user_locations" allowEmpty>
+            <ReferenceInput label="RISSO (for FISMA use only)" source="risso"
+              reference="user_locations" defaultValue= "24" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
         </SimpleForm>
@@ -64,12 +64,15 @@ export const PocEdit = (props) => (
 );
 
 export const PocCreate = (props) => (
-    <Create {...props}>
+    <Create title="POC" {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Name" validate={[required(), maxLength(80)]} />
             <TextInput source="email" validate={[required(), email()]} />
             <TextInput source="phNum" />
-            <TextInput source="risso" />
+            <ReferenceInput label="RISSO (for FISMA use only)" source="risso"
+              reference="user_locations" defaultValue= "24" allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
         </SimpleForm>
     </Create>
 );

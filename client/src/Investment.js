@@ -10,7 +10,7 @@ export const InvestmentList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="keyname" />
+            <TextField source="keyname" label="Investment Name"/>
             <TextField source="description" />
             <EditButton />
         </Datagrid>
@@ -25,7 +25,7 @@ export const InvestmentEdit = (props) => (
     <Edit keyname={<InvestmentTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Investment Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
               <SelectInput source="active" allowEmpty
@@ -88,7 +88,7 @@ export const InvestmentEdit = (props) => (
 export const InvestmentCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="keyname" validate={[required(), maxLength(80)]} />
+            <TextInput source="keyname" label="Investment Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
             <LongTextInput source="comments" />
             <SelectInput source="active" allowEmpty
