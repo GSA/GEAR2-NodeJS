@@ -6,11 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import decodeJwt from 'jwt-decode';
 
-//const decodedJwt = decodeJwt(localStorage.jwt);
+// const decodedJwt = decodeJwt(localStorage.jwt);
 const content = {
   tstamp: `10 AUG 2018 MORNING`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
-  //user: decodedJwt.sub,
+  // user: decodedJwt.un,
 }
 
 const styles = {

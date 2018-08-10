@@ -134,6 +134,7 @@ app.post(samlConfig.path,
           // TODO proper values for JWT
           const jwt = {
             sub: samlProfile.nameID,
+            un: results[0][0].Username,
             exp: Math.floor(Date.now() / 1000) + 60 * 60,
             scopes: results[0][0].PERMS
           };
