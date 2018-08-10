@@ -3,7 +3,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , SimpleForm, TextInput, LongTextInput
   , CardActions, CreateButton, RefreshButton, Filter
   , ReferenceInput, SelectInput, ReferenceField
-  , required, minValue, maxValue, choices } from 'react-admin';
+  , required, regex, choices } from 'react-admin';
 
 import { timeValues } from './valuelists';
   
@@ -62,7 +62,7 @@ export const ApplicationRationalizationEdit = (props) => (
 			  <SelectInput optionText="keyname" />
 			</ReferenceInput>
 			
-			<TextInput source="fy" label="FY"  validate={[required(), minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
+			<TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
 			<TextInput source="timeVal" label="TIME Value" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
 			<LongTextInput source="comment" label="TIME Notes"  />
 
@@ -82,7 +82,7 @@ export const ApplicationRationalizationCreate = (props) => (
 			  <SelectInput optionText="keyname" />
 			</ReferenceInput>
 			
-			<TextInput source="fy" label="FY"  validate={[required(), minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
+			<TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
 			<TextInput source="timeVal" label="TIME Val" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
 			<LongTextInput source="comment" label="TIME Notes"  />
 

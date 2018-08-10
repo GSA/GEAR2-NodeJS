@@ -54,7 +54,7 @@ export const FismaEdit = (props) => (
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" label="FISMA System ID" />
       <SelectInput source="fedCtrLocated" allowEmpty
-        optionText="name"
+        optionText="name" label="Federal or Contractor Located"
         choices={ FedOrContractor }
       />
     <DateInput source="atoDate"
@@ -63,7 +63,7 @@ export const FismaEdit = (props) => (
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      <DateInput source="atoRenewalDate"
+      <DateInput source="atoRenewalDate"  label="ATO Renewal Date"
         format={formatDate} parse={parseDate} />
       <DateInput source="inactiveDate"
         format={formatDate} parse={parseDate} />
@@ -192,7 +192,7 @@ export const FismaCreate = (props) => (
       <LongTextInput source="description" />
       <TextInput source="fismaSysId" label="FISMA System ID"/>
       <SelectInput source="fedCtrLocated" allowEmpty
-        optionText="name"
+        optionText="name"  label="Federal or Contractor Located"
         choices={ FedOrContractor }
       />
       <DateInput source="atoDate" label="ATO Date"

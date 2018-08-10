@@ -46,7 +46,7 @@ export const CapabilityEdit = (props) => (
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Capability Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
-            <TextInput source="referenceNumber" />
+            <TextInput source="referenceNumber" label="Reference Number"/>
 
             <ReferenceInput label="Parent" source="parentId"
               reference="capabilities" allowEmpty>
@@ -62,7 +62,7 @@ export const CapabilityCreate = (props) => (
         <SimpleForm>
             <TextInput source="keyname" label="Capability Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />
-            <TextInput source="referenceNumber" />
+            <TextInput source="referenceNumber" label="Reference Number"/>
 
             <ReferenceInput label="Parent" source="parentId"
               reference="capabilities" allowEmpty>
