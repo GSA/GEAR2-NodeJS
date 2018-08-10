@@ -4,7 +4,7 @@ import { userLogin } from 'react-admin';
 
 class LoginPage extends Component {
   componentDidMount() {
-    window.location = 'http://localhost:7000'
+    window.location = '/beginAuth'
   }
 
   // nothing to render, really, but for now, show a div as a sanity check

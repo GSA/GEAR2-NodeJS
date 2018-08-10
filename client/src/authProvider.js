@@ -30,6 +30,7 @@ const extractScopes = () => {
 export default (type, params) => {
   // console.log('AUTH PROVIDING:  ' + type);
   if (type === AUTH_LOGIN) {
+    window.location = '/beginAuth';
     // should no longer be triggered (see LoginPage.js)
   }
   if (type === AUTH_LOGOUT) {

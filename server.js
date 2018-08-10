@@ -113,6 +113,8 @@ app.post(samlConfig.path,
       scopes: results,
     };
     const token = jsonwebtoken.sign(jwt, process.env.SECRET);
+
+//TODO attach SAML Login URL to localSTorage for easier use
     const html =
 `
 <html>
@@ -121,6 +123,7 @@ app.post(samlConfig.path,
       const path = localStorage.redirectPath || '';
       delete localStorage.redirectPath;
       localStorage.jwt = '${token}';
+      // localStorage.samlLoginUrl = ;
       // console.log(localStorage.jwt)
       window.location.assign('/admin/#/' + path);
     </script>
