@@ -18,13 +18,13 @@ module.exports = {
       }
     },
   },
-  // list: {
-  //   fetch: {
-  //     before: (req, res, context) => {
-  //       // TODO: determine if we can move the edits to Finale source code here.
-  //     }
-  //   },
-  // },
+  list: {
+    start: {
+      before: (req, res, context) => {
+        // TODO: determine if we can move the edits to Finale source code here.
+      }
+    },
+  },
   update: {
     write: {
       // TODO: formal documentation
