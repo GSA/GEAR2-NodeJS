@@ -4,10 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import decodeJwt from 'jwt-decode';
 
+//const decodedJwt = decodeJwt(localStorage.jwt);
 const content = {
   tstamp: `10 AUG 2018 MORNING`,
   pageTitle: `GEAR 2.0 Pre-Release Admin Portal`,
+  //user: decodedJwt.sub,
 }
 
 const styles = {
@@ -31,7 +34,7 @@ function SimpleCard(props) {
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
-            {content.tstamp}
+            {content.tstamp} | {content.user}
           </Typography>
           <Typography variant="headline" component="h2">
             {content.pageTitle}

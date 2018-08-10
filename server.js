@@ -79,10 +79,21 @@ app.get('/admin', passport.authenticate('saml'), function (req, res, next) {
 /********************************************************************
 (TK) PASSPORT ROUTES
 ********************************************************************/
-app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
+app.get('/beginAuth', (req, res) => {
   // console.log('BEGIN AUTH');
-  res.send('Hello World');
-  // res.redirect(process.env.SAML_ENTRY_POINT);
+  const html =
+`
+<html>
+<body>
+  <script>
+    localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
+    res.send(${process.env.SAML_ENTRY_POINT});
+    // window.location.assign('${process.env.SAML_ENTRY_POINT}');
+  </script>
+</body>
+</html>
+`
+  res.send(html);
 });
 /********************************************************************
 (TK) VERIFY A JWT
@@ -103,19 +114,32 @@ app.post(samlConfig.path,
   (req, res) => {
     const samlProfile = req.user;
 
-    // TODO get 'results' from DB server
-    const results = 'technologyStatus:GET,technology:GET,technology:POST,standardType:GET,deploymentType:GET,fisma:PUT';
-    // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
-    // TODO proper values for JWT
-    const jwt = {
-      sub: samlProfile.nameID,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
-      scopes: results,
-    };
-    const token = jsonwebtoken.sign(jwt, process.env.SECRET);
+    let results = '';//'technologyStatus:GET,technology:GET,technology:POST,standardType:GET,deploymentType:GET,fisma:PUT';
+    const db = mysql.createConnection({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.ACL_DB,
+    });
+    db.connect();
+    db.query(`CALL acl.get_user_perms_al('${samlProfile.nameID}');`,
+      (err, results, fields) => {
+        if (err) {
+          res.status(500);
+          res.json({error: err});
+        }
+        else {
+          results = results;
+          // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
+          // TODO proper values for JWT
+          const jwt = {
+            sub: samlProfile.nameID,
+            exp: Math.floor(Date.now() / 1000) + 60 * 60,
+            scopes: results[0][0].PERMS
+          };
+          const token = jsonwebtoken.sign(jwt, process.env.SECRET);
 
-//TODO attach SAML Login URL to localSTorage for easier use
-    const html =
+          const html =
 `
 <html>
   <body>
@@ -123,33 +147,16 @@ app.post(samlConfig.path,
       const path = localStorage.redirectPath || '';
       delete localStorage.redirectPath;
       localStorage.jwt = '${token}';
-      // localStorage.samlLoginUrl = ;
-      // console.log(localStorage.jwt)
+      localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
       window.location.assign('/admin/#/' + path);
     </script>
   </body>
 </html>
 `
-    res.send(html);
-
-    // const db = mysql.createConnection({
-    //   host: process.env.DB_HOST,
-    //   user: process.env.DB_USER,
-    //   password: process.env.DB_PASS,
-    //   database: process.env.ACL_DB,
-    // });
-    // db.connect();
-    // db.query(`CALL acl.get_user_perms_al('${samlProfile.nameID}');`,
-    //   (err, results, fields) => {
-    //     if (err) {
-    //       res.json({error: err});
-    //     }
-    //     else {
-    //       res.json({success: results});
-    //     }
-    //
-    //   }
-    // );
+          res.send(html);
+        }
+      }
+    );
   }
 );
 
@@ -190,14 +197,18 @@ Object.entries(orm.models).forEach((m) => {
       // verb (e.g. 'applications:GET')
       passport.authenticate('jwt', function (unknown, jwt, error) {
         console.log('\nAT FINALE AUTH...');
-        console.log('TEST: ' + modelClassName + ':' + req.method + ' in scopes');
+        console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
+
         if (error) {
           res.status(401).send('UNAUTHORIZED');
           return context.stop();
         }
-        if (!jwt.scopes || !jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
-          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
-          return context.stop();
+        if (req.method !== 'GET') {
+          if (!jwt.scopes || !jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
+            console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
+            res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+            return context.stop();
+          }
         }
         console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
         console.log('AUTH COMPLETE\n');
