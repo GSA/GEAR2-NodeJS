@@ -1,17 +1,38 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, EditButton
+import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
+  , CardActions, CreateButton, RefreshButton
   , DisabledInput, LongTextInput, SimpleForm, TextInput
   , SelectInput, ReferenceInput
   , required, maxLength } from 'react-admin';
 
 import { ConfirmChoices } from './valuelists';
 
-export const InvestmentList = (props) => (
-    <List {...props}>
+const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
+      <CardActions>
+          {filters && React.cloneElement(filters, {
+              resource,
+              showFilter,
+              displayedFilters,
+              filterValues,
+              context: 'button',
+          }) }
+          <CreateButton basePath={basePath} />
+          <RefreshButton />
+      </CardActions>
+  );
+
+const KeynameFilter = props => (
+      <Filter {...props}>
+        <TextInput label="Investments Name" source="kn" />
+      </Filter>
+  );
+
+export const InvestmentList  = (props) => (
+    <List {...props} actions={<ListActions />} title="Investment Name" filters={<KeynameFilter />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="Investment Name"/>
-            <TextField source="description" />
+            <TextField source="description" label="Description"/>
             <EditButton />
         </Datagrid>
     </List>
