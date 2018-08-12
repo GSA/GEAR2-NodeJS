@@ -24,4 +24,11 @@ const LogoutButton = ({ userLogout, ...rest }) => (
         }
     />
 );
-export default connect(undefined, { userLogout: userLogout('/logout') })(LogoutButton);
+export default connect(undefined, { userLogout: () => {
+  localStorage.jwt = '';
+  let redir = '/beginAuth';
+  if (window.location.host === 'localhost:3000') {
+    redir = 'http://localhost:7000/'
+  }
+  window.location = redir;
+} })(LogoutButton);

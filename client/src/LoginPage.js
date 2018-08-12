@@ -4,13 +4,19 @@ import { userLogin } from 'react-admin';
 
 class LoginPage extends Component {
   componentDidMount() {
-    window.location = '/beginAuth'
+    let redir = '/beginAuth';
+    if (window.location.host === 'localhost:3000') {
+      redir = 'http://localhost:7000/'
+    }
+    window.location = redir;
   }
 
   // nothing to render, really, but for now, show a div as a sanity check
   render() {
     return (
-      <div>Login Page</div>
+      <div>
+        Redirecting to authentication provider...
+      </div>
     );
   }
 };

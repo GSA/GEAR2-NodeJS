@@ -33,7 +33,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
             <TextField source="email" />
             <TextField source="phNum" />
             <ReferenceField source="risso"
-              reference="user_locations" 
+              reference="user_locations"
               label="RISSO"
               linkType={false}
             >

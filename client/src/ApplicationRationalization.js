@@ -6,7 +6,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   , required, regex, choices } from 'react-admin';
 
 import { timeValues } from './valuelists';
-  
+
   const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
       <CardActions>
           {filters && React.cloneElement(filters, {
@@ -24,12 +24,12 @@ import { timeValues } from './valuelists';
   const KeynameFilter = props => (
       <Filter {...props}>
         <ReferenceInput source="objApplicationId" label="Application Name"
-			  reference="applications"
-			  sort={{ field: 'keyname', order: 'ASC' }}
-			  perPage={ 1000000 }
-			  allowEmpty>
-			  <SelectInput optionText="keyname" />
-			</ReferenceInput>
+          reference="applications"
+          sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={ 1000000 }
+          allowEmpty>
+          <SelectInput optionText="keyname" />
+        </ReferenceInput>
       </Filter>
   );
 
@@ -53,18 +53,18 @@ const ApplicationRationalizationTitle = ({ record }) => {
 export const ApplicationRationalizationEdit = (props) => (
     <Edit keyname={<ApplicationRationalizationTitle />} {...props}>
         <SimpleForm>
-			<ReferenceInput source="objApplicationId" validate={required()}
-			  label="Application Name"
-			  reference="applications"
-			  sort={{ field: 'keyname', order: 'ASC' }}
-			  perPage={ 1000000 }
-			  allowEmpty>
-			  <SelectInput optionText="keyname" />
-			</ReferenceInput>
-			
-			<TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
-			<TextInput source="timeVal" label="TIME Value" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
-			<LongTextInput source="comment" label="TIME Notes"  />
+      <ReferenceInput source="objApplicationId" validate={required()}
+        label="Application Name"
+        reference="applications"
+        sort={{ field: 'keyname', order: 'ASC' }}
+        perPage={ 1000000 }
+        allowEmpty>
+        <SelectInput optionText="keyname" />
+      </ReferenceInput>
+
+      <TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
+      <TextInput source="timeVal" label="TIME Value" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
+      <LongTextInput source="comment" label="TIME Notes"  />
 
         </SimpleForm>
     </Edit>
@@ -73,18 +73,18 @@ export const ApplicationRationalizationEdit = (props) => (
 export const ApplicationRationalizationCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-			<ReferenceInput source="objApplicationId" validate={required()} 
-			  label="Application Name"
-			  reference="applications"
-			  sort={{ field: 'keyname', order: 'ASC' }}
-			  perPage={ 1000000 }
-			  allowEmpty>
-			  <SelectInput optionText="keyname" />
-			</ReferenceInput>
-			
-			<TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
-			<TextInput source="timeVal" label="TIME Val" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
-			<LongTextInput source="comment" label="TIME Notes"  />
+      <ReferenceInput source="objApplicationId" validate={required()}
+        label="Application Name"
+        reference="applications"
+        sort={{ field: 'keyname', order: 'ASC' }}
+        perPage={ 1000000 }
+        allowEmpty>
+        <SelectInput optionText="keyname" />
+      </ReferenceInput>
+
+      <TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
+      <TextInput source="timeVal" label="TIME Val" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
+      <LongTextInput source="comment" label="TIME Notes"  />
 
         </SimpleForm>
     </Create>

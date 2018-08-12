@@ -9,6 +9,7 @@ import {
   UPDATE,
   DELETE,
 } from 'admin-on-rest/lib/rest/types';
+import decodeJwt from 'jwt-decode';
 
 /**
  * Maps admin-on-rest queries to a epilogue powered REST API
@@ -34,13 +35,14 @@ export default (apiUrl, httpClient = fetchJson) => {
     let url = '';
     // add auth header (see documentation for specifics https://marmelab.com/react-admin/Authentication.html)
     const headers = new Headers();
-    headers.append('Authorization', localStorage.jwt);
+    headers.append('Authorization', 'Bearer ' + localStorage.jwt);
     const options = {
       headers: headers
     };
     const sortValue = ({field, order}) => {
       return order === 'DESC' ? `-${field}` : field;
     };
+    const auditName = decodeJwt(localStorage.jwt).sub.substr(0,10);
     switch (type) {
       case GET_LIST: {
         const { page, perPage } = params.pagination;
@@ -69,14 +71,20 @@ export default (apiUrl, httpClient = fetchJson) => {
         break;
       }
       case UPDATE:
+        // WHEN WRITING USERNAME, USE FIRST 10 CHARACTERS ONLY
         url = `${apiUrl}/${resource}/${params.id}`;
         options.method = 'PUT';
+        params.data.changeAudit = auditName;
         options.body = JSON.stringify(params.data);
         break;
       case CREATE:
         url = `${apiUrl}/${resource}`;
         options.method = 'POST';
+        params.data.createAudit = auditName;
+        params.data.changeAudit = auditName;
         options.body = JSON.stringify(params.data);
+        // console.log('CREATE: ' + );
+        // console.log(options.body);
         break;
       case DELETE:
         url = `${apiUrl}/${resource}/${params.id}`;
@@ -136,8 +144,13 @@ export default (apiUrl, httpClient = fetchJson) => {
       }
 
       // console.log(stringify({id:idsArray}));
+      const headers = new Headers();
+      headers.append('Authorization', 'Bearer ' + localStorage.jwt);
+      const options = {
+        headers: headers
+      };
 
-      return httpClient(`${apiUrl}/${resource}?${stringify({id:idsArray})}`).then(response =>
+      return httpClient(`${apiUrl}/${resource}?${stringify({id:idsArray})}`, options).then(response =>
         convertHTTPResponseToREST(response, type, resource, params),
       );
       // return Promise.all(
