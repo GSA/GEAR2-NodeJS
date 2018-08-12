@@ -2,6 +2,7 @@ import React from 'react';
 import { Admin, Resource } from 'react-admin';
 import epilogueClient from './client-config';
 //import epilogueClient from './data-provider';
+import decodeJwt from 'jwt-decode';
 
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
 import { ApplicationInterfaceList, ApplicationInterfaceEdit, ApplicationInterfaceCreate } from './ApplicationInterface';
@@ -18,6 +19,8 @@ import authProvider from './authProvider';
 import LoginPage from './LoginPage';
 import LogoutButton from './LogoutButton';
 import Dashboard from './Dashboard';
+
+const jwt = decodeJwt(localStorage.jwt);
 
 const App = () => (
     <Admin

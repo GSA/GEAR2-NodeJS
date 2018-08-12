@@ -39,6 +39,7 @@ const samlConfig = {
   path: process.env.SAML_PATH,
   entryPoint: process.env.SAML_ENTRY_POINT,
   issuer: process.env.SAML_ISSUER,
+  acceptedClockSkewMs: -1,
 };
 // Receives SAML user data
 passport.serializeUser(function (user, done) {
@@ -53,7 +54,7 @@ passport.use(new SAMLStrategy(samlConfig, (secureAuthProfile, cb) => {
 }));
 // PASSPORT JWT STRATEGY
 passport.use(new JWTStrategy({
-      jwtFromRequest: ExtractJWT.fromHeader('authorization'),
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey   : process.env.SECRET
     },
     function (jwtPayload, cb) {
@@ -79,7 +80,7 @@ app.get('/admin', passport.authenticate('saml'), function (req, res, next) {
 /********************************************************************
 (TK) PASSPORT ROUTES
 ********************************************************************/
-app.get('/beginAuth', (req, res) => {
+app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
   // console.log('BEGIN AUTH');
   const html =
 `
@@ -87,7 +88,6 @@ app.get('/beginAuth', (req, res) => {
 <body>
   <script>
     localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
-    res.send(${process.env.SAML_ENTRY_POINT});
     // window.location.assign('${process.env.SAML_ENTRY_POINT}');
   </script>
 </body>
@@ -122,7 +122,7 @@ app.post(samlConfig.path,
       database: process.env.ACL_DB,
     });
     db.connect();
-    db.query(`CALL acl.get_user_perms_al('${samlProfile.nameID}');`,
+    db.query(`CALL acl.get_user_perms('${samlProfile.nameID}');`,
       (err, results, fields) => {
         if (err) {
           res.status(500);
@@ -130,6 +130,8 @@ app.post(samlConfig.path,
         }
         else {
           results = results;
+          console.log(results)
+
           // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
           // TODO proper values for JWT
           const jwt = {
@@ -194,22 +196,27 @@ Object.entries(orm.models).forEach((m) => {
       }]
     });
     resource.all.auth((req, res, context) => {
-      // token will store 'scopes' where a 'scope' is a concatenation of resource name and HTTP
-      // verb (e.g. 'applications:GET')
+      // token will store 'scopes' where a 'scope' is a concatenation of resource model className
+      // and HTTP verb (e.g. 'application:GET')
       passport.authenticate('jwt', function (unknown, jwt, error) {
         console.log('\nAT FINALE AUTH...');
+        console.log(unknown);
         console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
 
         if (error) {
+          console.log(error);
           res.status(401).send('UNAUTHORIZED');
           return context.stop();
         }
-        if (req.method !== 'GET') {
-          if (!jwt.scopes || !jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
-            console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
-            res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
-            return context.stop();
-          }
+        if (!jwt.scopes) {
+          console.log('ACCESS DENIED: !jwt.scopes');
+          res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
+        }
+        if (!jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
+          console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
+          console.log(jwt.scopes.split(','));
+          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+          return context.stop();
         }
         console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
         console.log('AUTH COMPLETE\n');
