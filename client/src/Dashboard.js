@@ -47,7 +47,7 @@ function SimpleCard(props) {
             Warning: Official Use Only
           </Typography>
           <Typography className={classes.warn} variant="body2" align="center">
-            ****WARNING*** This is a U.S. General Services Administration Federal Government computer system that is "FOR OFFICIAL USE ONLY." This system is subject to monitoring. Individuals found performing unauthorized activities are subject to disciplinary action including criminal prosecution.
+            ***WARNING*** This is a U.S. General Services Administration Federal Government computer system that is "FOR OFFICIAL USE ONLY." This system is subject to monitoring. Individuals found performing unauthorized activities are subject to disciplinary action including criminal prosecution.
           </Typography>
         </CardContent>
       </Card>

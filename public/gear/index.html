@@ -7,24 +7,23 @@
     <!-- Use the 'title' property to render a page title  -->
     <title>GEAR</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./lib/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
-    <link href="./lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css">
+    <link href="/gear/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/gear/lib/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="/gear/lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" type="text/css">
     <!-- Video player dependencies -->
-    <link rel="stylesheet" href="./lib/video.js/video-js.min.css" />
-    <link rel="stylesheet" href="./lib/owl.carousel/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="./lib/owl.carousel/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="/gear/lib/video.js/video-js.min.css" />
+    <link rel="stylesheet" href="/gear/lib/owl.carousel/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/gear/lib/owl.carousel/assets/owl.theme.default.min.css" />
     <!-- Custom styles for this template -->
-    <link href="./lib/gsaea/css/dashboard.css" rel="stylesheet" />
-    <link href="./lib/gsaea/css/gear.css" rel="stylesheet" />
-    <link href="./lib/bootstrap/css/metisMenu.min.css" rel="stylesheet" />
-    <link href="./lib/jquery/jquery-ui.min.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="./lib/gsaea/images/gear.ico" />
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./lib/gsaea/js/ie-emulation-modes-warning.js"></script>
+    <link href="/gear/lib/gsaea/css/dashboard.css" rel="stylesheet" />
+    <link href="/gear/lib/gsaea/css/gear.css" rel="stylesheet" />
+    <link href="/gear/lib/bootstrap/css/metisMenu.min.css" rel="stylesheet" />
+    <link href="/gear/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/gear/lib/gsaea/images/gear.ico" />
+    <script src="/gear/lib/gsaea/js/ie-emulation-modes-warning.js"></script>
 
     <!-- Load local d3-dependent libraries -->
-    <link rel="stylesheet" type="text/css" href="./lib/ea-charts/css/ea-charts.css" />
+    <link rel="stylesheet" type="text/css" href="/gear/lib/ea-charts/css/ea-charts.css" />
 
 </head>
 
@@ -50,6 +49,7 @@
                         <li><a href="#!/siteoverview">About</a></li>
                         <li><a href="#!/glossary">Glossary</a></li>
                         <li><a href="mailto:ea_planning@gsa.gov">Contact EA Team</a></li>
+                        <!-- <li><a id="login-link" href="/login">Login</a></li> -->
                     </ul>
                 </div>
             </div>
@@ -101,9 +101,9 @@
                                         <a href="#!/FISMA">FISMA Systems Inventory</a>
                                         <a href="#!/FISMA_POC">FISMA Systems - POC</a>
                                         <a href="#!/RISSO_POC">RISSO - POC</a>
-										<a href="#!/FISMAexp">Inactive FISMA Systems</a>
-										<a href="#!/FISMAexp1">&nbsp; &nbsp; &nbsp; Expires FY18</a>
-										<a href="#!/FISMAexp2">&nbsp; &nbsp; &nbsp; Expires FY19</a>
+                    <a href="#!/FISMAexp">Inactive FISMA Systems</a>
+                    <a href="#!/FISMAexp1">&nbsp; &nbsp; &nbsp; Expires FY18</a>
+                    <a href="#!/FISMAexp2">&nbsp; &nbsp; &nbsp; Expires FY19</a>
                                     </li>
                                 </ul>
                             </li>
@@ -113,7 +113,16 @@
                                     <li>
                                         <a href="#!/itstandards">IT Standards List</a>
                                         <!-- <a href="#!/itstandards_goldimage">Standard Laptop (Gold Image)</a> -->
-    									<a href="https://insite.gsa.gov/portal/content/500499" target="_blank">IT Standards Approval Process</a>
+                      <a href="https://insite.gsa.gov/portal/content/500499" target="_blank">IT Standards Approval Process</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-edit fa-fw"></i> Admin<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <!-- <a href="#!/admin">Admin</a> -->
+                                        <a>Admin features coming soon...</a>
                                     </li>
                                 </ul>
                             </li>
@@ -133,92 +142,100 @@
 
     </div>
 
-    <script src="./lib/jquery/jquery-2.1.3.min.js"></script>
-    <script src="./lib/d3/d3.min.js"></script>
-    <script src="./lib/underscore/underscore.js"></script>
-    <script src="./lib/d3/d3.layout.cloud.js"></script>
-    <script src="./lib/gsaea/js/sb-admin-2.js"></script>
-    <script src="./lib/bootstrap/js/metisMenu.js"></script>
-    <script src="./lib/jquery/jquery-ui.min.js"></script>
+    <script src="/gear/lib/jquery/jquery-2.1.3.min.js"></script>
+    <script src="/gear/lib/d3/d3.min.js"></script>
+    <script src="/gear/lib/underscore/underscore.js"></script>
+    <script src="/gear/lib/d3/d3.layout.cloud.js"></script>
+    <script src="/gear/lib/gsaea/js/sb-admin-2.js"></script>
+    <script src="/gear/lib/bootstrap/js/metisMenu.js"></script>
+    <script src="/gear/lib/jquery/jquery-ui.min.js"></script>
 
     <!-- Load local d3-dependent libraries -->
-    <script src="./lib/ea-charts/js/d3-extensions.js"></script>
-    <script src="./lib/ea-charts/js/tooltip.js"></script>
-    <script src="./lib/ea-charts/js/legend.js"></script>
-    <script src="./lib/ea-charts/js/pie.js"></script>
+    <script src="/gear/lib/ea-charts/js/d3-extensions.js"></script>
+    <script src="/gear/lib/ea-charts/js/tooltip.js"></script>
+    <script src="/gear/lib/ea-charts/js/legend.js"></script>
+    <script src="/gear/lib/ea-charts/js/pie.js"></script>
 
-    <script src="./lib/angular/angular.min.js"></script>
-    <script src="./lib/angular/angular-route.min.js"></script>
-    <script src="./lib/angular/angular-resource.min.js"></script>
+    <script src="/gear/lib/angular/angular.min.js"></script>
+    <script src="/gear/lib/angular/angular-route.min.js"></script>
+    <script src="/gear/lib/angular/angular-resource.min.js"></script>
 
     <!-- Load the dashboard module -->
-    <script src="./modules/dashboard_module.js"></script>
+    <script src="/gear/modules/dashboard_module.js"></script>
 
     <!-- Load views -->
-    <script src="./views/apps-graveyard/apps-graveyard.js"></script>
-    <script src="./views/known-issues/known-issues.js"></script>
-    <script src="./views/release-notes/release-notes.js"></script>
-    <script src="./views/manager-page/manager-page.js"></script>
+    <!-- in EXECUTE order (vs alpha) -->
+    <script src="/gear/views/admin-detail/admin-detail.js"></script>
+    <script src="/gear/views/admin/admin.js"></script>
+    <script src="/gear/views/apps-graveyard/apps-graveyard.js"></script>
+    <script src="/gear/views/known-issues/known-issues.js"></script>
+    <script src="/gear/views/release-notes/release-notes.js"></script>
+    <script src="/gear/views/manager-page/manager-page.js"></script>
 
     <!-- Load controllers -->
-    <script src="controllers/apps_by_sso_chart_controller.js"></script>
-    <script src="./controllers/business_controller.js"></script>
-    <script src="./controllers/strategy_controller.js"></script>
-    <script src="./controllers/application_controller.js"></script>
-    <script src="./controllers/security_controller.js"></script>
-    <script src="./controllers/infrastructure_controller.js"></script>
+    <script src="/gear/controllers/apps_by_sso_chart_controller.js"></script>
+    <script src="/gear/controllers/business_controller.js"></script>
+    <script src="/gear/controllers/strategy_controller.js"></script>
+    <script src="/gear/controllers/application_controller.js"></script>
+    <script src="/gear/controllers/security_controller.js"></script>
+    <script src="/gear/controllers/infrastructure_controller.js"></script>
 
     <!-- Load services -->
-    <script src="./services/organization_service.js"></script>
-    <script src="./services/business_services.js"></script>
-    <script src="./services/strategy_services.js"></script>
-    <script src="./services/application_services.js"></script>
-    <script src="./services/infrastructure_services.js"></script>
-    <script src="./services/security_services.js"></script>
+    <script src="/gear/services/organization_service.js"></script>
+    <script src="/gear/services/business_services.js"></script>
+    <script src="/gear/services/strategy_services.js"></script>
+    <script src="/gear/services/application_services.js"></script>
+    <script src="/gear/services/infrastructure_services.js"></script>
+    <script src="/gear/services/security_services.js"></script>
 
     <!-- Load routes -->
-    <script src="./routes/dashboard.client.routes.js"></script>
+    <script src="/gear/routes/dashboard.client.routes.js"></script>
 
     <!-- Load directives -->
-    <script src="./modules/pie_directive.js"></script>
+    <script src="/gear/modules/pie_directive.js"></script>
 
     <!-- Load factories -->
-    <script src="./modules/bst_search_factory.js"></script>
+    <script src="/gear/modules/bst_search_factory.js"></script>
 
     <!-- Bootstrap AngularJS application -->
-    <script src="./lib/gsaea/application.js"></script>
+    <script src="/gear/lib/gsaea/application.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/gear/lib/bootstrap/js/bootstrap.min.js"></script>
     <!--
         We are forced to fix a bug with filtering the table ourselves; therefore
         we are using a customized version of bootstrap-table. Once its devs fix
         the issue, we can go back to using the off-the-shelf version. See pull
         request linked to this Github Issue for what was changed. -mld
         https://github.com/wenzhixin/bootstrap-table/issues/2643 -->
-    <!-- <script src="./lib/bootstrap-table/bootstrap-table.min.js"></script> -->
-    <script src="./lib/bootstrap-table/bootstrap-table-custom.js"></script>
+    <!-- <script src="/gear/lib/bootstrap-table/bootstrap-table.min.js"></script> -->
+    <script src="/gear/lib/bootstrap-table/bootstrap-table-custom.js"></script>
 
     <!--
         These remaining bootstrap-table extensions with 'cem' also denotes that
         we needed to modify the 3rd party code. Unfortunately, those changes
         were never documented.
     -->
-    <script src="./lib/bootstrap-table/bootstrap-table-export.cem.js"></script>
-    <script src="./lib/bootstrap-table/tableExport.cem.js"></script>
-    <script src="./lib/bootstrap-table/bootstrap-table-toolbar.cem.js"></script>
+    <script src="/gear/lib/bootstrap-table/bootstrap-table-export.cem.js"></script>
+    <script src="/gear/lib/bootstrap-table/tableExport.cem.js"></script>
+    <script src="/gear/lib/bootstrap-table/bootstrap-table-toolbar.cem.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./lib/gsaea/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/gear/lib/gsaea/js/ie10-viewport-bug-workaround.js"></script>
 
-    <script src="./lib/video.js/video.min.js"></script>
+    <script src="/gear/lib/video.js/video.min.js"></script>
 
-    <script src="./lib/owl.carousel/owl.carousel.min.js"></script>
-    <script src="./lib/gsaea/js/ea-video-player.js"></script>
-    <script src="./lib/gsaea/js/ea-508.js"></script>
-	<script src="./lib/chord/js/mapper.js"></script>
+    <script src="/gear/lib/owl.carousel/owl.carousel.min.js"></script>
+    <script src="/gear/lib/gsaea/js/ea-video-player.js"></script>
+    <script src="/gear/lib/gsaea/js/ea-508.js"></script>
+  <script src="/gear/lib/chord/js/mapper.js"></script>
+  <script src="/gear/lib/d3/sankey.js"></script>
     <script id="side-menu-behaviors">
         $(function () {
+            $('#login-link').attr('href', function () {
+                var path = window.location.href.substr(window.location.origin.length)
+                return '/login?target=' + path;
+            });
             /**
              *  Enables CSS :target pseudo selector on hash-bang
              *  links in the #side-menu control.
@@ -244,4 +261,3 @@
 
 </body>
 </html>
-

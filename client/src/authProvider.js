@@ -25,6 +25,7 @@ const extractScopes = () => {
   // only called if valid token
   const decodedToken = decodeJwt(localStorage.jwt);
   localStorage.setItem('scopes', decodedToken.scopes);
+  return decodedToken.scopes;
 }
 
 export default (type, params) => {
@@ -59,9 +60,9 @@ export default (type, params) => {
   }
   if (type === AUTH_GET_PERMISSIONS) {
       // would not reach this event without passing AUTH_CHECK
-      extractScopes();
+
       // console.log('SCOPES PULLED: ' + localStorage.scopes);
-      return Promise.resolve();
+      return Promise.resolve(extractScopes());
   }
   return Promise.reject('UNKNOWN METHOD');
 }

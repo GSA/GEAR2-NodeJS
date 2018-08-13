@@ -14,11 +14,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       field: 'Keyname'
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'Description'
-    },
     createDtg: {
       type: DataTypes.DATE,
       allowNull: false,

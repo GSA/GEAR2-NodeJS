@@ -6,15 +6,15 @@
 // replaces 'Investment'
 angular.module('dashboard')
 .factory('InvestmentsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/investments/:id');
+  return $resource('/api/v0/investments/:id');
 }])
 // new
 .factory('InvestmentAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/investments/:id/applications');
+  return $resource('/api/v0/investments/:id/applications');
 }])
 // new
 .factory('InvestmentPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/investments/:id/pocs');
+  return $resource('/api/v0/investments/:id/pocs');
 }])
 // Goal is UNUSED, but lets leave references for now
 

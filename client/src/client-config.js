@@ -87,6 +87,7 @@ export default (apiUrl, httpClient = fetchJson) => {
         // console.log(options.body);
         break;
       case DELETE:
+        params.data.changeAudit = auditName;
         url = `${apiUrl}/${resource}/${params.id}`;
         options.method = 'DELETE';
         break;

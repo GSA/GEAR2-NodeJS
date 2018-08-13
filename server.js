@@ -74,14 +74,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 /********************************************************************
 ADMIN GATEWAY
 ********************************************************************/
-app.get('/admin', passport.authenticate('saml'), function (req, res, next) {
+app.get('/admin', passport.authenticate('saml'), function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 /********************************************************************
-(TK) PASSPORT ROUTES
+REDIRECT ROOT TO GEAR "read only" (aka "legacy"; aka "angular") app
+********************************************************************/
+app.get('/', function (req, res) {
+  // res.redirect('/gear/')
+  res.sendFile(path.join(__dirname, 'public', 'gear', 'index.html'));
+});
+/********************************************************************
+PASSPORT ROUTES
+********************************************************************/
+
+/********************************************************************
+1. AUTH ENTRY POINT (STARTS WITH A SAML ASSERTION)
 ********************************************************************/
 app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
-  // console.log('BEGIN AUTH');
+  // TODO: is this saml-protected route still necessary? or can we
+  // change the client src to use /admin (no-hash) instead? Perhaps
+  // it's needed while running the React app in dev b/c its proxy.
   const html =
 `
 <html>
@@ -96,7 +109,8 @@ app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
   res.send(html);
 });
 /********************************************************************
-(TK) VERIFY A JWT
+2. JWT ENTRY POINT & VERIFICATION (depends on SAML for user ID)
+TODO: is this actually used by the admin app? or is it a dev tool?
 ********************************************************************/
 app.get('/verify',
   (req, res, next) => {
@@ -107,7 +121,7 @@ app.get('/verify',
   }
 );
 /********************************************************************
-SAML IdP RESPONSE HANDLER
+3. SAML IDENTITY PROVIDER (IdP) POST-BACK HANDLER (USES INLINE HTML)
 ********************************************************************/
 app.post(samlConfig.path,
   passport.authenticate('saml'),
@@ -130,16 +144,20 @@ app.post(samlConfig.path,
         }
         else {
           results = results;
-          console.log(results)
 
-          // TODO make sure have data we need/customer wants and use the proper, semi-standard keynames
-          // TODO proper values for JWT
+          // TODO: (1) DECIDE IF PAYLOAD IS TOO LARGE. (2) IF SO, ADD LOGIC TO QUERY PERMS AS NEEDED
+          // sub is an email address
+          // exp is 1 hour
+          // iss matches SAML_ISSUER
+          // aud matches SAML_AUDIENCE
           const jwt = {
             sub: samlProfile.nameID,
             un: results[0][0].Username,
             exp: Math.floor(Date.now() / 1000) + 60 * 60,
             scopes: results[0][0].PERMS
           };
+
+          // JWT TOKEN SIGNED HERE TO BE USED IN INLINE HTML PAGE NEXT
           const token = jsonwebtoken.sign(jwt, process.env.SECRET);
 
           const html =

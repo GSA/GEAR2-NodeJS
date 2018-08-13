@@ -246,13 +246,13 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
               sortable: true
             },
 			{
-              field: 'BusinessPOC',
+              field: 'BusPOC',
               title: 'Business POC',
               sortable: true,
 			  visible: false
             },
 			{
-              field: 'TechnicalPOC',
+              field: 'TechPOC',
               title: 'Technical POC',
               sortable: true,
 			  visible: false
@@ -352,7 +352,7 @@ function ($route,$scope, $http, $routeParams, $filter, $location, $sce,
           visible: false
         },
 		{
-          field: 'FismaSystem',
+          field: 'FISMASystem',
           title: 'FISMA System',
           sortable: true,
           visible: false
@@ -766,7 +766,7 @@ $scope.createCapabilityTree = function () {
     }).call(this);
 
     var rootNode = {
-      Id: 17433,
+      Id: 277,
       Name: 'Manage GSA',
       Parent: null,
       AppCount: 0,
@@ -983,7 +983,7 @@ $scope.createCapabilityTree = function () {
           // TODO This should use the d3 event API instead. Fire the
           // event here, and define a listener with this logic elsewhere.
           try {
-            var genGovRect = $('#org-17170').prev('rect.parent')[0];
+            var genGovRect = $('#org-190').prev('rect.parent')[0];
             var evt = document.createEvent("MouseEvents");
             evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             genGovRect.dispatchEvent(evt);
@@ -1174,13 +1174,13 @@ $scope.createCapabilityTree = function () {
 
                 },
                 {
-                  field: 'BusinessPOC',
+                  field: 'BusPOC',
                   title: 'Business POC',
                   sortable: true,
                   visible: false
                 },
                 {
-                  field: 'TechnicalPOC',
+                  field: 'TechPOC',
                   title: 'Technical POC',
                   sortable: true,
                   visible: false
@@ -1216,7 +1216,7 @@ $scope.createCapabilityTree = function () {
                   visible: false
                 },
                 {
-                  field: 'FismaSystem',
+                  field: 'FISMASystem',
                   title: 'FISMA System',
                   sortable: true,
                   visible: false

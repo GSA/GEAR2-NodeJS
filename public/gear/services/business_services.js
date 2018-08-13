@@ -6,32 +6,32 @@
 // replaces 'Organization'
 angular.module('dashboard')
 .factory('OrganizationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/organizations/:id');
+  return $resource('/api/v0/organizations/:id');
 }])
 // replaces 'OrgAppMap'
 .factory('OrgAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/organizations/:id/applications');
+  return $resource('/api/v0/organizations/:id/applications');
 }])
 // TODO:// Orphan
 // tbr: 'GetOrgSysMap'
 .factory('OrgSysSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/organizations/:id/systems');
+  return $resource('/api/v0/organizations/:id/systems');
 }])
 // replaces 'BusFunction' aka Capabilities
 .factory('CapabilitiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/capabilities/:id');
+  return $resource('/api/v0/capabilities/:id');
 }])
 // new CapApplicationsSrc (prev used apps AppFuncMap)
 .factory('CapApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/capabilities/:id/applications');
+  return $resource('/api/v0/capabilities/:id/applications');
 }])
 // new CapAppCountsSrc
 .factory('CapAppCountsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/capabilities/app-counts');
+  return $resource('/api/v0/capabilities/app-counts');
 }])
 // new 'OrgInterfaces' (see application_services InterfacesSrc)
 .factory('OrgInterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/organizations/:id/interfaces');
+  return $resource('/api/v0/organizations/:id/interfaces');
 }])
 // Goal is UNUSED, but lets leave references for now
 

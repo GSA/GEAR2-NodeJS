@@ -6,11 +6,11 @@
 // replaces 'ITStandard'
 angular.module('dashboard')
 .factory('ITStandardsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/itstandards/:id');
+  return $resource('/api/v0/itstandards/:id');
 }])
 // new 'ITStdApplicationsSrc'
 .factory('ITStdApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/itstandards/:id/applications');
+  return $resource('/api/v0/itstandards/:id/applications');
 }])
 // 'ITStandardByCat' unused
 

@@ -6,39 +6,42 @@
 angular.module('dashboard')
 // replaces: 'Application'
 .factory('ApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/applications/:id');
+  return $resource('/api/v0/applications/:id');
 }])
 // replaces 'FuncAppMap'
 .factory('AppCapabilitiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/applications/:id/capabilities');
+  return $resource('/api/v0/applications/:id/capabilities');
 }])
 // new
 .factory('AppPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/applications/:id/pocs');
+  return $resource('/api/v0/applications/:id/pocs');
 }])
 // replaces 'AppTechMap'
 .factory('AppTechnologiesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/applications/:id/technologies');
+  return $resource('/api/v0/applications/:id/technologies');
 }])
 // replaces 'TIME'
 .factory('AppTIMESrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/apptime/:id/');
+  return $resource('/api/v0/apptime/:id/');
 }])
 // replaces 'Interfaces', but only when no filtering is required. See also AppInterfacesSrc & OrgInterfacesSrc.
 .factory('InterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/interfaces/');
+  return $resource('/api/v0/interfaces/');
 }])
 // replaces 'Interfaces' when filtering by App is required
 .factory('AppInterfacesSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/applications/:id/interfaces');
+  return $resource('/api/v0/applications/:id/interfaces');
 }])
+// new pii sankey diagram
+.factory('AppInterfacesv2Src', ['$resource', 'WcfConfig', '$location', function ($resource, WcfConfig, $location) {			
+  return $resource('/api/v0/applications/:id/interfacesv2');}])//managerpage/:id
 // replaces 'System'
 .factory('SysAppSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/parentsystems/:id/applications');
+  return $resource('/api/v0/parentsystems/:id/applications');
 }])
 // tbr: 'System' ?
 .factory('ParentSystemsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/parentsystems/:id/');
+  return $resource('/api/v0/parentsystems/:id/');
 }]);
 
 

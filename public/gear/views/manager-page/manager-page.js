@@ -11,7 +11,7 @@ angular.module('manager-page', ['ngRoute'])
 }])
 
 .factory('ManagerpageSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) { 
-  return $resource('/api/v1/managerpage/:id');}])
+  return $resource('/api/v0/managerpage/:id');}])
 
 .controller('ManagerPageCtrl', ['$scope', 'ManagerpageSrc', function ($scope, ManagerpageSrc) {
   // $scope.message = 'Manager Control Page';

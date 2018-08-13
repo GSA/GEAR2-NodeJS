@@ -6,32 +6,32 @@
 // replaces 'FISMA'
 angular.module('dashboard')
 .factory('FISMASrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fisma/:id');
+  return $resource('/api/v0/fisma/:id');
 }])
 .factory('FISMAexpSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fismaexp');
+  return $resource('/api/v0/fismaexp');
 }])
 .factory('FISMAexp1Src', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fismaexp/thisyear');
+  return $resource('/api/v0/fismaexp/thisyear');
 }])
 .factory('FISMAexp2Src', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fismaexp/nextyear');
+  return $resource('/api/v0/fismaexp/nextyear');
 }])
 .factory('FISMAApplicationsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fisma/:id/applications');
+  return $resource('/api/v0/fisma/:id/applications');
 }])
 .factory('FISMAPOCsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fisma/:id/pocs');
+  return $resource('/api/v0/fisma/:id/pocs');
 }])
 .factory('FISMAAppsSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/fisma/:id/applications');
+  return $resource('/api/v0/fisma/:id/applications');
 }])
 
 
 // TODO:
 // tbr 'RISSO'
 .factory('POCSrc', ['$resource', 'WcfConfig', function ($resource, WcfConfig) {
-  return $resource('/api/v1/pocs/:id');
+  return $resource('/api/v0/pocs/:id');
 }])
 // note: old FISMAPOC was UNUSED
 
