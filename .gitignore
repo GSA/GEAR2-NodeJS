@@ -9,6 +9,9 @@ mnt/
 # environment variables
 .env
 
+# sensitive data (used by api_v0 only)
+*.securables/
+
 # OS-specific
 .DS_Store
 

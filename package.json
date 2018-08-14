@@ -13,17 +13,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.16.0",
     "concurrently": "3.5.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
     "cors": "2.8.4",
+    "debug": "~2.6.0",
     "dotenv": "~5.0.1",
     "express": "~4.16.3",
     "express-jwt": "^5.3.1",
     "finale-rest": "0.1.5",
     "jsonwebtoken": "^8.3.0",
+    "mysql": "^2.14.1",
     "mysql2": "~1.5.3",
+    "nodemon": "^1.11.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-saml": "^0.33.0",
-    "sequelize": "~4.37.6"
+    "pug": "^2.0.0-rc.3",
+    "sequelize": "~4.37.6",
+    "tedious": "^1.14.0",
+    "underscore": "^1.8.3"
   }
 }

@@ -1,8 +1,8 @@
 var
     dotenv = require('dotenv').config(),
     finale = require('finale-rest'),
-    finaleMiddleware = require('./finale-middleware'),
-    finaleVar = require('./finale-var'),
+    finaleMiddleware = require('./api/v1/finale-middleware'),
+    finaleVar = require('./api/v1/finale-var'),
     http = require('http'),
     express = require('express'),
     path = require('path'),
@@ -14,8 +14,10 @@ var
     jwt = require('express-jwt'),
     mysql = require('mysql2'),
     util = require('util'),
-    models = require('./models')
-    passportJWT = require("passport-jwt");
+    models = require('./api/v1/models'),
+    passportJWT = require("passport-jwt"),
+    // Legacy API
+    api_v0 = require('./api/v0/routes/api_v0.1/index');
 
 const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
@@ -71,6 +73,10 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/********************************************************************
+LEGACY API
+********************************************************************/
+app.use('/api/v0', api_v0);
 /********************************************************************
 ADMIN GATEWAY
 ********************************************************************/

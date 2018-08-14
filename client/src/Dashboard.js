@@ -34,7 +34,6 @@ function SimpleCard(props) {
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
-            {content.tstamp} | {content.user}
           </Typography>
           <Typography variant="headline" component="h2">
             {content.pageTitle}
