@@ -47,7 +47,7 @@ const FismaTitle = ({ record }) => {
 };
 
 export const FismaEdit = (props) => (
-  <Edit title="FISMA System" keyname={<FismaTitle />} {...props}>
+  <Edit undoable={false} title="FISMA System" keyname={<FismaTitle />} {...props}>
     <SimpleForm>
       <DisabledInput source="id" />
       <TextInput source="keyname" label="FISMA System Name" validate={[required(), maxLength(80)]} />
@@ -191,7 +191,7 @@ export const FismaEdit = (props) => (
 );
 
 export const FismaCreate = (props) => (
-  <Create title="FISMA System" {...props}>
+  <Create undoable={false} title="FISMA System" {...props}>
     <SimpleForm>
       <TextInput source="keyname" label="FISMA System Name" validate={[required(), maxLength(80)]} />
       <LongTextInput source="description" />

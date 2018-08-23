@@ -43,7 +43,7 @@ const InvestmentTitle = ({ record }) => {
 };
 
 export const InvestmentEdit = (props) => (
-    <Edit keyname={<InvestmentTitle />} {...props}>
+    <Edit undoable={false} keyname={<InvestmentTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Investment Name" validate={[required(), maxLength(80)]} />
@@ -107,7 +107,7 @@ export const InvestmentEdit = (props) => (
 );
 
 export const InvestmentCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
             <TextInput source="keyname" label="Investment Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />

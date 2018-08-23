@@ -41,7 +41,7 @@ const ParentSystemTitle = ({ record }) => {
 };
 
 export const ParentSystemEdit = (props) => (
-    <Edit keyname={<ParentSystemTitle />} {...props}>
+    <Edit undoable={false} keyname={<ParentSystemTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Parent System Name" validate={[required(), maxLength(80)]} />
@@ -58,7 +58,7 @@ export const ParentSystemEdit = (props) => (
 );
 
 export const ParentSystemCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
             <TextInput source="keyname" label="Parent System Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />

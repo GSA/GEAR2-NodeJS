@@ -49,7 +49,7 @@ const PocTitle = ({ record }) => {
 };
 
 export const PocEdit = (props) => (
-    <Edit title="POC" keyname={<PocTitle />} {...props}>
+    <Edit undoable={false} title="POC" keyname={<PocTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Name" validate={[required(), maxLength(80)]} />
@@ -64,7 +64,7 @@ export const PocEdit = (props) => (
 );
 
 export const PocCreate = (props) => (
-    <Create title="POC" {...props}>
+    <Create undoable={false} title="POC" {...props}>
         <SimpleForm>
             <TextInput source="keyname" label="Name" validate={[required(), maxLength(80)]} />
             <TextInput source="email" validate={[required(), email()]} />

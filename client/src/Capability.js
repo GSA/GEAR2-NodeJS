@@ -41,7 +41,7 @@ const CapabilityTitle = ({ record }) => {
 };
 
 export const CapabilityEdit = (props) => (
-    <Edit keyname={<CapabilityTitle />} {...props}>
+    <Edit undoable={false} keyname={<CapabilityTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Capability Name" validate={[required(), maxLength(80)]} />
@@ -58,7 +58,7 @@ export const CapabilityEdit = (props) => (
 );
 
 export const CapabilityCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
             <TextInput source="keyname" label="Capability Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />

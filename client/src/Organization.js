@@ -40,7 +40,7 @@ const OrganizationTitle = ({ record }) => {
 };
 
 export const OrganizationEdit = (props) => (
-    <Edit keyname={<OrganizationTitle />} {...props}>
+    <Edit undoable={false} keyname={<OrganizationTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
@@ -53,7 +53,7 @@ export const OrganizationEdit = (props) => (
 );
 
 export const OrganizationCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />

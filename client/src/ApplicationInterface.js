@@ -41,7 +41,7 @@ const ApplicationInterfaceTitle = ({ record }) => {
 };
 
 export const ApplicationInterfaceEdit = (props) => (
-    <Edit keyname={<ApplicationInterfaceTitle />} {...props}>
+    <Edit undoable={false} keyname={<ApplicationInterfaceTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Interfaces Name" validate={[required(), maxLength(80)]} />
@@ -80,7 +80,7 @@ export const ApplicationInterfaceEdit = (props) => (
 );
 
 export const ApplicationInterfaceCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
             <TextInput source="keyname" label="Interfaces Name" validate={[required(), maxLength(80)]} />
 		    <ReferenceInput source="objApplicationId" label="Source Application"

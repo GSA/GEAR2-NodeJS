@@ -51,7 +51,7 @@ const ApplicationRationalizationTitle = ({ record }) => {
 };
 
 export const ApplicationRationalizationEdit = (props) => (
-    <Edit keyname={<ApplicationRationalizationTitle />} {...props}>
+    <Edit undoable={false} keyname={<ApplicationRationalizationTitle />} {...props}>
         <SimpleForm>
       <ReferenceInput source="objApplicationId" validate={required()}
         label="Application Name"
@@ -71,7 +71,7 @@ export const ApplicationRationalizationEdit = (props) => (
 );
 
 export const ApplicationRationalizationCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
       <ReferenceInput source="objApplicationId" validate={required()}
         label="Application Name"

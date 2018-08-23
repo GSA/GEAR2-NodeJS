@@ -40,7 +40,7 @@ const FismaArtifactTitle = ({ record }) => {
 };
 
 export const FismaArtifactEdit = (props) => (
-    <Edit title="FISMA Artifact" keyname={<FismaArtifactTitle />} {...props}>
+    <Edit undoable={false} title="FISMA Artifact" keyname={<FismaArtifactTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname"  label="FISMA Artifact Name" validate={[required(), maxLength(80)]} />
@@ -51,7 +51,7 @@ export const FismaArtifactEdit = (props) => (
 );
 
 export const FismaArtifactCreate = (props) => (
-    <Create title="FISMA Artifact" {...props}>
+    <Create undoable={false} title="FISMA Artifact" {...props}>
         <SimpleForm>
           <TextInput source="keyname" label="FISMA Artifact Name" validate={[required(), maxLength(80)]} />
           <TextInput source="link" validate={[required(), maxLength(500)]} />

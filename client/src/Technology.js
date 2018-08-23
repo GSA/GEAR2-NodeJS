@@ -45,7 +45,7 @@ const TechnologyTitle = ({ record }) => {
 };
 
 export const TechnologyEdit = (props) => (
-    <Edit keyname={<TechnologyTitle />} {...props}>
+    <Edit undoable={false} keyname={<TechnologyTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" label="Technology Name" validate={[required(), maxLength(80)]} />
@@ -133,7 +133,7 @@ export const TechnologyEdit = (props) => (
 );
 
 export const TechnologyCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm defaultValue={{objTechnologyStatusId: 1}}>
             <TextInput source="keyname" label="Technology Name" validate={[required(), maxLength(80)]} />
             <LongTextInput source="description" />

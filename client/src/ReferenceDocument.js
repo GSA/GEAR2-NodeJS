@@ -39,7 +39,7 @@ const ReferenceDocumentTitle = ({ record }) => {
 };
 
 export const ReferenceDocumentEdit = (props) => (
-    <Edit keyname={<ReferenceDocumentTitle />} {...props}>
+    <Edit undoable={false} keyname={<ReferenceDocumentTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
@@ -48,7 +48,7 @@ export const ReferenceDocumentEdit = (props) => (
 );
 
 export const ReferenceDocumentCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
             <TextInput source="keyname" validate={[required(), maxLength(80)]} />
         </SimpleForm>

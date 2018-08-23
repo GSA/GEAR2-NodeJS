@@ -44,13 +44,13 @@ const ApplicationTitle = ({ record }) => {
 };
 
 export const ApplicationEdit = (props) => (
-    <Edit keyname={<ApplicationTitle />} {...props}>
+    <Edit undoable={false} keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
           <TextInput source="applicationAlias" />
           <TextInput source="displayName" label="Short name will appear in graphic" validate={[required(), maxLength(20)]} />
-		  <LongTextInput source="description" validate={[required()]} />          
+		  <LongTextInput source="description" validate={[required()]} />
 
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
@@ -81,7 +81,7 @@ export const ApplicationEdit = (props) => (
           optionText="name" optionValue="name"
           choices={ ConfirmChoices }
         />
-        
+
         <ReferenceInput source="objAppPlatformId" label="Application Platform"
           reference="app_platforms"
           sort={{ field: 'keyname', order: 'ASC' }}
@@ -105,7 +105,7 @@ export const ApplicationEdit = (props) => (
         <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
         <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
         <TextInput source="url" />
-       
+
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
           choices={ ConfirmChoices }
@@ -165,9 +165,9 @@ export const ApplicationEdit = (props) => (
         >
           <SelectInput optionText="keyname" />
         </ReferenceInput>
-        
 
-		
+
+
         <ArrayInput source="capabilities"
           label="Capabilities">
           <SimpleFormIterator>
@@ -180,7 +180,7 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
-		
+
         <ArrayInput source="technologies"
           label="Technologies">
           <SimpleFormIterator>
@@ -209,7 +209,7 @@ export const ApplicationEdit = (props) => (
           label="Business POCs">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
-              reference="pocs" 
+              reference="pocs"
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 1000000 }
               allowEmpty>
@@ -221,7 +221,7 @@ export const ApplicationEdit = (props) => (
           label="Technical POCs">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
-              reference="pocs" 
+              reference="pocs"
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 1000000 }
               allowEmpty>
@@ -230,19 +230,19 @@ export const ApplicationEdit = (props) => (
           </SimpleFormIterator>
         </ArrayInput>
 		<LongTextInput source="applicationNotes" />
-        
+
 		</SimpleForm>
     </Edit>
 );
 
 export const ApplicationCreate = (props) => (
-    <Create {...props}>
+    <Create undoable={false} {...props}>
         <SimpleForm>
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
 		  <TextInput source="applicationAlias" label="Alias" />
           <LongTextInput source="description" validate={[required()]} />
           <TextInput source="displayName" label="Short name will appear in graphic" validate={[required(), maxLength(20)]} />
-          
+
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
             choices={ ConfirmChoices }
@@ -271,7 +271,7 @@ export const ApplicationCreate = (props) => (
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
-		
+
           <SelectInput source="numberOfUsers" allowEmpty
             optionText="name"
             choices={ UserCountBreakdown }
@@ -280,14 +280,14 @@ export const ApplicationCreate = (props) => (
             optionText="name" optionValue="name"
             choices={ ConfirmChoices }
           />
-          
+
           <SelectInput source="tier" allowEmpty
             optionText="name" optionValue="name"
             choices={ TierChoices }/>
           <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
 		  <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
           <TextInput source="url" />
-        
+
 
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
@@ -337,7 +337,7 @@ export const ApplicationCreate = (props) => (
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 		  <LongTextInput source="applicationNotes" />
-		  
+
         </SimpleForm>
     </Create>
 );
