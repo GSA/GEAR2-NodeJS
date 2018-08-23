@@ -154,7 +154,10 @@ export const FismaEdit = (props) => (
       <ArrayInput source="technologies"
         label="Technologies">
         <SimpleFormIterator>
-          <ReferenceInput label="" source="id" reference="technologies" allowEmpty>
+          <ReferenceInput label="" source="id" reference="technologies" 
+          sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={ 1000000 }
+		  allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
         </SimpleFormIterator>
@@ -167,6 +170,8 @@ export const FismaEdit = (props) => (
       </ReferenceInput>
       <ReferenceInput source="ssoId" label="Responsible SSO"
         reference="organizations"
+        sort={{ field: 'keyname', order: 'ASC' }}
+        perPage={ 1000000 }
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>

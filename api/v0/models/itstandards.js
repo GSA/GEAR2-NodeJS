@@ -64,7 +64,7 @@ class ITStandardsModel extends Model {
 				  its = d.ReferenceDocuments.split(';');
 				  its = its.map((it, cb) =>
 				{
-					 cb = "<a href=" + "'" + it + "'" + " target = '_blank'> " + it + "</a>"
+					 cb = "<a href=" + "'" + it + "'" + " target = '_blank'> " + it + "</a>";
 					//console.log(cb);
 					s.push(cb);						
 				})
