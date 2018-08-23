@@ -30,8 +30,8 @@ export const TierChoices = [
   {id: 3, name: '2'},
 ];
 export const FedOrContractor = [
-  {id: 1, name: 'Federal'},
-  {id: 2, name: 'Contractor'},
+  {id: 1, name: 'Contractor'},
+  {id: 2, name: 'Federal'},
 ];
 export const Fips199 = [
   {id: 1, name: 'Low'},
