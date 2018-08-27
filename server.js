@@ -132,9 +132,8 @@ app.get('/verify',
 app.post(samlConfig.path,
   passport.authenticate('saml'),
   (req, res) => {
-    const samlProfile = req.user;
 
-    let results = '';//'technologyStatus:GET,technology:GET,technology:POST,standardType:GET,deploymentType:GET,fisma:PUT';
+    const samlProfile = req.user;
     const db = mysql.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
@@ -149,13 +148,17 @@ app.post(samlConfig.path,
           res.json({error: err});
         }
         else {
-          results = results;
+          let html = ``;
+          let userLookupStatus = ``;
+          if (results[0].length === 0) {
+            userLookupStatus = `Unable to verify user, <strong>${samlProfile.nameID}</strong><br/><a href="${process.env.SAML_ENTRY_POINT}">TRY AGAIN</a>`;
+            html = `<html><body style="font-family:sans-serif;"><p>${userLookupStatus}</p></body></html>`;
+            res.status(401);
+            res.send(html);
+            return false;
+          }
 
           // TODO: (1) DECIDE IF PAYLOAD IS TOO LARGE. (2) IF SO, ADD LOGIC TO QUERY PERMS AS NEEDED
-          // sub is an email address
-          // exp is 1 hour
-          // iss matches SAML_ISSUER
-          // aud matches SAML_AUDIENCE
           const jwt = {
             sub: samlProfile.nameID,
             un: results[0][0].Username,
@@ -166,16 +169,17 @@ app.post(samlConfig.path,
           // JWT TOKEN SIGNED HERE TO BE USED IN INLINE HTML PAGE NEXT
           const token = jsonwebtoken.sign(jwt, process.env.SECRET);
 
-          const html =
+          html =
 `
 <html>
   <body>
+    <em>Redirecting to GEAR Manager...</em>
     <script>
       const path = localStorage.redirectPath || '';
       delete localStorage.redirectPath;
       localStorage.jwt = '${token}';
       localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
-      window.location.assign('/admin/#/' + path);
+      window.location.replace('/admin/#/' + path);
     </script>
   </body>
 </html>

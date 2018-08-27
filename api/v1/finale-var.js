@@ -32,7 +32,7 @@ module.exports = {
           'categories',
           'pocs',
         ],
-		applicationInterface: [
+        applicationInterface: [
           'piis',
         ],
       };
