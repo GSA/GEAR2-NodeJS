@@ -69,7 +69,12 @@ module.exports = function(sequelize, DataTypes) {
       otherKey: 'obj_pii_category_Id',
       through: 'zk_app_interfaces_pii',
       timestamps: false,
-    });	  
+    });
+    models.applicationInterface.belongsTo(models.application, {
+      as: 'application_interfaces',
+      foreignKey: 'obj_application_Id',
+      timestamps: false,
+    });
   }
   return applicationInterface;
 };

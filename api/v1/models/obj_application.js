@@ -217,10 +217,20 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'obj_application'
   });
   application.associate = function (models) {
+    // first 2, 'replacedby', are n:m self-joins
     models.application.belongsToMany(models.application, {
       as: 'replacedby',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_application_Id1',
+      through: 'zk_application_replacedby',
+      timestamps: false,
+    });
+    // because Sequelize associations are confusing, here is a near-duplicate of the previous
+    // definition (note 'as', foreign & other key differences)
+    models.application.belongsToMany(models.application, {
+      as: 'replaces',
+      foreignKey: 'obj_application_Id1',
+      otherKey: 'obj_application_Id',
       through: 'zk_application_replacedby',
       timestamps: false,
     });

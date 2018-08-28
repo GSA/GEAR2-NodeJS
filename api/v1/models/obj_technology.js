@@ -114,13 +114,11 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_technology'
   });
-
   technology.associate = function (models) {
-
     models.technology.belongsToMany(models.application, {
-      as: 'applications',
-      foreignKey: 'obj_technology_Id',
-      otherKey: 'obj_application_Id',
+      as: 'technologies',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_technology_Id',
       through: 'zk_application_technology',
       timestamps: false,
     });

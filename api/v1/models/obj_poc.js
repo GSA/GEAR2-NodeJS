@@ -62,7 +62,21 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
   });
 
-  // poc.associate = function (models) {
+  poc.associate = function (models) {
+    models.poc.belongsToMany(models.application, {
+      as: 'business_pocs',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_bus_poc_Id',
+      through: 'zk_application_business_poc',
+      timestamps: false,
+    });
+    models.poc.belongsToMany(models.application, {
+      as: 'technical_pocs',
+      foreignKey: 'obj_application_Id',
+      otherKey: 'obj_tech_poc_Id',
+      through: 'zk_application_technical_poc',
+      timestamps: false,
+    });
   //   models.poc.belongsToMany(models.fisma, {
   //     as: 'fisma_issm',
   //     foreignKey: 'objPOC_Id',
@@ -77,7 +91,7 @@ module.exports = function(sequelize, DataTypes) {
   //     through: 'zk_fisma_isso',
   //     timestamps: false,
   //   });
-  // }
+  }
 
   return poc;
 };

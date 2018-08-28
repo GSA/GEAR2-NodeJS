@@ -52,12 +52,12 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: "Admin",
       field: 'ChangeAudit'
     },
-	keyname: {
+  keyname: {
       type: DataTypes.STRING,
       allowNull: true,
       field: 'Keyname'
     },
-	id: {
+  id: {
       type: DataTypes.INTEGER(11),
       field: 'Id'
     }
@@ -69,5 +69,12 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_application_rationalization'
   });
+  applicationRationalization.associate = function (models) {
+    models.applicationRationalization.belongsTo(models.application, {
+      as: 'application_rationalizations',
+      foreignKey: 'obj_application_Id',
+      timestamps: false,
+    });
+  }
   return applicationRationalization;
 };
