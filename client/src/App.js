@@ -1,7 +1,6 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
-import epilogueClient from './client-config';
-//import epilogueClient from './data-provider';
+import epilogueClient from './data-provider';
 
 import { ApplicationList, ApplicationEdit, ApplicationCreate } from './Application';
 import { ApplicationInterfaceList, ApplicationInterfaceEdit, ApplicationInterfaceCreate } from './ApplicationInterface';
@@ -39,6 +38,7 @@ const App = () => (
         permissions.split(',').includes('parentSystem:PUT') || permissions.split(',').includes('parentSystemn:POST') ? <Resource name="parent_systems" options={{ label: 'Parent Systems' }} list={ParentSystemList} edit={ParentSystemEdit} create={ParentSystemCreate} /> : null,
         permissions.split(',').includes('technology:PUT') || permissions.split(',').includes('technology:POST') ? <Resource name="technologies" options={{ label: 'Technologies' }} list={TechnologyList} edit={TechnologyEdit} create={TechnologyCreate} /> : null,
 
+        <Resource name="app_capabilities" />,
         <Resource name="app_hostingproviders" />,
         <Resource name="application_costs" />,
         <Resource name="application_statuses" />,

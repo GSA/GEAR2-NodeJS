@@ -210,49 +210,36 @@ Object.entries(orm.models).forEach((m) => {
   const modelInstance = m[1];
   const modelRefName = m[1].options.name; // { singular, plural }
 
-  // Makes sure the current model instance (orm.models) originates from the models/ directory so we
-  // can exclude any that are automatically created by the ORM like join tables
-  if (models[modelClassName]) {
-    const resource = finale.resource({
-      model: modelInstance,
-      endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
-      pagination: true,
-      include: finaleVar.getModelIncludes(modelClassName),
-      search: [{
-        param: 'kn',
-        attributes: ['keyname']
-      }]
-    });
-    resource.all.auth((req, res, context) => {
-      // token will store 'scopes' where a 'scope' is a concatenation of resource model className
-      // and HTTP verb (e.g. 'application:GET')
-      passport.authenticate('jwt', function (unknown, jwt, error) {
-        console.log('\nAT FINALE AUTH...');
-        console.log(unknown);
-        console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
-
-        if (error) {
-          console.log(error);
-          res.status(401).send('UNAUTHORIZED');
-          return context.stop();
+  const resource = finale.resource({
+    model: modelInstance,
+    endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
+    pagination: true, 
+    // include: finaleVar.getModelIncludes(modelClassName),
+    // associations: true,
+    search: [{
+      param: 'kn',
+      attributes: ['keyname']
+    }]
+  });
+  resource.all.auth((req, res, context) => {
+    // token will store 'scopes' where a 'scope' is a concatenation of resource model className
+    // and HTTP verb (e.g. 'application:GET')
+    passport.authenticate('jwt', function (unknown, jwt, error) {
+      if (error) {
+        res.status(401).send('UNAUTHORIZED');
+        return context.stop();
         }
         if (!jwt.scopes) {
-          console.log('ACCESS DENIED: !jwt.scopes');
-          res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
+        res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
         }
         if (!jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
-          console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
-          console.log(jwt.scopes.split(','));
-          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
-          return context.stop();
+        res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+        return context.stop();
         }
-        console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
-        console.log('AUTH COMPLETE\n');
         context.continue();
       })(req, res);
-    });
-    resource.use(finaleMiddleware);
-  }
+  });
+  resource.use(finaleMiddleware);
 });
 
 // Create database and listen
