@@ -107,7 +107,6 @@ app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
 <body>
   <script>
     localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
-    // window.location.assign('${process.env.SAML_ENTRY_POINT}');
   </script>
 </body>
 </html>
@@ -214,30 +213,10 @@ Object.entries(orm.models).forEach((m) => {
     model: modelInstance,
     endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
     pagination: true, 
-    // include: finaleVar.getModelIncludes(modelClassName),
-    // associations: true,
     search: [{
       param: 'kn',
       attributes: ['keyname']
     }]
-  });
-  resource.all.auth((req, res, context) => {
-    // token will store 'scopes' where a 'scope' is a concatenation of resource model className
-    // and HTTP verb (e.g. 'application:GET')
-    passport.authenticate('jwt', function (unknown, jwt, error) {
-      if (error) {
-        res.status(401).send('UNAUTHORIZED');
-        return context.stop();
-        }
-        if (!jwt.scopes) {
-        res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
-        }
-        if (!jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
-        res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
-        return context.stop();
-        }
-        context.continue();
-      })(req, res);
   });
   resource.use(finaleMiddleware);
 });

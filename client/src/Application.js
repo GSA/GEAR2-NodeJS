@@ -173,7 +173,6 @@ export const ApplicationEdit = (props) => (
           sort={{ field: 'keyname', order: 'ASC' }}
         >
           <Datagrid>
-            <TextField source="obj_capability_Id" />
             <TextField source="keyname" />
           </Datagrid>
         </ReferenceManyField>

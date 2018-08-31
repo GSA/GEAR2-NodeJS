@@ -32,11 +32,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       field: 'Keyname'
     },
-    capref: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'CapRef'
-    },
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
