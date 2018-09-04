@@ -2,9 +2,6 @@
 const mysql = require('mysql');
 const dbconfig = require('../../../.securables/gear-config');
 
-console.log('\n\nHEY:')
-console.log(dbconfig);
-
 const connection = mysql.createConnection(dbconfig.connection);
 connection.query(`USE ${dbconfig.connection.database};`);
 

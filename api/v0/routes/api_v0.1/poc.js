@@ -3,8 +3,6 @@ const pocCtrl = require('../../controllers/poc');
 
 const router = express.Router();
 
-console.log('POC routes loaded');
-
 router.route('/')
     .get(pocCtrl.findAll);
 

@@ -3,8 +3,6 @@
 var express = require('express');
 var orgCtrl = require('../../controllers/apptime');
 
-console.log('appTIME routes loaded');
-
 var router = express.Router();
 
 router.route('/')

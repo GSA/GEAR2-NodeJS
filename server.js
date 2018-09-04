@@ -219,6 +219,33 @@ Object.entries(orm.models).forEach((m) => {
     }]
   });
   resource.use(finaleMiddleware);
+  resource.all.auth((req, res, context) => {
+    // token will store 'scopes' where a 'scope' is a concatenation of resource model className
+    // and HTTP verb (e.g. 'application:GET')
+    passport.authenticate('jwt', function (unknown, jwt, error) {
+      console.log('\nAT FINALE AUTH...');
+      console.log(unknown);
+      console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
+      if (error) {
+        console.log(error);
+        res.status(401).send('UNAUTHORIZED');
+        return context.stop();
+        }
+        if (!jwt.scopes) {
+        console.log('ACCESS DENIED: !jwt.scopes');
+        res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
+        }
+        if (!jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
+        console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
+        console.log(jwt.scopes.split(','));
+        res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+        return context.stop();
+        }
+        console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
+        console.log('AUTH COMPLETE\n');
+        context.continue();
+      })(req, res);
+  });
 });
 
 // Create database and listen

@@ -11,8 +11,8 @@ class InterfaceModel extends Model {
       {
         name: 'Name1',
         type: 'string',
-		mapping(o) {
-			console.log(o);
+    mapping(o) {
+      // console.log(o);
           return o.Name1 ;
         },
       },
