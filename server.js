@@ -213,39 +213,63 @@ Object.entries(orm.models).forEach((m) => {
     model: modelInstance,
     endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
     pagination: true, 
+    include: finaleVar.getModelIncludes(modelClassName),
     search: [{
       param: 'kn',
       attributes: ['keyname']
     }]
   });
   resource.use(finaleMiddleware);
-  resource.all.auth((req, res, context) => {
-    // token will store 'scopes' where a 'scope' is a concatenation of resource model className
-    // and HTTP verb (e.g. 'application:GET')
-    passport.authenticate('jwt', function (unknown, jwt, error) {
-      console.log('\nAT FINALE AUTH...');
-      console.log(unknown);
-      console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
-      if (error) {
-        console.log(error);
-        res.status(401).send('UNAUTHORIZED');
-        return context.stop();
+  // TODO: Can these milestone hooks be moved to finale-middleware.js?
+  resource.read.fetch.after((req, res, context) => {
+    if (context.instance._modelOptions.tableName === 'obj_application') {
+      orm.query(`SELECT * FROM zk_app_capabilities WHERE obj_application_Id = ${context.instance.dataValues.id}`)
+        .then(appCaps => {
+          if (!!appCaps[0].length) {
+            var cap_ids = appCaps[0].map(d => d.obj_capability_Id);
+            orm.query(`SELECT Id AS 'id', Keyname AS 'keyname' FROM obj_capability WHERE obj_capability.Id IN (${cap_ids.join(',')})`)
+              .then(caps => {
+                context.instance.dataValues.relCapabilities = caps[0];
+                return context.continue();
+              });
+          } else {
+            return context.continue();
+          }
+        });
+    } else {
+      return context.continue();
+    }
+  });
+  // Run on port 3334 to disable auth on local API
+  if (process.env.PORT !== 3334) {
+    resource.all.auth((req, res, context) => {
+      // token will store 'scopes' where a 'scope' is a concatenation of resource model className
+      // and HTTP verb (e.g. 'application:GET')
+      passport.authenticate('jwt', function (unknown, jwt, error) {
+        console.log('\nAT FINALE AUTH...');
+        console.log(unknown);
+        console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
+        if (error) {
+          console.log(error);
+          res.status(401).send('UNAUTHORIZED');
+          return context.stop();
         }
         if (!jwt.scopes) {
-        console.log('ACCESS DENIED: !jwt.scopes');
-        res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
+          console.log('ACCESS DENIED: !jwt.scopes');
+          res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
         }
         if (!jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
-        console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
-        console.log(jwt.scopes.split(','));
-        res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
-        return context.stop();
+          console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
+          console.log(jwt.scopes.split(','));
+          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
+          return context.stop();
         }
         console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
         console.log('AUTH COMPLETE\n');
         context.continue();
-      })(req, res);
-  });
+        })(req, res);
+    });
+  }
 });
 
 // Create database and listen

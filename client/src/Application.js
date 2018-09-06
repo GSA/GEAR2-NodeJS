@@ -4,7 +4,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput
   , ReferenceManyField, SingleFieldList, ChipField
-  , ArrayInput, SimpleFormIterator
+  , ArrayInput, SimpleFormIterator, ReferenceArrayInput
   , required, maxLength, minValue, maxValue } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
@@ -167,15 +167,20 @@ export const ApplicationEdit = (props) => (
           <SelectInput optionText="keyname" />
         </ReferenceInput>
 
-        <ReferenceManyField label="Capabilities"
-          reference="app_capabilities"
-          target="obj_application_Id"
-          sort={{ field: 'keyname', order: 'ASC' }}
-        >
-          <Datagrid>
-            <TextField source="keyname" />
-          </Datagrid>
-        </ReferenceManyField>
+        <TextInput source="foo" label="TEST" />
+
+        <ArrayInput source="relCapabilities"
+          label="Capabilities">
+          <SimpleFormIterator>
+            <ReferenceInput label="" source="id"
+              reference="capabilities"
+              sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+              allowEmpty>
+              <SelectInput optionText="keyname" />
+            </ReferenceInput>
+          </SimpleFormIterator>
+        </ArrayInput>
 
         <ArrayInput source="technologies"
           label="Technologies">
@@ -189,6 +194,7 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
+
         <ArrayInput source="users"
           label="Users">
           <SimpleFormIterator>

@@ -18,6 +18,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://localhost:3333/admin",
+  "homepage": "http://localhost:3000/admin",
   "proxy": "http://localhost:3333"
 }

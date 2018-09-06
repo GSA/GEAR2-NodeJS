@@ -1,24 +1,6 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-  const AppCapabilityJoin = sequelize.define('app_capabilities', {
-    id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'Id'
-    },
-    keyname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      field: 'Keyname'
-    },
-  }, {
-    timestamps: false,
-    tableName: 'zk_app_capabilities'
-  });
-
   var application = sequelize.define('application', {
     id: {
       type: DataTypes.INTEGER(11),
@@ -269,9 +251,10 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: false,
     });
     models.application.belongsToMany(models.capability, {
+      as: 'capabilities',
       foreignKey: 'obj_application_Id',
       otherKey: 'obj_capability_Id',
-      through: AppCapabilityJoin,
+      through: 'zk_app_capabilities',
       timestamps: false,
     });
     models.application.belongsToMany(models.organization, {

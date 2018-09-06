@@ -36,6 +36,24 @@ module.exports = {
             context.instance[setter].call(context.instance, context.instance[field]);
           })
         }
+        if (context.instance._modelOptions.tableName === 'obj_application') {
+          const capIds = req.body.relCapabilities.map(cap => ({id: cap.id}));
+          const orm = context.instance.sequelize;
+          const Op = orm.Sequelize.Op;
+          if (!!capIds.length) {
+            orm.models.application.findById(context.instance.dataValues.id)
+            .then(app => {
+              orm.models.capability.findAll({
+                where: {
+                  [Op.or]: capIds
+                }
+              })
+              .then(caps => {
+                app['setCapabilities'].call(app, caps);
+              });
+            })
+          }
+        }
         return context.continue;
       }
     }

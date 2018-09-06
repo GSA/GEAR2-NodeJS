@@ -13,7 +13,7 @@ module.exports = {
           'replacedby',
           'application_interfaces',
           'application_rationalizations',
-          'capabilities',
+          // 'capabilities',
           'users',
           'business_pocs',
           'technical_pocs',
