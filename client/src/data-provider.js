@@ -50,8 +50,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       return sym;
     };
     const auditName = decodeJwt(localStorage.jwt).sub.substr(0,10);
-    console.log(`[DataProvider ${type} of ${resource}] with params...`);
-    console.log(params);
+    //console.log(`[DataProvider ${type} of ${resource}] with params...`);
+    //console.log(params);
     switch (type) {
       case GET_LIST: {
         const { page, perPage } = params.pagination;
@@ -121,7 +121,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
     const { headers, json } = response;
     switch (type) {
       case GET_LIST:
+        //console.log(resource + ' !!');
       case GET_MANY_REFERENCE:
+        //console.log(resource + ' !!!!');
+        //console.log(json);
         const headerName = 'Content-Range';
         if (!headers.has(headerName)) {
           throw new Error(

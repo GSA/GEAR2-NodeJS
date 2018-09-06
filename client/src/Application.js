@@ -167,8 +167,6 @@ export const ApplicationEdit = (props) => (
           <SelectInput optionText="keyname" />
         </ReferenceInput>
 
-        <TextInput source="foo" label="TEST" />
-
         <ArrayInput source="relCapabilities"
           label="Capabilities">
           <SimpleFormIterator>
