@@ -4,7 +4,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput
   , ReferenceManyField, SingleFieldList, ChipField
-  , ArrayInput, SimpleFormIterator, ReferenceArrayInput
+  , ArrayInput, SimpleFormIterator, ReferenceArrayInput, SelectArrayInput
   , required, maxLength, minValue, maxValue } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
@@ -77,7 +77,7 @@ export const ApplicationEdit = (props) => (
           <SelectInput source="numberOfUsers" allowEmpty
             optionText="name"
             choices={ UserCountBreakdown }
-          />
+   
         <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
           optionText="name" optionValue="name"
           choices={ ConfirmChoices }
@@ -94,7 +94,8 @@ export const ApplicationEdit = (props) => (
         <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
           reference="app_hostingproviders"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+           perPage={ 1000000 }
+		  
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
@@ -180,6 +181,20 @@ export const ApplicationEdit = (props) => (
           </SimpleFormIterator>
         </ArrayInput>
 
+		<ArrayInput source="technologies"
+          label="Technologies">
+          <SimpleFormIterator>
+            <ReferenceInput label="" source="id"
+              reference="technologies"
+              sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+              allowEmpty>
+             <SelectInput optionText="keyname" />
+            </ReferenceInput>
+          </SimpleFormIterator>
+        </ArrayInput>
+
+
         <ArrayInput source="technologies"
           label="Technologies">
           <SimpleFormIterator>
@@ -188,7 +203,7 @@ export const ApplicationEdit = (props) => (
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 1000000 }
               allowEmpty>
-              <SelectInput optionText="keyname" />
+             <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
@@ -267,7 +282,8 @@ export const ApplicationCreate = (props) => (
       <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
           reference="app_hostingproviders"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+           perPage={ 1000000 }
+		  
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
