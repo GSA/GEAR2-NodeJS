@@ -168,7 +168,7 @@ export const ApplicationEdit = (props) => (
           <SelectInput optionText="keyname" />
         </ReferenceInput>
 
-        <ArrayInput source="relCapabilities"
+        <ArrayInput source="capabilities"
           label="Capabilities">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
@@ -194,19 +194,6 @@ export const ApplicationEdit = (props) => (
           </SimpleFormIterator>
         </ArrayInput>
 
-
-        <ArrayInput source="technologies"
-          label="Technologies">
-          <SimpleFormIterator>
-            <ReferenceInput label="" source="id"
-              reference="technologies"
-              sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
-              allowEmpty>
-             <SelectInput optionText="keyname" />
-            </ReferenceInput>
-          </SimpleFormIterator>
-        </ArrayInput>
 
         <ArrayInput source="users"
           label="Users">
