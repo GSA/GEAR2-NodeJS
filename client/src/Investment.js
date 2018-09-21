@@ -56,7 +56,7 @@ export const InvestmentEdit = (props) => (
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
             <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
-              reference="capabilities" allowEmpty>
+              reference="capabilities" perPage={1000000} allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -118,12 +118,16 @@ export const InvestmentCreate = (props) => (
             />
             <TextInput source="budgetYear" />
             <TextInput source="uii" />
-            <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
+            <ReferenceInput label="Primary Service Area" 
+			sort={{ field: 'keyname', order: 'ASC' }}
+			source="primaryServiceArea"
               reference="capabilities" allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
-            <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
+            <ReferenceInput label="Investment Type" 
+			sort={{ field: 'keyname', order: 'ASC' }}
+			source="objInvestmentTypeId"
               reference="investment_types"
               validate={required()}
             >
