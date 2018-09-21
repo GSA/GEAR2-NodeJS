@@ -84,29 +84,6 @@ export const FismaEdit = (props) => (
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <LongTextInput source="comments" />
-	  
-	  <ReferenceInput source="scImpactLevelId" label="FIPS 199"
-        reference="sc_impact_levels"
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
-      <ReferenceInput source="ssoId" label="Responsible SSO"
-        reference="organizations"
-        sort={{ field: 'keyname', order: 'ASC' }}
-        perPage={ 1000000 }
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
-      <ReferenceInput source="atoTypeId" label="ATO Type"
-        reference="ato_types"
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
-      <ReferenceInput source="fscloudspId" label="Cloud Service Provider"
-        reference="fscloudsps"
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
 
       <ArrayInput source="fisma_artifacts" label="FISMA Artifacts">
         <SimpleFormIterator>
@@ -168,11 +145,7 @@ export const FismaEdit = (props) => (
       <ArrayInput source="replacedby"
         label="Replaced By">
         <SimpleFormIterator>
-          <ReferenceInput label="" source="id"
-		    reference="fismas"
-			sort={{ field: 'keyname', order: 'ASC' }}
-            perPage={ 1000000 }
-		  allowEmpty>
+          <ReferenceInput label="" source="id" reference="fismas" allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
         </SimpleFormIterator>
@@ -190,7 +163,7 @@ export const FismaEdit = (props) => (
         </SimpleFormIterator>
       </ArrayInput>
 {/* RECENT ADDITIONS */}
-/*       <ReferenceInput source="scImpactLevelId" label="FIPS 199"
+      <ReferenceInput source="scImpactLevelId" label="FIPS 199"
         reference="sc_impact_levels"
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
@@ -212,7 +185,7 @@ export const FismaEdit = (props) => (
         allowEmpty>
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
- */
+
     </SimpleForm>
   </Edit>
 );
@@ -245,25 +218,24 @@ export const FismaCreate = (props) => (
         optionText="name" optionValue="name"
         choices={ ConfirmChoices }
       />
-      /* <ReferenceInput source="authorizingOfficialId"
+       <ReferenceInput source="authorizingOfficialId"
         reference="pocs"
-        label="Authorizing Official"
+        label="Authorizing Official" 
         validate={required()}
         sort={{ field: 'keyname', order: 'ASC' }}
         perPage={ 1000000 }
-      >
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
+      > 
+        <SelectInput optionText="keyname" />
+      </ReferenceInput> 
 	  
-      <ReferenceInput source="systemOwnerId" 
+	  {/*       <ReferenceInput source="systemOwnerId" label="System Owner"
         reference="pocs"
-		label="System Owner"
         validate={required()}
         sort={{ field: 'keyname', order: 'ASC' }}
         perPage={ 1000000 }
       >
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput> */
+        <SelectInput optionText="keyname" />
+      </ReferenceInput> */}
 	  
       <SelectInput source="cloudHosted" label="Cloud Hosted" allowEmpty
         optionText="name" optionValue="name"
@@ -274,29 +246,6 @@ export const FismaCreate = (props) => (
         <SelectInput optionText="keyname" optionValue="id" />
       </ReferenceInput>
       <LongTextInput source="comments" />
-	  
-	        <ReferenceInput source="scImpactLevelId" label="FIPS 199"
-        reference="sc_impact_levels"
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
-      <ReferenceInput source="ssoId" label="Responsible SSO"
-        reference="organizations"
-        sort={{ field: 'keyname', order: 'ASC' }}
-        perPage={ 1000000 }
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
-      <ReferenceInput source="atoTypeId" label="ATO Type"
-        reference="ato_types"
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
-      <ReferenceInput source="fscloudspId" label="Cloud Service Provider"
-        reference="fscloudsps"
-        allowEmpty>
-        <SelectInput optionText="keyname" optionValue="id" />
-      </ReferenceInput>
 
     </SimpleForm>
   </Create>

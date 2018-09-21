@@ -3,8 +3,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
   , ReferenceInput, SelectInput
-  , ReferenceManyField, SingleFieldList, ChipField
-  , ArrayInput, SimpleFormIterator, ReferenceArrayInput, SelectArrayInput
+  , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
@@ -45,13 +44,13 @@ const ApplicationTitle = ({ record }) => {
 };
 
 export const ApplicationEdit = (props) => (
-    <Edit undoable={false} keyname={<ApplicationTitle />} {...props}>
+    <Edit keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
           <TextInput source="applicationAlias" />
           <TextInput source="displayName" label="Short name will appear in graphic" validate={[required(), maxLength(20)]} />
-      <LongTextInput source="description" validate={[required()]} />
+		  <LongTextInput source="description" validate={[required()]} />          
 
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
@@ -77,12 +76,12 @@ export const ApplicationEdit = (props) => (
           <SelectInput source="numberOfUsers" allowEmpty
             optionText="name"
             choices={ UserCountBreakdown }
-   
+          />
         <SelectInput source="generateRevenueIndicator" label="Generates Revenue" allowEmpty
           optionText="name" optionValue="name"
           choices={ ConfirmChoices }
         />
-
+        
         <ReferenceInput source="objAppPlatformId" label="Application Platform"
           reference="app_platforms"
           sort={{ field: 'keyname', order: 'ASC' }}
@@ -94,20 +93,20 @@ export const ApplicationEdit = (props) => (
         <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
           reference="app_hostingproviders"
           sort={{ field: 'keyname', order: 'ASC' }}
-           perPage={ 1000000 }
-		  
+          perPage={ 1000000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
 
         <SelectInput source="tier" allowEmpty
-          optionText="name" optionValue="name"
+          optionText="name" optionValue="id"
           choices={ TierChoices }
         />
+		
         <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
         <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
         <TextInput source="url" />
-
+       
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
           choices={ ConfirmChoices }
@@ -159,6 +158,7 @@ export const ApplicationEdit = (props) => (
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
+		
         <ReferenceInput label="Application Status" source="objApplicationStatusId"
           reference="application_statuses"
           validate={required()}
@@ -167,8 +167,8 @@ export const ApplicationEdit = (props) => (
         >
           <SelectInput optionText="keyname" />
         </ReferenceInput>
-
-        <ArrayInput source="capabilities"
+        
+		 <ArrayInput source="capabilities"
           label="Capabilities">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
@@ -180,8 +180,8 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
-
-		<ArrayInput source="technologies"
+		
+        <ArrayInput source="technologies"
           label="Technologies">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
@@ -189,12 +189,10 @@ export const ApplicationEdit = (props) => (
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 1000000 }
               allowEmpty>
-             <SelectInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
-
-
         <ArrayInput source="users"
           label="Users">
           <SimpleFormIterator>
@@ -211,7 +209,7 @@ export const ApplicationEdit = (props) => (
           label="Business POCs">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
-              reference="pocs"
+              reference="pocs" 
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 1000000 }
               allowEmpty>
@@ -223,28 +221,28 @@ export const ApplicationEdit = (props) => (
           label="Technical POCs">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
-              reference="pocs"
+              reference="pocs" 
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 1000000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
-        </ArrayInput>
-    <LongTextInput source="applicationNotes" />
-
-    </SimpleForm>
+        </ArrayInput> 
+		<LongTextInput source="applicationNotes" />
+        
+		</SimpleForm>
     </Edit>
 );
 
 export const ApplicationCreate = (props) => (
-    <Create undoable={false} {...props}>
+    <Create {...props}>
         <SimpleForm>
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
-      <TextInput source="applicationAlias" label="Alias" />
+		  <TextInput source="applicationAlias" label="Alias" />
           <LongTextInput source="description" validate={[required()]} />
           <TextInput source="displayName" label="Short name will appear in graphic" validate={[required(), maxLength(20)]} />
-
+          
           <SelectInput source="cloudIndicator" label="Cloud" allowEmpty
             optionText="name" optionValue="name"
             choices={ ConfirmChoices }
@@ -266,15 +264,14 @@ export const ApplicationCreate = (props) => (
             validate={required()}
             choices={ AppOrWebChoices }
           />
-      <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
+		  <ReferenceInput source="objAppHostingproviderId" label="Application Hosting Provider"
           reference="app_hostingproviders"
           sort={{ field: 'keyname', order: 'ASC' }}
-           perPage={ 1000000 }
-		  
+          perPage={ 1000000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
-
+		
           <SelectInput source="numberOfUsers" allowEmpty
             optionText="name"
             choices={ UserCountBreakdown }
@@ -283,14 +280,14 @@ export const ApplicationCreate = (props) => (
             optionText="name" optionValue="name"
             choices={ ConfirmChoices }
           />
-
+          
           <SelectInput source="tier" allowEmpty
             optionText="name" optionValue="name"
             choices={ TierChoices }/>
           <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
-      <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
+		  <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>
           <TextInput source="url" />
-
+        
 
         <SelectInput source="cuiIndicator" label="CUI" allowEmpty
           optionText="name" optionValue="name"
@@ -339,8 +336,8 @@ export const ApplicationCreate = (props) => (
             reference="application_statuses" validate={required()} >
             <SelectInput optionText="keyname" />
           </ReferenceInput>
-      <LongTextInput source="applicationNotes" />
-
+		  <LongTextInput source="applicationNotes" />
+		  
         </SimpleForm>
     </Create>
 );
