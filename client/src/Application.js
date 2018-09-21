@@ -282,7 +282,7 @@ export const ApplicationCreate = (props) => (
           />
           
           <SelectInput source="tier" allowEmpty
-            optionText="name" optionValue="name"
+            optionText="name" optionValue="id"
             choices={ TierChoices }/>
           <NumberInput source="productionYear" label="Production Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]} />
 		  <NumberInput source="retiredYear" label="Retired Year" validate={[minValue(1950, "must be after 1950"), maxValue(2050, "must be before 2050")]}/>

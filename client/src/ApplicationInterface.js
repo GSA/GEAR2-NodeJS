@@ -90,13 +90,13 @@ export const ApplicationInterfaceCreate = (props) => (
 			  allowEmpty>
 			  <SelectInput optionText="keyname" />
 			</ReferenceInput>				
-			<ReferenceInput source="objApplicationId1" label="Destination Application"
+			{/* 			<ReferenceInput source="objApplicationId1" label="Destination Application"
 			  reference="applications" validate={[required()]}
 			  sort={{ field: 'keyname', order: 'ASC' }}
 			  perPage={ 10000 }
 			  allowEmpty>
 			  <SelectInput optionText="keyname" />
-			</ReferenceInput>
+			</ReferenceInput> */}
 
  </SimpleForm>
     </Create>
