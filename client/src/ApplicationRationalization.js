@@ -36,9 +36,10 @@ import { timeValues } from './valuelists';
   export const ApplicationRationalizationList = (props) => (
       <List {...props} actions={<ListActions />} title="Application Rationalization" filters={<KeynameFilter />} >
         <Datagrid>
-            <ReferenceField label="Application Name" source="objApplicationId" reference="applications">
+		{/*             <ReferenceField label="Application Name" source="objApplicationId" reference="applications">
                 <TextField source="keyname" />
-            </ReferenceField>
+		</ReferenceField> */}
+            <TextField source="keyname" label= "Application Name" />
             <TextField source="fy" label= "FY" />
             <TextField source="timeVal"label="TIME Value"  />
             <EditButton />
