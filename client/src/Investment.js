@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
-  , DisabledInput, LongTextInput, SimpleForm, TextInput, AutocompleteInput
+  , DisabledInput, LongTextInput, SimpleForm, TextInput
   , SelectInput, ReferenceInput
   , required, maxLength } from 'react-admin';
 
@@ -57,7 +57,7 @@ export const InvestmentEdit = (props) => (
             <TextInput source="uii" />
             <ReferenceInput label="Primary Service Area" source="primaryServiceArea"
               reference="capabilities" allowEmpty>
-              <AutocompleteInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Investment Type" source="objInvestmentTypeId"
@@ -74,32 +74,32 @@ export const InvestmentEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
-            <ReferenceInput label="Service Area 1" source="secServArea1"
+            {/*<ReferenceInput label="Service Area 1" source="secServArea1"
               reference="capabilities"
               allowEmpty>
-              <AutocompleteInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
-			{/*             <ReferenceInput label="Service Area 2" source="secServArea2"
+			  <ReferenceInput label="Service Area 2" source="secServArea2"
               reference="capabilities" allowEmpty>
-              <AutocompleteInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 3" source="secServArea3"
               reference="capabilities" allowEmpty>
-              <AutocompleteInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
             <ReferenceInput label="Service Area 4" source="secServArea4"
               reference="capabilities" allowEmpty>
-              <AutocompleteInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput> */}
 
             <ReferenceInput label="POC" source="objPocId"
               reference="pocs"
               perPage={1000000}
               allowEmpty>
-              <AutocompleteInput optionText="keyname" />
+              <SelectInput optionText="keyname" />
             </ReferenceInput>
 
         </SimpleForm>

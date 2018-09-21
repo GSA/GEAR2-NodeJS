@@ -54,7 +54,7 @@ const ApplicationRationalizationTitle = ({ record }) => {
 export const ApplicationRationalizationEdit = (props) => (
     <Edit undoable={false} keyname={<ApplicationRationalizationTitle />} {...props}>
         <SimpleForm>
-      <ReferenceInput source="objApplicationId" validate={required()}
+		{ /*   <ReferenceInput source="objApplicationId" validate={required()}
         label="Application Name"
         reference="applications"
         sort={{ field: 'keyname', order: 'ASC' }}
@@ -62,7 +62,8 @@ export const ApplicationRationalizationEdit = (props) => (
         allowEmpty>
         <SelectInput optionText="keyname" />
       </ReferenceInput>
-
+ */}
+      <TextField source="keyname" label="Application Name"  />
       <TextInput source="fy" label="FY"  validate={[required(), regex(/FY+?[0-9]{2}$/, 'Must be alphanumeric, e.g. FY18')]} />
       <TextInput source="timeVal" label="TIME Value" validate={[required(), choices(timeValues, "Must input a valid TIME value")]} />
       <LongTextInput source="comment" label="TIME Notes"  />
