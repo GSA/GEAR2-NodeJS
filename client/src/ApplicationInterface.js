@@ -27,7 +27,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   );
 
   export const ApplicationInterfaceList = (props) => (
-      <List {...props} actions={<ListActions />} title="Application Interfaces" filters={<KeynameFilter />} >
+      <List {...props} actions={<ListActions />} title="Application Interfaces" filters={<KeynameFilter />} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="Interfaces Name" />

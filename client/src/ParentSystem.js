@@ -26,7 +26,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   );
 
   export const ParentSystemList = (props) => (
-      <List {...props} actions={<ListActions />} title="Parent Systems" filters={<KeynameFilter />} >
+      <List {...props} actions={<ListActions />} title="Parent Systems" filters={<KeynameFilter />} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="Parent System Name"/>

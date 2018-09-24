@@ -31,7 +31,7 @@ const KeynameFilter = props => (
 );
 
 export const FismaList = (props) => (
-  <List {...props} actions={<ListActions />} title="FISMA Systems" filters={<KeynameFilter />} >
+  <List {...props} actions={<ListActions />} title="FISMA Systems" filters={<KeynameFilter />} bulkActionButtons={false} >
     <Datagrid>
       <TextField source="id" />
       <TextField source="keyname" label="FISMA System Name"/>

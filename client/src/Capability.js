@@ -26,7 +26,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   );
 
 export const CapabilityList  = (props) => (
-    <List {...props} actions={<ListActions />} title="Business Capabilities" filters={<KeynameFilter />} >
+    <List {...props} actions={<ListActions />} title="Business Capabilities" filters={<KeynameFilter />} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="Capability Name" />

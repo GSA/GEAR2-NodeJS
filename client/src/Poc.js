@@ -26,7 +26,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
   );
 
   export const PocList = (props) => (
-      <List {...props} actions={<ListActions />} title="POCs" filters={<KeynameFilter />} >
+      <List {...props} actions={<ListActions />} title="POCs" filters={<KeynameFilter />} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" />

@@ -30,7 +30,7 @@ const KeynameFilter = props => (
 );
 
 export const TechnologyList = (props) => (
-    <List {...props} actions={<ListActions />} title="Technology" filters={<KeynameFilter />} >
+    <List {...props} actions={<ListActions />} title="Technology" filters={<KeynameFilter />} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="Technology Name"/>

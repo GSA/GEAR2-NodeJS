@@ -25,7 +25,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   );
 
 export const FismaArtifactList  = (props) => (
-    <List {...props} actions={<ListActions />} title="FISMA Artifacts" filters={<KeynameFilter />} >
+    <List {...props} actions={<ListActions />} title="FISMA Artifacts" filters={<KeynameFilter />} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="FISMA Artifacts Name"/>

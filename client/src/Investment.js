@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
-  , CardActions, CreateButton, RefreshButton
+  , CardActions, CreateButton, RefreshButton 
   , DisabledInput, LongTextInput, SimpleForm, TextInput
   , SelectInput, ReferenceInput
   , required, maxLength } from 'react-admin';
@@ -28,8 +28,9 @@ const KeynameFilter = props => (
   );
 
 export const InvestmentList  = (props) => (
-    <List {...props} actions={<ListActions />} title="Investment Name" filters={<KeynameFilter />} >
+    <List {...props} actions={<ListActions />} title="Investment Name" filters={<KeynameFilter />}  bulkActionButtons={false}>
         <Datagrid>
+			
             <TextField source="id" />
             <TextField source="keyname" label="Investment Name"/>
             <TextField source="description" label="Description"/>
