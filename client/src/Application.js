@@ -308,22 +308,34 @@ export const ApplicationCreate = (props) => (
           </ReferenceInput>
 
           <ReferenceInput label="Parent System" source="objParentSystemId"
-            reference="parent_systems" allowEmpty>
+            reference="parent_systems"
+			sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }			
+			allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Investment" source="objInvestmentId"
-            reference="investments" allowEmpty>
+            reference="investments" 
+			sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }		
+			allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="Portfolio" source="objPortfolioId"
-            reference="portfolios" allowEmpty>
+            reference="portfolios" 
+			sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }		
+			allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 
           <ReferenceInput label="FISMA System" source="objFismaId"
-            reference="fismas" allowEmpty>
+            reference="fismas" 
+			sort={{ field: 'keyname', order: 'ASC' }}
+            perPage={ 1000000 }		
+			allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 

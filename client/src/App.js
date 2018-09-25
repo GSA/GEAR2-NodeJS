@@ -27,18 +27,18 @@ const App = () => (
       dataProvider={epilogueClient(`/api/v1`)}
     >
       {permissions => [
-        permissions.split(',').includes('application:PUT') || permissions.split(',').includes('application:POST') ? <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} /> : null,
-        permissions.split(',').includes('applicationInterface:PUT') || permissions.split(',').includes('applicationInterface:POST') ? <Resource name="application_interfaces"  options={{ label: 'Application Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} /> : null,
-        permissions.split(',').includes('applicationRationalization:PUT') || permissions.split(',').includes('applicationRationalization:POST') ? <Resource name="application_rationalizations"  options={{ label: 'App Rationalization' }} list={ApplicationRationalizationList} edit={ApplicationRationalizationEdit} create={ApplicationRationalizationCreate} /> : null,
-        permissions.split(',').includes('capability:PUT') || permissions.split(',').includes('capability:POST') ? <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} /> : null,
-        permissions.split(',').includes('poc:PUT') || permissions.split(',').includes('poc:POST') ? <Resource name="pocs" options={{ label: 'Point of Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} /> : null,
-        permissions.split(',').includes('fisma:PUT') || permissions.split(',').includes('fisma:POST') ? <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} /> : null,
-        permissions.split(',').includes('fismaArtifact:PUT') || permissions.split(',').includes('fismaArtifact:POST') ? <Resource name="fisma_artifacts" options={{ label: 'FISMA Artifacts' }} list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} /> : null,
-        permissions.split(',').includes('investment:PUT') || permissions.split(',').includes('investment:POST') ? <Resource name="investments" options={{ label: 'Investments' }} list={InvestmentList} edit={InvestmentEdit} create={InvestmentCreate} /> : null,
-        permissions.split(',').includes('parentSystem:PUT') || permissions.split(',').includes('parentSystemn:POST') ? <Resource name="parent_systems" options={{ label: 'Parent Systems' }} list={ParentSystemList} edit={ParentSystemEdit} create={ParentSystemCreate} /> : null,
-        permissions.split(',').includes('technology:PUT') || permissions.split(',').includes('technology:POST') ? <Resource name="technologies" options={{ label: 'Technologies' }} list={TechnologyList} edit={TechnologyEdit} create={TechnologyCreate} /> : null,
+        permissions.split(',').includes('application:PUT') || permissions.split(',').includes('application:POST') ? <Resource name="applications" options={{ label: 'Business Applications' }} list={ApplicationList} edit={ApplicationEdit} create={ApplicationCreate} /> : <Resource name="applications" />,
+        permissions.split(',').includes('applicationInterface:PUT') || permissions.split(',').includes('applicationInterface:POST') ? <Resource name="application_interfaces"  options={{ label: 'Application Interfaces' }} list={ApplicationInterfaceList} edit={ApplicationInterfaceEdit} create={ApplicationInterfaceCreate} /> : <Resource name="application_interfaces" />,
+        permissions.split(',').includes('applicationRationalization:PUT') || permissions.split(',').includes('applicationRationalization:POST') ? <Resource name="application_rationalizations"  options={{ label: 'App Rationalization' }} list={ApplicationRationalizationList} edit={ApplicationRationalizationEdit} create={ApplicationRationalizationCreate} /> : <Resource name="application_rationalizations" />,
+        permissions.split(',').includes('capability:PUT') || permissions.split(',').includes('capability:POST') ? <Resource name="capabilities" options={{ label: 'Business Capabilities' }} list={CapabilityList} edit={CapabilityEdit} create={CapabilityCreate} /> : <Resource name="capabilities" />,
+        permissions.split(',').includes('poc:PUT') || permissions.split(',').includes('poc:POST') ? <Resource name="pocs" options={{ label: 'Point of Contacts' }} list={PocList} edit={PocEdit} create={PocCreate} /> : <Resource name="pocs" />,
+        permissions.split(',').includes('fisma:PUT') || permissions.split(',').includes('fisma:POST') ? <Resource name="fismas" options={{ label: 'FISMA Systems' }} list={FismaList} edit={FismaEdit} create={FismaCreate} /> : <Resource name="fismas" />,
+        permissions.split(',').includes('fismaArtifact:PUT') || permissions.split(',').includes('fismaArtifact:POST') ? <Resource name="fisma_artifacts" options={{ label: 'FISMA Artifacts' }} list={FismaArtifactList} edit={FismaArtifactEdit} create={FismaArtifactCreate} /> : <Resource name="fisma_artifacts" />,
+        permissions.split(',').includes('investment:PUT') || permissions.split(',').includes('investment:POST') ? <Resource name="investments" options={{ label: 'Investments' }} list={InvestmentList} edit={InvestmentEdit} create={InvestmentCreate} /> : <Resource name="investments" />,
+        permissions.split(',').includes('parentSystem:PUT') || permissions.split(',').includes('parentSystemn:POST') ? <Resource name="parent_systems" options={{ label: 'Parent Systems' }} list={ParentSystemList} edit={ParentSystemEdit} create={ParentSystemCreate} /> : <Resource name="parent_systems" />,
+        permissions.split(',').includes('technology:PUT') || permissions.split(',').includes('technology:POST') ? <Resource name="technologies" options={{ label: 'Technologies' }} list={TechnologyList} edit={TechnologyEdit} create={TechnologyCreate} /> : <Resource name="technologies" />,
 
-        <Resource name="app_capabilities" />,
+        
         <Resource name="app_hostingproviders" />,
         <Resource name="application_costs" />,
         <Resource name="application_statuses" />,
@@ -63,6 +63,9 @@ const App = () => (
         <Resource name="time_quadrants" />,
         <Resource name="user_locations" />,
         <Resource name="years" />,
+        <Resource name="technologyreplacedbys" />,
+        <Resource name="applicationreplacedbys" />,
+        <Resource name="fismareplacedbys" />,
       ]}
     </Admin>
 );

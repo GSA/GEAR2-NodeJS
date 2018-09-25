@@ -117,7 +117,7 @@ export const TechnologyEdit = (props) => (
               <SimpleFormIterator>
                 <ReferenceInput label=""
                   source="id"
-                  reference="technologies"
+                  reference="technologyreplacedbys"
                   sort={{ field: 'keyname', order: 'ASC' }}
                   perPage={ 1000000 }
                   allowEmpty

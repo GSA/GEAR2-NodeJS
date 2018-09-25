@@ -142,10 +142,11 @@ export const FismaEdit = (props) => (
         </SimpleFormIterator>
       </ArrayInput>
 
-      <ArrayInput source="replacedby"
+      <ArrayInput source="replaced_by"
         label="Replaced By">
         <SimpleFormIterator>
-          <ReferenceInput label="" source="id" reference="fismas" 
+          <ReferenceInput label="" source="id" 
+		  reference="fismareplacedbys" 
 		  sort={{ field: 'keyname', order: 'ASC' }}
           perPage={ 1000000 }
 		  allowEmpty>
