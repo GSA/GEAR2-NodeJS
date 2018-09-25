@@ -49,6 +49,8 @@ export const ParentSystemEdit = (props) => (
             <TextInput source="url" />
             <ReferenceInput label="Organization" source="objOrganizationId"
               reference="organizations"
+				sort={{ field: 'keyname', order: 'ASC' }}
+				perPage={ 1000000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
@@ -65,6 +67,8 @@ export const ParentSystemCreate = (props) => (
             <TextInput source="url" />
             <ReferenceInput label="Organization" source="objOrganizationId"
               reference="organizations"
+			  sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>

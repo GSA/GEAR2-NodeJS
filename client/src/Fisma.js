@@ -145,13 +145,16 @@ export const FismaEdit = (props) => (
       <ArrayInput source="replacedby"
         label="Replaced By">
         <SimpleFormIterator>
-          <ReferenceInput label="" source="id" reference="fismas" allowEmpty>
+          <ReferenceInput label="" source="id" reference="fismas" 
+		  sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={ 1000000 }
+		  allowEmpty>
             <SelectInput optionText="keyname" />
           </ReferenceInput>
         </SimpleFormIterator>
       </ArrayInput>
 
-      <ArrayInput source="technologies"
+	  {/*       <ArrayInput source="technologies"
         label="Technologies">
         <SimpleFormIterator>
           <ReferenceInput label="" source="id" reference="technologies" 
@@ -161,7 +164,7 @@ export const FismaEdit = (props) => (
             <SelectInput optionText="keyname" />
           </ReferenceInput>
         </SimpleFormIterator>
-      </ArrayInput>
+      </ArrayInput> */}
 {/* RECENT ADDITIONS */}
       <ReferenceInput source="scImpactLevelId" label="FIPS 199"
         reference="sc_impact_levels"

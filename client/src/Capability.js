@@ -49,7 +49,10 @@ export const CapabilityEdit = (props) => (
             <TextInput source="referenceNumber" label="Reference Number"/>
 
             <ReferenceInput label="Parent" source="parentId"
-              reference="capabilities" allowEmpty>
+              reference="capabilities" 
+			  sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+		      allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
@@ -65,7 +68,10 @@ export const CapabilityCreate = (props) => (
             <TextInput source="referenceNumber" label="Reference Number"/>
 
             <ReferenceInput label="Parent" source="parentId"
-              reference="capabilities" allowEmpty>
+              reference="capabilities" 
+			  sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+			  allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
 
