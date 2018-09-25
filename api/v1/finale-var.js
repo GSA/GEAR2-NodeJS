@@ -11,9 +11,7 @@ module.exports = {
       {
         application: [
           'replacedby',
-          'application_interfaces',
-          'application_rationalizations',
-          // 'capabilities',
+          'capabilities',
           'users',
           'business_pocs',
           'technical_pocs',
@@ -24,10 +22,8 @@ module.exports = {
           'issm',
           'isso',
           'replaced_by',
-          'technologies',
         ],
         technology: [
-          'applications',
           'replaced_by',
           'categories',
           'pocs',

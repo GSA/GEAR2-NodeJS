@@ -115,14 +115,8 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'obj_technology'
   });
   technology.associate = function (models) {
-    models.technology.belongsToMany(models.application, {
-      as: 'applications',
-      foreignKey: 'obj_application_Id',
-      otherKey: 'obj_technology_Id',
-      through: 'zk_application_technology',
-      timestamps: false,
-    });
-    models.technology.belongsToMany(models.technology, {
+
+    models.technology.belongsToMany(models.technologyreplacedby, {
       as: 'replaced_by',
       foreignKey: 'obj_technology_Id',
       otherKey: 'obj_replaced_by_technology_Id',

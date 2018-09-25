@@ -71,12 +71,20 @@ module.exports = function(sequelize, DataTypes) {
     },
     authorizingOfficialId: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
+      allowNull: true,
+	  references: {
+        model: 'obj_poc',
+        key: 'Id'
+      },
       field: 'obj_poc_ao_Id'
     },
     systemOwnerId: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
+      allowNull: true,
+	  references: {
+        model: 'obj_poc',
+        key: 'Id'
+      },
       field: 'obj_poc_so_Id'
     },
     fscloudstId: {
@@ -161,18 +169,11 @@ module.exports = function(sequelize, DataTypes) {
       through: 'zk_fisma_isso',
       timestamps: false,
     });
-    models.fisma.belongsToMany(models.fisma, {
+    models.fisma.belongsToMany(models.fismareplacedby, {
       as: 'replaced_by',
       foreignKey: 'objFismaSystem_Id_Old',
       otherKey: 'objFismaSystem_Id_New',
       through: 'zk_fisma_replacedby',
-      timestamps: false,
-    });
-    models.fisma.belongsToMany(models.technology, {
-      as: 'technologies',
-      foreignKey: 'obj_fisma_id',
-      otherKey: 'obj_technology_id',
-      through: 'zk_fisma_technology',
       timestamps: false,
     });
   }

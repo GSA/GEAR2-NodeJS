@@ -36,7 +36,7 @@ module.exports = {
             context.instance[setter].call(context.instance, context.instance[field]);
           })
         }
-        if (context.instance._modelOptions.tableName === 'obj_application') {
+/*         if (context.instance._modelOptions.tableName === 'obj_application') {
           const capIds = req.body.relCapabilities.map(cap => ({id: cap.id}));
           const orm = context.instance.sequelize;
           const Op = orm.Sequelize.Op;
@@ -53,7 +53,7 @@ module.exports = {
               });
             })
           }
-        }
+        } */
         return context.continue;
       }
     }

@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     objApplicationId1: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'obj_application',
         key: 'Id'
