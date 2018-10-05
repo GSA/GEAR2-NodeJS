@@ -9,13 +9,13 @@ import { timeValues } from './valuelists';
 
   const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
       <CardActions>
-          {filters && React.cloneElement(filters, {
+          {/* filters && React.cloneElement(filters, {
               resource,
               showFilter,
               displayedFilters,
               filterValues,
               context: 'button',
-          }) }
+          })  */}
           <CreateButton basePath={basePath} />
           <RefreshButton />
       </CardActions>
@@ -27,8 +27,8 @@ import { timeValues } from './valuelists';
           reference="applications"
           sort={{ field: 'keyname', order: 'ASC' }}
           perPage={ 1000000 }
-          allowEmpty>
-          <SelectInput optionText="keyname" />
+          allowEmpty alwaysOn>
+          <SelectInput optionText="keyname"  />
         </ReferenceInput>
       </Filter>
   );

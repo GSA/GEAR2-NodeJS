@@ -10,13 +10,13 @@ import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, Tie
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
-        {filters && React.cloneElement(filters, {
+	{/*         {filters && React.cloneElement(filters, {
             resource,
             showFilter,
             displayedFilters,
             filterValues,
             context: 'button',
-        }) }
+	}) } */}
         <CreateButton basePath={basePath} />
         <RefreshButton />
     </CardActions>
@@ -24,7 +24,7 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
 
 const KeynameFilter = props => (
     <Filter {...props}>
-      <TextInput label="Application Name" source="kn" />
+      <TextInput label="Search" source="kn"  alwaysOn />
     </Filter>
 );
 
@@ -119,42 +119,42 @@ export const ApplicationEdit = (props) => (
         <ReferenceInput label="SSO" source="objOrgSsoId" reference="organizations"
           sort={{ field: 'keyname', order: 'ASC' }}
           filter={{ Parent_Id: null }}
-          perPage={ 1000000 }
+          perPage={ 100 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <ReferenceInput label="Parent System" source="objParentSystemId"
           reference="parent_systems"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+          perPage={ 1000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <ReferenceInput label="Investment" source="objInvestmentId"
           reference="investments"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+          perPage={ 2000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <ReferenceInput label="Portfolio" source="objPortfolioId"
           reference="portfolios"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+          perPage={ 1000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <ReferenceInput label="FISMA System" source="objFismaId"
           reference="fismas"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+          perPage={ 3000 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
         <ReferenceInput label="User Location" source="objAppUserlocId"
           reference="user_locations"
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+          perPage={ 100 }
           allowEmpty>
           <SelectInput optionText="keyname" />
         </ReferenceInput>
@@ -163,7 +163,7 @@ export const ApplicationEdit = (props) => (
           reference="application_statuses"
           validate={required()}
           sort={{ field: 'keyname', order: 'ASC' }}
-          perPage={ 1000000 }
+          perPage={ 25 }
         >
           <SelectInput optionText="keyname" />
         </ReferenceInput>
@@ -174,21 +174,22 @@ export const ApplicationEdit = (props) => (
             <ReferenceInput label="" source="id"
               reference="capabilities"
               sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
+              perPage={ 500 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
 		
-        <ArrayInput source="technologies"
+        <ArrayInput source="technologyreplacedbys"
           label="Technologies">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
-              reference="technologies"
+              reference="technologyreplacedbys"
               sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
-              allowEmpty>
+			  
+              perPage={ 2000 }              
+			  allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
@@ -199,7 +200,7 @@ export const ApplicationEdit = (props) => (
             <ReferenceInput label="" source="id"
               reference="organizations"
               sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
+              perPage={ 100 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
@@ -211,7 +212,7 @@ export const ApplicationEdit = (props) => (
             <ReferenceInput label="" source="id"
               reference="pocs" 
               sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
+              perPage={ 2000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
@@ -223,7 +224,7 @@ export const ApplicationEdit = (props) => (
             <ReferenceInput label="" source="id"
               reference="pocs" 
               sort={{ field: 'keyname', order: 'ASC' }}
-              perPage={ 1000000 }
+              perPage={ 2000 }
               allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>

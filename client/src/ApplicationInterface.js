@@ -8,13 +8,13 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
 
   const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
       <CardActions>
-          {filters && React.cloneElement(filters, {
+          {/* filters && React.cloneElement(filters, {
               resource,
               showFilter,
               displayedFilters,
               filterValues,
               context: 'button',
-          }) }
+          })  */}
           <CreateButton basePath={basePath} />
           <RefreshButton />
       </CardActions>
@@ -22,7 +22,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton
 
   const KeynameFilter = props => (
       <Filter {...props}>
-        <TextInput label="Interfaces Name" source="kn" />
+        <TextInput label="Search" source="kn"  alwaysOn />
       </Filter>
   );
 
