@@ -25,7 +25,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const orm = models.sequelize;
 
 // Define a default port if the env variable doesn't exist
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3334;
 
 // Initialize server
 var app = express();
@@ -168,6 +168,8 @@ app.post(samlConfig.path,
           // JWT TOKEN SIGNED HERE TO BE USED IN INLINE HTML PAGE NEXT
           const token = jsonwebtoken.sign(jwt, process.env.SECRET);
 
+          let adminRoute = (process.env.SAML_HOST === 'localhost') ? 'http://localhost:3000/admin/#/' : '/admin/#/';
+
           html =
 `
 <html>
@@ -178,7 +180,7 @@ app.post(samlConfig.path,
       delete localStorage.redirectPath;
       localStorage.jwt = '${token}';
       localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
-      window.location.replace('/admin/#/' + path);
+      window.location.replace('${adminRoute}' + path);
     </script>
   </body>
 </html>
@@ -241,7 +243,8 @@ Object.entries(orm.models).forEach((m) => {
     }
   });
   // Run on port 3334 to disable auth on local API
-  if (process.env.PORT !== 3334) {
+  if (process.env.PORT !== '3334') {
+    console.log("WHY AM I HERE?? " + process.env.PORT);
     resource.all.auth((req, res, context) => {
       // token will store 'scopes' where a 'scope' is a concatenation of resource model className
       // and HTTP verb (e.g. 'application:GET')

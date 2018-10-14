@@ -19,8 +19,5 @@
     "eject": "react-scripts eject"
   },
   "homepage": "http://localhost:3000/admin",
-  "proxy": "http://localhost:3333",
-  "devDependencies": {
-    "react-admin": "~2.3.2"
-  }
+  "proxy": "http://localhost:3334"
 }
