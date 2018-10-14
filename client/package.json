@@ -7,10 +7,10 @@
     "@material-ui/icons": "1.0.0",
     "ajv": "6.5.3",
     "jwt-decode": "2.2.0",
-    "react": "~16.3.0",
-    "react-admin": "~2.3.2",
-    "react-dom": "~16.3.0",
-    "react-scripts": "^1.1.4"
+    "react": "16.3.1",
+    "react-admin": "2.1.2",
+    "react-dom": "16.3.1",
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,5 +19,5 @@
     "eject": "react-scripts eject"
   },
   "homepage": "http://localhost:3000/admin",
-  "proxy": "http://localhost:3334"
+  "proxy": "http://localhost:3333"
 }

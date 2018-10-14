@@ -49,7 +49,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       }
       return sym;
     };
-    const auditName = (window.location.host === 'localhost:3000') ? '' : decodeJwt(localStorage.jwt).sub.substr(0,10);
+    const auditName = decodeJwt(localStorage.jwt).sub.substr(0,10);
     //console.log(`[DataProvider ${type} of ${resource}] with params...`);
     //console.log(params);
     switch (type) {
