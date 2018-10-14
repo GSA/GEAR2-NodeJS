@@ -19,5 +19,5 @@
     "eject": "react-scripts eject"
   },
   "homepage": "http://localhost:3000/admin",
-  "proxy": "http://localhost:3333"
+  "proxy": "http://localhost:3334"
 }
