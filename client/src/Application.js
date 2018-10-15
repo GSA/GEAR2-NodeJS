@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
   , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
+  , TabbedForm, FormTab
   , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
@@ -45,7 +46,8 @@ const ApplicationTitle = ({ record }) => {
 
 export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
-        <SimpleForm>
+        <TabbedForm>
+          <FormTab label="summary">
           <DisabledInput source="id" />
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
           <TextInput source="applicationAlias" />
@@ -167,7 +169,10 @@ export const ApplicationEdit = (props) => (
         >
           <SelectInput optionText="keyname" />
         </ReferenceInput>
-        
+		<LongTextInput source="applicationNotes" />
+        </FormTab>
+		
+		<FormTab label="Capabilities">
 		 <ArrayInput source="capabilities"
           label="Capabilities">
           <SimpleFormIterator>
@@ -180,7 +185,9 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
+		</FormTab>
 		
+		<FormTab label="Technologies">
         <ArrayInput source="technologyreplacedbys"
           label="Technologies">
           <SimpleFormIterator>
@@ -194,7 +201,10 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
-        <ArrayInput source="users"
+        </FormTab>
+		
+		<FormTab label="Users"> 
+		<ArrayInput source="users"
           label="Users">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
@@ -206,6 +216,9 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
+		</FormTab>
+		
+		<FormTab label= "POC">
         <ArrayInput source="business_pocs" validate={required()}
           label="Business POCs">
           <SimpleFormIterator>
@@ -229,10 +242,10 @@ export const ApplicationEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
-        </ArrayInput> 
-		<LongTextInput source="applicationNotes" />
-        
-		</SimpleForm>
+        </ArrayInput>
+		</FormTab>
+
+        </TabbedForm>
     </Edit>
 );
 
