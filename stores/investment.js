@@ -1,4 +1,4 @@
-const Store = require('./store');
+const Store = require('./store-mysql');
 const InvestmentModel = require('../models/investment');
 
 class InvestmentStore extends Store {

@@ -50,14 +50,11 @@ Then, open `gear-config.js` in your preferred code editor and paste the followin
 'use strict';
 
 module.exports = {
-    databaseSettings: {
-        connection: {
-            userName: '',
+   connection: {
+            user: '',
             password: '',
-            server: '',
-            options: {
-                database: ''
-            }
+            host: '',
+            database: ''
         }
     }
 };

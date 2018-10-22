@@ -45,9 +45,10 @@
                             <tr>
                                 <td><i class="fa fa-user"></i>&nbsp;Investment Manager</td>
                                 <td>
-                                    <div ng-show="!!investment.InvManager" ng-repeat="p in pocs | filter: {Type:'Investment'}">
+<!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
                                         <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
-                                    </div>
+                                    </div> -->
+									<a href="mailto:{{investment.InvManagerEmail}}">{{investment.InvManager}}</a>
                                     <div ng-hide="!!investment.InvManager">
                                         None Provided
                                     </div>

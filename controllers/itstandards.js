@@ -5,19 +5,19 @@ const itsStore = new ITSStore();
 const appStore = new AppStore();
 
 function findAll(req, res) {
-  itsStore.query('SELECT * FROM SAODS.udfGetITSList()', (results) => {
+  itsStore.search(`CALL get_technology_detail(0);`, (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  itsStore.query(`SELECT * FROM SAODS.udfGetITSList() WHERE ID = ${req.params.id}`, (results) => {
+  itsStore.search(`CALL get_technology_detail(${req.params.id})`, (results) => {
     res.json(results);
   });
 }
 
 function findApplications(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 't')`, (results) => {
+  appStore.search(`call get_application_detail( ${req.params.id}, 't')`, (results) => {
     res.json(results);
   });
 }

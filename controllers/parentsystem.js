@@ -5,20 +5,20 @@ const sysStore = new SysStore();
 const appStore = new AppStore();
 
 function findAll(req, res) {
-  sysStore.query('SELECT * FROM SAODS.udfGetSystemList()', (results) => {
+  sysStore.search(`call get_parent_system_detail(0)`, (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  sysStore.query(`SELECT * FROM SAODS.udfGetSystemList() WHERE ID = ${req.params.id}`, (results) => {
+  sysStore.search(`call get_parent_system_detail (${req.params.id})`, (results) => {
     res.json(results);
   });
 }
 
 // children
 function findApplications(req, res) {
-  appStore.query(`SELECT * FROM SAODS.udfGetAppDetails(${req.params.id}, 's')`, (results) => {
+  appStore.search(`call get_application_detail( ${req.params.id}, 'p')`, (results) => {
     res.json(results);
   });
 }

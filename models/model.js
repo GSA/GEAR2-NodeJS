@@ -18,6 +18,8 @@ class Model {
     }
   }
   apply(data) {
+
+	data = data;
     const obj = {};
 
     this.fields.forEach((field) => {

@@ -3,13 +3,13 @@ const AppTIMEStore = require('../stores/apptime');
 const appTIMEStore = new AppTIMEStore();
 
 function findAll(req, res) {
-  appTIMEStore.query(`SELECT ALL * FROM SAODS.udfGetAppTIME()WHERE NOT SSO = 'External'`, (results) => {
+  appTIMEStore.search(`call get_application_full_suite(0)`, (results) => {
     res.json(results);
   });
 }
 
 function findOne(req, res) {
-  appTIMEStore.query(`SELECT * FROM SAODS.udfGetAppTIME() WHERE ID = ${req.params.id}`, (results) => {
+  appTIMEStore.search(`call get_application_full_suite( ${req.params.id})`, (results) => {
     res.json(results);
   });
 }

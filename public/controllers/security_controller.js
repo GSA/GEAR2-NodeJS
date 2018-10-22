@@ -29,7 +29,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+/*           var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -37,7 +37,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -53,7 +53,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts//artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -165,7 +165,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+  /*         var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -173,7 +173,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -190,7 +190,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts // artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -287,7 +287,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       // far is to explicitly exclude by column name
       if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length)
       && field !== 'Artifacts') {
-        $location.path('/FISMA/' + row.Id);
+        $location.path('/FISMA/' + '-' + row.Id);
         $scope.$apply();
       }
     });
@@ -304,7 +304,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+/*           var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -312,7 +312,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -329,7 +329,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -441,7 +441,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         var art = "";
         var link = "";
         $.each(fsystems, function (key, val) {
-          var artifacts = [];
+ /*          var artifacts = [];
 
           _.each(val.RelatedArtifacts, function (artifact) {
             artifacts.push('<a class="no-propagation" target="_blank" href="' +
@@ -449,7 +449,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           });
 
           art = val.RelatedArtName;
-          link = val.RelatedArtURL;
+          link = val.RelatedArtURL; */
           $scope.bstData.push({
             "RelOrgDisplayName" : val.RelOrgDisplayName,
             "Name" : val.Name,
@@ -466,7 +466,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			"CloudYN": val.CloudYN,
 			"CSP": val.CSP,
 			"ServiceType": val.ServiceType,
-            "Artifacts": artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -575,16 +575,32 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       var fisma = FISMASrc.query({ id: $routeParams.id });
       var fismaid = '';
       // added via merge (from here to next empty line)
-      var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });
-      var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
-
+      var apps = FISMAApplicationsSrc.query({ id: $routeParams.id });//$routeParams.id
+      // var pocs = FISMAPOCsSrc.query({ id: $routeParams.id });
+      var pocs = FISMASrc.query({ id: $routeParams.id });
+	 
       fisma.$promise.then(function () {
         $scope.fisma = fisma[0];
-        $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
-        $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;
+        /* $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].Name.replace('amp;', '');
+        $scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].ReferenceDocuments;  */
+		/* $scope.fisma.RelatedArtName = fisma[0].RelatedArtifacts[0].substr(fisma[0].RelatedArtifacts[0].indexOf("\">")+2,fisma[0].RelatedArtifacts[0].indexOf("</a>")-fisma[0].RelatedArtifacts[0].indexOf("\">")-2);
+		$scope.fisma.RelatedArtURL = fisma[0].RelatedArtifacts[0].substr(fisma[0].RelatedArtifacts[0].indexOf("href=\"")+6,fisma[0].RelatedArtifacts[0].indexOf("\">")-fisma[0].RelatedArtifacts[0].indexOf("href=\"")-6)
+         */
+		$scope.fisma.RelatedArtName_test = [];
+
+		for(var i = 0; i < fisma[0].RelatedArtifacts.length; i++){
+			var cb = {
+			ArtName: fisma[0].RelatedArtifacts[i].substr(fisma[0].RelatedArtifacts[i].indexOf("\">")+2,fisma[0].RelatedArtifacts[i].indexOf("</a>")-fisma[0].RelatedArtifacts[i].indexOf("\">")-2),
+			ArtURL: fisma[0].RelatedArtifacts[i].substr(fisma[0].RelatedArtifacts[i].indexOf("href=\"")+6,fisma[0].RelatedArtifacts[0].indexOf("\">")-fisma[0].RelatedArtifacts[0].indexOf("href=\"")-6),
+			}
+		$scope.fisma.RelatedArtName_test.push(cb);
+		}
         if(fisma[0].CSP =='N/A') $scope.fisma.CSP = '';
         if(fisma[0].ServiceType =='N/A') $scope.fisma.ServiceType = '';
+		var newpoc;
         pocs.$promise.then(function () {
+			
+			newpoc = pocs[0].POC;
           $('#fismapocstable').bootstrapTable({
             columns: [
               {
@@ -608,7 +624,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
                 sortable: true
               },
             ],
-            data: pocs
+            data: newpoc
           });
         });
       });
@@ -665,13 +681,13 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 			  }, */
 
 			  {
-				field: 'BusinessPOC',
+				field: 'BusPOC',
 				title: 'Business POC',
 				sortable: true,
 				visible: false
 			  },
 			  {
-				field: 'TechnicalPOC',
+				field: 'TechPOC',
 				title: 'Technical POC',
 				sortable: true,
 				visible: false
@@ -771,7 +787,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         },
 
 	  		{
-			  field: 'FismaSystem',
+			  field: 'FISMASystem',
 			  title: 'FISMA System',
 			  sortable: true,
 			  visible: false
@@ -819,21 +835,33 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
 
     var fismaSrc = FISMASrc.query();
     fismaSrc.$promise.then(function () {
-      var pocs = FISMAPOCsSrc.query();
-      pocs.$promise.then(function () {
-        _.each(fismaSrc, function (item) {
+      var pocs = FISMASrc.query();
+	  var newpoc;
+/*      pocs.$promise.then(function () {
+		  newpoc = pocs[0].POC;
+         _.each(fismaSrc, function (item) {
           _.each(_.keys(item), function (key) {
-            var match = _.where(pocs, {Type: key, ParentId: item.Id});
+			  		console.log(item.POC);
+			  		console.log(newpoc);
+            var match = _.where(pocs, {Type: key, ParentId: item.ID});
+					console.log(match);
+            // var match = _.where(pocs, {Type: key, ParentId: item.Id});
             if (match.length) {
+				console.log(item[key]);
               item[key] = match[0].Name + " " +  "<a href=mailto:" + match[0].Email + ">" + match[0].Email + "</a>"+ " " + (match[0].Phone || '');
             }
           });
-        });
+        }); */
+
+		
         $scope.bstData = fismaSrc;
+		
         $scope.bstData = _.uniq(fismaSrc, function(item) {
+			// console.log(item.Name);
           return item.Name;
         });
         bstSearchUtils.checkFilterState($scope);
+		// console.log($scope.bstData[0])
         $scope.bsTableConfig = {
           columns: [{
             field: 'RelOrgDisplayName',
@@ -870,7 +898,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
         $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
         bstSearchUtils.handleSearchState($scope);
 
-      });
+  //    });
     });
   }
 
@@ -895,7 +923,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
       $scope.bstData = [];
       $.each(risso, function (key, val) {
         //       if ([val.SecurityRole] == 'RISSO'){
-        $scope.bstData.push({"Name" : val.Name, "Organization" : val.Owner, "SecurityRole" : "RISSO", "Region" : val.Type, "PhoneNumber" : val.Phone, "Email" : "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"});
+        $scope.bstData.push({"Name" : val.Name, "Organization" : val.Owner, "SecurityRole" : "RISSO", "Region" : val.Region, "PhoneNumber" : val.Phone, "Email" : "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"});
         //       }
       });
       bstSearchUtils.checkFilterState($scope);
@@ -904,11 +932,11 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce,
           field: 'Name',
           title: 'Name',
           sortable: true
-        }, {
+        }, /* {
           field: 'Organization',
           title: 'Organization',
           sortable: true
-        }, {
+        }, */ {
           field: 'SecurityRole',
           title: 'Security Role',
           sortable: true
