@@ -64,36 +64,41 @@ class ITStandardsModel extends Model {
 				  its = d.ReferenceDocuments.split(';');
 				  its = its.map((it, cb) =>
 				{
-					 cb = "<a href=" + "'" + it + "'" + " target = '_blank'> " + it + "</a>";
-					//console.log(cb);
+					 cb =  '<a class="no-propagation" target="_blank" href="' + it +  '">' + ' ' + it + '</a>' ;
+					console.log(cb);
 					s.push(cb);						
 				})
+				console.log(s);
 		  }
 		   else{
             s.push(d.ReferenceDocuments);
           }
           return s;
         }, 
-/*         mapping(d)
-        {
-          let s = '';
-          if(d.ReferenceDocuments){
-            s = "<a href=" + "'" + d.ReferenceDocuments + "'" + " target = '_blank'> " + d.ReferenceDocuments + "</a>"
-          }
-          else{
-            s = d.ReferenceDocuments;
-          }
-          return s;
-        }, */
       },
-	    {
+ 	    {
         name: 'Refdocdetail',
         type: 'string',
-        mapping(d)
-        {
-          return d.ReferenceDocuments;
-        },
-      },
+		mapping(d) {
+          let its = null;
+		  let s = [];
+		  if (d.ReferenceDocuments){
+				  its = d.ReferenceDocuments.split(';');
+				  its = its.map((it, cb) =>
+				{
+					// cb =  '<a class="no-propagation" target="_blank" href="' + it +  '">' + ' ' + it + '</a>' ;
+					cb =  it;
+					//console.log(cb);
+					s.push(cb);						
+				})
+				//console.log(s);
+		  }
+		   else{
+            s.push(d.ReferenceDocuments);
+          }
+          return s;
+        }, 
+      }, 
       {
         name: 'ApprovalExpirationDate',
         type: 'string',

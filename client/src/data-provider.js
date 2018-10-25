@@ -7,6 +7,7 @@ import {
   GET_MANY_REFERENCE,
   CREATE,
   UPDATE,
+  UPDATE_MANY,
   DELETE,
 } from 'react-admin';
 import decodeJwt from 'jwt-decode';

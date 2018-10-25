@@ -1,8 +1,9 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , CardActions, CreateButton, RefreshButton
-  , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
+  , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput, AutocompleteInput
   , ReferenceInput, SelectInput
+  , ChipField, SingleFieldList, SelectArrayInput, ReferenceField, ReferenceArrayInput, AutocompleteArrayInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
 
@@ -167,7 +168,7 @@ export const ApplicationEdit = (props) => (
         >
           <SelectInput optionText="keyname" />
         </ReferenceInput>
-        
+		  
 		 <ArrayInput source="capabilities"
           label="Capabilities">
           <SimpleFormIterator>
@@ -183,18 +184,18 @@ export const ApplicationEdit = (props) => (
 		
         <ArrayInput source="technologyreplacedbys"
           label="Technologies">
-          <SimpleFormIterator>
-            <ReferenceInput label="" source="id"
+		   <SimpleFormIterator>
+			<ReferenceInput label="" source="id"
               reference="technologyreplacedbys"
               sort={{ field: 'keyname', order: 'ASC' }}
-			  
-              perPage={ 2000 }              
-			  allowEmpty>
+              perPage={ 500 }
+              allowEmpty>
               <SelectInput optionText="keyname" />
             </ReferenceInput>
-          </SimpleFormIterator>
+		   </SimpleFormIterator>
         </ArrayInput>
-        <ArrayInput source="users"
+        
+		{/* 		 <ArrayInput source="users"
           label="Users">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
@@ -205,7 +206,12 @@ export const ApplicationEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
-        </ArrayInput>
+        </ArrayInput>  */}
+		
+		<ReferenceArrayInput label="Users" reference="organizations" source="users" perPage={100}>
+			<AutocompleteArrayInput optionText="keyname" optionValue="id"/>
+		</ReferenceArrayInput>
+		
         <ArrayInput source="business_pocs" validate={required()}
           label="Business POCs">
           <SimpleFormIterator>
@@ -214,7 +220,7 @@ export const ApplicationEdit = (props) => (
               sort={{ field: 'keyname', order: 'ASC' }}
               perPage={ 2000 }
               allowEmpty>
-              <SelectInput optionText="keyname" />
+              <SelectInput optionText="name" />
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
@@ -229,7 +235,7 @@ export const ApplicationEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
-        </ArrayInput> 
+        </ArrayInput>  
 		<LongTextInput source="applicationNotes" />
         
 		</SimpleForm>

@@ -55,11 +55,21 @@
                                 </tr>
 								<tr>
                                     <td><i class="fa fa-file"></i>&nbsp;Reference Documents</td>
-                                    <td><a href="{{refdocdetail}}" + " target = '_blank'">
+<!--                                     <td><a href="{{refdocdetail}}" + " target = '_blank'">
 									<div style="height:100%;width:100%">
 									  {{refdocdetail}}
-									</div>
+									</div> 
 									</a>
+									</td> -->
+									<td>
+									<div	ng-repeat = "x in refdocdetail">
+												<a href="{{x}}" + " target = '_blank'" + >
+												<!-- <div style="height:100%;width:100%"> -->
+												   {{x}} 
+												<!-- </div> -->
+												 
+												</a>
+										</div>				
 									</td>
                                 </tr>
                             </table>
