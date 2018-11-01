@@ -28,7 +28,7 @@ Once Git is finished, move into the new working directory.
 
 #### 2. Install Node Dependencies
 
-From your working directory, run the npm install command. This will install all the dependencies listed in package.json.
+From your working directory and the client folder under the working directory, run the npm install command. This will install all the dependencies listed in package.json.
 
 `npm install`
 
