@@ -18,12 +18,20 @@ import LoginPage from './LoginPage';
 import LogoutButton from './LogoutButton';
 import Dashboard from './Dashboard';
 
+
+import application from './reducers/applicationReducer';
+import technology from './reducers/technologyReducer';
+import applicationSaga from './sagas/applicationSagas';
+import technologySaga from './sagas/technologySagas';
+
 const App = () => (
     <Admin
       authProvider={authProvider}
       loginPage={LoginPage}
       logoutButton={LogoutButton}
       dashboard={Dashboard}
+      customReducers={{application: application, technology: technology}}
+      customSagas={[ applicationSaga, technologySaga ]}
       dataProvider={epilogueClient(`/api/v1`)}
     >
       {permissions => [

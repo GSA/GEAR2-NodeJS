@@ -44,7 +44,7 @@ const ApplicationTitle = ({ record }) => {
     return <span>Application {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const ApplicationEditOld = (props) => (
+export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
@@ -237,7 +237,7 @@ export const ApplicationEditOld = (props) => (
     </Edit>
 );
 
-export const ApplicationEdit = (props) => (
+export const ApplicationEditNew = (props) => (
     <ApplicationEditForm {...props}/>
 );
 
