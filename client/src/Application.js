@@ -7,6 +7,7 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , required, maxLength, minValue, maxValue } from 'react-admin';
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
+import ApplicationEditForm from "./ApplicationEditForm";
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
@@ -43,7 +44,7 @@ const ApplicationTitle = ({ record }) => {
     return <span>Application {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const ApplicationEdit = (props) => (
+export const ApplicationEditOld = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
@@ -234,6 +235,10 @@ export const ApplicationEdit = (props) => (
         
 		</SimpleForm>
     </Edit>
+);
+
+export const ApplicationEdit = (props) => (
+    <ApplicationEditForm {...props}/>
 );
 
 export const ApplicationCreate = (props) => (
