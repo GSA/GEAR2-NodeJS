@@ -6,6 +6,8 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {loadApplication as loadApplicationAction} from "./actions/applicationActions";
@@ -19,7 +21,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 200,
+        width: 400,
     },
     button: {
         margin: theme.spacing.unit,
@@ -28,7 +30,7 @@ const styles = theme => ({
         marginTop: 19,
     },
     menu: {
-        width: 200,
+        width: 400,
     },
     root: {
         display: 'flex',
@@ -41,9 +43,13 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        minWidth: 120,
-        maxWidth: 300,
+        minWidth: 200,
+        maxWidth: 400,
     },
+    fieldLabel: {
+        fontSize: '8',
+        paddingBottom: '10px',
+    }
 });
 
 class ApplicationEditForm extends Component {
@@ -55,10 +61,8 @@ class ApplicationEditForm extends Component {
                 keyname: '',
                 technologies: []
             },
-            technologies: []
+            tech: ''
         };
-
-        this.tech;
 
         //this.handleChange = this.handleChange.bind(this);
         this.handleDeleteChip = this.handleDeleteChip.bind(this);
@@ -68,11 +72,11 @@ class ApplicationEditForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log("next: ");
-        console.log(nextProps);
+        console.log("techs: " + nextProps.application.technologies.length);
         this.setState(
             {
-                application: nextProps.application.application
+                application: nextProps.application.application,
+                tech: (nextProps.application.technologies.length > 0) ? nextProps.application.technologies[0].keyname : ''
             });
     }
 
@@ -86,7 +90,7 @@ class ApplicationEditForm extends Component {
 
     addTechnology() {
         let newState = Object.assign({}, this.state);
-        newState.application.technologies.push({id: new Date().getUTCMilliseconds(), keyname: this.tech});
+        newState.application.technologies.push({id: new Date().getUTCMilliseconds(), keyname: this.state.tech});
         this.setState(newState);
     }
 
@@ -108,51 +112,125 @@ class ApplicationEditForm extends Component {
     }
 
     saveTech(event) {
-        this.tech = event.target.value;
+        this.setState({
+            application: this.state.application,
+            tech: event.target.value
+        });
     }
 
     render() {
+        console.log(this.state.tech);
         return (
             <div>
-                <form className={styles.container} noValidate autoComplete="off">
-                    <InputLabel htmlFor="age-native-simple">Application name</InputLabel>
-<br/>
+                    <FormControl fullWidth={true} classes={styles.formControl}>
+                        <InputLabel className={styles.fieldLabel} htmlFor="name" disabled >Id</InputLabel>
+                        <br/>
                         <TextField
-                            id="standard-name"
+                            fullWidth={true}
+                            disabled
+                            id="name"
+                            className={styles.textField}
+                            margin="normal"
+                            value={this.state.application.id}
+                        />
+                    </FormControl>
+
+                    <br/><br/>
+
+                    <FormControl fullWidth={true} className={styles.formControl}>
+                        <InputLabel className={styles.fieldLabel} htmlFor="name">Application name *</InputLabel>
+                        <br/>
+                        <TextField
+                            id="name"
                             className={styles.textField}
                             margin="normal"
                             value={this.state.application.keyname}
                         />
-                  <br/><br/>
-                        <InputLabel htmlFor="technologies">Technologies</InputLabel>
+                    </FormControl>
+
                     <br/><br/>
-                        <div id="technologies">
-                            {this.state.application.technologies.map(data => {
-                                return (
-                                    <Chip
-                                        key={data.id}
-                                        label={data.keyname}
-                                        onDelete={() => this.handleDeleteChip(data.keyname)}
-                                        onClick={this.handleClick}
-                                        className={styles.chip}
-                                    />
-                                );
-                            })}
-                        </div><br/>
+
+                    <FormControl fullWidth={true} className={styles.formControl}>
+                        <InputLabel className={styles.fieldLabel} htmlFor="name">Application alias</InputLabel>
+                        <br/>
+                        <TextField
+                            id="name"
+                            className={styles.textField}
+                            margin="normal"
+                            value={this.state.application.applicationAlias}
+                        />
+                    </FormControl>
+
+                    <br/><br/>
+
+                    <FormControl fullWidth={true} classes={styles.formControl}>
+                        <InputLabel className={styles.fieldLabel} htmlFor="name">Short name will appear in graphic *</InputLabel>
+                        <br/>
+                        <TextField
+                            id="name"
+                            className={styles.textField}
+                            margin="normal"
+                            value={this.state.application.displayName}
+                        />
+                    </FormControl>
+
+                    <br/><br/>
+
+                    <FormControl fullWidth={true} className={styles.formControl}>
+                        <InputLabel className={styles.fieldLabel} htmlFor="name">Description *</InputLabel>
+                        <br/>
+                        <TextField
+                            multiline={true}
+                            id="name"
+                            className={styles.textField}
+                            margin="normal"
+                            value={this.state.application.description}
+                        />
+                    </FormControl>
+
+                    <br/><br/>
+
+                    <InputLabel htmlFor="technologies">Technologies</InputLabel>
+                    <br/><br/>
+                    <div id="technologies">
+                        {this.state.application.technologies.map(data => {
+                            return (
+                                <Chip
+                                    key={data.id}
+                                    label={data.keyname}
+                                    onDelete={() => this.handleDeleteChip(data.keyname)}
+                                    onClick={this.handleClick}
+                                    className={styles.chip}
+                                />
+                            );
+                        })}
+                    </div><br/>
                     <Select native
-                            onChange={this.saveTech}>
-                            {this.props.application.technologies.map(data => {
-                                return (
-                                    <option key={data.id} value={data.keyname}>{data.keyname}</option>
-                                )
-                            })}
-                        </Select>&nbsp;&nbsp;
+                            onChange={this.saveTech}
+                            value={this.state.tech}>
+                        {this.props.application.technologies.map(data => {
+                            return (
+                                <option key={data.id} value={data.keyname}>{data.keyname}</option>
+                            )
+                        })}
+                    </Select>&nbsp;&nbsp;
                     <Button variant="outlined" onClick={this.addTechnology} className={styles.button}>
                         Add
                     </Button>
                     <FormHelperText>Add a new technology</FormHelperText>
 
-                </form>
+                    <br/>
+                    <FormControl fullWidth={true} className={styles.formControl}>
+                        <InputLabel className={styles.fieldLabel} htmlFor="name">Application notes</InputLabel>
+                        <br/>
+                        <TextField
+                            multiline={true}
+                            id="name"
+                            className={styles.textField}
+                            margin="normal"
+                            value={this.state.application.displayName}
+                        />
+                    </FormControl>
             </div>
         );
     }

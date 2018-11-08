@@ -8,6 +8,45 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
 
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 import ApplicationEditForm from "./ApplicationEditForm";
+import Chip from "@material-ui/core/Chip/Chip";
+import Select from "@material-ui/core/Select/Select";
+import Button from "@material-ui/core/Button/Button";
+import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    dense: {
+        marginTop: 19,
+    },
+    menu: {
+        width: 200,
+    },
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        padding: theme.spacing.unit / 2,
+    },
+    chip: {
+        margin: theme.spacing.unit / 2,
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+        maxWidth: 300,
+    },
+});
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
@@ -44,7 +83,7 @@ const ApplicationTitle = ({ record }) => {
     return <span>Application {record ? `"${record.keyname}"` : ''}</span>;
 };
 
-export const ApplicationEdit = (props) => (
+export const ApplicationEditOld = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
         <SimpleForm>
           <DisabledInput source="id" />
@@ -181,8 +220,36 @@ export const ApplicationEdit = (props) => (
             </ReferenceInput>
           </SimpleFormIterator>
         </ArrayInput>
-		
-        <ArrayInput source="technologyreplacedbys"
+
+           {/* <div id="technologies">
+                {this.state.application.technologies.map(data => {
+                    return (
+                        <Chip
+                            key={data.id}
+                            label={data.keyname}
+                            onDelete={() => this.handleDeleteChip(data.keyname)}
+                            onClick={this.handleClick}
+                            className={styles.chip}
+                        />
+                    );
+                })}
+            </div><br/>
+            <Select native
+                    onChange={this.saveTech}
+                    value={this.state.tech}>
+                {this.props.application.technologies.map(data => {
+                    return (
+                        <option key={data.id} value={data.keyname}>{data.keyname}</option>
+                    )
+                })}
+            </Select>&nbsp;&nbsp;
+            <Button variant="outlined" onClick={this.addTechnology} className={styles.button}>
+                Add
+            </Button>
+            <FormHelperText>Add a new technology</FormHelperText>*/}
+
+
+        {/*<ArrayInput source="technologyreplacedbys"
           label="Technologies">
           <SimpleFormIterator>
             <ReferenceInput label="" source="id"
@@ -194,7 +261,7 @@ export const ApplicationEdit = (props) => (
               <SelectInput optionText="keyname" />
             </ReferenceInput>
           </SimpleFormIterator>
-        </ArrayInput>
+        </ArrayInput>*/}
         <ArrayInput source="users"
           label="Users">
           <SimpleFormIterator>
@@ -237,8 +304,12 @@ export const ApplicationEdit = (props) => (
     </Edit>
 );
 
-export const ApplicationEditNew = (props) => (
-    <ApplicationEditForm {...props}/>
+export const ApplicationEdit = (props) => (
+    <Edit keyname={<ApplicationTitle />} {...props}>
+        <SimpleForm>
+            <ApplicationEditForm {...props}/>
+        </SimpleForm>
+    </Edit>
 );
 
 export const ApplicationCreate = (props) => (
