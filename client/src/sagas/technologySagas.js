@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import * as techActions from '../actions/technologyActions';
 import * as types from '../actions/actionTypes';
 
-const URL = 'http://localhost:3334/api/v1/technologies?count=10000';
+const URL = 'https://dev3.ea.gsa.gov/api/v1/technologies?count=10000';
 
 function* fetchTechnologies(action) {
     try {

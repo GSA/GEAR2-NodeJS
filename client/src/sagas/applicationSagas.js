@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import * as appActions from '../actions/applicationActions';
 import * as types from '../actions/actionTypes';
 
-const applicationURL = 'http://localhost:3334/api/v1/applications/';
+const applicationURL = 'https://dev3.ea.gsa.gov/api/v1/applications/';
 
 function* fetchApplication(action) {
     try {
