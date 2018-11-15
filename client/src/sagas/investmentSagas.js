@@ -1,13 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
-import * as capabilitiesActions from '../actions/capabilitiesActions';
+import * as investmentActions from '../actions/investmentActions';
 import * as host from './env';
 
-const URL = host.target + '/api/v1/capabilities?count=10000';
+const URL = host.target + '/api/v1/investments?count=10000';
 
-function* fetchCapabilities(action) {
+
+function* fetchInvestments(action) {
     try {
-        console.log('getting capabilities');
         const data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
@@ -18,13 +18,13 @@ function* fetchCapabilities(action) {
                     .then(res => res.json())
             }
         );
-        yield put(capabilitiesActions.loadCapabilitiesSuccess(data));
+        yield put(investmentActions.loadInvestmentsSuccess(data));
     } catch (error) {
-        yield put(capabilitiesActions.loadCapabilitiesFailed());
+        yield put(investmentActions.loadInvestmentsFailed());
     }
 }
 
 
-export default function* watchGetCapabilities() {
-    yield takeEvery(types.LOAD_CAPABILITIES, fetchCapabilities);
+export default function* watchGetParents() {
+    yield takeEvery(types.LOAD_INVESTMENTS, fetchInvestments);
 }

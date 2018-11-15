@@ -213,7 +213,7 @@ class ApplicationEditForm extends Component {
                     choices: [], label: 'Application Hosting Provider'}}/>
 
                 <GSelectControl field={{id: 'tier', value: this.state.application.tier,
-                    choices: [], label: 'Tier'}}/>
+                    choices: TierChoices, label: 'Tier'}}/>
 
                 <GTextControl field={{id: 'prodYear', value: this.state.application.productionYear, label: 'Production Year'}}/>
 
@@ -230,7 +230,7 @@ class ApplicationEditForm extends Component {
                 <GTextControl field={{id: 'referenceDocument', value: this.state.application.referenceDocument, label: 'Reference Document'}}/>
 
                 <GSelectControl field={{id: 'objOrgSsoId', value: this.state.application.objOrgSsoId,
-                    choices: [], label: 'SSO'}}/>
+                    choices: this.props.application.users, label: 'SSO'}}/>
 
                 <GSelectControl field={{id: 'objParentSystemId', value: this.state.application.objParentSystemId,
                     choices: [], label: 'Parent system'}}/>

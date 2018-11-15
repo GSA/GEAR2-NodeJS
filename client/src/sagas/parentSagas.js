@@ -1,13 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
-import * as capabilitiesActions from '../actions/capabilitiesActions';
+import * as parentActions from '../actions/parentActions';
 import * as host from './env';
 
-const URL = host.target + '/api/v1/capabilities?count=10000';
+const URL = host.target + '/api/v1/parent_systems?count=10000';
 
-function* fetchCapabilities(action) {
+
+function* fetchParents(action) {
     try {
-        console.log('getting capabilities');
         const data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
@@ -18,13 +18,13 @@ function* fetchCapabilities(action) {
                     .then(res => res.json())
             }
         );
-        yield put(capabilitiesActions.loadCapabilitiesSuccess(data));
+        yield put(parentActions.loadParentsSuccess(data));
     } catch (error) {
-        yield put(capabilitiesActions.loadCapabilitiesFailed());
+        yield put(parentActions.loadParentsFailed());
     }
 }
 
 
-export default function* watchGetCapabilities() {
-    yield takeEvery(types.LOAD_CAPABILITIES, fetchCapabilities);
+export default function* watchGetParents() {
+    yield takeEvery(types.LOAD_PARENTSYSTEMS, fetchParents);
 }

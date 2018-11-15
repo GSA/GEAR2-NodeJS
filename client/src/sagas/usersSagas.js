@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as userActions from '../actions/userActions';
+import * as host from './env';
 
-const URL_dev = 'https://dev3.ea.gsa.gov/api/v1/organizations?count=10000';
-const URL = 'http://localhost:3334/api/v1/organizations?count=10000';
+const URL = host.target + '/api/v1/organizations?count=10000';
 
 
 function* fetchUsers(action) {
