@@ -30,6 +30,8 @@ import parentSagas from './sagas/parentSagas';
 import investmentSagas from './sagas/investmentSagas';
 import portfolioSagas from './sagas/portfolioSagas';
 import providersSagas from './sagas/providersSagas';
+import userLocationSagas from './sagas/userLocationSagas';
+import pocSagas from './sagas/pocSagas';
 import appLoadSaga from './sagas/appLoadSagas';
 
 
@@ -43,7 +45,7 @@ class App extends Component {
                 dashboard={Dashboard}
                 customReducers={{application: application, technology: technology}}
                 customSagas={[appLoadSaga, applicationSaga, technologySaga, userSaga, capabilitySagas, fismaSagas,
-                    platformsSagas, portfolioSagas, investmentSagas, parentSagas, providersSagas]}
+                    platformsSagas, portfolioSagas, investmentSagas, parentSagas, providersSagas, userLocationSagas, pocSagas]}
                 dataProvider={epilogueClient(`/api/v1`)}
             >
                 {permissions => [

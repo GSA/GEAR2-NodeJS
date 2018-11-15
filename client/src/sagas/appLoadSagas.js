@@ -6,8 +6,7 @@ function* fetchBackground(dispatch) {
     try {
         yield put({type: types.LOAD_TECHNOLOGIES});
         yield put({type: types.LOAD_USERS});
-        yield put({type: types.LOAD_TECH_POC});
-        yield put({type: types.LOAD_BUSINESS_POC});
+        yield put({type: types.LOAD_POCS});
         yield put({type: types.LOAD_CAPABILITIES});
         yield put({type: types.LOAD_FISMAS});
         yield put({type: types.LOAD_PLATFORMS});
@@ -15,6 +14,7 @@ function* fetchBackground(dispatch) {
         yield put({type: types.LOAD_INVESTMENTS});
         yield put({type: types.LOAD_PORTFOLIOS});
         yield put({type: types.LOAD_PROVIDERS});
+        yield put({type: types.LOAD_USER_LOCATIONS});
     } catch (error) {
         yield put(capabilitiesActions.loadCapabilitiesFailed());
     }

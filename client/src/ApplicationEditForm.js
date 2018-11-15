@@ -11,8 +11,7 @@ import {loadApplication as loadApplicationAction} from "./actions/applicationAct
 import {loadTechnologies as loadTechnologiesAction} from "./actions/technologyActions";
 import {loadUsers as loadUsersAction} from "./actions/userActions";
 import {loadCapabilities as loadCapabilities} from "./actions/capabilitiesActions";
-import {loadBusinessPOCs as loadBusinessPOCs} from "./actions/businessPocActions";
-import {loadTechPOCs as loadTechPOCsAction} from "./actions/techPocActions";
+import {loadBusinessPOCs as loadBusinessPOCs} from "./actions/pocActions";
 import {ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices} from './valuelists';
 import {styles as styles} from './components/presentational/styles';
 import GTextControl from "./components/presentational/GTextControl";
@@ -29,16 +28,16 @@ class ApplicationEditForm extends Component {
                 technologies: [],
                 users: [],
                 capabilities: [],
-                businesspocs: [],
-                techpocs: [],
+                business_pocs: [],
+                technical_pocs: [],
                 fismas: [],
                 platforms: []
             },
             tech: '',
             user: '',
             capability: '',
-            businesspoc: '',
-            techpoc: ''
+            tpoc: '',
+            bpoc: ''
         };
 
         //this.handleChange = this.handleChange.bind(this);
@@ -55,6 +54,14 @@ class ApplicationEditForm extends Component {
         this.handleDeleteCapabilityChip = this.handleDeleteCapabilityChip.bind(this);
         this.addCapability = this.addCapability.bind(this);
         this.saveCapability = this.saveCapability.bind(this);
+
+        this.handleDeleteBPocChip = this.handleDeleteBPocChip.bind(this);
+        this.addBPoc = this.addBPoc.bind(this);
+        this.saveBPoc = this.saveBPoc.bind(this);
+
+        this.handleDeleteTPocChip = this.handleDeleteTPocChip.bind(this);
+        this.addTPoc = this.addTPoc.bind(this);
+        this.saveTPoc = this.saveTPoc.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -65,21 +72,15 @@ class ApplicationEditForm extends Component {
                 tech: (nextProps.application.technologies.length > 0) ? nextProps.application.technologies[0].keyname : '',
                 user: (nextProps.application.users.length > 0) ? nextProps.application.users[0].keyname : '',
                 capability: (nextProps.application.capabilities.length > 0) ? nextProps.application.capabilities[0].keyname : '',
-                businesspoc: (nextProps.application.businesspocs.length > 0) ? nextProps.application.businesspocs[0].keyname : '',
-                techpoc: (nextProps.application.techpocs.length > 0) ? nextProps.application.techpocs[0].keyname : ''
+                tpoc: (nextProps.application.pocs.length > 0) ? nextProps.application.pocs[0].keyname : '',
+                bpoc: (nextProps.application.pocs.length > 0) ? nextProps.application.pocs[0].keyname : ''
+
             });
     }
 
 
     componentDidMount() {
-        return Promise.all([
-            this.props.loadApplication(this.props.id),
-            this.props.loadTechnologies(),
-            this.props.loadUsers(),
-            this.props.loadCapabilities(),
-            this.props.loadBusinessPOCs(),
-            this.props.loadTechPOCs()
-        ]);
+        this.props.loadApplication(this.props.id);
     }
 
     addTechnology() {
@@ -91,6 +92,18 @@ class ApplicationEditForm extends Component {
     addUser() {
         let newState = Object.assign({}, this.state);
         newState.application.users.push({id: new Date().getUTCMilliseconds(), keyname: this.state.user});
+        this.setState(newState);
+    }
+
+    addBPoc() {
+        let newState = Object.assign({}, this.state);
+        newState.application.business_pocs.push({id: new Date().getUTCMilliseconds(), keyname: this.state.bpoc});
+        this.setState(newState);
+    }
+
+    addTPoc() {
+        let newState = Object.assign({}, this.state);
+        newState.application.technical_pocs.push({id: new Date().getUTCMilliseconds(), keyname: this.state.tpoc});
         this.setState(newState);
     }
 
@@ -106,6 +119,24 @@ class ApplicationEditForm extends Component {
             return obj.keyname !== deletedChip;
         });
         newState.application.technologies = techs;
+        this.setState(newState);
+    }
+
+    handleDeleteBPocChip(deletedChip) {
+        let newState = Object.assign({}, this.state);
+        /*let techs = newState.application.technologies.filter(function (obj) {
+            return obj.keyname !== deletedChip;
+        });
+        newState.application.technologies = techs;*/
+        this.setState(newState);
+    }
+
+    handleDeleteTPocChip(deletedChip) {
+        let newState = Object.assign({}, this.state);
+        /*let techs = newState.application.technologies.filter(function (obj) {
+            return obj.keyname !== deletedChip;
+        });
+        newState.application.technologies = techs;*/
         this.setState(newState);
     }
 
@@ -145,6 +176,23 @@ class ApplicationEditForm extends Component {
         });
     }
 
+    saveBPoc(event) {
+        this.setState({
+            application: this.state.application,
+            tech: event.target.value,
+            user: this.state.user,
+            capability: this.state.capability
+        });
+    }
+
+    saveTPoc(event) {
+        this.setState({
+            application: this.state.application,
+            tech: event.target.value,
+            user: this.state.user,
+            capability: this.state.capability
+        });
+    }
     saveUser(event) {
         this.setState({
             application: this.state.application,
@@ -247,6 +295,9 @@ class ApplicationEditForm extends Component {
                 </FormControl>
                 <br/><br/>*/}
 
+                <GSelectControl field={{id: 'objAppUserlocId', value: this.state.application.objAppUserlocId,
+                    choices: this.props.application.userlocations, nameField: 'keyname', label: 'User location'}}/>
+
                 <GSelectControl field={{id: 'objApplicationStatusId', value: this.state.application.objApplicationStatusId,
                     choices: ConfirmChoices, label: 'Application status'}}/>
 
@@ -287,6 +338,32 @@ class ApplicationEditForm extends Component {
                     add: this.addUser,
                     options: this.props.application.users,
                     helper: 'Add this user'
+                }} />
+
+                <GMultiSelectControl field={{
+                    id: 'businesspocs',
+                    label: 'Business POCs',
+                    values: this.state.application.business_pocs,
+                    handleDeleteChip: this.handleDeleteBPocChip,
+                    handleChipClick: this.handleClick,
+                    save: this.saveBPoc,
+                    firstVal: this.state.bpoc,
+                    add: this.addBPoc,
+                    options: this.props.application.pocs,
+                    helper: 'Add the POC'
+                }} />
+
+                 <GMultiSelectControl field={{
+                    id: 'techpocs',
+                    label: 'Technology POCs',
+                    values: this.state.application.technical_pocs,
+                    handleDeleteChip: this.handleDeleteTPocChip,
+                    handleChipClick: this.handleClick,
+                    save: this.saveTPoc,
+                    firstVal: this.state.tpoc,
+                    add: this.addTPoc,
+                    options: this.props.application.pocs,
+                    helper: 'Add the POC'
                 }} />
 
                 <GTextControl field={{id: 'applicationNotes', value: this.state.application.applicationNotes,

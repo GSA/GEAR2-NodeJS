@@ -5,20 +5,20 @@ export default function applicationReducer(state=
                                                        technologies: [],
                                                        users: [],
                                                        capabilities: [],
-                                                       businesspocs: [],
-                                                       techpocs: []
+                                                       business_pocs: [],
+                                                       technical_pocs: []
                                                     },
                                                     technologies: [],
                                                     users: [],
                                                     capabilities: [],
-                                                    businesspocs: [],
-                                                    techpocs: [],
+                                                    pocs: [],
                                                     fismas: [],
                                                     platforms: [],
                                                     parents: [],
                                                     investments: [],
                                                     portfolios: [],
-                                                    providers: []},
+                                                    providers: [],
+                                                    userlocations: []},
                                            action) {
 
     switch(action.type) {
@@ -34,11 +34,8 @@ export default function applicationReducer(state=
         case types.LOAD_CAPABILITIES_SUCCESS:
             return Object.assign({}, state, {capabilities: action.capabilities});
 
-        case types.LOAD_BUSINESS_POC_SUCCESS:
-            return Object.assign({}, state, {businesspocs: action.businesspocs});
-
-        case types.LOAD_TECH_POC_SUCCESS:
-            return Object.assign({}, state, {techpocs: action.techpocs});
+        case types.LOAD_POCS_SUCCESS:
+            return Object.assign({}, state, {pocs: action.pocs});
 
         case types.LOAD_PLATFORMS_SUCCESS:
             return Object.assign({}, state, {platforms: action.platforms});
@@ -57,6 +54,9 @@ export default function applicationReducer(state=
 
         case types.LOAD_PROVIDERS_SUCCESS:
             return Object.assign({}, state, {providers: action.providers});
+
+        case types.LOAD_USER_LOCATIONS_SUCCESS:
+            return Object.assign({}, state, {userlocations: action.userlocations});
 
         default:
             return state;
