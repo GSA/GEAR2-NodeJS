@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 
-class AboutPage extends Component {
+class Applications extends Component {
 
   render() {
     return (
       <div>
-        Some boring about page.
+        List of applications.
       </div>
     );
   }
 }
 
-export default AboutPage;
+export default Applications;

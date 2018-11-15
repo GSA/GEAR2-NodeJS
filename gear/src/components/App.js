@@ -1,6 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Header from './common/Header';
-import ApplicationEditForm from "./ApplicationEditForm";
+//import ApplicationEditForm from "./application/ApplicationEditForm";
 
 class App extends Component {
   render() {
@@ -8,7 +9,7 @@ class App extends Component {
       <div>
         <Header/>
         {this.props.children}
-        <ApplicationEditForm {...props}/>
+        {/*<ApplicationEditForm {...props}/>*/}
       </div>
     )
   }
@@ -16,7 +17,7 @@ class App extends Component {
 
 
 App.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.object
 };
 
 export default App;

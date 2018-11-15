@@ -5,8 +5,6 @@ export default function technologyReducer(state={application: {technologies: []}
     switch(action.type) {
         case "BLAH":
             let tmp = {...Object.assign({}, state, {technologies: action.technologies})};
-
-            console.log("added the techs");
             console.log(tmp);
             return tmp;
 

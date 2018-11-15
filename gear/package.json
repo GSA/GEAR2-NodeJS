@@ -1,13 +1,11 @@
 {
   "name": "arg",
   "version": "1.0.0",
-  "description": "Pluralsight Admin - Redux Version",
+  "description": "",
   "scripts": {
     "start": "npm-run-all --parallel open:src",
     "open:src": "babel-node tools/srcServer.js"
   },
-  "author": "Keith Fung",
-  "license": "MIT",
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.42",
     "@material-ui/core": "1.4.0",
@@ -15,6 +13,7 @@
     "babel-polyfill": "6.8.0",
     "bootstrap": "3.3.6",
     "jquery": "^3.3.1",
+    "prop-types": "^15.6.2",
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "react-redux": "4.4.5",
@@ -62,9 +61,5 @@
     "webpack": "1.13.0",
     "webpack-dev-middleware": "1.6.1",
     "webpack-hot-middleware": "2.10.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coryhouse/pluralsight-redux-starter"
   }
 }

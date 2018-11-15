@@ -1,12 +1,13 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 
 class CoursesPage extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       course: {title: ""}
@@ -43,8 +44,8 @@ class CoursesPage extends Component {
 }
 
 CoursesPage.propTypes = {
-    courses: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    courses: PropTypes.array,
+    actions: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {

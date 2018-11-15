@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {loadApplication as loadApplicationAction} from "../actions/applicationActions";
-import {loadTechnologies as loadTechnologiesAction} from "../actions/technologyActions";
+import {loadApplication as loadApplicationAction} from "../../actions/applicationActions";
+import {loadTechnologies as loadTechnologiesAction} from "../../actions/technologyActions";
 
 const styles = theme => ({
     container: {
@@ -159,9 +159,9 @@ class ApplicationEditForm extends Component {
 }
 
 ApplicationEditForm.propTypes = {
-    application: PropTypes.object.isRequired,
-    loadApplication: PropTypes.func.isRequired,
-    loadTechnologies: PropTypes.func.isRequired
+    application: PropTypes.object,
+    loadApplication: PropTypes.func,
+    loadTechnologies: PropTypes.func
 };
 
 //const mapStateToProps = state => ({ application: state.application });
