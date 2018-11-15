@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as portfolioActions from '../actions/portfolioActions';
 import * as host from './env';
@@ -26,5 +26,5 @@ function* fetchPortfolios(action) {
 
 
 export default function* watchGetParents() {
-    yield takeEvery(types.LOAD_PORTFOLIOS, fetchPortfolios);
+    yield takeLatest(types.LOAD_PORTFOLIOS, fetchPortfolios);
 }

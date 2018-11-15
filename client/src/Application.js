@@ -305,11 +305,10 @@ export const ApplicationEditOld = (props) => (
 );
 
 export const ApplicationEdit = (props) => (
-    <Edit keyname={<ApplicationTitle />} {...props}>
-        <SimpleForm>
-            <ApplicationEditForm {...props}/>
-        </SimpleForm>
-    </Edit>
+    <div>
+        <ApplicationTitle {...props}/>
+        <ApplicationEditForm id={props.id} {...props.application} />
+    </div>
 );
 
 export const ApplicationCreate = (props) => (

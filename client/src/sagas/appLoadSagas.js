@@ -9,6 +9,12 @@ function* fetchBackground(dispatch) {
         yield put({type: types.LOAD_TECH_POC});
         yield put({type: types.LOAD_BUSINESS_POC});
         yield put({type: types.LOAD_CAPABILITIES});
+        yield put({type: types.LOAD_FISMAS});
+        yield put({type: types.LOAD_PLATFORMS});
+        yield put({type: types.LOAD_PARENTSYSTEMS});
+        yield put({type: types.LOAD_INVESTMENTS});
+        yield put({type: types.LOAD_PORTFOLIOS});
+        yield put({type: types.LOAD_PROVIDERS});
     } catch (error) {
         yield put(capabilitiesActions.loadCapabilitiesFailed());
     }

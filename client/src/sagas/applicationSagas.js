@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as appActions from '../actions/applicationActions';
 import * as types from '../actions/actionTypes';
 import * as host from './env';
@@ -25,5 +25,5 @@ function* fetchApplication(action) {
 }
 
 export default function* watchGetApplication(id) {
-    yield takeEvery(types.LOAD_APPLICATION, fetchApplication);
+    yield takeLatest(types.LOAD_APPLICATION, fetchApplication);
 }

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, select, takeLatest, cancel } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as capabilitiesActions from '../actions/capabilitiesActions';
 import * as host from './env';
@@ -7,7 +7,10 @@ const URL = host.target + '/api/v1/capabilities?count=10000';
 
 function* fetchCapabilities(action) {
     try {
-        console.log('getting capabilities');
+        const state = yield select();
+        if(state.application.capabilities.length > 0) {
+            cancel();
+        }
         const data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
@@ -26,5 +29,5 @@ function* fetchCapabilities(action) {
 
 
 export default function* watchGetCapabilities() {
-    yield takeEvery(types.LOAD_CAPABILITIES, fetchCapabilities);
+    yield takeLatest(types.LOAD_CAPABILITIES, fetchCapabilities);
 }

@@ -4,8 +4,8 @@ export function loadPortfolios() {
     return {type: types.LOAD_PORTFOLIOS};
 }
 
-export const loadPortfoliosSuccess = (porfolios) => {
-    return {type: types.LOAD_PORTFOLIOS_SUCCESS, porfolios: porfolios};
+export const loadPortfoliosSuccess = (portfolios) => {
+    return {type: types.LOAD_PORTFOLIOS_SUCCESS, portfolios: portfolios};
 };
 
 export const loadPortfoliosFailed = () => {

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as fismaActions from '../actions/fismaActions';
 import * as host from './env';
@@ -26,5 +26,5 @@ function* fetchFismas(action) {
 
 
 export default function* watchGetParents() {
-    yield takeEvery(types.LOAD_FISMAS, fetchFismas);
+    yield takeLatest(types.LOAD_FISMAS, fetchFismas);
 }

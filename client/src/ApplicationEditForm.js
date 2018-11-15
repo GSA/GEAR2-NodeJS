@@ -30,7 +30,9 @@ class ApplicationEditForm extends Component {
                 users: [],
                 capabilities: [],
                 businesspocs: [],
-                techpocs: []
+                techpocs: [],
+                fismas: [],
+                platforms: []
             },
             tech: '',
             user: '',
@@ -56,7 +58,7 @@ class ApplicationEditForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log(nextProps);
+        console.log(nextProps.application);
         this.setState(
             {
                 application: nextProps.application.application,
@@ -175,19 +177,6 @@ class ApplicationEditForm extends Component {
 
                 <GTextControl field={{id: 'description', value: this.state.application.description, label: 'Description *'}}/>
 
-                <GMultiSelectControl field={{
-                    id: 'technologies',
-                    label: 'Technologies',
-                    values: this.state.application.technologies,
-                    handleDeleteChip: this.handleDeleteTechChip,
-                    handleChipClick: this.handleClick,
-                    save: this.saveTech,
-                    firstVal: this.state.tech,
-                    add: this.addTechnology,
-                    options: this.props.application.technologies,
-                    helper: 'Add this technology'
-                }} />
-
                 <GSelectControl field={{id: 'mobileAppIndicator', value: this.state.application.mobileAppIndicator,
                     choices: ConfirmChoices, label: 'Mobile'}}/>
 
@@ -207,10 +196,10 @@ class ApplicationEditForm extends Component {
                     choices: ConfirmChoices, label: 'Generates revenue'}}/>
 
                 <GSelectControl field={{id: 'objAppPlatformId', value: this.state.application.objAppPlatformId,
-                    choices: [], label: 'Application Platform'}}/>
+                    choices: this.props.application.platforms, nameField: 'keyname', label: 'Application Platform'}}/>
 
                 <GSelectControl field={{id: 'objAppHostingproviderId', value: this.state.application.objAppHostingproviderId,
-                    choices: [], label: 'Application Hosting Provider'}}/>
+                    choices: this.props.application.providers, nameField: 'keyname', label: 'Application Hosting Provider'}}/>
 
                 <GSelectControl field={{id: 'tier', value: this.state.application.tier,
                     choices: TierChoices, label: 'Tier'}}/>
@@ -230,19 +219,19 @@ class ApplicationEditForm extends Component {
                 <GTextControl field={{id: 'referenceDocument', value: this.state.application.referenceDocument, label: 'Reference Document'}}/>
 
                 <GSelectControl field={{id: 'objOrgSsoId', value: this.state.application.objOrgSsoId,
-                    choices: this.props.application.users, label: 'SSO'}}/>
+                    choices: this.props.application.users, nameField: 'keyname', label: 'SSO'}}/>
 
                 <GSelectControl field={{id: 'objParentSystemId', value: this.state.application.objParentSystemId,
-                    choices: [], label: 'Parent system'}}/>
+                    choices: this.props.application.parents, nameField: 'keyname', label: 'Parent system'}}/>
 
                 <GSelectControl field={{id: 'objInvestmentId', value: this.state.application.objInvestmentId,
-                    choices: [], label: 'Investment'}}/>
+                    choices: this.props.application.investments, nameField: 'keyname', label: 'Investment'}}/>
 
                 <GSelectControl field={{id: 'objPortfolioId', value: this.state.application.objPortfolioId,
-                    choices: [], label: 'Portfolio'}}/>
+                    choices: this.props.application.portfolios, nameField: 'keyname', label: 'Portfolio'}}/>
 
                 <GSelectControl field={{id: 'objFismaId', value: this.state.application.objFismaId,
-                    choices: [], label: 'FISMA system'}}/>
+                    choices: this.props.application.fismas, nameField: 'fismaSysId', label: 'FISMA system'}}/>
 
                 {/*<FormControl fullWidth={true} classes={styles.formControl}>
                     <InputLabel className={styles.fieldLabel} htmlFor="name">User location</InputLabel>
@@ -261,6 +250,18 @@ class ApplicationEditForm extends Component {
                 <GSelectControl field={{id: 'objApplicationStatusId', value: this.state.application.objApplicationStatusId,
                     choices: ConfirmChoices, label: 'Application status'}}/>
 
+                <GMultiSelectControl field={{
+                    id: 'technologies',
+                    label: 'Technologies',
+                    values: this.state.application.technologies,
+                    handleDeleteChip: this.handleDeleteTechChip,
+                    handleChipClick: this.handleClick,
+                    save: this.saveTech,
+                    firstVal: this.state.tech,
+                    add: this.addTechnology,
+                    options: this.props.application.technologies,
+                    helper: 'Add this technology'
+                }} />
 
                 <GMultiSelectControl field={{
                     id: 'capabilities',

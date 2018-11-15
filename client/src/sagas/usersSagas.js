@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as userActions from '../actions/userActions';
 import * as host from './env';
@@ -26,5 +26,5 @@ function* fetchUsers(action) {
 
 
 export default function* watchGetUsers() {
-    yield takeEvery(types.LOAD_USERS, fetchUsers);
+    yield takeLatest(types.LOAD_USERS, fetchUsers);
 }

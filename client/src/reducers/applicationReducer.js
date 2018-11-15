@@ -7,12 +7,18 @@ export default function applicationReducer(state=
                                                        capabilities: [],
                                                        businesspocs: [],
                                                        techpocs: []
-                                                   },
-                                                   technologies: [],
-                                                   users: [],
-                                                   capabilities: [],
-                                                   businesspocs: [],
-                                                   techpocs: []},
+                                                    },
+                                                    technologies: [],
+                                                    users: [],
+                                                    capabilities: [],
+                                                    businesspocs: [],
+                                                    techpocs: [],
+                                                    fismas: [],
+                                                    platforms: [],
+                                                    parents: [],
+                                                    investments: [],
+                                                    portfolios: [],
+                                                    providers: []},
                                            action) {
 
     switch(action.type) {
@@ -33,6 +39,25 @@ export default function applicationReducer(state=
 
         case types.LOAD_TECH_POC_SUCCESS:
             return Object.assign({}, state, {techpocs: action.techpocs});
+
+        case types.LOAD_PLATFORMS_SUCCESS:
+            return Object.assign({}, state, {platforms: action.platforms});
+
+        case types.LOAD_FISMAS_SUCCESS:
+            return Object.assign({}, state, {fismas: action.fismas});
+
+        case types.LOAD_PARENTSYSTEMS_SUCCESS:
+            return Object.assign({}, state, {parents: action.parents});
+
+        case types.LOAD_INVESTMENTS_SUCCESS:
+            return Object.assign({}, state, {investments: action.investments});
+
+        case types.LOAD_PORTFOLIOS_SUCCESS:
+            return Object.assign({}, state, {portfolios: action.portfolios});
+
+        case types.LOAD_PROVIDERS_SUCCESS:
+            return Object.assign({}, state, {providers: action.providers});
+
         default:
             return state;
     }

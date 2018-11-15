@@ -23,7 +23,13 @@ import technology from './reducers/technologyReducer';
 import applicationSaga from './sagas/applicationSagas';
 import technologySaga from './sagas/technologySagas';
 import userSaga from './sagas/usersSagas';
+import fismaSagas from './sagas/fismaSagas';
+import platformsSagas from './sagas/platformsSagas';
 import capabilitySagas from './sagas/capabilitySagas';
+import parentSagas from './sagas/parentSagas';
+import investmentSagas from './sagas/investmentSagas';
+import portfolioSagas from './sagas/portfolioSagas';
+import providersSagas from './sagas/providersSagas';
 import appLoadSaga from './sagas/appLoadSagas';
 
 
@@ -36,7 +42,8 @@ class App extends Component {
                 logoutButton={LogoutButton}
                 dashboard={Dashboard}
                 customReducers={{application: application, technology: technology}}
-                customSagas={[appLoadSaga, applicationSaga, technologySaga, userSaga, capabilitySagas]}
+                customSagas={[appLoadSaga, applicationSaga, technologySaga, userSaga, capabilitySagas, fismaSagas,
+                    platformsSagas, portfolioSagas, investmentSagas, parentSagas, providersSagas]}
                 dataProvider={epilogueClient(`/api/v1`)}
             >
                 {permissions => [

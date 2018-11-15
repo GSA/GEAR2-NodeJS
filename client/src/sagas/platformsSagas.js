@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as platformActions from '../actions/platformActions';
 import * as host from './env';
@@ -26,5 +26,5 @@ function* fetchPlatforms(action) {
 
 
 export default function* watchGetUsers() {
-    yield takeEvery(types.LOAD_PLATFORMS, fetchPlatforms);
+    yield takeLatest(types.LOAD_PLATFORMS, fetchPlatforms);
 }

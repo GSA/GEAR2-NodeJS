@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import * as techActions from '../actions/technologyActions';
 import * as types from '../actions/actionTypes';
 import * as host from './env';
@@ -26,5 +26,5 @@ function* fetchTechnologies(action) {
 
 
 export default function* watchGetTechnologies() {
-    yield takeEvery(types.LOAD_TECHNOLOGIES, fetchTechnologies);
+    yield takeLatest(types.LOAD_TECHNOLOGIES, fetchTechnologies);
 }
