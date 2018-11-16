@@ -24,6 +24,29 @@ function* fetchApplication(action) {
     }
 }
 
-export default function* watchGetApplication(id) {
+function* saveApplication(action) {
+    console.log(action);
+    try {
+        const data = yield call(() => {
+                return fetch(applicationURL + action.application.id, {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
+                    body: JSON.stringify(action.application)
+                })
+                    .then(res => res.json())
+            }
+        );
+        console.log(data);
+        yield put(appActions.loadApplicationSuccess(data));
+    } catch (error) {
+        yield put(appActions.loadApplicationFailed());
+    }
+}
+
+export default function* watchGetApplication(data) {
     yield takeLatest(types.LOAD_APPLICATION, fetchApplication);
+    yield takeLatest(types.SAVE_APPLICATION, saveApplication);
 }

@@ -18,6 +18,7 @@ const GTextControl = ({field}) => {
                 className={styles.textField}
                 margin="normal"
                 value={field.value}
+                onChange={(e) => field.handleChange(e, field.id)}
             />
             <br/>
         </FormControl>
