@@ -12,6 +12,7 @@ import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+import ApplicationCreateForm from "./containers/ApplicationCreateForm/ApplicationCreateForm";
 
 const styles = theme => ({
     container: {
@@ -312,7 +313,13 @@ export const ApplicationEdit = (props) => (
     </Edit>
 );
 
-export const ApplicationCreate = (props) => (
+export const ApplicationCreate = ( props ) => (
+    <Create {...props}>
+        <ApplicationCreateForm id={props.id} {...props.application} />
+    </Create>
+);
+
+export const ApplicationCreateOld = (props) => (
     <Create {...props}>
         <SimpleForm>
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />
