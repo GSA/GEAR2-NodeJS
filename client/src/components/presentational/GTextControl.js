@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import {styles as styles} from './styles';
 
-const GTextControl = ({field}) => {
+const GTextControl = (field) => {
     return (
         <FormControl fullWidth={true} classes={styles.formControl}>
             <InputLabel className={styles.fieldLabel} htmlFor={field.id}
@@ -16,6 +16,7 @@ const GTextControl = ({field}) => {
                 multiline={field.multiline === true}
                 id={field.id}
                 className={styles.textField}
+                placeholder={field.placeholder}
                 margin="normal"
                 value={field.value}
                 onChange={(e) => field.handleChange(e, field.id)}

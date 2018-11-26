@@ -19,13 +19,13 @@ class GMultiSelectControl extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            id: nextProps.field.options.length > 0 ? nextProps.field.options[0].id : '0',
-            keyname: nextProps.field.options.length > 0 ? nextProps.field.options[0].keyname : ''
+            id: nextProps.options.length > 0 ? nextProps.options[0].id : '0',
+            keyname: nextProps.options.length > 0 ? nextProps.options[0].keyname : ''
         });
     }
 
     updateSelected(e) {
-        let entity = this.props.field.options.filter(function (obj) {
+        let entity = this.props.options.filter(function (obj) {
             return obj.id.toString() === e.target.value;
         });
 
@@ -38,16 +38,16 @@ class GMultiSelectControl extends Component {
     render() {
         return (
             <div>
-                <InputLabel htmlFor={this.props.field.id}>{this.props.field.label}</InputLabel>
+                <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
                 <br/><br/>
-                <div id={this.props.field.id}>
-                    {this.props.field.values.map(data => {
+                <div id={this.props.id}>
+                    {this.props.values.map(data => {
                         return (
                             <Chip
                                 key={data.id}
                                 label={data.keyname}
-                                onDelete={() => this.props.field.handleDeleteChip(this.props.field.id, data.id)}
-                                onClick={this.props.field.handleChipClick}
+                                onDelete={() => this.props.handleDeleteChip(this.props.id, data.id)}
+                                onClick={this.props.handleChipClick}
                                 className={styles.chip}
                             />
                         );
@@ -57,16 +57,16 @@ class GMultiSelectControl extends Component {
                 <Select native
                         value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
-                    {this.props.field.options.map(data => {
+                    {this.props.options.map(data => {
                         return (
                             <option key={data.id} value={data.id}>{data.keyname}</option>
                         )
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={() => {this.props.field.add(this.props.field.id, this.state)}} className={styles.button}>
+                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, this.state)}} className={styles.button}>
                     Add
                 </Button>
-                <FormHelperText>{this.props.field.helper}</FormHelperText>
+                <FormHelperText>{this.props.helper}</FormHelperText>
                 <br/>
             </div>
         )

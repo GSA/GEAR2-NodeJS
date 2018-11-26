@@ -3,14 +3,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import {styles as styles} from './styles';
 
-const GSelectControl = ({field}) => {
-    if(field.nameField === undefined) {
-        field.nameField = 'name';
-    }
-
-    if(field.value === undefined || field.value === null) {
-        field.value = ' ';
-    }
+const GSelectControl = (field) => {
 
     console.log(field.value);
 
