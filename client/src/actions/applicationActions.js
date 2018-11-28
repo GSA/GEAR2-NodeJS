@@ -14,6 +14,5 @@ export const loadApplicationSuccess = (application) => {
 };
 
 export const loadApplicationFailed = () => {
-    console.log("fail!!");
     return {type: types.LOAD_APPLICATION_FAILURE};
 };

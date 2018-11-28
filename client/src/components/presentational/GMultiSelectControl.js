@@ -37,8 +37,7 @@ class GMultiSelectControl extends PureComponent {
 
     render() {
         let vals = this.props.values.map(a => a.id);
-        console.log(this.props.label);
-
+        
         return (
             <div>
                 <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>

@@ -60,7 +60,6 @@ class ApplicationEditForm extends Component {
     }
 
     modifyValue(e, fieldName) {
-        console.log("changing " + fieldName);
         this.setState({ ...this.state, [fieldName]: e.target.value });
     }
 
