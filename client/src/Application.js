@@ -5,48 +5,10 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
-
+import ReactDOM from 'react-dom';
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 import ApplicationEditForm from "./ApplicationEditForm";
-import Chip from "@material-ui/core/Chip/Chip";
-import Select from "@material-ui/core/Select/Select";
-import Button from "@material-ui/core/Button/Button";
-import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
-
-const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200,
-    },
-    button: {
-        margin: theme.spacing.unit,
-    },
-    dense: {
-        marginTop: 19,
-    },
-    menu: {
-        width: 200,
-    },
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        padding: theme.spacing.unit / 2,
-    },
-    chip: {
-        margin: theme.spacing.unit / 2,
-    },
-    formControl: {
-        margin: theme.spacing.unit,
-        minWidth: 120,
-        maxWidth: 300,
-    },
-});
+import { dispatch } from 'react-redux'
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
@@ -74,7 +36,7 @@ export const ApplicationList = (props) => (
             <TextField source="id" />
             <TextField source="keyname" label="Application Name" />
             <TextField source="description" />
-            <EditButton />
+            <EditButton/>
         </Datagrid>
     </List>
 );
@@ -307,7 +269,7 @@ export const ApplicationEditOld = (props) => (
 export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
 
-        <ApplicationEditForm id={props.id} {...props.application} />
+        <ApplicationEditForm id={props.id}/>
 
     </Edit>
 );
