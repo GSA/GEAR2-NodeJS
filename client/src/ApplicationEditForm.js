@@ -46,13 +46,13 @@ class ApplicationEditForm extends Component {
 
     addChip(fieldId, item) {
         let newState = Object.assign({}, this.state);
-        newState.application[fieldId].push(item);
+        newState[fieldId].push(item);
         this.setState(newState);
     }
 
     handleDeleteChip(fieldId, deletedChip) {
         let newState = Object.assign({}, this.state);
-        newState.application[fieldId] = newState.application[fieldId].filter(function (obj) {
+        newState[fieldId] = newState[fieldId].filter(function (obj) {
             return obj.id !== deletedChip;
         });
         this.setState(newState);
@@ -65,7 +65,7 @@ class ApplicationEditForm extends Component {
 
     save() {
         this.props.saveApplication(this.state);
-        this.props.history.push('/applications');
+        //this.props.routing.push('/applications');
     }
 
     handleClick(data) {
@@ -157,60 +157,55 @@ class ApplicationEditForm extends Component {
                 <GSelectControl field={{id: 'objApplicationStatusId', value: this.state.objApplicationStatusId,
                     choices: ConfirmChoices, label: 'Application status', handleChange: this.modifyValue}}/>
 
-                <GMultiSelectControl field={{
-                    id: 'technologies',
-                    label: 'Technologies',
-                    values: this.state.technologies,
-                    handleDeleteChip: this.handleDeleteChip,
-                    handleChipClick: this.handleChipClick,
-                    add: this.addChip,
-                    options: this.props.application.technologies,
-                    helper: 'Add this technology'
-                }} />
+                <GMultiSelectControl
+                    id = 'technologies'
+                    label = 'Technologies'
+                    values = {this.state.technologies}
+                    handleDeleteChip = {this.handleDeleteChip}
+                    handleChipClick = {this.handleChipClick}
+                    add = {this.addChip}
+                    options = {this.props.application.technologies}
+                    helper = 'Add this technology'/>
 
-                <GMultiSelectControl field={{
-                    id: 'capabilities',
-                    label: 'Capabilities',
-                    values: this.state.capabilities,
-                    handleDeleteChip: this.handleDeleteChip,
-                    handleChipClick: this.handleChipClick,
-                    add: this.addChip,
-                    options: this.props.application.capabilities,
-                    helper: 'Add this capability'
-                }} />
+                <GMultiSelectControl
+                    id = 'capabilities'
+                    label = 'Capabilities'
+                    values = {this.state.capabilities}
+                    handleDeleteChip = {this.handleDeleteChip}
+                    handleChipClick = {this.handleChipClick}
+                    add = {this.addChip}
+                    options = {this.props.application.capabilities}
+                    helper = 'Add this capability'/>
 
-                <GMultiSelectControl field={{
-                    id: 'users',
-                    label: 'Users',
-                    values: this.state.users,
-                    handleDeleteChip: this.handleDeleteChip,
-                    handleChipClick: this.handleChipClick,
-                    add: this.addChip,
-                    options: this.props.application.users,
-                    helper: 'Add this user'
-                }} />
+                <GMultiSelectControl
+                    id = 'users'
+                    label = 'Users'
+                    values = {this.state.users}
+                    handleDeleteChip = {this.handleDeleteChip}
+                    handleChipClick = {this.handleChipClick}
+                    add = {this.addChip}
+                    options = {this.props.application.users}
+                    helper = 'Add this user'/>
 
-                <GMultiSelectControl field={{
-                    id: 'business_pocs',
-                    label: 'Business POCs',
-                    values: this.state.business_pocs,
-                    handleDeleteChip: this.handleDeleteChip,
-                    handleChipClick: this.handleChipClick,
-                    add: this.addChip,
-                    options: this.props.application.pocs,
-                    helper: 'Add the POC'
-                }} />
+                <GMultiSelectControl
+                    id = 'business_pocs'
+                    label = 'Business POCs'
+                    values = {this.state.business_pocs}
+                    handleDeleteChip = {this.handleDeleteChip}
+                    handleChipClick = {this.handleChipClick}
+                    add = {this.addChip}
+                    options = {this.props.application.pocs}
+                    helper = 'Add the POC'/>
 
-                 <GMultiSelectControl field={{
-                    id: 'technical_pocs',
-                    label: 'Technology POCs',
-                    values: this.state.technical_pocs,
-                    handleDeleteChip: this.handleDeleteChip,
-                    handleChipClick: this.handleChipClick,
-                    add: this.addChip,
-                    options: this.props.application.pocs,
-                    helper: 'Add the POC'
-                }} />
+                 <GMultiSelectControl
+                    id = 'technical_pocs'
+                    label = 'Technology POCs'
+                    values= {this.state.technical_pocs}
+                    handleDeleteChip = {this.handleDeleteChip}
+                    handleChipClick = {this.handleChipClick}
+                    add = {this.addChip}
+                    options = {this.props.application.pocs}
+                    helper = 'Add the POC'/>
 
                 <GTextControl id = 'applicationNotes' handleChange = {this.modifyValue}
                     label = 'Application notes' multiline = {true}

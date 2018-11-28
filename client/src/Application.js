@@ -268,9 +268,7 @@ export const ApplicationEditOld = (props) => (
 
 export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
-
         <ApplicationEditForm id={props.id}/>
-
     </Edit>
 );
 
