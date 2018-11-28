@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {styles as styles} from './styles';
 import Chip from "@material-ui/core/Chip/Chip";
@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 
-class GMultiSelectControl extends Component {
+class GMultiSelectControl extends PureComponent {
     constructor(props) {
         super(props);
 
@@ -19,13 +19,13 @@ class GMultiSelectControl extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            id: nextProps.field.options.length > 0 ? nextProps.field.options[0].id : '0',
-            keyname: nextProps.field.options.length > 0 ? nextProps.field.options[0].keyname : ''
+            id: nextProps.options.length > 0 ? nextProps.options[0].id : '0',
+            keyname: nextProps.options.length > 0 ? nextProps.options[0].keyname : ''
         });
     }
 
     updateSelected(e) {
-        let entity = this.props.field.options.filter(function (obj) {
+        let entity = this.props.options.filter(function (obj) {
             return obj.id.toString() === e.target.value;
         });
 
@@ -36,18 +36,20 @@ class GMultiSelectControl extends Component {
     }
 
     render() {
+        let vals = this.props.values.map(a => a.id);
+        
         return (
             <div>
-                <InputLabel htmlFor={this.props.field.id}>{this.props.field.label}</InputLabel>
+                <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
                 <br/><br/>
-                <div id={this.props.field.id}>
-                    {this.props.field.values.map(data => {
+                <div id={this.props.id}>
+                    {this.props.values.map(data => {
                         return (
                             <Chip
                                 key={data.id}
                                 label={data.keyname}
-                                onDelete={() => this.props.field.handleDeleteChip(this.props.field.id, data.id)}
-                                onClick={this.props.field.handleChipClick}
+                                onDelete={() => this.props.handleDeleteChip(this.props.id, data.id)}
+                                onClick={this.props.handleChipClick}
                                 className={styles.chip}
                             />
                         );
@@ -55,22 +57,24 @@ class GMultiSelectControl extends Component {
                 </div>
                 <br/>
                 <Select native
-                        value={this.state.id}
+                        value={this.props.id}
                         onChange={(e) => this.updateSelected(e)}>
-                    {this.props.field.options.map(data => {
-                        return (
-                            <option key={data.id} value={data.id}>{data.keyname}</option>
-                        )
+                    {this.props.options.map(data => {
+                        if(!vals.includes(data.id)) {
+                            return (
+                                <option key={data.id} value={data.id}>{data.keyname}</option>
+                            )
+                        }
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={() => {this.props.field.add(this.props.field.id, this.state)}} className={styles.button}>
+                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, this.state)}} className={styles.button}>
                     Add
                 </Button>
-                <FormHelperText>{this.props.field.helper}</FormHelperText>
+                <FormHelperText>{this.props.helper}</FormHelperText>
                 <br/>
             </div>
         )
     }
-};
+}
 
 export default GMultiSelectControl;

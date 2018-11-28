@@ -12,8 +12,6 @@ const GSelectControl = ({field}) => {
         field.value = ' ';
     }
 
-    console.log(field.value);
-
     return (
         <div>
             <InputLabel className={styles.fieldLabel} htmlFor={field.id} disabled={field.disabled === true}>{field.label}</InputLabel>
