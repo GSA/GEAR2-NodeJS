@@ -2,6 +2,7 @@ import React from 'react';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import {styles as styles} from './styles';
+import FormControl from "@material-ui/core/es/FormControl/FormControl";
 
 const GSelectControl = (field) => {
 
@@ -9,6 +10,7 @@ const GSelectControl = (field) => {
 
     return (
         <div>
+            <FormControl fullWidth required={field.required}>
             <InputLabel className={styles.fieldLabel} htmlFor={field.id} disabled={field.disabled === true}>{field.label}</InputLabel>
             <br/>
             <Select native fullWidth={true}
@@ -22,6 +24,7 @@ const GSelectControl = (field) => {
                 })}
             </Select>
             <br/><br/>
+            </FormControl>
         </div>
     )
 };

@@ -22,5 +22,5 @@ function* fetchBackground(dispatch) {
 
 export default function* watchEVERYTHING() {
     console.log('in here');
-    yield takeLatest('RA/USER_CHECK', fetchBackground);
+    yield takeLatest('RA/SET_SIDEBAR_VISIBILITY', fetchBackground);
 }

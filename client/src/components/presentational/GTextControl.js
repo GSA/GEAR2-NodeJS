@@ -6,19 +6,18 @@ import {styles as styles} from './styles';
 
 const GTextControl = (field) => {
     return (
-        <FormControl fullWidth={true} classes={styles.formControl}>
-            <InputLabel className={styles.fieldLabel} htmlFor={field.id}
-                        disabled={field.disabled === true}>{field.label}</InputLabel>
-            <br/>
+        <FormControl fullWidth >
             <TextField
-                fullWidth={true}
-                disabled={field.disabled === true}
-                multiline={field.multiline === true}
+                fullWidth
+                required={field.required}
+                disabled={field.disabled}
+                multiline={field.multiline}
                 id={field.id}
-                className={styles.textField}
+                label={field.label}
                 placeholder={field.placeholder}
                 margin="normal"
                 value={field.value}
+                type={field.type}
                 onChange={(e) => field.handleChange(e, field.id)}
             />
             <br/>

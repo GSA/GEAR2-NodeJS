@@ -4,6 +4,12 @@ export const ConfirmChoices = [
   {id: 3, name: "No"},
 ];
 
+export const ApplicationStatuses = [
+    {id: 1, name: "Retired"},
+    {id: 2, name: "Production"},
+    {id: 3, name: "Pre-Production"},
+];
+
 export const RegionChoices = [
   { id: 1, name: 'Regional' },
   { id: 2, name: 'National' },

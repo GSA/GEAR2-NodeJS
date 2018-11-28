@@ -12,7 +12,7 @@ import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
-import ApplicationCreateForm from "./containers/ApplicationCreateForm/ApplicationCreateForm";
+import ApplicationCreateForm from "./containers/Application/ApplicationCreateForm/ApplicationCreateForm";
 
 const styles = theme => ({
     container: {
@@ -314,7 +314,7 @@ export const ApplicationEdit = (props) => (
 );
 
 export const ApplicationCreate = ( props ) => (
-    <Create {...props}>
+    <Create keyname={<ApplicationTitle />} {...props}>
         <ApplicationCreateForm id={props.id} {...props.application} />
     </Create>
 );

@@ -11,19 +11,19 @@ const Input = ( props ) => {
             inputElement = <GTextControl
                 value = {props.value}
                 {...props.elementConfig}
-                onChange = {props.changed}/>
+                handleChange = {props.changed}/>
             break;
         case ('select'):
             inputElement = <GSelectControl
                 value = {props.value}
                 {...props.elementConfig}
-                onChange = {props.changed}/>
+                handleChange = {props.changed}/>
             break;
         case ('multiselect'):
             inputElement = <GMultiSelectControl
                 value = {props.value}
                 {...props.elementConfig}
-                onChange = {props.changed}/>
+                handleChange = {props.changed}/>
             break;
 
     }

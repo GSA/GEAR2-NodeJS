@@ -5,6 +5,10 @@ export function saveApplication(application) {
     return {type: types.SAVE_APPLICATION, application};
 }
 
+export function saveNewApplication(application) {
+    return {type: types.SAVE_NEW_APPLICATION, application};
+}
+
 export function loadApplication(id) {
     return {type: types.LOAD_APPLICATION, id: id};
 }

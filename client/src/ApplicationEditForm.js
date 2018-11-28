@@ -18,14 +18,41 @@ class ApplicationEditForm extends Component {
         super(props);
         this.state = {
             application: {
-                keyname: " ",
+                id: "",
+                keyname: "",
+                applicationAlias: "",
+                displayName: "",
+                description: "",
+                mobileAppIndicator: "",
+                desktopIndicator: "",
+                regionalClassification: "",
+                applicationOrWebsite: "",
+                numberOfUsers: "",
+                generateRevenueIndicator: "",
+                objAppPlatformId: "",
+                objAppHostingproviderId: "",
+                tie: "",
+                productionYear: "",
+                retiredYear: "",
+                url: "",
+                cuiIndicator: "",
+                uniqueIdentifierCode: "",
+                referenceDocument: "",
+                objOrgSsoId: "",
+                objParentSystemId: "",
+                objInvestmentId: "",
+                objPortfolioId: "",
+                objFismaId: "",
+                objAppUserlocId: "",
+                objApplicationStatusId: "",
                 technologies: [],
                 users: [],
                 capabilities: [],
                 business_pocs: [],
                 technical_pocs: [],
                 fismas: [],
-                platforms: []
+                platforms: [],
+                applicationNotes: ""
             }
         };
 
