@@ -9,6 +9,7 @@ import {ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, Tier
 import GTextControl from "./components/presentational/GTextControl";
 import GSelectControl from "./components/presentational/GSelectControl";
 import GMultiSelectControl from "./components/presentational/GMultiSelectControl";
+import { withRouter } from "react-router";
 
 class ApplicationEditForm extends Component {
 
@@ -65,7 +66,7 @@ class ApplicationEditForm extends Component {
 
     save() {
         this.props.saveApplication(this.state);
-        //this.props.routing.push('/applications');
+        this.props.history.push('/applications');
     }
 
     handleClick(data) {
@@ -231,4 +232,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApplicationEditForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ApplicationEditForm));
