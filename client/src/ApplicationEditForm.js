@@ -17,7 +17,6 @@ class ApplicationEditForm extends Component {
         super(props);
         this.props.loadApplication(this.props.id);
         this.state = {
-
                 id: "",
                 keyname: "",
                 applicationAlias: "",
@@ -53,7 +52,6 @@ class ApplicationEditForm extends Component {
                 fismas: [],
                 platforms: [],
                 applicationNotes: ""
-
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -65,14 +63,18 @@ class ApplicationEditForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({...nextProps.application.application});
+        this.setState({
+                ...this.state,
+                ...nextProps.application.application});
     }
-    
+
 
     addChip(fieldId, item) {
         let newState = Object.assign({}, this.state);
         newState[fieldId].push(item);
-        this.setState({application: newState});
+        this.setState({
+            ...this.state,
+            ...newState});
     }
 
     handleDeleteChip(fieldId, deletedChip) {
@@ -80,16 +82,22 @@ class ApplicationEditForm extends Component {
         newState[fieldId] = newState[fieldId].filter(function (obj) {
             return obj.id !== deletedChip;
         });
-        this.setState({application: newState});
+        this.setState({
+            ...this.state,
+            ...newState});
     }
 
     modifyValue(e, fieldName) {
-        this.setState({ ...this.state, [fieldName]: e.target.value });
+        this.setState({
+            ...this.state,
+            [fieldName]: e.target.value });
     }
 
     save() {
-        this.props.saveApplication(this.state);
-        this.props.history.push('/applications');
+        return Promise.all([
+            this.props.saveApplication(this.state),
+            this.props.history.push('/applications')
+        ]);
     }
 
     handleClick(data) {
@@ -109,7 +117,7 @@ class ApplicationEditForm extends Component {
                               value = {this.state.keyname}/>
 
                 <GTextControl
-                    id='alias'
+                    id='applicationAlias'
                     value={this.state.applicationAlias}
                     label='Application alias'
                     handleChange={this.modifyValue}/>

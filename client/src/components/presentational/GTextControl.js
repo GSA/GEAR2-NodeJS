@@ -5,6 +5,7 @@ import FormControl from "@material-ui/core/FormControl/FormControl";
 import {styles as styles} from './styles';
 
 const GTextControl = (field) => {
+    console.log("here too");
     return (
         <FormControl fullWidth >
             <TextField
