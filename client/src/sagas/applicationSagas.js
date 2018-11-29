@@ -25,7 +25,6 @@ function* fetchApplication(action) {
 }
 
 function* saveApplication(action) {
-    console.log(action);
     try {
         const data = yield call(() => {
                 return fetch(applicationURL + action.application.id, {
@@ -39,7 +38,7 @@ function* saveApplication(action) {
                     .then(res => res.json())
             }
         );
-        console.log(data);
+        //
         yield put(appActions.loadApplicationSuccess(data));
     } catch (error) {
         yield put(appActions.loadApplicationFailed());

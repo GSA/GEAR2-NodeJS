@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import TextField from "@material-ui/core/TextField/TextField";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -24,5 +24,6 @@ const GTextControl = (field) => {
         </FormControl>
     )
 };
+
 
 export default GTextControl;

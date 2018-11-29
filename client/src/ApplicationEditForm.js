@@ -5,17 +5,17 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {loadApplication as loadApplicationAction} from "./actions/applicationActions";
 import {saveApplication as saveApplicationAction} from "./actions/applicationActions";
-import {loadUsers as loadUsersAction} from "./actions/userActions";
-import {loadCapabilities as loadCapabilities} from "./actions/capabilitiesActions";
 import {ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices} from './valuelists';
 import GTextControl from "./components/presentational/GTextControl";
 import GSelectControl from "./components/presentational/GSelectControl";
 import GMultiSelectControl from "./components/presentational/GMultiSelectControl";
+import { withRouter } from "react-router";
 
 class ApplicationEditForm extends Component {
 
     constructor(props) {
         super(props);
+        this.props.loadApplication(this.props.id);
         this.state = {
             application: {
                 id: "",
@@ -65,37 +65,36 @@ class ApplicationEditForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({application: nextProps.application.application});
+        this.setState({...nextProps.application.application});
     }
 
 
     componentDidMount() {
-        this.props.loadApplication(this.props.id);
+
     }
 
     addChip(fieldId, item) {
         let newState = Object.assign({}, this.state);
-        newState.application[fieldId].push(item);
+        newState[fieldId].push(item);
         this.setState(newState);
+        console.log(this.state.technologies.length);
     }
 
     handleDeleteChip(fieldId, deletedChip) {
         let newState = Object.assign({}, this.state);
-        newState.application[fieldId] = newState.application[fieldId].filter(function (obj) {
+        newState[fieldId] = newState[fieldId].filter(function (obj) {
             return obj.id !== deletedChip;
         });
         this.setState(newState);
     }
 
     modifyValue(e, fieldName) {
-        let newState = Object.assign({}, this.state);
-        newState.application[fieldName] = e.target.value;
-        this.setState(newState);
+        this.setState({ ...this.state, [fieldName]: e.target.value });
     }
 
     save() {
-        console.log("savin'");
-        this.props.saveApplication(this.state.application);
+        this.props.saveApplication(this.state);
+        this.props.history.push('/applications');
     }
 
     handleClick(data) {
@@ -305,6 +304,7 @@ class ApplicationEditForm extends Component {
                 <GTextControl id='applicationNotes' value={this.state.application.applicationNotes}
                               label='Application notes' multiline/>
 
+
             </SimpleForm>
         );
     }
@@ -325,4 +325,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApplicationEditForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ApplicationEditForm));

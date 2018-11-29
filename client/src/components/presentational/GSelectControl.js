@@ -6,8 +6,6 @@ import FormControl from "@material-ui/core/es/FormControl/FormControl";
 
 const GSelectControl = (field) => {
 
-    console.log(field.value);
-
     return (
         <div>
             <FormControl fullWidth required={field.required}>

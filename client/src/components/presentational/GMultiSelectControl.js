@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {styles as styles} from './styles';
 import Chip from "@material-ui/core/Chip/Chip";
@@ -6,12 +6,13 @@ import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 
-class GMultiSelectControl extends Component {
+class GMultiSelectControl extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            id: ''
+            id: '',
+            keyname: ''
         };
 
         this.updateSelected = this.updateSelected.bind(this);
@@ -31,8 +32,9 @@ class GMultiSelectControl extends Component {
 
         this.setState({
             id: e.target.value,
-            keyname: entity.length > 0 ? entity[0].keyname : '' //TODO add exception handling here!!
+            keyname: entity.length > 0 ? entity[0].keyname : ''
         });
+
     }
 
     render() {
@@ -71,6 +73,6 @@ class GMultiSelectControl extends Component {
             </div>
         )
     }
-};
+}
 
 export default GMultiSelectControl;

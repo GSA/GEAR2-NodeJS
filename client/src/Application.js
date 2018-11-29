@@ -5,10 +5,9 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
-
+import ReactDOM from 'react-dom';
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 import ApplicationEditForm from "./ApplicationEditForm";
-import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
@@ -63,6 +62,26 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
     </CardActions>
 );
 
+const PostPagination = ({ page, perPage, total, setPage }) => {
+    const nbPages = Math.ceil(total / perPage) || 1;
+    console.log("Inside Pagination ", total);
+    return (
+        nbPages > 1 &&
+        <Toolbar>
+            {page > 1 &&
+            <Button primary key="prev" icon={<ChevronLeft />} onClick={() => setPage(page - 1)}>
+                Prev
+            </Button>
+            }
+            {page !== nbPages &&
+            <Button primary key="next" icon={<ChevronRight />} onClick={() => setPage(page + 1)} labelPosition="before">
+                Next
+            </Button>
+            }
+        </Toolbar>
+    );
+};
+
 const KeynameFilter = props => (
     <Filter {...props}>
       <TextInput label="Search" source="kn"  alwaysOn />
@@ -70,12 +89,12 @@ const KeynameFilter = props => (
 );
 
 export const ApplicationList = (props) => (
-    <List {...props}  actions={<ListActions />} title="Applications" filters={<KeynameFilter />}  bulkActionButtons={false} >
+    <List {...props}  actions={<ListActions />} title="Applications" filters={<KeynameFilter />}  pagination={<PostPagination/>} bulkActionButtons={false} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="keyname" label="Application Name" />
             <TextField source="description" />
-            <EditButton />
+            <EditButton/>
         </Datagrid>
     </List>
 );
@@ -307,9 +326,7 @@ export const ApplicationEditOld = (props) => (
 
 export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle />} {...props}>
-
-        <ApplicationEditForm id={props.id} {...props.application} />
-
+        <ApplicationEditForm id={props.id}/>
     </Edit>
 );
 
