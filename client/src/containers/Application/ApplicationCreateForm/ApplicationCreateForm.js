@@ -3,11 +3,11 @@ import {SimpleForm} from 'react-admin';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
-    loadApplication as loadApplicationAction,
-    saveApplication as saveApplicationAction, saveNewApplication
+    saveNewApplication
 } from "../../../actions/applicationActions";
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
+import { withRouter } from "react-router";
 
 class ApplicationCreateForm extends Component {
     constructor(props) {
@@ -21,14 +21,14 @@ class ApplicationCreateForm extends Component {
                         placeholder: 'Application Name',
                         label: 'Application Name'
                     },
-                    value: ''
+                    value: null
                 },
                 applicationAlias: {
                     elementType: 'text',
                     elementConfig: {
                         label: 'Application Alias'
                     },
-                    value: ''
+                    value: null
                 },
                 description: {
                     elementType: 'text',
@@ -36,7 +36,8 @@ class ApplicationCreateForm extends Component {
                         multiline: true,
                         required: true,
                         label: "Description"
-                    }
+                    },
+                    value: null
                 },
                 displayName: {
                     elementType: 'text',
@@ -44,7 +45,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Short name will appear in graphic',
                         required: true
                     },
-                    value: ''
+                    value: null
                 },
                 cloudIndicator: {
                     elementType: 'select',
@@ -53,7 +54,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Cloud',
                         choices: valueLists.ConfirmChoices
                     },
-                    value: ''
+                    value: null
                 },
                 mobileAppIndicator: {
                     elementType: 'select',
@@ -62,7 +63,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Mobile',
                         choices: valueLists.ConfirmChoices
                     },
-                    value: ''
+                    value: null
                 },
                 desktopIndicator: {
                     elementType: 'select',
@@ -71,7 +72,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Desktop',
                         choices: valueLists.ConfirmChoices
                     },
-                    value: ''
+                    value: null
                 },
                 regionalClassification: {
                     elementType: 'select',
@@ -80,7 +81,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Regional Classification',
                         choices: valueLists.RegionChoices
                     },
-                    value: ''
+                    value: null
                 },
                 applicationOrWebsite: {
                     elementType: 'select',
@@ -90,7 +91,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Application Or Website',
                         choices: valueLists.AppOrWebChoices
                     },
-                    value: ''
+                    value: null
                 },
                 objAppHostingproviderId: {
                     elementType: 'select',
@@ -99,7 +100,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Application Hosting Provider',
                         choices: this.props.application.providers
                     },
-                    value: ''
+                    value: null
                 },
                 numberOfUsers: {
                     elementType: 'select',
@@ -108,7 +109,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Number of users',
                         choices: valueLists.UserCountBreakdown
                     },
-                    value: ''
+                    value: null
                 },
                 generateRevenueIndicator: {
                     elementType: 'select',
@@ -117,7 +118,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices
                     },
-                    value: ''
+                    value: null
                 },
                 tier: {
                     elementType: 'select',
@@ -126,7 +127,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Tier',
                         choices: valueLists.ConfirmChoices
                     },
-                    value: ''
+                    value: null
                 },
                 productionYear: {
                     elementType: 'text',
@@ -134,7 +135,7 @@ class ApplicationCreateForm extends Component {
                         type: "number",
                         label: 'Production Year'
                     },
-                    value: ''
+                    value: null
                 },
                 retiredYear: {
                     elementType: 'text',
@@ -142,7 +143,7 @@ class ApplicationCreateForm extends Component {
                         type: "number",
                         label: 'Retired Year'
                     },
-                    value: ''
+                    value: null
                 },
                 url: {
                     elementType: 'text',
@@ -150,7 +151,7 @@ class ApplicationCreateForm extends Component {
                         type: "url",
                         label: 'URL'
                     },
-                    value: ''
+                    value: null
                 },
                 cuiIndicator: {
                     elementType: 'select',
@@ -159,7 +160,7 @@ class ApplicationCreateForm extends Component {
                         label: 'CUI',
                         choices: valueLists.ConfirmChoices
                     },
-                    value: ''
+                    value: null
                 },
                 uniqueIdentifierCode: {
                     elementType: 'text',
@@ -167,14 +168,14 @@ class ApplicationCreateForm extends Component {
                         label: 'Unique Identifier Code',
                         required: true
                     },
-                    value: ''
+                    value: null
                 },
                 referenceDocument: {
                     elementType: 'text',
                     elementConfig: {
                         label: 'Reference Document'
                     },
-                    value: ''
+                    value: null
                 },
                 objOrgSsoId: {
                     elementType: 'select',
@@ -183,7 +184,7 @@ class ApplicationCreateForm extends Component {
                         label: 'SSO',
                         choices: this.props.application.users
                     },
-                    value: ''
+                    value: null
                 },
                 objParentSystemId: {
                     elementType: 'select',
@@ -192,7 +193,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Parent System',
                         choices: this.props.application.parents
                     },
-                    value: ''
+                    value: null
                 },
                 objInvestmentId: {
                     elementType: 'select',
@@ -201,7 +202,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Investment',
                         choices: this.props.application.investments
                     },
-                    value: ''
+                    value: null
                 },
                 objPortfolioId: {
                     elementType: 'select',
@@ -210,7 +211,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Parent System',
                         choices: this.props.application.portfolios
                     },
-                    value: ''
+                    value: null
                 },
                 objFismaId: {
                     elementType: 'select',
@@ -219,7 +220,7 @@ class ApplicationCreateForm extends Component {
                         label: 'FISMA System',
                         choices: this.props.application.fismas
                     },
-                    value: ''
+                    value: null
                 },
                 objAppUserlocId: {
                     elementType: 'select',
@@ -228,7 +229,7 @@ class ApplicationCreateForm extends Component {
                         label: 'User Location',
                         choices: this.props.application.userlocations
                     },
-                    value: ''
+                    value: null
                 },
                 objApplicationStatusId: {
                     elementType: 'select',
@@ -238,7 +239,7 @@ class ApplicationCreateForm extends Component {
                         required: true,
                         choices: valueLists.ApplicationStatuses
                     },
-                    value: ''
+                    value: null
                 },
                 applicationNotes: {
                     elementType: 'text',
@@ -246,7 +247,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Application Notes',
                         multiline: true
                     },
-                    value: ''
+                    value: null
                 }
 
             }
@@ -270,6 +271,7 @@ class ApplicationCreateForm extends Component {
             applicationForm[formElem] = this.state.createForm[formElem].value;
         }
         this.props.saveApplication(applicationForm);
+        this.props.history.push('/applications');
     };
 
 
@@ -307,5 +309,5 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApplicationCreateForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ApplicationCreateForm));
 

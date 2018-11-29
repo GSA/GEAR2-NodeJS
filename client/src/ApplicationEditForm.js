@@ -65,7 +65,7 @@ class ApplicationEditForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({...nextProps.application.application});
+        this.setState({application: {...nextProps.application.application}});
     }
 
 
@@ -74,18 +74,17 @@ class ApplicationEditForm extends Component {
     }
 
     addChip(fieldId, item) {
-        let newState = Object.assign({}, this.state);
+        let newState = Object.assign({}, this.state.application);
         newState[fieldId].push(item);
-        this.setState(newState);
-        console.log(this.state.technologies.length);
+        this.setState({application: newState});
     }
 
     handleDeleteChip(fieldId, deletedChip) {
-        let newState = Object.assign({}, this.state);
+        let newState = Object.assign({}, this.state.application);
         newState[fieldId] = newState[fieldId].filter(function (obj) {
             return obj.id !== deletedChip;
         });
-        this.setState(newState);
+        this.setState({application: newState});
     }
 
     modifyValue(e, fieldName) {
@@ -110,31 +109,32 @@ class ApplicationEditForm extends Component {
                     label='Id'
                     disabled/>
 
-                <GTextControl
-                    id='name'
-                    value={this.state.application.keyname}
-                    label='Application name *'/>
+                <GTextControl id = 'keyname' label = 'Application name *' handleChange = {this.modifyValue}
+                              value = {this.state.application.keyname}/>
 
                 <GTextControl
                     id='alias'
                     value={this.state.application.applicationAlias}
-                    label='Application alias'/>
+                    label='Application alias'
+                    handleChange={this.modifyValue}/>
 
                 <GTextControl
                     id='displayName'
                     value={this.state.application.displayName}
-                    label='Short name will appear in graphic *'/>
+                    label='Short name will appear in graphic *'
+                    handleChange={this.modifyValue}/>
 
                 <GTextControl
                     id='description'
                     value={this.state.application.description}
-                    label='Description *'/>
+                    label='Description *'
+                    handleChange={this.modifyValue}/>
 
                 <GSelectControl
                     id='mobileAppIndicator'
                     value={this.state.application.mobileAppIndicator}
-                    choices={ConfirmChoices}
                     label='Mobile'
+                    choices={ConfirmChoices}
                     handleChange={this.modifyValue}/>
 
                 <GSelectControl
@@ -204,21 +204,24 @@ class ApplicationEditForm extends Component {
                 <GTextControl
                     id='retiredYear'
                     value={this.state.application.retiredYear}
-                    label='Retired Year'/>
+                    label='Retired Year'
+                    handleChange={this.modifyValue}/>
 
                 <GTextControl
                     id='url'
                     value={this.state.application.url}
-                    label='URL'/>
+                    label='URL'
+                    handleChange={this.modifyValue}/>
 
                 <GSelectControl id= 'cuiIndicator' value= {this.state.application.cuiIndicator}
                                 choices= {ConfirmChoices} label= 'CUI' handleChange= {this.modifyValue}/>
 
                 <GTextControl id='uniqueIdentifierCode' value={this.state.application.uniqueIdentifierCode}
-                              defaultValue="0233-0000-0000000-xxxx" label='Unique identifier code *'/>
+                              defaultValue="0233-0000-0000000-xxxx" label='Unique identifier code *' handleChange={this.modifyValue}/>
 
                 <GTextControl
-                    id='referenceDocument' value={this.state.application.referenceDocument} label='Reference Document'/>
+                    id='referenceDocument' value={this.state.application.referenceDocument} label='Reference Document'
+                    handleChange={this.modifyValue}/>
 
                 <GSelectControl id='objOrgSsoId' value={this.state.application.objOrgSsoId}
                                 choices={this.props.application.users} nameField='keyname' label='SSO'
@@ -302,8 +305,8 @@ class ApplicationEditForm extends Component {
                     helper='Add the POC'
                 />
                 <GTextControl id='applicationNotes' value={this.state.application.applicationNotes}
-                              label='Application notes' multiline/>
-
+                              label='Application notes' multiline
+                              handleChange={this.modifyValue}/>
 
             </SimpleForm>
         );

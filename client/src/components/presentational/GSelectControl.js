@@ -6,6 +6,7 @@ import FormControl from "@material-ui/core/es/FormControl/FormControl";
 
 const GSelectControl = (field) => {
 
+
     return (
         <div>
             <FormControl fullWidth required={field.required}>
@@ -17,7 +18,8 @@ const GSelectControl = (field) => {
                 <option value=" "/>
                 {field.choices.map(data => {
                     return (
-                        <option key={data.id} value={data.id}>{data[field.nameField]}</option>
+                        field.nameField ? <option key={data.id} value={data.id}>{data[field.nameField]}</option> :
+                        <option key={data.id} value={data.id}>{data['name']}</option>
                     )
                 })}
             </Select>

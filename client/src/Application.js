@@ -6,6 +6,9 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
 import ReactDOM from 'react-dom';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Toolbar from '@material-ui/core/Toolbar';
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 import ApplicationEditForm from "./ApplicationEditForm";
 import Select from "@material-ui/core/Select/Select";
@@ -63,6 +66,7 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
 );
 
 const PostPagination = ({ page, perPage, total, setPage }) => {
+    total = 432;
     const nbPages = Math.ceil(total / perPage) || 1;
     console.log("Inside Pagination ", total);
     return (
