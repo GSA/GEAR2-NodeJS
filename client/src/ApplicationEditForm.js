@@ -49,6 +49,7 @@ class ApplicationEditForm extends Component {
         let newState = Object.assign({}, this.state);
         newState[fieldId].push(item);
         this.setState(newState);
+        console.log(this.state.technologies.length);
     }
 
     handleDeleteChip(fieldId, deletedChip) {
@@ -164,7 +165,9 @@ class ApplicationEditForm extends Component {
                     handleDeleteChip = {this.handleDeleteChip}
                     handleChipClick = {this.handleChipClick}
                     add = {this.addChip}
-                    options = {this.props.application.technologies}
+                    options = {this.props.application.technologies.filter(function (obj) {
+                        return !(this.state.technologies.map(a => a.id).includes(obj.id));
+                    }, this)}
                     helper = 'Add this technology'/>
 
                 <GMultiSelectControl

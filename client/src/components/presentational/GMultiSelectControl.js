@@ -11,7 +11,8 @@ class GMultiSelectControl extends PureComponent {
         super(props);
 
         this.state = {
-            id: ''
+            id: '',
+            keyname: ''
         };
 
         this.updateSelected = this.updateSelected.bind(this);
@@ -19,7 +20,7 @@ class GMultiSelectControl extends PureComponent {
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            id: nextProps.options.length > 0 ? nextProps.options[0].id : '0',
+            id: nextProps.options.length > 0 ? nextProps.options[0].id : '',
             keyname: nextProps.options.length > 0 ? nextProps.options[0].keyname : ''
         });
     }
@@ -31,13 +32,12 @@ class GMultiSelectControl extends PureComponent {
 
         this.setState({
             id: e.target.value,
-            keyname: entity.length > 0 ? entity[0].keyname : '' //TODO add exception handling here!!
+            keyname: entity.length > 0 ? entity[0].keyname : ''
         });
+
     }
 
     render() {
-        let vals = this.props.values.map(a => a.id);
-        
         return (
             <div>
                 <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
@@ -57,17 +57,16 @@ class GMultiSelectControl extends PureComponent {
                 </div>
                 <br/>
                 <Select native
-                        value={this.props.id}
+                        value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
                     {this.props.options.map(data => {
-                        if(!vals.includes(data.id)) {
                             return (
-                                <option key={data.id} value={data.id}>{data.keyname}</option>
+                                <option key={data.id} value={data.id} >{data.keyname}</option>
                             )
-                        }
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, this.state)}} className={styles.button}>
+                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, {id: parseInt(this.state.id), keyname: this.state.keyname})}}
+                        className={styles.button}>
                     Add
                 </Button>
                 <FormHelperText>{this.props.helper}</FormHelperText>
