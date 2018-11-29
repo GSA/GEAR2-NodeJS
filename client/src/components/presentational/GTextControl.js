@@ -4,33 +4,26 @@ import TextField from "@material-ui/core/TextField/TextField";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import {styles as styles} from './styles';
 
-class GTextControl extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <FormControl fullWidth={true} classes={styles.formControl}>
-                <InputLabel className={styles.fieldLabel} htmlFor={this.props.id}
-                            disabled={this.props.disabled === true}>{this.props.label}</InputLabel>
-                <br/>
-                <TextField
-                    fullWidth={true}
-                    disabled={this.props.disabled === true}
-                    multiline={this.props.multiline === true}
-                    id={this.props.id}
-                    className={styles.textField}
-                    margin="normal"
-                    value={this.props.value}
-                    defaultValue={this.props.defaultValue}
-                    onChange={(e) => this.props.handleChange(e, this.props.id)}
-                />
-                <br/>
-            </FormControl>
-        )
-    }
-}
+const GTextControl = (field) => {
+    return (
+        <FormControl fullWidth >
+            <TextField
+                fullWidth
+                required={field.required}
+                disabled={field.disabled}
+                multiline={field.multiline}
+                id={field.id}
+                label={field.label}
+                placeholder={field.placeholder}
+                margin="normal"
+                value={field.value}
+                type={field.type}
+                onChange={(e) => field.handleChange(e, field.id)}
+            />
+            <br/>
+        </FormControl>
+    )
+};
 
 
 export default GTextControl;

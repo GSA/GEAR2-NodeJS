@@ -29,7 +29,7 @@ export const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 200,
-        maxWidth: 400,
+        maxWidth: 500,
     },
     fieldLabel: {
         fontSize: '8',

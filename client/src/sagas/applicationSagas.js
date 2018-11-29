@@ -45,7 +45,30 @@ function* saveApplication(action) {
     }
 }
 
+function* saveNewApplication(action) {
+    console.log(action);
+    try {
+        const data = yield call(() => {
+                return fetch(applicationURL, {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
+                    body: JSON.stringify(action.application)
+                })
+                    .then(res => res.json())
+            }
+        );
+        console.log(data);
+        yield put(appActions.loadApplicationSuccess(data));
+    } catch (error) {
+        yield put(appActions.loadApplicationFailed());
+    }
+}
+
 export default function* watchGetApplication(data) {
     yield takeLatest(types.LOAD_APPLICATION, fetchApplication);
     yield takeLatest(types.SAVE_APPLICATION, saveApplication);
+    yield takeLatest(types.SAVE_NEW_APPLICATION, saveNewApplication);
 }

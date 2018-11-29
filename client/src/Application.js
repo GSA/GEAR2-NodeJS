@@ -6,13 +6,50 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
 import ReactDOM from 'react-dom';
-import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
-import ApplicationEditForm from "./ApplicationEditForm";
-import { dispatch } from 'react-redux'
-import Button from '@material-ui/core/Button';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Toolbar from '@material-ui/core/Toolbar';
+import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
+import ApplicationEditForm from "./ApplicationEditForm";
+import Select from "@material-ui/core/Select/Select";
+import Button from "@material-ui/core/Button/Button";
+import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+import ApplicationCreateForm from "./containers/Application/ApplicationCreateForm/ApplicationCreateForm";
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    dense: {
+        marginTop: 19,
+    },
+    menu: {
+        width: 200,
+    },
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        padding: theme.spacing.unit / 2,
+    },
+    chip: {
+        margin: theme.spacing.unit / 2,
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+        maxWidth: 300,
+    },
+});
 
 const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
     <CardActions>
@@ -29,6 +66,7 @@ const ListActions = ({ resource, filters, displayedFilters, filterValues, basePa
 );
 
 const PostPagination = ({ page, perPage, total, setPage }) => {
+    total = 432;
     const nbPages = Math.ceil(total / perPage) || 1;
     console.log("Inside Pagination ", total);
     return (
@@ -296,7 +334,13 @@ export const ApplicationEdit = (props) => (
     </Edit>
 );
 
-export const ApplicationCreate = (props) => (
+export const ApplicationCreate = ( props ) => (
+    <Create keyname={<ApplicationTitle />} {...props}>
+        <ApplicationCreateForm id={props.id} {...props.application} />
+    </Create>
+);
+
+export const ApplicationCreateOld = (props) => (
     <Create {...props}>
         <SimpleForm>
           <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]} />

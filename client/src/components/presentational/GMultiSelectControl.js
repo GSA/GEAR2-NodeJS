@@ -20,7 +20,7 @@ class GMultiSelectControl extends PureComponent {
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
-            id: nextProps.options.length > 0 ? nextProps.options[0].id : '',
+            id: nextProps.options.length > 0 ? nextProps.options[0].id : '0',
             keyname: nextProps.options.length > 0 ? nextProps.options[0].keyname : ''
         });
     }
@@ -60,13 +60,12 @@ class GMultiSelectControl extends PureComponent {
                         value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
                     {this.props.options.map(data => {
-                            return (
-                                <option key={data.id} value={data.id} >{data.keyname}</option>
-                            )
+                        return (
+                            <option key={data.id} value={data.id}>{data.keyname}</option>
+                        )
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, {id: parseInt(this.state.id), keyname: this.state.keyname})}}
-                        className={styles.button}>
+                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, this.state)}} className={styles.button}>
                     Add
                 </Button>
                 <FormHelperText>{this.props.helper}</FormHelperText>
