@@ -38,6 +38,7 @@ class GMultiSelectControl extends PureComponent {
     }
 
     render() {
+        console.log("test");
         return (
             <div>
                 <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
