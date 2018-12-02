@@ -18,12 +18,16 @@ export default function applicationReducer(state=
                                                     investments: [],
                                                     portfolios: [],
                                                     providers: [],
-                                                    userlocations: []},
+                                                    userlocations: [],
+                                                    loading: false},
                                            action) {
 
     switch(action.type) {
+        case types.LOAD_APPLICATION_START:
+            return Object.assign({}, state, {loading: true})
+
         case types.LOAD_APPLICATION_SUCCESS:
-            return Object.assign({}, state, {application: action.application});
+            return Object.assign({}, state, {application: action.application}, {loading: false});
 
         case types.LOAD_TECHNOLOGIES_SUCCESS:
             return Object.assign({}, state, {technologies: action.technologies});
