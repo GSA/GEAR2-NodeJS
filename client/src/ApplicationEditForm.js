@@ -257,10 +257,7 @@ class ApplicationEditForm extends Component {
                 <GMultiSelectControl
                     id='technologies'
                     label='Technologies'
-                    values={this.state.technologies}
-                    handleDeleteChip={this.handleDeleteChip}
-                    handleChipClick={this.handleChipClick}
-                    add={this.addChip}
+                    value={this.state.technologies}
                     options={this.props.application.technologies}
                     helper='Add this technology'
                 />
@@ -268,10 +265,7 @@ class ApplicationEditForm extends Component {
                 <GMultiSelectControl
                     id='capabilities'
                     label='Capabilities'
-                    values={this.state.capabilities}
-                    handleDeleteChip={this.handleDeleteChip}
-                    handleChipClick={this.handleChipClick}
-                    add={this.addChip}
+                    value={this.state.capabilities}
                     options={this.props.application.capabilities}
                     helper='Add this capability'
                 />
@@ -279,10 +273,7 @@ class ApplicationEditForm extends Component {
                 <GMultiSelectControl
                     id='users'
                     label='Users'
-                    values={this.state.users}
-                    handleDeleteChip={this.handleDeleteChip}
-                    handleChipClick={this.handleChipClick}
-                    add={this.addChip}
+                    value={this.state.users}
                     options={this.props.application.users}
                     helper='Add this user'
                 />
@@ -290,10 +281,7 @@ class ApplicationEditForm extends Component {
                 <GMultiSelectControl
                     id='business_pocs'
                     label='Business POCs'
-                    values={this.state.business_pocs}
-                    handleDeleteChip={this.handleDeleteChip}
-                    handleChipClick={this.handleChipClick}
-                    add={this.addChip}
+                    value={this.state.business_pocs}
                     options={this.props.application.pocs}
                     helper='Add the POC'
                 />
@@ -301,10 +289,7 @@ class ApplicationEditForm extends Component {
                 <GMultiSelectControl
                     id='technical_pocs'
                     label='Technology POCs'
-                    values={this.state.technical_pocs}
-                    handleDeleteChip={this.handleDeleteChip}
-                    handleChipClick={this.handleChipClick}
-                    add={this.addChip}
+                    value={this.state.technical_pocs}
                     options={this.props.application.pocs}
                     helper='Add the POC'
                 />

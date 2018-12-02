@@ -3,7 +3,8 @@ import {SimpleForm} from 'react-admin';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
-    saveNewApplication
+    saveNewApplication,
+    saveApplication
 } from "../../../actions/applicationActions";
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
@@ -249,7 +250,17 @@ class ApplicationCreateForm extends Component {
                     },
                     value: null
                 }
-
+            },
+            multipleSelect: {
+                technologies: {
+                    id: 'technologies',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Technologies',
+                        options: this.props.application.technologies
+                    },
+                    value: []
+                },
             }
         };
     }
@@ -270,17 +281,28 @@ class ApplicationCreateForm extends Component {
         for (let formElem in this.state.createForm) {
             applicationForm[formElem] = this.state.createForm[formElem].value;
         }
-        this.props.saveApplication(applicationForm);
-        this.props.history.push('/applications');
+
+        const applicationConsolidatedForm = {};
+        const applicationConsolidated = {...this.state.createForm, ...this.state.multipleSelect};
+        for (let formElem in applicationConsolidated) {
+            applicationConsolidatedForm[formElem] = applicationConsolidated[formElem].value;
+        }
+
+        this.props.saveNewApplication(applicationForm);
+        const id = this.props.state.application.id;
+        applicationConsolidatedForm.id = id;
+            this.props.saveApplication(applicationConsolidatedForm);
+            this.props.history.push('/applications');
     };
 
 
     render() {
         const formElements = [];
-        for (let key in this.state.createForm) {
+        const consolidatedForm = {...this.state.createForm, ...this.state.multipleSelect};
+        for (let key in consolidatedForm) {
             formElements.push({
                 id: key,
-                config: this.state.createForm[key]
+                config: this.state.createForm[key] ? this.state.createForm[key] : this.state.multipleSelect[key]
             })
         }
         let form = (
@@ -305,7 +327,8 @@ const mapStateToProps = state => ({application: state.application});
 
 function mapDispatchToProps(dispatch) {
     return {
-        saveApplication: bindActionCreators(saveNewApplication, dispatch)
+        saveNewApplication: bindActionCreators(saveNewApplication, dispatch),
+        saveApplication: bindActionCreators(saveApplication, dispatch)
     }
 }
 
