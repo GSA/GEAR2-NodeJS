@@ -45,8 +45,13 @@ function* saveApplication(action) {
     }
 }
 
+/**
+ * Makes two API calls to save a new application
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
 function* saveNewApplication(action) {
-    console.log(action);
+    // Save the new application without the one-to-many fields
     try {
         const data = yield call(() => {
                 return fetch(applicationURL, {
@@ -60,7 +65,21 @@ function* saveNewApplication(action) {
                     .then(res => res.json())
             }
         );
-        console.log(data);
+        const id = data.id;
+        // merge the saved app with one to many relationships and save it again.
+        const updatedData = {...data, ...action.updatedApplication};
+        const newData = yield call(() => {
+                return fetch(applicationURL + id, {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
+                    body: JSON.stringify(updatedData)
+                })
+                    .then(res => res.json())
+            }
+        );
         yield put(appActions.loadApplicationSuccess(data));
     } catch (error) {
         yield put(appActions.loadApplicationFailed());

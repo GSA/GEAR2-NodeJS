@@ -261,6 +261,43 @@ class ApplicationCreateForm extends Component {
                     },
                     value: []
                 },
+                capabilities: {
+                    id: 'capabilities',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Capabilties',
+                        options: this.props.application.capabilities
+                    },
+                    value: []
+                },
+                users: {
+                    id: 'users',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Users',
+                        options: this.props.application.users
+                    },
+                    value: []
+                },
+                business_pocs: {
+                    id: 'business_pocs',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Business POCs',
+                        options: this.props.application.pocs
+                    },
+                    value: []
+                },
+                technical_pocs: {
+                    id: 'technical_pocs',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Technology POCs',
+                        options: this.props.application.pocs
+                    },
+                    value: []
+                }
+
             }
         };
     }
@@ -277,21 +314,17 @@ class ApplicationCreateForm extends Component {
 
     save = () => {
         const applicationForm = {};
-        console.log('CreateForm', this.state);
         for (let formElem in this.state.createForm) {
             applicationForm[formElem] = this.state.createForm[formElem].value;
         }
 
         const applicationConsolidatedForm = {};
-        const applicationConsolidated = {...this.state.createForm, ...this.state.multipleSelect};
+        const applicationConsolidated = {...this.state.multipleSelect};
         for (let formElem in applicationConsolidated) {
             applicationConsolidatedForm[formElem] = applicationConsolidated[formElem].value;
         }
 
-        this.props.saveNewApplication(applicationForm);
-        const id = this.props.state.application.id;
-        applicationConsolidatedForm.id = id;
-            this.props.saveApplication(applicationConsolidatedForm);
+        this.props.saveNewApplication(applicationForm, applicationConsolidatedForm);
             this.props.history.push('/applications');
     };
 
