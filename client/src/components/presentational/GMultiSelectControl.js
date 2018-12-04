@@ -103,7 +103,7 @@ class GMultiSelectControl extends Component {
                         )
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={() => {this.addChip(this.props.id, this.state)}} className={styles.button}>
+                <Button variant="outlined" onClick={this.addChip} className={styles.button}>
                     Add
                 </Button>
                 <FormHelperText>{this.props.helper}</FormHelperText>

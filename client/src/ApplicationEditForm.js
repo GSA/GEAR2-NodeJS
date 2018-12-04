@@ -11,6 +11,7 @@ import GSelectControl from "./components/presentational/GSelectControl";
 import GMultiSelectControl from "./components/presentational/GMultiSelectControl";
 import { withRouter } from "react-router";
 import Spinner from "./components/UI/Spinner/Spinner";
+import {removeDuplicates} from "./shared/utility";
 
 class ApplicationEditForm extends Component {
 
@@ -57,8 +58,6 @@ class ApplicationEditForm extends Component {
         };
 
         this.handleClick = this.handleClick.bind(this);
-        this.handleDeleteChip = this.handleDeleteChip.bind(this);
-        this.addChip = this.addChip.bind(this);
         this.modifyValue = this.modifyValue.bind(this);
 
         this.save = this.save.bind(this);
@@ -70,25 +69,6 @@ class ApplicationEditForm extends Component {
                 ...nextProps.application.application});
     }
 
-
-    addChip(fieldId, item) {
-        let newState = Object.assign({}, this.state);
-        newState[fieldId].push(item);
-        this.setState({
-            ...this.state,
-            ...newState});
-    }
-
-    handleDeleteChip(fieldId, deletedChip) {
-        let newState = Object.assign({}, this.state);
-        newState[fieldId] = newState[fieldId].filter(function (obj) {
-            return obj.id !== deletedChip;
-        });
-        this.setState({
-            ...this.state,
-            ...newState});
-    }
-
     modifyValue(e, fieldName) {
         this.setState({
             ...this.state,
@@ -96,6 +76,12 @@ class ApplicationEditForm extends Component {
     }
 
     save() {
+        this.state.technologies = removeDuplicates(this.state.technologies, 'id');
+        this.state.users = removeDuplicates(this.state.users, 'id');
+        this.state.business_pocs = removeDuplicates(this.state.business_pocs, 'id');
+        this.state.technical_pocs = removeDuplicates(this.state.technical_pocs, 'id');
+        this.state.fismas = removeDuplicates(this.state.fismas, 'id');
+        this.state.platforms = removeDuplicates(this.state.platforms, 'id');
         return Promise.all([
             this.props.saveApplication(this.state),
             this.props.history.push('/applications')
@@ -263,10 +249,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='technologies'
                         label='Technologies'
-                        values={this.state.technologies}
-                        handleDeleteChip={this.handleDeleteChip}
-                        handleChipClick={this.handleChipClick}
-                        add={this.addChip}
+                        value={this.state.technologies}
                         options={this.props.application.technologies}
                         helper='Add this technology'
                     />
@@ -274,10 +257,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='capabilities'
                         label='Capabilities'
-                        values={this.state.capabilities}
-                        handleDeleteChip={this.handleDeleteChip}
-                        handleChipClick={this.handleChipClick}
-                        add={this.addChip}
+                        value={this.state.capabilities}
                         options={this.props.application.capabilities}
                         helper='Add this capability'
                     />
@@ -285,10 +265,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='users'
                         label='Users'
-                        values={this.state.users}
-                        handleDeleteChip={this.handleDeleteChip}
-                        handleChipClick={this.handleChipClick}
-                        add={this.addChip}
+                        value={this.state.users}
                         options={this.props.application.users}
                         helper='Add this user'
                     />
@@ -296,10 +273,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='business_pocs'
                         label='Business POCs'
-                        values={this.state.business_pocs}
-                        handleDeleteChip={this.handleDeleteChip}
-                        handleChipClick={this.handleChipClick}
-                        add={this.addChip}
+                        value={this.state.business_pocs}
                         options={this.props.application.pocs}
                         helper='Add the POC'
                     />
@@ -307,10 +281,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='technical_pocs'
                         label='Technology POCs'
-                        values={this.state.technical_pocs}
-                        handleDeleteChip={this.handleDeleteChip}
-                        handleChipClick={this.handleChipClick}
-                        add={this.addChip}
+                        value={this.state.technical_pocs}
                         options={this.props.application.pocs}
                         helper='Add the POC'
                     />

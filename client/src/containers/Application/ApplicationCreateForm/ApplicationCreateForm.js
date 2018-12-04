@@ -9,6 +9,7 @@ import {
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
 import { withRouter } from "react-router";
+import {removeDuplicates} from "../../../shared/utility";
 
 class ApplicationCreateForm extends Component {
     constructor(props) {
@@ -313,6 +314,9 @@ class ApplicationCreateForm extends Component {
     };
 
     save = () => {
+        for (let formElem in this.state.multipleSelect) {
+            formElem.value = formElem.value ? removeDuplicates(formElem.value, 'id') : null;
+        }
         const applicationForm = {};
         for (let formElem in this.state.createForm) {
             applicationForm[formElem] = this.state.createForm[formElem].value;
