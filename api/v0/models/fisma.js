@@ -42,11 +42,11 @@ class FISMAModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
- 		mapping(d){
+/*  		mapping(d){
 			if(d.ATODate){
 			let s = d.ATODate.toISOString();
 			return s.substring(0,10);}
-		},
+		}, */
       },
       {
         name: 'ATOType',
@@ -203,8 +203,10 @@ class FISMAModel extends Model {
               const pieces = art.split(',');
 			  var cb = '-';
 			  if (pieces[0] !== '') 
+
 				cb = pieces[0] + " " + '<br>' + "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>" ;//+ (pieces[1] || '');
-			  pocs += cb;
+				console.log(cb);
+				pocs += cb;
             });
           }
           return pocs;
