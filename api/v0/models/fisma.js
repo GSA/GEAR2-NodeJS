@@ -42,11 +42,6 @@ class FISMAModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
- 		mapping(d){
-			if(d.ATODate){
-			let s = d.ATODate.toISOString();
-			return s.substring(0,10);}
-		},
       },
       {
         name: 'ATOType',
@@ -72,29 +67,12 @@ class FISMAModel extends Model {
           let arts = null;
 		  let art = null;
 		  let art1 = [];
-/*          let arts = null;
-           if (d.RelatedArtifacts) {
-            arts = d.RelatedArtifacts.split('; ');
-            arts = arts.map((art) => {
-              const pieces = art.split(',');
-              return {
-                Name: pieces[0],
-                ReferenceDocuments: pieces[1],
-              };
-            });
-          } */
 		  if (d.RelatedArtifacts){
 				  arts = d.RelatedArtifacts.split(';');
-			//	  console.log(arts);
 				  arts = arts.map((art, cb) =>
 				{
 					 var pieces = art.split(',');
 					 var cb = '<a class="no-propagation" target="_blank" href="' + pieces[1] +  '">' + ' ' + pieces[0] + '</a>' ;
-					 /* var cb = {
-						Name: pieces[0],
-						ReferenceDocuments: pieces[1],
-					}; */
-				//	console.log(cb);
 					art1.push(cb);						
 				})
 		  }
@@ -121,8 +99,6 @@ class FISMAModel extends Model {
 				poc = poctype[1].split('; ');
 				for(var i = 0; i< poc.length; i++){
 				 var pieces = poc[i].split(',');
-			//	poc = poc.map((art) => {
-				//  const pieces = art.split(',');
 				 var cb = {
 					Type: poctype[0],
 					Name: pieces[0],
@@ -151,13 +127,7 @@ class FISMAModel extends Model {
               var cb = '-';
 			  if (pieces[0] !== '') 
 				  cb = pieces[0] + " " + '<br>' +  "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>" ;//+ (pieces[2] || '');
-			  //cb = {
-				/* Type: poctype[0],
-                Name: pieces[0],
-                Email: pieces[1], */
-              //};
 			  pocs += cb;
-			  // pocs.push(cb);
             });
           }
           return pocs;
@@ -203,8 +173,10 @@ class FISMAModel extends Model {
               const pieces = art.split(',');
 			  var cb = '-';
 			  if (pieces[0] !== '') 
+
 				cb = pieces[0] + " " + '<br>' + "<a href=mailto:" + pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' + pieces[2]) || '') + "<br>" ;//+ (pieces[1] || '');
-			  pocs += cb;
+				
+				pocs += cb;
             });
           }
           return pocs;

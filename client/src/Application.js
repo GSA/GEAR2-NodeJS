@@ -5,15 +5,8 @@ import { List, Edit, Create, Datagrid, TextField, EditButton, Filter
   , ReferenceInput, SelectInput
   , ArrayInput, SimpleFormIterator
   , required, maxLength, minValue, maxValue } from 'react-admin';
-import ReactDOM from 'react-dom';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Toolbar from '@material-ui/core/Toolbar';
 import { ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices } from './valuelists';
 import ApplicationEditForm from "./ApplicationEditForm";
-import Select from "@material-ui/core/Select/Select";
-import Button from "@material-ui/core/Button/Button";
-import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 import ApplicationCreateForm from "./containers/Application/ApplicationCreateForm/ApplicationCreateForm";
 
 const styles = theme => ({

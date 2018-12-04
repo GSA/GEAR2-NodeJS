@@ -8,6 +8,7 @@ const pocStore = new POCStore();
 
 function findAll(req, res) {
   fismaStore.search(`CALL get_fisma_detail(0)`, (results) => {
+	  
     res.json(results);
   });
 }
@@ -18,6 +19,8 @@ function findOne(req, res, next) {
     next();
   } else {
     fismaStore.search(`CALL get_fisma_detail( ${req.params.id})`, (results) => {
+		let newResults = results[0].POC.filter(res => res.Email !== undefined);
+		results[0].POC = newResults;
       res.json(results);
     });
   }
