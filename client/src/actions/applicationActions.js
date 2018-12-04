@@ -13,6 +13,10 @@ export function loadApplication(id) {
     return {type: types.LOAD_APPLICATION, id: id};
 }
 
+export const loadApplicationStart = () => {
+    return {type: types.LOAD_APPLICATION_START};
+};
+
 export const loadApplicationSuccess = (application) => {
     return {type: types.LOAD_APPLICATION_SUCCESS, application: application};
 };
