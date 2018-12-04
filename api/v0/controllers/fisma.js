@@ -19,7 +19,6 @@ function findOne(req, res, next) {
     next();
   } else {
     fismaStore.search(`CALL get_fisma_detail( ${req.params.id})`, (results) => {
-		//console.log('iNSIDE fISMA', results[0].POC);
 		let newResults = results[0].POC.filter(res => res.Email !== undefined);
 		results[0].POC = newResults;
       res.json(results);
