@@ -263,7 +263,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='technologies'
                         label='Technologies'
-                        values={this.state.technologies}
+                        value={this.state.technologies}
                         handleDeleteChip={this.handleDeleteChip}
                         handleChipClick={this.handleChipClick}
                         add={this.addChip}
@@ -274,7 +274,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='capabilities'
                         label='Capabilities'
-                        values={this.state.capabilities}
+                        value={this.state.capabilities}
                         handleDeleteChip={this.handleDeleteChip}
                         handleChipClick={this.handleChipClick}
                         add={this.addChip}
@@ -285,7 +285,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='users'
                         label='Users'
-                        values={this.state.users}
+                        value={this.state.users}
                         handleDeleteChip={this.handleDeleteChip}
                         handleChipClick={this.handleChipClick}
                         add={this.addChip}
@@ -296,7 +296,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='business_pocs'
                         label='Business POCs'
-                        values={this.state.business_pocs}
+                        value={this.state.business_pocs}
                         handleDeleteChip={this.handleDeleteChip}
                         handleChipClick={this.handleChipClick}
                         add={this.addChip}
@@ -307,7 +307,7 @@ class ApplicationEditForm extends Component {
                     <GMultiSelectControl
                         id='technical_pocs'
                         label='Technology POCs'
-                        values={this.state.technical_pocs}
+                        value={this.state.technical_pocs}
                         handleDeleteChip={this.handleDeleteChip}
                         handleChipClick={this.handleChipClick}
                         add={this.addChip}
