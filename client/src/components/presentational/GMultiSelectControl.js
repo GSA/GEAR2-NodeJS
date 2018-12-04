@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {styles as styles} from './styles';
 import Chip from "@material-ui/core/Chip/Chip";
@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 
-class GMultiSelectControl extends PureComponent {
+class GMultiSelectControl extends Component {
     constructor(props) {
         super(props);
 
@@ -16,6 +16,8 @@ class GMultiSelectControl extends PureComponent {
         };
 
         this.updateSelected = this.updateSelected.bind(this);
+        this.addChip = this.addChip.bind(this);
+        this.handleDeleteChip = this.handleDeleteChip.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -37,25 +39,60 @@ class GMultiSelectControl extends PureComponent {
 
     }
 
+    addChip() {
+        /*let newState = Object.assign({}, this.state);
+        newState[fieldId].push(item);
+        this.setState({
+            ...this.state,
+            ...newState});*/
+        const addedChip = this.props.options.filter(item => item.id === +this.state.id)[0];
+        this.props.value.push(addedChip);
+        this.forceUpdate();
+    }
+
+    handleDeleteChip(id) {
+        /*let newState = Object.assign({}, this.state);
+        newState[fieldId] = newState[fieldId].filter(function (obj) {
+            return obj.id !== deletedChip;
+        });
+        this.setState({
+            ...this.state,
+            ...newState});*/
+        for(let i in this.props.value ) {
+            if(this.props.value[i].id === +id) {
+                this.props.value.splice(i, 1);
+                break;
+            }
+        }
+        this.forceUpdate();
+    }
+
+
     render() {
-        console.log("test");
+        console.log("test", this.props.value);
+        let valueForm = null;
+        if (this.props.value) {
+            valueForm = (
+                <div id={this.props.id}>
+                {this.props.value.map(data => {
+                    return (
+                        <Chip
+                            key={data.id}
+                            label={data.keyname}
+                            onDelete={() => this.handleDeleteChip(data.id)}
+                            onClick={this.props.handleChipClick}
+                            className={styles.chip}
+                        />
+                    );
+                })}
+            </div>
+            );
+        }
         return (
             <div>
                 <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
                 <br/><br/>
-                <div id={this.props.id}>
-                    {this.props.values.map(data => {
-                        return (
-                            <Chip
-                                key={data.id}
-                                label={data.keyname}
-                                onDelete={() => this.props.handleDeleteChip(this.props.id, data.id)}
-                                onClick={this.props.handleChipClick}
-                                className={styles.chip}
-                            />
-                        );
-                    })}
-                </div>
+                {valueForm}
                 <br/>
                 <Select native
                         value={this.state.id}
@@ -66,7 +103,7 @@ class GMultiSelectControl extends PureComponent {
                         )
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={() => {this.props.add(this.props.id, this.state)}} className={styles.button}>
+                <Button variant="outlined" onClick={() => {this.addChip(this.props.id, this.state)}} className={styles.button}>
                     Add
                 </Button>
                 <FormHelperText>{this.props.helper}</FormHelperText>

@@ -5,8 +5,8 @@ export function saveApplication(application) {
     return {type: types.SAVE_APPLICATION, application};
 }
 
-export function saveNewApplication(application) {
-    return {type: types.SAVE_NEW_APPLICATION, application};
+export function saveNewApplication(application, updatedApplication) {
+    return {type: types.SAVE_NEW_APPLICATION, application, updatedApplication};
 }
 
 export function loadApplication(id) {
