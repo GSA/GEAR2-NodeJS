@@ -40,6 +40,7 @@ function* saveApplication(action) {
         );
         //
         yield put(appActions.loadApplicationSuccess(data));
+        yield put({type: 'RA/REFRESH_VIEW'})
     } catch (error) {
         yield put(appActions.loadApplicationFailed());
     }
@@ -81,6 +82,7 @@ function* saveNewApplication(action) {
             }
         );
         yield put(appActions.loadApplicationSuccess(data));
+        yield put({type: 'RA/REFRESH_VIEW'})
     } catch (error) {
         yield put(appActions.loadApplicationFailed());
     }
