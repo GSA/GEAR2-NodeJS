@@ -77,11 +77,10 @@ class ApplicationEditForm extends Component {
 
     save() {
         this.state.technologies = removeDuplicates(this.state.technologies, 'id');
+        this.state.capabilities = removeDuplicates(this.state.capabilities, 'id');
         this.state.users = removeDuplicates(this.state.users, 'id');
         this.state.business_pocs = removeDuplicates(this.state.business_pocs, 'id');
         this.state.technical_pocs = removeDuplicates(this.state.technical_pocs, 'id');
-        this.state.fismas = removeDuplicates(this.state.fismas, 'id');
-        this.state.platforms = removeDuplicates(this.state.platforms, 'id');
         return Promise.all([
             this.props.saveApplication(this.state),
             this.props.history.push('/applications')

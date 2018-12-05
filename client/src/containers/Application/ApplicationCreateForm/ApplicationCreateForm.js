@@ -313,10 +313,7 @@ class ApplicationCreateForm extends Component {
         this.setState({createForm: updatedCreateForm});
     };
 
-    save = () => {
-        for (let formElem in this.state.multipleSelect) {
-            formElem.value = formElem.value ? removeDuplicates(formElem.value, 'id') : null;
-        }
+    save =  () =>  {
         const applicationForm = {};
         for (let formElem in this.state.createForm) {
             applicationForm[formElem] = this.state.createForm[formElem].value;
@@ -324,7 +321,10 @@ class ApplicationCreateForm extends Component {
 
         const applicationConsolidatedForm = {};
         const applicationConsolidated = {...this.state.multipleSelect};
+
         for (let formElem in applicationConsolidated) {
+            applicationConsolidated[formElem].value = applicationConsolidated[formElem].value ? removeDuplicates(applicationConsolidated[formElem].value, 'id') :
+                null;
             applicationConsolidatedForm[formElem] = applicationConsolidated[formElem].value;
         }
 
