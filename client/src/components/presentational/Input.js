@@ -11,12 +11,18 @@ const Input = ( props ) => {
             inputElement = <GTextControl
                 value = {props.value}
                 {...props.elementConfig}
+                touched={props.touched}
+                valid={props.valid}
+                errHelperText={props.errHelperText}
                 handleChange = {props.changed}/>
             break;
         case ('select'):
             inputElement = <GSelectControl
                 value = {props.value}
                 {...props.elementConfig}
+                touched={props.touched}
+                valid={props.valid}
+                errHelperText={props.errHelperText}
                 handleChange = {props.changed}/>
             break;
         case ('multiselect'):

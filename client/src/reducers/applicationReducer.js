@@ -19,12 +19,19 @@ export default function applicationReducer(state=
                                                     portfolios: [],
                                                     providers: [],
                                                     userlocations: [],
-                                                    loading: false},
+                                                    loading: false,
+                                                    errorMessage: null},
                                            action) {
 
     switch(action.type) {
         case types.LOAD_APPLICATION_START:
-            return Object.assign({}, state, {loading: true})
+            return Object.assign({}, state, {loading: true});
+
+        case types.SAVE_NEW_APPLICATION_FAILURE:
+            return Object.assign({}, state, {errorMessage: action.errorMessage});
+
+        case 'RA/HIDE_NOTIFICATION':
+            return Object.assign({}, state, {errorMessage: null});
 
         case types.LOAD_APPLICATION_SUCCESS:
             return Object.assign({}, state, {application: action.application}, {loading: false});

@@ -8,8 +8,9 @@ import {
 } from "../../../actions/applicationActions";
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
-import { withRouter } from "react-router";
+import {withRouter} from "react-router";
 import {removeDuplicates} from "../../../shared/utility";
+import validate from 'validate.js';
 
 class ApplicationCreateForm extends Component {
     constructor(props) {
@@ -23,6 +24,11 @@ class ApplicationCreateForm extends Component {
                         placeholder: 'Application Name',
                         label: 'Application Name'
                     },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: false,
+                    touched: false,
                     value: null
                 },
                 applicationAlias: {
@@ -30,6 +36,8 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         label: 'Application Alias'
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 description: {
@@ -39,6 +47,10 @@ class ApplicationCreateForm extends Component {
                         required: true,
                         label: "Description"
                     },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: false,
                     value: null
                 },
                 displayName: {
@@ -47,6 +59,10 @@ class ApplicationCreateForm extends Component {
                         label: 'Short name will appear in graphic',
                         required: true
                     },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: false,
                     value: null
                 },
                 cloudIndicator: {
@@ -56,6 +72,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Cloud',
                         choices: valueLists.ConfirmChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 mobileAppIndicator: {
@@ -65,6 +83,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Mobile',
                         choices: valueLists.ConfirmChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 desktopIndicator: {
@@ -74,6 +94,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Desktop',
                         choices: valueLists.ConfirmChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 regionalClassification: {
@@ -83,6 +105,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Regional Classification',
                         choices: valueLists.RegionChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 applicationOrWebsite: {
@@ -93,6 +117,10 @@ class ApplicationCreateForm extends Component {
                         label: 'Application Or Website',
                         choices: valueLists.AppOrWebChoices
                     },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: false,
                     value: null
                 },
                 objAppHostingproviderId: {
@@ -102,6 +130,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Application Hosting Provider',
                         choices: this.props.application.providers
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 numberOfUsers: {
@@ -111,6 +141,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Number of users',
                         choices: valueLists.UserCountBreakdown
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 generateRevenueIndicator: {
@@ -120,6 +152,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 tier: {
@@ -129,6 +163,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Tier',
                         choices: valueLists.ConfirmChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 productionYear: {
@@ -137,6 +173,14 @@ class ApplicationCreateForm extends Component {
                         type: "number",
                         label: 'Production Year'
                     },
+                    constraints: {
+                        presence: {allowEmpty: true},
+                        numericality: {
+                            greaterThan: 1950,
+                            lessThan: 2050
+                        }
+                    },
+                    valid: true,
                     value: null
                 },
                 retiredYear: {
@@ -145,6 +189,14 @@ class ApplicationCreateForm extends Component {
                         type: "number",
                         label: 'Retired Year'
                     },
+                    constraints: {
+                        numericality: {
+                            greaterThan: 1950,
+                            lessThan: 2050
+                        },
+                        presence: {allowEmpty: true},
+                    },
+                    valid: true,
                     value: null
                 },
                 url: {
@@ -153,6 +205,8 @@ class ApplicationCreateForm extends Component {
                         type: "url",
                         label: 'URL'
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 cuiIndicator: {
@@ -162,6 +216,8 @@ class ApplicationCreateForm extends Component {
                         label: 'CUI',
                         choices: valueLists.ConfirmChoices
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 uniqueIdentifierCode: {
@@ -170,6 +226,10 @@ class ApplicationCreateForm extends Component {
                         label: 'Unique Identifier Code',
                         required: true
                     },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: false,
                     value: null
                 },
                 referenceDocument: {
@@ -177,6 +237,8 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         label: 'Reference Document'
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objOrgSsoId: {
@@ -186,6 +248,8 @@ class ApplicationCreateForm extends Component {
                         label: 'SSO',
                         choices: this.props.application.users
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objParentSystemId: {
@@ -195,6 +259,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Parent System',
                         choices: this.props.application.parents
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objInvestmentId: {
@@ -204,6 +270,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Investment',
                         choices: this.props.application.investments
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objPortfolioId: {
@@ -213,6 +281,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Parent System',
                         choices: this.props.application.portfolios
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objFismaId: {
@@ -222,6 +292,8 @@ class ApplicationCreateForm extends Component {
                         label: 'FISMA System',
                         choices: this.props.application.fismas
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objAppUserlocId: {
@@ -231,6 +303,8 @@ class ApplicationCreateForm extends Component {
                         label: 'User Location',
                         choices: this.props.application.userlocations
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 },
                 objApplicationStatusId: {
@@ -241,6 +315,10 @@ class ApplicationCreateForm extends Component {
                         required: true,
                         choices: valueLists.ApplicationStatuses
                     },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: false,
                     value: null
                 },
                 applicationNotes: {
@@ -249,6 +327,8 @@ class ApplicationCreateForm extends Component {
                         label: 'Application Notes',
                         multiline: true
                     },
+                    constraints: {},
+                    valid: true,
                     value: null
                 }
             },
@@ -260,6 +340,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Technologies',
                         options: this.props.application.technologies
                     },
+                    valid: true,
                     value: []
                 },
                 capabilities: {
@@ -269,6 +350,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Capabilties',
                         options: this.props.application.capabilities
                     },
+                    valid: true,
                     value: []
                 },
                 users: {
@@ -278,6 +360,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Users',
                         options: this.props.application.users
                     },
+                    valid: true,
                     value: []
                 },
                 business_pocs: {
@@ -287,6 +370,7 @@ class ApplicationCreateForm extends Component {
                         label: 'Business POCs',
                         options: this.props.application.pocs
                     },
+                    valid: true,
                     value: []
                 },
                 technical_pocs: {
@@ -296,10 +380,11 @@ class ApplicationCreateForm extends Component {
                         label: 'Technology POCs',
                         options: this.props.application.pocs
                     },
+                    valid: true,
                     value: []
                 }
-
-            }
+            },
+            isFormValid: true
         };
     }
 
@@ -309,28 +394,67 @@ class ApplicationCreateForm extends Component {
         };
         const updatedFormElement = {...updatedCreateForm[inputIdentifier]};
         updatedFormElement.value = event.target.value;
+
+        const isValid = validate({
+            inputIdentifier: event.target.value
+        }, {
+            inputIdentifier: updatedFormElement.constraints
+        });
+        updatedFormElement.valid = !isValid;
+        updatedFormElement.touched = true;
+        if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
+            updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;
+            if (updatedFormElement.value === "") {
+                updatedFormElement.value = null;
+                updatedFormElement.valid = true;
+            }
+        }
         updatedCreateForm[inputIdentifier] = updatedFormElement;
-        this.setState({createForm: updatedCreateForm});
-    };
 
-    save =  () =>  {
-        const applicationForm = {};
-        for (let formElem in this.state.createForm) {
-            applicationForm[formElem] = this.state.createForm[formElem].value;
+        let isFormValid = true;
+        for (let inputIdentifier in updatedCreateForm) {
+            isFormValid = updatedCreateForm[inputIdentifier].valid && isFormValid;
         }
 
-        const applicationConsolidatedForm = {};
-        const applicationConsolidated = {...this.state.multipleSelect};
-
-        for (let formElem in applicationConsolidated) {
-            applicationConsolidated[formElem].value = applicationConsolidated[formElem].value ? removeDuplicates(applicationConsolidated[formElem].value, 'id') :
-                null;
-            applicationConsolidatedForm[formElem] = applicationConsolidated[formElem].value;
-        }
-
-        this.props.saveNewApplication(applicationForm, applicationConsolidatedForm);
-            this.props.history.push('/applications');
+        //create form should now have all elements including multiselect
+        this.setState({createForm: updatedCreateForm, isFormValid: isFormValid});
     };
+
+    save = () => {
+
+        if (!this.state.isFormValid) {
+            this.props.showNotification({message: 'Validation Error: Fix fields before continuing', type: 'warning'});
+            const updatedCreateForm = {...this.state.createForm};
+            for (let inputIdentifier in updatedCreateForm) {
+                const updatedCreateFormElem = {...updatedCreateForm[inputIdentifier]};
+                updatedCreateFormElem.touched = true;
+                updatedCreateForm[inputIdentifier] = updatedCreateFormElem;
+            }
+            this.setState({createForm: updatedCreateForm});
+        } else {
+
+            const applicationForm = {};
+            for (let formElem in this.state.createForm) {
+                applicationForm[formElem] = this.state.createForm[formElem].value;
+            }
+
+            const applicationConsolidatedForm = {};
+            const applicationConsolidated = {...this.state.multipleSelect};
+
+            for (let formElem in applicationConsolidated) {
+                applicationConsolidated[formElem].value = applicationConsolidated[formElem].value ? removeDuplicates(applicationConsolidated[formElem].value, 'id') :
+                    null;
+                applicationConsolidatedForm[formElem] = applicationConsolidated[formElem].value;
+            }
+
+            this.handleSubmit(applicationForm, applicationConsolidatedForm)
+                .then(this.props.history.push('/applications'))
+        }
+    };
+
+    handleSubmit (app, updatedApp) {
+        return new Promise ((resolve, reject) => this.props.saveNewApplication(app, updatedApp, resolve, reject));
+    }
 
 
     render() {
@@ -343,15 +467,19 @@ class ApplicationCreateForm extends Component {
             })
         }
         let form = (
-            formElements.map(elem => (
+            formElements.map(elem => {
+                return (
                 <Input
                     key={elem.id}
                     elemType={elem.config.elementType}
                     elementConfig={elem.config.elementConfig}
+                    valid={elem.config.valid}
+                    touched={elem.config.touched}
                     value={elem.config.value}
+                    errHelperText={elem.config.errHelperText}
                     changed={(event) => this.inputChangedHandler(event, elem.id)}
                 />
-            ))
+            )})
         );
         return (
             <SimpleForm resource="applications" save={this.save}>
@@ -360,12 +488,13 @@ class ApplicationCreateForm extends Component {
     }
 }
 
-const mapStateToProps = state => ({application: state.application});
+const mapStateToProps = state => ({application: state.application, errMessage: state.errorMessage});
 
 function mapDispatchToProps(dispatch) {
     return {
         saveNewApplication: bindActionCreators(saveNewApplication, dispatch),
-        saveApplication: bindActionCreators(saveApplication, dispatch)
+        saveApplication: bindActionCreators(saveApplication, dispatch),
+        showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch)
     }
 }
 
