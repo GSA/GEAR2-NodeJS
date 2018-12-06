@@ -81,10 +81,20 @@ function* saveNewApplication(action) {
                     .then(res => res.json())
             }
         );
+        if (data.errors || newData.errors) {
+            throw data.errors ? data : newData;
+        }
         yield put(appActions.loadApplicationSuccess(data));
         yield put({type: 'RA/REFRESH_VIEW'})
     } catch (error) {
-        yield put(appActions.loadApplicationFailed());
+        yield put({
+            type: 'RA/SHOW_NOTIFICATION',
+            payload: {
+                message: `Create Application Fail: ${error.errors[0].message}`,
+                type: 'warning'
+            }
+        });
+        yield put(appActions.saveNewApplicationFailed(error.errors[0].message));
     }
 }
 

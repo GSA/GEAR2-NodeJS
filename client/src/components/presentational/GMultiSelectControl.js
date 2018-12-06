@@ -68,8 +68,8 @@ class GMultiSelectControl extends Component {
     }
 
 
+
     render() {
-        console.log("test", this.props.value);
         let valueForm = null;
         if (this.props.value) {
             valueForm = (

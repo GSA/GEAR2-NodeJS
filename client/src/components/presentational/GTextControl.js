@@ -5,7 +5,10 @@ import FormControl from "@material-ui/core/FormControl/FormControl";
 import {styles as styles} from './styles';
 
 const GTextControl = (field) => {
-    console.log("here too");
+    let errHelperText = field.errHelperText;
+    if (!field.valid && field.touched && !field.errHelperText) {
+        errHelperText = `${field.label} cannot be blank!`
+    }
     return (
         <FormControl fullWidth >
             <TextField
@@ -16,11 +19,14 @@ const GTextControl = (field) => {
                 id={field.id}
                 label={field.label}
                 placeholder={field.placeholder}
+                error={!field.valid && field.touched}
                 margin="normal"
                 value={field.value}
                 type={field.type}
+                helperText={errHelperText}
                 onChange={(e) => field.handleChange(e, field.id)}
             />
+            {field.valid}
             <br/>
         </FormControl>
     )

@@ -24,3 +24,7 @@ export const loadApplicationSuccess = (application) => {
 export const loadApplicationFailed = () => {
     return {type: types.LOAD_APPLICATION_FAILURE};
 };
+
+export const saveNewApplicationFailed = (errMessage) => {
+    return {type: types.SAVE_NEW_APPLICATION_FAILURE, errorMessage: errMessage};
+};
