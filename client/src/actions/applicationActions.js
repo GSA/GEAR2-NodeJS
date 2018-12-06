@@ -25,6 +25,14 @@ export const loadApplicationFailed = () => {
     return {type: types.LOAD_APPLICATION_FAILURE};
 };
 
+export const saveApplicationStart = () => {
+    return {type: types.SAVE_APPLICATION_START};
+}
+
 export const saveNewApplicationFailed = (errMessage) => {
     return {type: types.SAVE_NEW_APPLICATION_FAILURE, errorMessage: errMessage};
 };
+
+export const saveApplicationSuccess = () => {
+    return {type: types.SAVE_APPLICATION_SUCCESS};
+}

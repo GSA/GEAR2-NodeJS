@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
     saveNewApplication,
-    saveApplication
+    saveApplication, saveApplicationStart
 } from "../../../actions/applicationActions";
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
@@ -421,7 +421,7 @@ class ApplicationCreateForm extends Component {
     };
 
     save = () => {
-
+        this.props.saveApplicationStart();
         if (!this.state.isFormValid) {
             this.props.showNotification({message: 'Validation Error: Fix fields before continuing', type: 'warning'});
             const updatedCreateForm = {...this.state.createForm};
@@ -447,10 +447,25 @@ class ApplicationCreateForm extends Component {
                 applicationConsolidatedForm[formElem] = applicationConsolidated[formElem].value;
             }
 
-            this.handleSubmit(applicationForm, applicationConsolidatedForm)
-                .then(this.props.history.push('/applications'))
+            this.handleSubmit(applicationForm, applicationConsolidatedForm);
         }
     };
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.errMessage) {
+            this.props.showNotification({
+                message: `Create Application Fail: ${nextProps.errMessage}`,
+                    type: 'warning'
+            })
+        }
+        if (nextProps.application.saved) {
+            this.props.history.push('/applications');
+            this.props.showNotification({
+                message: `Create Application Success`,
+                type: 'info'
+            })
+        }
+    }
 
     handleSubmit (app, updatedApp) {
         return new Promise ((resolve, reject) => this.props.saveNewApplication(app, updatedApp, resolve, reject));
@@ -488,10 +503,11 @@ class ApplicationCreateForm extends Component {
     }
 }
 
-const mapStateToProps = state => ({application: state.application, errMessage: state.errorMessage});
+const mapStateToProps = state => ({application: state.application, errMessage: state.application.errorMessage});
 
 function mapDispatchToProps(dispatch) {
     return {
+        saveApplicationStart: bindActionCreators(saveApplicationStart, dispatch),
         saveNewApplication: bindActionCreators(saveNewApplication, dispatch),
         saveApplication: bindActionCreators(saveApplication, dispatch),
         showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch)
