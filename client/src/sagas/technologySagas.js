@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as techActions from '../actions/technologyActions';
 import * as types from '../actions/actionTypes';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from '../shared/utility'
 
 const URL = host.target + '/api/v1/technologies?count=10000';
 
@@ -18,6 +19,7 @@ function* fetchTechnologies(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(techActions.loadTechnologiesSuccess(data));
     } catch (error) {
         yield put(techActions.loadTechnologiesFailed());

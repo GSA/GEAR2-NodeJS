@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as fismaActions from '../actions/fismaActions';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
 
 const URL = host.target + '/api/v1/fismas?count=10000';
 
@@ -18,6 +19,7 @@ function* fetchFismas(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(fismaActions.loadFismasSuccess(data));
     } catch (error) {
         yield put(fismaActions.loadFismasFailed());
