@@ -20,7 +20,9 @@ export default function applicationReducer(state=
                                                     providers: [],
                                                     userlocations: [],
                                                     loading: false,
-                                                    errorMessage: null},
+                                                    errorMessage: null,
+                                                   saved: false
+                                               },
                                            action) {
 
     switch(action.type) {
@@ -29,6 +31,12 @@ export default function applicationReducer(state=
 
         case types.SAVE_NEW_APPLICATION_FAILURE:
             return Object.assign({}, state, {errorMessage: action.errorMessage});
+
+        case types.SAVE_APPLICATION_START:
+            return Object.assign({}, state, {saved: false});
+
+        case types.SAVE_APPLICATION_SUCCESS:
+            return Object.assign({}, state, {saved: true});
 
         case 'RA/HIDE_NOTIFICATION':
             return Object.assign({}, state, {errorMessage: null});
