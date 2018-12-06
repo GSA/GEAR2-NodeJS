@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import TextField from "@material-ui/core/TextField/TextField";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import {styles as styles} from './styles';
 
 const GTextControl = (field) => {
     let errHelperText = field.errHelperText;

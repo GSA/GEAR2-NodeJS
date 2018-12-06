@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import {styles as styles} from './styles';
+import './Styles.css';
 import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+
 
 class GMultiSelectControl extends Component {
     constructor(props) {
@@ -81,7 +82,7 @@ class GMultiSelectControl extends Component {
                             label={data.keyname}
                             onDelete={() => this.handleDeleteChip(data.id)}
                             onClick={this.props.handleChipClick}
-                            className={styles.chip}
+                            className="Chip"
                         />
                     );
                 })}
@@ -91,6 +92,7 @@ class GMultiSelectControl extends Component {
         return (
             <div>
                 <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
+
                 <br/><br/>
                 {valueForm}
                 <br/>
@@ -103,7 +105,7 @@ class GMultiSelectControl extends Component {
                         )
                     })}
                 </Select>&nbsp;&nbsp;
-                <Button variant="outlined" onClick={this.addChip} className={styles.button}>
+                <Button variant="outlined" onClick={this.addChip}>
                     Add
                 </Button>
                 <FormHelperText>{this.props.helper}</FormHelperText>
