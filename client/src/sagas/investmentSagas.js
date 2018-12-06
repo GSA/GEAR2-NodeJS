@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as investmentActions from '../actions/investmentActions';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
 
 const URL = host.target + '/api/v1/investments?count=10000';
 
@@ -18,6 +19,7 @@ function* fetchInvestments(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(investmentActions.loadInvestmentsSuccess(data));
     } catch (error) {
         yield put(investmentActions.loadInvestmentsFailed());

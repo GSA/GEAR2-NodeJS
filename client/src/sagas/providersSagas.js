@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as providerActions from '../actions/providerActions';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
 
 const URL = host.target + '/api/v1/app_hostingproviders?count=10000';
 
@@ -18,6 +19,7 @@ function* fetchProviders(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(providerActions.loadProvidersSuccess(data));
     } catch (error) {
         yield put(providerActions.loadProvidersFailed());

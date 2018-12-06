@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as userActions from '../actions/userActions';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
 
 const URL = host.target + '/api/v1/organizations?count=10000';
 
@@ -18,6 +19,7 @@ function* fetchUsers(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(userActions.loadUsersSuccess(data));
     } catch (error) {
         yield put(userActions.loadUsersFailed());

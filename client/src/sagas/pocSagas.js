@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as pocActions from '../actions/pocActions';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
 
 const URL = host.target + '/api/v1/pocs?count=10000';
 
@@ -18,6 +19,7 @@ function* fetchPOCs(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(pocActions.loadPOCsSuccess(data));
     } catch (error) {
         yield put(pocActions.loadPOCsFailed());

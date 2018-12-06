@@ -2,6 +2,7 @@ import { call, put, select, takeLatest, cancel } from 'redux-saga/effects'
 import * as types from '../actions/actionTypes';
 import * as capabilitiesActions from '../actions/capabilitiesActions';
 import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
 
 const URL = host.target + '/api/v1/capabilities?count=10000';
 
@@ -21,6 +22,7 @@ function* fetchCapabilities(action) {
                     .then(res => res.json())
             }
         );
+        sortArrayOfObjectByProp(data, 'keyname');
         yield put(capabilitiesActions.loadCapabilitiesSuccess(data));
     } catch (error) {
         yield put(capabilitiesActions.loadCapabilitiesFailed());
