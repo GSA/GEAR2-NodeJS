@@ -89,6 +89,7 @@ class GMultiSelectControl extends Component {
             </div>
             );
         }
+
         return (
             <div>
                 <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>

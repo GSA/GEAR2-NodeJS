@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
     saveNewApplication,
-    saveApplication, saveApplicationStart
+    saveApplication,
+    saveApplicationStart
 } from "../../../actions/applicationActions";
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
@@ -128,6 +129,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'Application Hosting Provider',
+                        alien: true,
                         choices: this.props.application.providers
                     },
                     constraints: {},
@@ -246,6 +248,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'SSO',
+                        alien: true,
                         choices: this.props.application.users
                     },
                     constraints: {},
@@ -257,6 +260,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'Parent System',
+                        alien: true,
                         choices: this.props.application.parents
                     },
                     constraints: {},
@@ -268,6 +272,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'Investment',
+                        alien: true,
                         choices: this.props.application.investments
                     },
                     constraints: {},
@@ -279,6 +284,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'Parent System',
+                        alien: true,
                         choices: this.props.application.portfolios
                     },
                     constraints: {},
@@ -290,6 +296,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'FISMA System',
+                        alien: true,
                         choices: this.props.application.fismas
                     },
                     constraints: {},
@@ -301,6 +308,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'User Location',
+                        alien: true,
                         choices: this.props.application.userlocations
                     },
                     constraints: {},
@@ -338,6 +346,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Technologies',
+                        alien: true,
                         options: this.props.application.technologies
                     },
                     valid: true,
@@ -348,6 +357,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Capabilties',
+                        alien: true,
                         options: this.props.application.capabilities
                     },
                     valid: true,
@@ -358,6 +368,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Users',
+                        alien: true,
                         options: this.props.application.users
                     },
                     valid: true,
@@ -368,6 +379,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Business POCs',
+                        alien: true,
                         options: this.props.application.pocs
                     },
                     valid: true,
@@ -378,6 +390,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Technology POCs',
+                        alien: true,
                         options: this.props.application.pocs
                     },
                     valid: true,
