@@ -64,6 +64,7 @@ class ApplicationEditForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        debugger;
         this.setState({
                 ...this.state,
                 ...nextProps.application.application});
