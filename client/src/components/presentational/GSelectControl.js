@@ -6,7 +6,6 @@ import FormControl from "@material-ui/core/es/FormControl/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 
 const GSelectControl = (field) => {
-
     return (
         <div>
             <FormControl fullWidth required={field.required} error={!field.valid && field.touched}>

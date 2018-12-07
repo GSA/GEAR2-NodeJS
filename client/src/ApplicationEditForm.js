@@ -1,91 +1,515 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import {SimpleForm} from 'react-admin';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {loadApplication as loadApplicationAction, loadApplicationStart} from "./actions/applicationActions";
+import {
+    loadApplication as loadApplicationAction,
+    loadApplicationStart,
+    saveApplicationStart
+} from "./actions/applicationActions";
 import {saveApplication as saveApplicationAction} from "./actions/applicationActions";
-import {ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices} from './valuelists';
-import GTextControl from "./components/presentational/GTextControl";
-import GSelectControl from "./components/presentational/GSelectControl";
-import GMultiSelectControl from "./components/presentational/GMultiSelectControl";
-import { withRouter } from "react-router";
+import * as valueLists from "./valuelists";
+import {withRouter} from "react-router";
 import Spinner from "./components/UI/Spinner/Spinner";
 import {removeDuplicates} from "./shared/utility";
+import validate from "validate.js";
+import Input from "./components/presentational/Input";
 
-class ApplicationEditForm extends Component {
+class ApplicationEditForm extends PureComponent {
 
     constructor(props) {
         super(props);
+        this.props.saveApplicationStart();
         this.props.loadApplicationStart();
         this.props.loadApplication(this.props.id);
         this.state = {
-                id: "",
-                keyname: "",
-                applicationAlias: "",
-                displayName: "",
-                description: "",
-                mobileAppIndicator: "",
-                desktopIndicator: "",
-                regionalClassification: "",
-                applicationOrWebsite: "",
-                numberOfUsers: "",
-                generateRevenueIndicator: "",
-                objAppPlatformId: "",
-                objAppHostingproviderId: "",
-                tie: "",
-                productionYear: "",
-                retiredYear: "",
-                url: "",
-                cuiIndicator: "",
-                uniqueIdentifierCode: "",
-                referenceDocument: "",
-                objOrgSsoId: "",
-                objParentSystemId: "",
-                objInvestmentId: "",
-                objPortfolioId: "",
-                objFismaId: "",
-                objAppUserlocId: "",
-                objApplicationStatusId: "",
-                technologies: [],
-                users: [],
-                capabilities: [],
-                business_pocs: [],
-                technical_pocs: [],
-                fismas: [],
-                platforms: [],
-                applicationNotes: ""
+            loaded: false,
+            editForm: {
+                id: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'ID',
+                        disabled: true
+                    },
+                    constraints: {},
+                    valid: true,
+                    touched: false,
+                    value: null
+                },
+                keyname: {
+                    elementType: 'text',
+                    elementConfig: {
+                        required: true,
+                        placeholder: 'Application Name',
+                        label: 'Application Name'
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    touched: false,
+                    value: null
+                },
+                applicationAlias: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Application Alias'
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                displayName: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Short name will appear in graphic',
+                        required: true
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                description: {
+                    elementType: 'text',
+                    elementConfig: {
+                        multiline: true,
+                        required: true,
+                        label: "Description"
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                mobileAppIndicator: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Mobile',
+                        choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                desktopIndicator: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Desktop',
+                        choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                regionalClassification: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Regional Classification',
+                        choices: valueLists.RegionChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                applicationOrWebsite: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        required: true,
+                        label: 'Application Or Website',
+                        choices: valueLists.AppOrWebChoices
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                numberOfUsers: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Number of users',
+                        choices: valueLists.UserCountBreakdown
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                generateRevenueIndicator: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'Generates Revenue',
+                        choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objAppPlatformId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Application Platform',
+                        choices: this.props.application.platforms
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objAppHostingproviderId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'Application Hosting Provider',
+                        alien: true,
+                        choices: this.props.application.providers
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                tier: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Tier',
+                        choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                productionYear: {
+                    elementType: 'text',
+                    elementConfig: {
+                        type: "number",
+                        label: 'Production Year'
+                    },
+                    constraints: {
+                        presence: {allowEmpty: true},
+                        numericality: {
+                            greaterThan: 1950,
+                            lessThan: 2050
+                        }
+                    },
+                    valid: true,
+                    value: null
+                },
+                retiredYear: {
+                    elementType: 'text',
+                    elementConfig: {
+                        type: "number",
+                        label: 'Retired Year'
+                    },
+                    constraints: {
+                        numericality: {
+                            greaterThan: 1950,
+                            lessThan: 2050
+                        },
+                        presence: {allowEmpty: true},
+                    },
+                    valid: true,
+                    value: null
+                },
+                url: {
+                    elementType: 'text',
+                    elementConfig: {
+                        type: "url",
+                        label: 'URL'
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                cuiIndicator: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'CUI',
+                        choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                uniqueIdentifierCode: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Unique Identifier Code',
+                        required: true
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                referenceDocument: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Reference Document'
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objOrgSsoId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'SSO',
+                        alien: true,
+                        choices: this.props.application.users
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objParentSystemId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'Parent System',
+                        alien: true,
+                        choices: this.props.application.parents
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objInvestmentId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'Investment',
+                        alien: true,
+                        choices: this.props.application.investments
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objPortfolioId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'Parent System',
+                        alien: true,
+                        choices: this.props.application.portfolios
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objFismaId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'FISMA System',
+                        alien: true,
+                        choices: this.props.application.fismas
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objAppUserlocId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        label: 'User Location',
+                        alien: true,
+                        choices: this.props.application.userlocations
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objApplicationStatusId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Application Status',
+                        required: true,
+                        choices: valueLists.ApplicationStatuses
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                technologies: {
+                    id: 'technologies',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Technologies',
+                        alien: true,
+                        options: this.props.application.technologies
+                    },
+                    valid: true,
+                    value: []
+                },
+                users: {
+                    id: 'users',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Users',
+                        alien: true,
+                        options: this.props.application.users
+                    },
+                    valid: true,
+                    value: []
+                },
+                capabilities: {
+                    id: 'capabilities',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Capabilties',
+                        alien: true,
+                        options: this.props.application.capabilities
+                    },
+                    valid: true,
+                    value: []
+                },
+                business_pocs: {
+                    id: 'business_pocs',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Business POCs',
+                        alien: true,
+                        options: this.props.application.pocs
+                    },
+                    valid: true,
+                    value: []
+                },
+                technical_pocs: {
+                    id: 'technical_pocs',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Technology POCs',
+                        alien: true,
+                        options: this.props.application.pocs
+                    },
+                    valid: true,
+                    value: []
+                },
+                applicationNotes: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Application Notes',
+                        multiline: true
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                }
+            },
+            isFormValid: true
         };
 
         this.handleClick = this.handleClick.bind(this);
-        this.modifyValue = this.modifyValue.bind(this);
+        this.inputChangedHandler = this.inputChangedHandler.bind(this);
 
         this.save = this.save.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        debugger;
-        this.setState({
-                ...this.state,
-                ...nextProps.application.application});
+        if (nextProps.errMessage) {
+            this.props.showNotification({
+                message: `Edit Application Fail: ${nextProps.errMessage}`,
+                type: 'warning'
+            })
+        }
+        if (nextProps.application.saved) {
+            this.props.history.push('/applications');
+            this.props.showNotification({
+                message: `Edit Application Success`,
+                type: 'info'
+            })
+        }
+        const updatedEditForm = {...this.state.editForm};
+            for (let inputIdentifier in updatedEditForm) {
+                const updatedFormElem = {...updatedEditForm[inputIdentifier]};
+                updatedFormElem.value = nextProps.application.application[inputIdentifier];
+                debugger;
+                if (updatedEditForm[inputIdentifier].elementConfig) {
+                        const updatedElemConfig = {...updatedEditForm.elementConfig};
+                        updatedElemConfig.options = this.props.application[inputIdentifier];
+                        updatedElemConfig.elementConfig = updatedElemConfig;
+                }
+                updatedEditForm.valid = true;
+                updatedEditForm[inputIdentifier] = updatedFormElem;
+            }
+        this.setState({editForm: updatedEditForm});
     }
 
-    modifyValue(e, fieldName) {
-        this.setState({
-            ...this.state,
-            [fieldName]: e.target.value });
-    }
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedEditForm = {
+            ...this.state.editForm
+        };
+        const updatedFormElement = {...updatedEditForm[inputIdentifier]};
+        updatedFormElement.value = event.target.value;
+
+        const isValid = validate({
+            inputIdentifier: event.target.value
+        }, {
+            inputIdentifier: updatedFormElement.constraints
+        });
+        updatedFormElement.valid = !isValid;
+        updatedFormElement.touched = true;
+        if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
+            updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;
+            if (updatedFormElement.value === "") {
+                updatedFormElement.value = null;
+                updatedFormElement.valid = true;
+            }
+        }
+        updatedEditForm[inputIdentifier] = updatedFormElement;
+
+        let isFormValid = true;
+        for (let inputIdentifier in updatedEditForm) {
+            if (updatedEditForm[inputIdentifier].valid !== undefined) {
+                isFormValid = updatedEditForm[inputIdentifier].valid && isFormValid
+            }
+        }
+
+        //create form should now have all elements including multiselect
+        this.setState({editForm: updatedEditForm, isFormValid: isFormValid});
+    };
 
     save() {
-        this.state.technologies = removeDuplicates(this.state.technologies, 'id');
-        this.state.capabilities = removeDuplicates(this.state.capabilities, 'id');
-        this.state.users = removeDuplicates(this.state.users, 'id');
-        this.state.business_pocs = removeDuplicates(this.state.business_pocs, 'id');
-        this.state.technical_pocs = removeDuplicates(this.state.technical_pocs, 'id');
-        return Promise.all([
-            this.props.saveApplication(this.state),
-            this.props.history.push('/applications')
-        ]);
+        if (!this.state.isFormValid) {
+            this.props.showNotification({message: 'Validation Error: Fix fields before continuing', type: 'warning'});
+            const updatedEditForm = {...this.state.editForm};
+            for (let inputIdentifier in updatedEditForm) {
+                const updatedEditFormElem = {...updatedEditForm[inputIdentifier]};
+                updatedEditFormElem.touched = true;
+                updatedEditForm[inputIdentifier] = updatedEditFormElem;
+            }
+            this.setState({createForm: updatedEditForm});
+        } else {
+
+            const applicationForm = {};
+            for (let formElem in this.state.editForm) {
+                if (formElem === 'technologies' || formElem === 'capabilities' || formElem === 'users' || formElem === 'business_pocs' || formElem === 'technical_pocs') {
+                    applicationForm[formElem] = this.state.editForm[formElem].value ? removeDuplicates(this.state.editForm[formElem].value, 'id') :
+                        null;
+                } else {
+                    applicationForm[formElem] = this.state.editForm[formElem].value;
+                }
+            }
+            this.props.saveApplication(applicationForm);
+        }
     }
 
     handleClick(data) {
@@ -93,209 +517,37 @@ class ApplicationEditForm extends Component {
     }
 
     render() {
-        let simpleForm = (
-            <Spinner />
-        );
+        let simpleForm;
         if (!this.props.application.loading) {
+            const formElements = [];
+            const consolidatedForm = {...this.state.editForm};
+            for (let key in consolidatedForm) {
+                formElements.push({
+                    id: key,
+                    config: this.state.editForm[key]
+                })
+            }
             simpleForm = (
-                <SimpleForm record={this.state} resource="applications" save={this.save}>
-                    <GTextControl
-                        id='id'
-                        value={this.state.id}
-                        label='Id'
-                        disabled/>
-
-                    <GTextControl id = 'keyname' label = 'Application name *' handleChange = {this.modifyValue}
-                                  value = {this.state.keyname}/>
-
-                    <GTextControl
-                        id='applicationAlias'
-                        value={this.state.applicationAlias}
-                        label='Application alias'
-                        handleChange={this.modifyValue}/>
-
-                    <GTextControl
-                        id='displayName'
-                        value={this.state.displayName}
-                        label='Short name will appear in graphic *'
-                        handleChange={this.modifyValue}/>
-
-                    <GTextControl
-                        id='description'
-                        value={this.state.description}
-                        label='Description *'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='mobileAppIndicator'
-                        value={this.state.mobileAppIndicator}
-                        label='Mobile'
-                        choices={ConfirmChoices}
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='desktopIndicator'
-                        value={this.state.desktopIndicator}
-                        choices={ConfirmChoices}
-                        label='Desktop'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='regionalClassification'
-                        value={this.state.regionalClassification}
-                        choices={RegionChoices}
-                        label='Regional classification'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='applicationOrWebsite'
-                        value={this.state.applicationOrWebsite}
-                        choices={AppOrWebChoices}
-                        label='Application or website *'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='numberOfUsers'
-                        value={this.state.numberOfUsers}
-                        choices={UserCountBreakdown}
-                        label='Number of users'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id= 'generateRevenueIndicator'
-                        value= {this.state.generateRevenueIndicator}
-                        choices= {ConfirmChoices}
-                        label= 'Generates revenue'
-                        handleChange= {this.modifyValue}/>
-
-                    <GSelectControl
-                        id='objAppPlatformId'
-                        value={this.state.objAppPlatformId}
-                        choices={this.props.application.platforms}
-                        nameField='keyname'
-                        label='Application Platform'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='objAppHostingproviderId'
-                        value={this.state.objAppHostingproviderId}
-                        choices={this.props.application.providers}
-                        nameField='keyname'
-                        label='Application Hosting Provider'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl
-                        id='tier'
-                        value={this.state.tie}
-                        choices={TierChoices}
-                        label='Tier'
-                        handleChange={this.modifyValue}/>
-
-                    <GTextControl
-                        id='productionYear'
-                        value={this.state.productionYear}
-                        label='Production Year'
-                        handleChange={this.modifyValue}/>
-
-                    <GTextControl
-                        id='retiredYear'
-                        value={this.state.retiredYear}
-                        label='Retired Year'
-                        handleChange={this.modifyValue}/>
-
-                    <GTextControl
-                        id='url'
-                        value={this.state.url}
-                        label='URL'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl id= 'cuiIndicator' value= {this.state.cuiIndicator}
-                                    choices= {ConfirmChoices} label= 'CUI' handleChange= {this.modifyValue}/>
-
-                    <GTextControl id='uniqueIdentifierCode' value={this.state.uniqueIdentifierCode}
-                                  defaultValue="0233-0000-0000000-xxxx" label='Unique identifier code *' handleChange={this.modifyValue}/>
-
-                    <GTextControl
-                        id='referenceDocument' value={this.state.referenceDocument} label='Reference Document'
-                        handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objOrgSsoId' value={this.state.objOrgSsoId}
-                                    choices={this.props.application.users} nameField='keyname' label='SSO'
-                                    handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objParentSystemId' value={this.state.objParentSystemId}
-                                    choices={this.props.application.parents} nameField='keyname' label='Parent system'
-                                    handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objInvestmentId' value={this.state.objInvestmentId}
-                                    choices={this.props.application.investments} nameField='keyname' label='Investment'
-                                    handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objPortfolioId' value={this.state.objPortfolioId}
-                                    choices={this.props.application.portfolios} nameField='keyname' label='Portfolio'
-                                    handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objFismaId' value={this.state.objFismaId}
-                                    choices={this.props.application.fismas} nameField='fismaSysId' label='FISMA system'
-                                    handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objAppUserlocId' value={this.state.objAppUserlocId}
-                                    choices={this.props.application.userlocations} nameField='keyname' label='User location'
-                                    handleChange={this.modifyValue}/>
-
-                    <GSelectControl id='objApplicationStatusId' value={this.state.objApplicationStatusId}
-                                    choices={ConfirmChoices} label='Application status' handleChange={this.modifyValue}/>
-
-                    <GMultiSelectControl
-                        id='technologies'
-                        label='Technologies'
-                        value={this.state.technologies}
-                        options={this.props.application.technologies}
-                        helper='Add this technology'
-                    />
-
-                    <GMultiSelectControl
-                        id='capabilities'
-                        label='Capabilities'
-                        value={this.state.capabilities}
-                        options={this.props.application.capabilities}
-                        helper='Add this capability'
-                    />
-
-                    <GMultiSelectControl
-                        id='users'
-                        label='Users'
-                        value={this.state.users}
-                        options={this.props.application.users}
-                        helper='Add this user'
-                    />
-
-                    <GMultiSelectControl
-                        id='business_pocs'
-                        label='Business POCs'
-                        value={this.state.business_pocs}
-                        options={this.props.application.pocs}
-                        helper='Add the POC'
-                    />
-
-                    <GMultiSelectControl
-                        id='technical_pocs'
-                        label='Technology POCs'
-                        value={this.state.technical_pocs}
-                        options={this.props.application.pocs}
-                        helper='Add the POC'
-                    />
-                    <GTextControl id='applicationNotes' value={this.state.applicationNotes}
-                                  label='Application notes' multiline
-                                  handleChange={this.modifyValue}/>
-
-                </SimpleForm>
-            )
+                formElements.map(elem => {
+                    return (
+                        <Input
+                            key={elem.id}
+                            elemType={elem.config.elementType}
+                            elementConfig={elem.config.elementConfig}
+                            valid={elem.config.valid}
+                            touched={elem.config.touched}
+                            value={elem.config.value}
+                            errHelperText={elem.config.errHelperText}
+                            changed={(event) => this.inputChangedHandler(event, elem.id)}
+                        />
+                    )
+                })
+            );
         }
         return (
-            <div>
+            <SimpleForm record={this.state.editForm} resource="applications" save={this.save}>
                 {simpleForm}
-            </div>
+            </SimpleForm>
         );
     }
 }
@@ -306,13 +558,17 @@ ApplicationEditForm.propTypes = {
     saveApplication: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({application: state.application});
+const mapStateToProps = state => ({application: state.application, loaded: state.application.loaded, errMessage: state.application.errorMessage});
 
 function mapDispatchToProps(dispatch) {
     return {
         loadApplication: bindActionCreators(loadApplicationAction, dispatch),
         saveApplication: bindActionCreators(saveApplicationAction, dispatch),
-        loadApplicationStart: bindActionCreators(loadApplicationStart, dispatch)
+        saveApplicationStart: bindActionCreators(saveApplicationStart, dispatch),
+        loadApplicationStart: bindActionCreators(loadApplicationStart, dispatch),
+        showNotification: bindActionCreators((payload) => {
+            return {type: 'RA/SHOW_NOTIFICATION', payload: payload}
+        }, dispatch)
     }
 }
 

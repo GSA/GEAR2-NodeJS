@@ -38,11 +38,14 @@ function* saveApplication(action) {
                     .then(res => res.json())
             }
         );
+        if (data.errors ) {
+            throw data;
+        }
         //
-        yield put(appActions.loadApplicationSuccess(data));
+        yield put(appActions.saveApplicationSuccess());
         yield put({type: 'RA/REFRESH_VIEW'})
     } catch (error) {
-        yield put(appActions.loadApplicationFailed());
+        yield put(appActions.saveNewApplicationFailed(error.errors[0].message));
     }
 }
 
