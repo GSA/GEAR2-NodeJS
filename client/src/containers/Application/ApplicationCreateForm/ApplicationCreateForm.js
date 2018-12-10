@@ -232,7 +232,7 @@ class ApplicationCreateForm extends Component {
                         presence: {allowEmpty: false},
                     },
                     valid: false,
-                    value: null
+                    value: '0233-0000-0000000-xxxx'
                 },
                 referenceDocument: {
                     elementType: 'text',
