@@ -20,7 +20,7 @@ function* fetchBackground(dispatch) {
     }
 }
 
-function* whatUp(state) {
+function* updateResources(state) {
     switch(state.meta.resource) {
         case 'pocs':
             yield put({type: types.LOAD_POCS});
@@ -56,6 +56,6 @@ function* whatUp(state) {
 
 export default function* watchEVERYTHING() {
     yield takeLatest('RA/SET_SIDEBAR_VISIBILITY', fetchBackground);
-    yield takeLatest('RA/CRUD_UPDATE_SUCCESS', whatUp);
+    yield takeLatest('RA/CRUD_UPDATE_SUCCESS', updateResources);
 }
 
