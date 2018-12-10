@@ -23,10 +23,34 @@ function* fetchBackground(dispatch) {
 function* whatUp(state) {
     switch(state.meta.resource) {
         case 'pocs':
-            console.log('getting pocs');
             yield put({type: types.LOAD_POCS});
             break;
+        case 'application_interfaces':
+            //TODO
+            break;
+        case 'application_rationalizations':
+            //TODO
+            break;
+        case 'capabilities':
+            yield put({type: types.LOAD_CAPABILITIES});
+            break;
+        case 'fismas':
+            yield put({type: types.LOAD_FISMAS});
+            break;
+        case 'fisma_artifacts':
+            //TODO
+            break;
+        case 'investments':
+            yield put({type: types.LOAD_INVESTMENTS});
+            break;
+        case 'parent_systems':
+            yield put({type: types.LOAD_PARENTSYSTEMS});
+            break;
+        case 'technologies':
+            yield put({type: types.LOAD_TECHNOLOGIES});
+            break;
         default:
+            console.log(state.meta.resource);
             break;
     }
 }
