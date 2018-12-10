@@ -17,8 +17,8 @@ const GSelectControl = (field) => {
 
                 {field.choices.map(data => {
                     return (
-                        field.nameField ? <option key={data.id} value={data.id}>{data[field.nameField]}</option> :
-                        <option key={data.id} value={data.id}>{data['name']}</option>
+                        field.takes === 'string' ? <option key={data.id} value={data.nameField}>{data[field.nameField]}</option>
+                            : <option key={data.id} value={data.id}>{data[field.nameField]}</option>
                     )
                 })}
             </Select>

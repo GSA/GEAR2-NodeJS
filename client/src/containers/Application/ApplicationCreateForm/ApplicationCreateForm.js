@@ -71,6 +71,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Cloud',
+                        takes: 'string',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -81,6 +82,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         label: 'Mobile',
                         choices: valueLists.ConfirmChoices
                     },
@@ -92,6 +94,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         label: 'Desktop',
                         choices: valueLists.ConfirmChoices
                     },
@@ -103,6 +106,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         label: 'Regional Classification',
                         choices: valueLists.RegionChoices
                     },
@@ -115,6 +119,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         required: true,
+                        takes: 'string',
                         label: 'Application Or Website',
                         choices: valueLists.AppOrWebChoices
                     },
@@ -128,6 +133,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
+                        takes: 'number',
                         label: 'Application Hosting Provider',
                         alien: true,
                         choices: this.props.application.providers
@@ -141,6 +147,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Number of users',
+                        takes: 'number',
                         choices: valueLists.UserCountBreakdown
                     },
                     constraints: {},
@@ -150,7 +157,8 @@ class ApplicationCreateForm extends Component {
                 generateRevenueIndicator: {
                     elementType: 'select',
                     elementConfig: {
-                        nameField: 'keyname',
+                        nameField: 'name',
+                        takes: 'string',
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices
                     },
@@ -163,6 +171,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Tier',
+                        takes: 'number',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -216,6 +225,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         label: 'CUI',
+                        takes: 'string',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -231,7 +241,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     value: '0233-0000-0000000-xxxx'
                 },
                 referenceDocument: {
@@ -248,6 +258,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'SSO',
+                        takes: 'number',
                         alien: true,
                         choices: this.props.application.users
                     },
@@ -259,6 +270,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
+                        takes: 'number',
                         label: 'Parent System',
                         alien: true,
                         choices: this.props.application.parents
@@ -272,6 +284,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'Investment',
+                        takes: 'number',
                         alien: true,
                         choices: this.props.application.investments
                     },
@@ -285,6 +298,7 @@ class ApplicationCreateForm extends Component {
                         nameField: 'keyname',
                         label: 'Parent System',
                         alien: true,
+                        takes: 'number',
                         choices: this.props.application.portfolios
                     },
                     constraints: {},
@@ -296,6 +310,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'FISMA System',
+                        takes: 'number',
                         alien: true,
                         choices: this.props.application.fismas
                     },
@@ -308,6 +323,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'User Location',
+                        takes: 'number',
                         alien: true,
                         choices: this.props.application.userlocations
                     },
@@ -320,6 +336,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Application Status',
+                        takes: 'number',
                         required: true,
                         choices: valueLists.ApplicationStatuses
                     },

@@ -72,6 +72,18 @@ class ApplicationEditForm extends PureComponent {
                     valid: true,
                     value: null
                 },
+                cloudIndicator: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Cloud',
+                        takes: 'string',
+                        choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
                 description: {
                     elementType: 'text',
                     elementConfig: {
@@ -90,6 +102,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Mobile',
+                        takes: 'string',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -100,6 +113,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         label: 'Desktop',
                         choices: valueLists.ConfirmChoices
                     },
@@ -111,6 +125,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         label: 'Regional Classification',
                         choices: valueLists.RegionChoices
                     },
@@ -122,6 +137,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         required: true,
                         label: 'Application Or Website',
                         choices: valueLists.AppOrWebChoices
@@ -136,6 +152,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'number',
                         label: 'Number of users',
                         choices: valueLists.UserCountBreakdown
                     },
@@ -147,6 +164,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
+                        takes: 'string',
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices
                     },
@@ -158,6 +176,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
+                        takes: 'number',
                         label: 'Application Platform',
                         choices: this.props.application.platforms
                     },
@@ -169,6 +188,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
+                        takes: 'number',
                         label: 'Application Hosting Provider',
                         alien: true,
                         choices: this.props.application.providers
@@ -182,6 +202,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Tier',
+                        takes: 'number',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -235,6 +256,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         nameField: 'name',
                         label: 'CUI',
+                        'takes': 'string',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -268,6 +290,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'SSO',
                         alien: true,
+                        takes: 'number',
                         choices: this.props.application.users
                     },
                     constraints: {},
@@ -280,6 +303,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'Parent System',
                         alien: true,
+                        takes: 'number',
                         choices: this.props.application.parents
                     },
                     constraints: {},
@@ -292,6 +316,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'Investment',
                         alien: true,
+                        takes: 'number',
                         choices: this.props.application.investments
                     },
                     constraints: {},
@@ -304,6 +329,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'Parent System',
                         alien: true,
+                        takes: 'number',
                         choices: this.props.application.portfolios
                     },
                     constraints: {},
@@ -315,6 +341,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'FISMA System',
+                        takes: 'number',
                         alien: true,
                         choices: this.props.application.fismas
                     },
@@ -327,6 +354,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'User Location',
+                        takes: 'number',
                         alien: true,
                         choices: this.props.application.userlocations
                     },
@@ -339,6 +367,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         nameField: 'name',
                         label: 'Application Status',
+                        takes: 'number',
                         required: true,
                         choices: valueLists.ApplicationStatuses
                     },
@@ -441,7 +470,6 @@ class ApplicationEditForm extends PureComponent {
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
                 updatedFormElem.value = nextProps.application.application[inputIdentifier];
-                debugger;
                 if (updatedEditForm[inputIdentifier].elementConfig) {
                         const updatedElemConfig = {...updatedEditForm.elementConfig};
                         updatedElemConfig.options = this.props.application[inputIdentifier];
@@ -508,6 +536,7 @@ class ApplicationEditForm extends PureComponent {
                     applicationForm[formElem] = this.state.editForm[formElem].value;
                 }
             }
+            debugger;
             this.props.saveApplication(applicationForm);
         }
     }
