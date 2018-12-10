@@ -25,21 +25,21 @@ function* whatUp(state) {
         case 'pocs':
             yield put({type: types.LOAD_POCS});
             break;
-        case 'application_interfaces':
-            //TODO
-            break;
-        case 'application_rationalizations':
-            //TODO
-            break;
+        //case 'application_interfaces':
+            //TODO after we remove react-admin from the app interfaces forms
+            //break;
+        //case 'application_rationalizations':
+            //TODO after we remove react-admin from the app rationalization forms
+            //break;
         case 'capabilities':
             yield put({type: types.LOAD_CAPABILITIES});
             break;
         case 'fismas':
             yield put({type: types.LOAD_FISMAS});
             break;
-        case 'fisma_artifacts':
-            //TODO
-            break;
+        //case 'fisma_artifacts':
+            //TODO after we remove react-admin from the FISMA forms
+            //break;
         case 'investments':
             yield put({type: types.LOAD_INVESTMENTS});
             break;
@@ -50,7 +50,6 @@ function* whatUp(state) {
             yield put({type: types.LOAD_TECHNOLOGIES});
             break;
         default:
-            console.log(state.meta.resource);
             break;
     }
 }
