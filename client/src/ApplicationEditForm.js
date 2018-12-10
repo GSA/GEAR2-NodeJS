@@ -146,7 +146,7 @@ class ApplicationEditForm extends PureComponent {
                 generateRevenueIndicator: {
                     elementType: 'select',
                     elementConfig: {
-                        nameField: 'keyname',
+                        nameField: 'name',
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices
                     },
@@ -157,7 +157,7 @@ class ApplicationEditForm extends PureComponent {
                 objAppPlatformId: {
                     elementType: 'select',
                     elementConfig: {
-                        nameField: 'name',
+                        nameField: 'keyname',
                         label: 'Application Platform',
                         choices: this.props.application.platforms
                     },
