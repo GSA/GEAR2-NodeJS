@@ -91,7 +91,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         options.method = 'PUT';
         params.data.changeAudit = auditName;
         options.body = JSON.stringify(params.data);
-        console.log(params.data);
+        //console.log(params.data);
         break;
       case CREATE:
         url = `${apiUrl}/${resource}`;

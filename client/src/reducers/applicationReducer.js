@@ -77,6 +77,84 @@ export default function applicationReducer(state=
         case types.LOAD_USER_LOCATIONS_SUCCESS:
             return Object.assign({}, state, {userlocations: action.userlocations});
 
+        case types.UPDATE_TECHNOLOGIES:
+            if(action.newItem) {
+                return Object.assign({}, state, {
+                    technologies: [...state.technologies, action]
+                });
+            } else {
+                return Object.assign({}, state, {
+                    technologies: [...state.technologies.filter(technology => {
+                        return (technology.id !== action.id)
+                    }), action]
+                });
+            }
+
+        case types.UPDATE_FISMAS:
+            if(action.newItem) {
+                return Object.assign({}, state, {
+                    fismas: [...state.fismas, action]
+                });
+            } else {
+                return Object.assign({}, state, {
+                    fismas: [...state.fismas.filter(fisma => {
+                        return (fisma.id !== action.id)
+                    }), action]
+                });
+            }
+
+        case types.UPDATE_CAPABILITIES:
+            if(action.newItem) {
+                return Object.assign({}, state, {
+                    capabilities: [...state.capabilities, action]
+                });
+            } else {
+                return Object.assign({}, state, {
+                    capabilities: [...state.capabilities.filter(capability => {
+                        return (capability.id !== action.id)
+                    }), action]
+                });
+            }
+
+        case types.UPDATE_INVESTMENTS:
+            if(action.newItem) {
+                return Object.assign({}, state, {
+                    investments: [...state.investments, action]
+                });
+            } else {
+                return Object.assign({}, state, {
+                    investments: [...state.investments.filter(investment => {
+                        return (investment.id !== action.id)
+                    }), action]
+                });
+            }
+
+        case types.UPDATE_PARENTSYSTEMS:
+            if(action.newItem) {
+                return Object.assign({}, state, {
+                    parents: [...state.parents, action]
+                });
+            } else {
+                return Object.assign({}, state, {parents: [...state.parents.filter(parent => {
+                        return (parent.id !== action.id)}), action]});
+            }
+
+
+        case types.UPDATE_POCS:
+            //TODO is this so much optimization it's actually hurts performance?
+            //TODO ... if/else should be much faster than a filter
+            if(action.newItem) {
+                return Object.assign({}, state, {
+                    pocs: [...state.pocs, action]
+                });
+            } else {
+                return Object.assign({}, state, {
+                    pocs: [...state.pocs.filter(poc => {
+                        return (poc.id !== action.id)
+                    }), action]
+                });
+            }
+
         default:
             return state;
     }
