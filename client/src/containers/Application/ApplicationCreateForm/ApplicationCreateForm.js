@@ -172,7 +172,7 @@ class ApplicationCreateForm extends Component {
                         nameField: 'name',
                         label: 'Tier',
                         takes: 'number',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.TierChoices
                     },
                     constraints: {},
                     valid: true,
@@ -296,7 +296,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
-                        label: 'Parent System',
+                        label: 'Portfolio',
                         alien: true,
                         takes: 'number',
                         choices: this.props.application.portfolios
