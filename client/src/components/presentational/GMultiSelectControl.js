@@ -5,7 +5,6 @@ import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
-import FormControl from "@material-ui/core/FormControl/FormControl";
 
 
 class GMultiSelectControl extends Component {
@@ -48,7 +47,6 @@ class GMultiSelectControl extends Component {
             ...this.state,
             ...newState});*/
         const addedChip = this.props.options.filter(item => item.id === +this.state.id)[0];
-        debugger;
         if (addedChip) {
             this.props.value.push(addedChip);
         }
