@@ -349,19 +349,6 @@ class ApplicationEditForm extends PureComponent {
                     valid: true,
                     value: null
                 },
-                objAppUserlocId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'User Location',
-                        takes: 'number',
-                        alien: true,
-                        choices: this.props.application.userlocations
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
                 objApplicationStatusId: {
                     elementType: 'select',
                     elementConfig: {
@@ -428,6 +415,17 @@ class ApplicationEditForm extends PureComponent {
                         label: 'Technology POCs',
                         alien: true,
                         options: this.props.application.pocs
+                    },
+                    valid: true,
+                    value: []
+                },
+                userLocations: {
+                    id: 'userLocations',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'User Location',
+                        alien: true,
+                        options: this.props.application.userlocations
                     },
                     valid: true,
                     value: []
@@ -529,7 +527,7 @@ class ApplicationEditForm extends PureComponent {
 
             const applicationForm = {};
             for (let formElem in this.state.editForm) {
-                if (formElem === 'technologies' || formElem === 'capabilities' || formElem === 'users' || formElem === 'business_pocs' || formElem === 'technical_pocs') {
+                if (formElem === 'technologies' || formElem === 'capabilities' || formElem === 'users' || formElem === 'business_pocs' || formElem === 'technical_pocs' || formElem === 'objAppUserlocId') {
                     applicationForm[formElem] = this.state.editForm[formElem].value ? removeDuplicates(this.state.editForm[formElem].value, 'id') :
                         null;
                 } else {

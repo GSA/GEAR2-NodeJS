@@ -269,6 +269,15 @@ module.exports = function (sequelize, DataTypes) {
             onDelete: 'cascade',
             constraints: false,
         });
+        models.application.belongsToMany(models.userLocation, {
+            as: 'userLocations',
+            foreignKey: 'obj_application_Id',
+            otherKey: 'obj_userloc_Id',
+            through: 'zk_application_userloc',
+            timestamps: false,
+            onDelete: 'cascade',
+            constraints: false,
+        });
     };
     return application;
 };

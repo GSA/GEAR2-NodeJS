@@ -16,6 +16,7 @@ module.exports = {
           'business_pocs',
           'technical_pocs',
           'technologies',
+            'userLocations'
         ],
         fisma: [
           'fisma_artifacts',

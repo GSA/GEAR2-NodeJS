@@ -7,7 +7,8 @@ export default function applicationReducer(state =
                                                        users: [],
                                                        capabilities: [],
                                                        business_pocs: [],
-                                                       technical_pocs: []
+                                                       technical_pocs: [],
+                                                       objAppUserlocId: []
                                                    },
                                                    technologies: [],
                                                    users: [],
