@@ -13,6 +13,7 @@ const Input = ( props ) => {
                 {...props.elementConfig}
                 touched={props.touched}
                 valid={props.valid}
+                handleBlur={props.onBlur}
                 errHelperText={props.errHelperText}
                 handleChange = {props.changed}/>
             break;
