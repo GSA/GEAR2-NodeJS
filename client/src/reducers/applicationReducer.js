@@ -1,31 +1,33 @@
 import * as types from '../actions/actionTypes';
 
-export default function applicationReducer(state=
-                                               {application: {
+export default function applicationReducer(state =
+                                               {
+                                                   application: {
                                                        technologies: [],
                                                        users: [],
                                                        capabilities: [],
                                                        business_pocs: [],
                                                        technical_pocs: []
-                                                    },
-                                                    technologies: [],
-                                                    users: [],
-                                                    capabilities: [],
-                                                    pocs: [],
-                                                    fismas: [],
-                                                    platforms: [],
-                                                    parents: [],
-                                                    investments: [],
-                                                    portfolios: [],
-                                                    providers: [],
-                                                    userlocations: [],
-                                                    loading: false,
-                                                    errorMessage: null,
-                                                   saved: false
+                                                   },
+                                                   technologies: [],
+                                                   users: [],
+                                                   capabilities: [],
+                                                   pocs: [],
+                                                   fismas: [],
+                                                   platforms: [],
+                                                   parents: [],
+                                                   investments: [],
+                                                   portfolios: [],
+                                                   providers: [],
+                                                   userlocations: [],
+                                                   loading: false,
+                                                   errorMessage: null,
+                                                   saved: false,
+                                                   exists: false
                                                },
                                            action) {
 
-    switch(action.type) {
+    switch (action.type) {
         case types.LOAD_APPLICATION_START:
             return Object.assign({}, state, {loading: true});
 
@@ -77,6 +79,14 @@ export default function applicationReducer(state=
         case types.LOAD_USER_LOCATIONS_SUCCESS:
             return Object.assign({}, state, {userlocations: action.userlocations});
 
+        case types.DOES_EXIST_INITIATE:
+            return Object.assign({}, state, {exists: false});
+
+        case types.DOES_EXIST_SUCCESS:
+            return Object.assign({}, state, {exists: action.doesExist});
+
+        case types.DOES_EXIST_FAILURE:
+            return Object.assign({},state,{exists: false});
         default:
             return state;
     }

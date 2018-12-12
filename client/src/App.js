@@ -32,6 +32,7 @@ import providersSagas from './sagas/providersSagas';
 import userLocationSagas from './sagas/userLocationSagas';
 import pocSagas from './sagas/pocSagas';
 import appLoadSaga from './sagas/appLoadSagas';
+import validationSagas from "./sagas/validationSagas";
 
 
 class App extends Component {
@@ -46,7 +47,7 @@ class App extends Component {
                 //up the state so everything is sadly shoved into this one reducer
                 customReducers={{application}}
                 customSagas={[appLoadSaga, applicationSaga, technologySaga, userSaga, capabilitySagas, fismaSagas,
-                    platformsSagas, portfolioSagas, investmentSagas, parentSagas, providersSagas, userLocationSagas, pocSagas]}
+                    platformsSagas, portfolioSagas, investmentSagas, parentSagas, providersSagas, userLocationSagas, pocSagas, validationSagas]}
                 dataProvider={epilogueClient(`/api/v1`)}
             >
                 {permissions => [
