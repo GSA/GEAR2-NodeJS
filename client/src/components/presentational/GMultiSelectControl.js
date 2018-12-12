@@ -5,6 +5,7 @@ import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+import FormControl from "@material-ui/core/FormControl/FormControl";
 
 
 class GMultiSelectControl extends Component {
@@ -21,12 +22,12 @@ class GMultiSelectControl extends Component {
         this.handleDeleteChip = this.handleDeleteChip.bind(this);
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    /*componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
             id: nextProps.options.length > 0 ? nextProps.options[0].id : '0',
             keyname: nextProps.options.length > 0 ? nextProps.options[0].keyname : ''
         });
-    }
+    }*/
 
     updateSelected(e) {
         let entity = this.props.options.filter(function (obj) {
@@ -47,7 +48,10 @@ class GMultiSelectControl extends Component {
             ...this.state,
             ...newState});*/
         const addedChip = this.props.options.filter(item => item.id === +this.state.id)[0];
-        this.props.value.push(addedChip);
+        debugger;
+        if (addedChip) {
+            this.props.value.push(addedChip);
+        }
         this.forceUpdate();
     }
 
@@ -72,19 +76,21 @@ class GMultiSelectControl extends Component {
 
     render() {
         let valueForm = null;
-        if (this.props.value) {
+        if (this.props.value ) {
             valueForm = (
                 <div id={this.props.id}>
                 {this.props.value.map(data => {
-                    return (
-                        <Chip
-                            key={data.id}
-                            label={data.keyname}
-                            onDelete={() => this.handleDeleteChip(data.id)}
-                            onClick={this.props.handleChipClick}
-                            className="Chip"
-                        />
-                    );
+                    if (data) {
+                        return (
+                            <Chip
+                                key={data.id}
+                                label={data.keyname}
+                                onDelete={() => this.handleDeleteChip(data.id)}
+                                onClick={this.props.handleChipClick}
+                                className="Chip"
+                            />
+                        );
+                    }
                 })}
             </div>
             );
@@ -92,14 +98,14 @@ class GMultiSelectControl extends Component {
 
         return (
             <div>
-                <InputLabel htmlFor={this.props.id}>{this.props.label}</InputLabel>
-
+                <InputLabel htmlFor={this.props.id} disabled={this.props.disabled === true}>{this.props.label}</InputLabel>
                 <br/><br/>
                 {valueForm}
                 <br/>
                 <Select native
                         value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
+                    <option value=" "/>
                     {this.props.options.map(data => {
                         return (
                             <option key={data.id} value={data.id}>{data.keyname}</option>
