@@ -46,7 +46,6 @@ class GMultiSelectControl extends Component {
         this.setState({
             ...this.state,
             ...newState});*/
-        debugger;
         const addedChip = this.props.options.filter(item => item.id === +this.state.id)[0];
         if (addedChip) {
             this.props.value.push(addedChip);

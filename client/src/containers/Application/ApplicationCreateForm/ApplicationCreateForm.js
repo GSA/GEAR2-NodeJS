@@ -416,17 +416,6 @@ class ApplicationCreateForm extends Component {
                     },
                     valid: true,
                     value: []
-                },
-                userLocations: {
-                    id: 'userLocations',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'User Location',
-                        alien: true,
-                        options: this.props.application.userlocations
-                    },
-                    valid: true,
-                    value: []
                 }
             },
             isFormValid: true
