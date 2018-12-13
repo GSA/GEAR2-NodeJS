@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/app_hostingproviders?count=10000';
 
 function* fetchProviders(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchProviders(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(providerActions.loadProvidersSuccess(data));
     } catch (error) {
         yield put(providerActions.loadProvidersFailed());

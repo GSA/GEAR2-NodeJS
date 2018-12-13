@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/organizations?count=10000';
 
 function* fetchUsers(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchUsers(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(userActions.loadUsersSuccess(data));
     } catch (error) {
         yield put(userActions.loadUsersFailed());

@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/parent_systems?count=10000';
 
 function* fetchParents(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchParents(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(parentActions.loadParentsSuccess(data));
     } catch (error) {
         yield put(parentActions.loadParentsFailed());

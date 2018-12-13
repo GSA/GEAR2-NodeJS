@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/user_locations?count=10000';
 
 function* fetchUserLocations(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchUserLocations(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(userLocations.loadUserLocationsSuccess(data));
     } catch (error) {
         yield put(userLocations.loadUserLocationsFailed());

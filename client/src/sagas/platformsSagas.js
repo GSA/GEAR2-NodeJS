@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/app_platforms?count=10000';
 
 function* fetchPlatforms(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchPlatforms(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(platformActions.loadPlatformsSuccess(data));
     } catch (error) {
         yield put(platformActions.loadPlatformsFailed());
