@@ -20,14 +20,6 @@ class GMultiSelectControl extends Component {
         this.addChip = this.addChip.bind(this);
         this.handleDeleteChip = this.handleDeleteChip.bind(this);
     }
-
-    /*componentWillReceiveProps(nextProps, nextContext) {
-        this.setState({
-            id: nextProps.options.length > 0 ? nextProps.options[0].id : '0',
-            keyname: nextProps.options.length > 0 ? nextProps.options[0].keyname : ''
-        });
-    }*/
-
     updateSelected(e) {
         let entity = this.props.options.filter(function (obj) {
             return obj.id.toString() === e.target.value;
@@ -41,11 +33,6 @@ class GMultiSelectControl extends Component {
     }
 
     addChip() {
-        /*let newState = Object.assign({}, this.state);
-        newState[fieldId].push(item);
-        this.setState({
-            ...this.state,
-            ...newState});*/
         const addedChip = this.props.options.filter(item => item.id === +this.state.id)[0];
         if (addedChip) {
             this.props.value.push(addedChip);
@@ -54,13 +41,6 @@ class GMultiSelectControl extends Component {
     }
 
     handleDeleteChip(id) {
-        /*let newState = Object.assign({}, this.state);
-        newState[fieldId] = newState[fieldId].filter(function (obj) {
-            return obj.id !== deletedChip;
-        });
-        this.setState({
-            ...this.state,
-            ...newState});*/
         for(let i in this.props.value ) {
             if(this.props.value[i].id === +id) {
                 this.props.value.splice(i, 1);
@@ -74,7 +54,9 @@ class GMultiSelectControl extends Component {
 
     render() {
         let valueForm = null;
-        if (this.props.value ) {
+        let vals = this.props.value.map(a => a.id);
+
+        if (this.props.value) {
             valueForm = (
                 <div id={this.props.id}>
                 {this.props.value.map(data => {
@@ -105,9 +87,11 @@ class GMultiSelectControl extends Component {
                         onChange={(e) => this.updateSelected(e)}>
                     <option value=" "/>
                     {this.props.options.map(data => {
-                        return (
-                            <option key={data.id} value={data.id}>{data.keyname}</option>
-                        )
+                        if(!vals.includes(data.id)) {
+                            return (
+                                <option key={data.id} value={data.id}>{data.keyname}</option>
+                            )
+                        }
                     })}
                 </Select>&nbsp;&nbsp;
                 <Button variant="outlined" onClick={this.addChip}>
