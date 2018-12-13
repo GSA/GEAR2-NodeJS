@@ -21,7 +21,7 @@ class GMultiSelectControl extends Component {
         this.handleDeleteChip = this.handleDeleteChip.bind(this);
     }
     updateSelected(e) {
-        let entity = this.props.options.filter(function (obj) {
+        let entity = this.props.choices.filter(function (obj) {
             return obj.id.toString() === e.target.value;
         });
 
@@ -33,7 +33,7 @@ class GMultiSelectControl extends Component {
     }
 
     addChip() {
-        const addedChip = this.props.options.filter(item => item.id === +this.state.id)[0];
+        const addedChip = this.props.choices.filter(item => item.id === +this.state.id)[0];
         if (addedChip) {
             this.props.value.push(addedChip);
         }
@@ -86,7 +86,7 @@ class GMultiSelectControl extends Component {
                         value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
                     <option value=" "/>
-                    {this.props.options.map(data => {
+                    {this.props.choices.map(data => {
                         if(!vals.includes(data.id)) {
                             return (
                                 <option key={data.id} value={data.id}>{data.keyname}</option>

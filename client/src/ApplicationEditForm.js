@@ -191,6 +191,7 @@ class ApplicationEditForm extends PureComponent {
                         takes: 'number',
                         label: 'Application Hosting Provider',
                         alien: true,
+                        endpoint: 'providers',
                         choices: this.props.application.providers
                     },
                     constraints: {},
@@ -290,6 +291,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'SSO',
                         alien: true,
+                        endpoint: 'users',
                         takes: 'number',
                         choices: this.props.application.users
                     },
@@ -303,6 +305,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'Parent System',
                         alien: true,
+                        endpoint: 'parents',
                         takes: 'number',
                         choices: this.props.application.parents
                     },
@@ -316,6 +319,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'Investment',
                         alien: true,
+                        endpoint: 'investments',
                         takes: 'number',
                         choices: this.props.application.investments
                     },
@@ -329,6 +333,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         label: 'Portfolio',
                         alien: true,
+                        endpoint: 'portfolios',
                         takes: 'number',
                         choices: this.props.application.portfolios
                     },
@@ -343,6 +348,7 @@ class ApplicationEditForm extends PureComponent {
                         label: 'FISMA System',
                         takes: 'number',
                         alien: true,
+                        endpoint: 'fismas',
                         choices: this.props.application.fismas
                     },
                     constraints: {},
@@ -356,6 +362,7 @@ class ApplicationEditForm extends PureComponent {
                         label: 'User Location',
                         takes: 'number',
                         alien: true,
+                        endpoint: 'userlocations',
                         choices: this.props.application.userlocations
                     },
                     constraints: {},
@@ -383,7 +390,8 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Technologies',
                         alien: true,
-                        options: this.props.application.technologies
+                        endpoint: 'technologies',
+                        choices: this.props.application.technologies
                     },
                     valid: true,
                     value: []
@@ -394,7 +402,8 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Users',
                         alien: true,
-                        options: this.props.application.users
+                        endpoint: 'users',
+                        choices: this.props.application.users
                     },
                     valid: true,
                     value: []
@@ -405,7 +414,8 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Capabilties',
                         alien: true,
-                        options: this.props.application.capabilities
+                        endpoint: 'capabilities',
+                        choices: this.props.application.capabilities
                     },
                     valid: true,
                     value: []
@@ -416,7 +426,8 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Business POCs',
                         alien: true,
-                        options: this.props.application.pocs
+                        endpoint: 'pocs',
+                        choices: this.props.application.pocs
                     },
                     valid: true,
                     value: []
@@ -427,7 +438,8 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Technology POCs',
                         alien: true,
-                        options: this.props.application.pocs
+                        endpoint: 'pocs',
+                        choices: this.props.application.pocs
                     },
                     valid: true,
                     value: []
@@ -453,6 +465,7 @@ class ApplicationEditForm extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        console.log(nextProps);
         if (nextProps.errMessage) {
             this.props.showNotification({
                 message: `Edit Application Fail: ${nextProps.errMessage}`,
@@ -467,17 +480,20 @@ class ApplicationEditForm extends PureComponent {
             })
         }
         const updatedEditForm = {...this.state.editForm};
-            for (let inputIdentifier in updatedEditForm) {
-                const updatedFormElem = {...updatedEditForm[inputIdentifier]};
-                updatedFormElem.value = nextProps.application.application[inputIdentifier];
-                if (updatedEditForm[inputIdentifier].elementConfig) {
-                        const updatedElemConfig = {...updatedEditForm.elementConfig};
-                        updatedElemConfig.options = this.props.application[inputIdentifier];
-                        updatedElemConfig.elementConfig = updatedElemConfig;
-                }
-                updatedEditForm.valid = true;
-                updatedEditForm[inputIdentifier] = updatedFormElem;
+        for (let inputIdentifier in updatedEditForm) {
+            const updatedFormElem = {...updatedEditForm[inputIdentifier]};
+            updatedFormElem.value = nextProps.application.application[inputIdentifier];
+
+            if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
+                const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
+                updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
+                    nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+                updatedFormElem.elementConfig = updatedElemConfig;
             }
+            updatedEditForm.valid = true;
+            updatedEditForm[inputIdentifier] = updatedFormElem;
+        }
+        console.log(updatedEditForm);
         this.setState({editForm: updatedEditForm});
     }
 
@@ -587,7 +603,11 @@ ApplicationEditForm.propTypes = {
     saveApplication: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({application: state.application, loaded: state.application.loaded, errMessage: state.application.errorMessage});
+const mapStateToProps = state => ({
+    application: state.application,
+    loaded: state.application.loaded,
+    errMessage: state.application.errorMessage
+});
 
 function mapDispatchToProps(dispatch) {
     return {
