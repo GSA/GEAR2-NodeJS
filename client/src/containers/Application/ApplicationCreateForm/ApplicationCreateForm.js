@@ -170,6 +170,18 @@ class ApplicationCreateForm extends Component {
                     valid: true,
                     value: null
                 },
+                objAppPlatformId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        takes: 'number',
+                        label: 'Application Platform',
+                        choices: this.props.application.platforms
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
                 tier: {
                     elementType: 'select',
                     elementConfig: {
