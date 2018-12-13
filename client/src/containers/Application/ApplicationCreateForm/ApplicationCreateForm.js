@@ -164,6 +164,7 @@ class ApplicationCreateForm extends Component {
                         nameField: 'keyname',
                         takes: 'number',
                         label: 'Application Platform',
+                        alien: true,
                         endpoint: 'platforms',
                         choices: this.props.application.platforms
                     },
@@ -388,6 +389,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Technologies',
+                        nameField: 'keyname',
                         alien: true,
                         endpoint: 'technologies',
                         choices: this.props.application.technologies
@@ -400,6 +402,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Users',
+                        nameField: 'keyname',
                         alien: true,
                         endpoint: 'users',
                         choices: this.props.application.users
@@ -412,6 +415,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Capabilties',
+                        nameField: 'keyname',
                         alien: true,
                         endpoint: 'capabilities',
                         choices: this.props.application.capabilities
@@ -424,6 +428,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Business POCs',
+                        nameField: 'keyname',
                         alien: true,
                         endpoint: 'pocs',
                         choices: this.props.application.pocs
@@ -436,6 +441,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Technology POCs',
+                        nameField: 'keyname',
                         alien: true,
                         endpoint: 'pocs',
                         choices: this.props.application.pocs

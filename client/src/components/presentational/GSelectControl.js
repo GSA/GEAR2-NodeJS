@@ -3,8 +3,16 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from "@material-ui/core/es/FormControl/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+import {sortArrayOfObjectByProp} from "../../shared/utility";
 
 const GSelectControl = (field) => {
+    let choices;
+    if (field.alien) {
+        choices = sortArrayOfObjectByProp(field.choices, field.nameField);
+        console.log(field, field.nameField);
+        console.log('choices', choices);
+    }
+    else choices = field.choices;
     return (
         <div>
             <FormControl fullWidth required={field.required} error={!field.valid && field.touched}>
@@ -15,7 +23,7 @@ const GSelectControl = (field) => {
                     value={field.value === null ? '' : field.value}>
                 <option value=" "/>
 
-                {field.choices.map(data => {
+                {choices.map(data => {
                     return (
                         field.takes === 'string' ? <option key={data.id} value={data.nameField}>{data[field.nameField]}</option>
                             : <option key={data.id} value={data.id}>{data[field.nameField]}</option>

@@ -179,6 +179,7 @@ class ApplicationEditForm extends PureComponent {
                         takes: 'number',
                         label: 'Application Platform',
                         endpoint: 'platforms',
+                        alien: true,
                         choices: this.props.application.platforms
                     },
                     constraints: {},
@@ -390,6 +391,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'multiselect',
                     elementConfig: {
                         label: 'Technologies',
+                        nameField: 'keyname',
                         alien: true,
                         endpoint: 'technologies',
                         choices: this.props.application.technologies
@@ -403,6 +405,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Users',
                         alien: true,
+                        nameField: 'keyname',
                         endpoint: 'users',
                         choices: this.props.application.users
                     },
@@ -415,6 +418,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Capabilties',
                         alien: true,
+                        nameField: 'keyname',
                         endpoint: 'capabilities',
                         choices: this.props.application.capabilities
                     },
@@ -427,6 +431,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Business POCs',
                         alien: true,
+                        nameField: 'keyname',
                         endpoint: 'pocs',
                         choices: this.props.application.pocs
                     },
@@ -439,6 +444,7 @@ class ApplicationEditForm extends PureComponent {
                     elementConfig: {
                         label: 'Technology POCs',
                         alien: true,
+                        nameField: 'keyname',
                         endpoint: 'pocs',
                         choices: this.props.application.pocs
                     },
