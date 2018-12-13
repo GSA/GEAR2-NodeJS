@@ -426,7 +426,6 @@ export const ApplicationCreateOld = (props) => (
             <SelectInput optionText="keyname" />
           </ReferenceInput>
 		  <LongTextInput source="applicationNotes" />
-		  
         </SimpleForm>
     </Create>
 );
