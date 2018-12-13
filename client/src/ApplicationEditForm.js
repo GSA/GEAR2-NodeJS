@@ -552,7 +552,6 @@ class ApplicationEditForm extends PureComponent {
                     applicationForm[formElem] = this.state.editForm[formElem].value;
                 }
             }
-            debugger;
             this.props.saveApplication(applicationForm);
         }
     }
@@ -562,7 +561,7 @@ class ApplicationEditForm extends PureComponent {
     }
 
     render() {
-        let simpleForm;
+        let simpleForm = <Spinner/>;
         if (!this.props.application.loading) {
             const formElements = [];
             const consolidatedForm = {...this.state.editForm};
@@ -606,7 +605,8 @@ ApplicationEditForm.propTypes = {
 const mapStateToProps = state => ({
     application: state.application,
     loaded: state.application.loaded,
-    errMessage: state.application.errorMessage
+    errMessage: state.application.errorMessage,
+    loading: state.application.loading
 });
 
 function mapDispatchToProps(dispatch) {

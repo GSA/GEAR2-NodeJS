@@ -16,7 +16,6 @@ import * as valueLists from "../../../valuelists";
 import {withRouter} from "react-router";
 import {removeDuplicates} from "../../../shared/utility";
 import validate from 'validate.js';
-import * as _ from 'underscore';
 
 class ApplicationCreateForm extends Component {
     constructor(props) {
@@ -24,17 +23,6 @@ class ApplicationCreateForm extends Component {
         this.props.saveApplicationStart();
         this.state = {
             createForm: {
-                id: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'ID',
-                        disabled: true
-                    },
-                    constraints: {},
-                    valid: true,
-                    touched: false,
-                    value: null
-                },
                 keyname: {
                     elementType: 'text',
                     elementConfig: {
@@ -546,18 +534,14 @@ class ApplicationCreateForm extends Component {
                 type: 'info'
             })
         }
-        if (nextProps.application.exists) {
-            const updatedCreateForm = {
-                ...this.state.createForm
-            };
-            const updatedFormElement = {...updatedCreateForm['keyname']};
-            updatedFormElement.valid = !nextProps.application.exists;
-            updatedFormElement.errHelperText = 'Already Exists';
-            updatedCreateForm['keyname'] = updatedFormElement;
-            this.setState({createForm: updatedCreateForm});
-        }
 
         const updateCreateForm = {...this.state.createForm};
+        if (nextProps.application.exists) {
+            const updatedFormElement = {...updateCreateForm['keyname']};
+            updatedFormElement.valid = !nextProps.application.exists;
+            updatedFormElement.errHelperText = 'Already Exists';
+            updateCreateForm['keyname'] = updatedFormElement;
+        }
         for (let inputIdentifier in updateCreateForm) {
             const updatedFormElem = {...updateCreateForm[inputIdentifier]};
             if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
