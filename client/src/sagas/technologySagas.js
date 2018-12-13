@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/technologies?count=10000';
 
 function* fetchTechnologies(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchTechnologies(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(techActions.loadTechnologiesSuccess(data));
     } catch (error) {
         yield put(techActions.loadTechnologiesFailed());

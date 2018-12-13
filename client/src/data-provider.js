@@ -91,7 +91,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         options.method = 'PUT';
         params.data.changeAudit = auditName;
         options.body = JSON.stringify(params.data);
-        //console.log(params.data);
         break;
       case CREATE:
         url = `${apiUrl}/${resource}`;
@@ -169,6 +168,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
     const { url, options } = convertDataRequestToHTTP(type, resource, params);
     return httpClient(url, options).then(response =>
       convertHTTPResponse(response, type, resource, params)
-    );
+    )
+        .catch(error => {
+          return Promise.reject({message: error.body.errors[0].message});
+        });
   };
 };

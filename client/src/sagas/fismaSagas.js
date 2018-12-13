@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/fismas?count=10000';
 
 function* fetchFismas(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchFismas(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(fismaActions.loadFismasSuccess(data));
     } catch (error) {
         yield put(fismaActions.loadFismasFailed());

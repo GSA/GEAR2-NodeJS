@@ -77,6 +77,15 @@ export default function applicationReducer(state=
         case types.LOAD_USER_LOCATIONS_SUCCESS:
             return Object.assign({}, state, {userlocations: action.userlocations});
 
+        case types.DOES_EXIST_INITIATE:
+            return Object.assign({}, state, {exists: false});
+
+        case types.DOES_EXIST_SUCCESS:
+            return Object.assign({}, state, {exists: action.doesExist});
+
+        case types.DOES_EXIST_FAILURE:
+            return Object.assign({},state,{exists: false});
+
         case types.UPDATE_TECHNOLOGIES:
             if(action.newItem) {
                 return Object.assign({}, state, {

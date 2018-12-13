@@ -12,7 +12,7 @@ function* fetchCapabilities(action) {
         if(state.application.capabilities.length > 0) {
             cancel();
         }
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -22,7 +22,7 @@ function* fetchCapabilities(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(capabilitiesActions.loadCapabilitiesSuccess(data));
     } catch (error) {
         yield put(capabilitiesActions.loadCapabilitiesFailed());

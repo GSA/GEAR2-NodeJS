@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/portfolios?count=10000';
 
 function* fetchPortfolios(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchPortfolios(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(portfolioActions.loadPortfoliosSuccess(data));
     } catch (error) {
         yield put(portfolioActions.loadPortfoliosFailed());

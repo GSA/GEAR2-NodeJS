@@ -203,7 +203,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'name',
                         label: 'Tier',
                         takes: 'number',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.TierChoices
                     },
                     constraints: {},
                     valid: true,
@@ -327,7 +327,7 @@ class ApplicationEditForm extends PureComponent {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
-                        label: 'Parent System',
+                        label: 'Portfolio',
                         alien: true,
                         takes: 'number',
                         choices: this.props.application.portfolios

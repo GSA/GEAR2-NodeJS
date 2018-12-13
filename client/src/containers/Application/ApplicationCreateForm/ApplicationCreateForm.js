@@ -7,6 +7,10 @@ import {
     saveApplication,
     saveApplicationStart
 } from "../../../actions/applicationActions";
+import {
+    doesExist,
+    doesExistInitiate
+} from "../../../actions/validationActions"
 import Input from "../../../components/presentational/Input";
 import * as valueLists from "../../../valuelists";
 import {withRouter} from "react-router";
@@ -172,7 +176,7 @@ class ApplicationCreateForm extends Component {
                         nameField: 'name',
                         label: 'Tier',
                         takes: 'number',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.TierChoices
                     },
                     constraints: {},
                     valid: true,
@@ -296,7 +300,7 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
-                        label: 'Parent System',
+                        label: 'Portfolio',
                         alien: true,
                         takes: 'number',
                         choices: this.props.application.portfolios
@@ -422,6 +426,7 @@ class ApplicationCreateForm extends Component {
         const updatedCreateForm = {
             ...this.state.createForm
         };
+
         const updatedFormElement = {...updatedCreateForm[inputIdentifier]};
         updatedFormElement.value = event.target.value;
 
@@ -431,6 +436,7 @@ class ApplicationCreateForm extends Component {
             inputIdentifier: updatedFormElement.constraints
         });
         updatedFormElement.valid = !isValid;
+        updatedFormElement.errHelperText = `${updatedFormElement.elementConfig.label} cannot be blank!`
         updatedFormElement.touched = true;
         if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
             updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;
@@ -439,6 +445,7 @@ class ApplicationCreateForm extends Component {
                 updatedFormElement.valid = true;
             }
         }
+
         updatedCreateForm[inputIdentifier] = updatedFormElement;
 
         let isFormValid = true;
@@ -448,6 +455,13 @@ class ApplicationCreateForm extends Component {
 
         //create form should now have all elements including multiselect
         this.setState({createForm: updatedCreateForm, isFormValid: isFormValid});
+    };
+
+    onBlur = (event, identifier) => {
+        if (identifier === 'keyname') {
+            this.props.doesExistInitiate();
+            this.props.doesExist({modelInstance: 'applications', field: identifier, target: event.target.value});
+        }
     };
 
     save = () => {
@@ -495,6 +509,16 @@ class ApplicationCreateForm extends Component {
                 type: 'info'
             })
         }
+        if (nextProps.application.exists) {
+            const updatedCreateForm = {
+                ...this.state.createForm
+            };
+            const updatedFormElement = {...updatedCreateForm['keyname']};
+            updatedFormElement.valid = !nextProps.application.exists;
+            updatedFormElement.errHelperText = 'Already Exists';
+            updatedCreateForm['keyname'] = updatedFormElement;
+            this.setState({createForm: updatedCreateForm});
+        }
     }
 
     handleSubmit (app, updatedApp) {
@@ -522,6 +546,7 @@ class ApplicationCreateForm extends Component {
                     touched={elem.config.touched}
                     value={elem.config.value}
                     errHelperText={elem.config.errHelperText}
+                    onBlur={(event) => this.onBlur(event, elem.id)}
                     changed={(event) => this.inputChangedHandler(event, elem.id)}
                 />
             )})
@@ -533,14 +558,16 @@ class ApplicationCreateForm extends Component {
     }
 }
 
-const mapStateToProps = state => ({application: state.application, errMessage: state.application.errorMessage});
+const mapStateToProps = state => ({application: state.application, errMessage: state.application.errorMessage, exists: state.application.exists});
 
 function mapDispatchToProps(dispatch) {
     return {
         saveApplicationStart: bindActionCreators(saveApplicationStart, dispatch),
         saveNewApplication: bindActionCreators(saveNewApplication, dispatch),
         saveApplication: bindActionCreators(saveApplication, dispatch),
-        showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch)
+        showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch),
+        doesExistInitiate: bindActionCreators(doesExistInitiate, dispatch),
+        doesExist: bindActionCreators(doesExist, dispatch)
     }
 }
 
