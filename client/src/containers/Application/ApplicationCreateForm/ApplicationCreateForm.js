@@ -16,12 +16,25 @@ import * as valueLists from "../../../valuelists";
 import {withRouter} from "react-router";
 import {removeDuplicates} from "../../../shared/utility";
 import validate from 'validate.js';
+import * as _ from 'underscore';
 
 class ApplicationCreateForm extends Component {
     constructor(props) {
         super(props);
+        this.props.saveApplicationStart();
         this.state = {
             createForm: {
+                id: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'ID',
+                        disabled: true
+                    },
+                    constraints: {},
+                    valid: true,
+                    touched: false,
+                    value: null
+                },
                 keyname: {
                     elementType: 'text',
                     elementConfig: {
@@ -32,7 +45,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     touched: false,
                     value: null
                 },
@@ -40,6 +53,30 @@ class ApplicationCreateForm extends Component {
                     elementType: 'text',
                     elementConfig: {
                         label: 'Application Alias'
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                displayName: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Short name will appear in graphic',
+                        required: true
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                cloudIndicator: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'name',
+                        label: 'Cloud',
+                        takes: 'string',
+                        choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
                     valid: true,
@@ -55,30 +92,6 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
-                    value: null
-                },
-                displayName: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'Short name will appear in graphic',
-                        required: true
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                    },
-                    valid: false,
-                    value: null
-                },
-                cloudIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'Cloud',
-                        takes: 'string',
-                        choices: valueLists.ConfirmChoices
-                    },
-                    constraints: {},
                     valid: true,
                     value: null
                 },
@@ -86,8 +99,8 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
-                        takes: 'string',
                         label: 'Mobile',
+                        takes: 'string',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -122,27 +135,14 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
-                        required: true,
                         takes: 'string',
+                        required: true,
                         label: 'Application Or Website',
                         choices: valueLists.AppOrWebChoices
                     },
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
-                    value: null
-                },
-                objAppHostingproviderId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        takes: 'number',
-                        label: 'Application Hosting Provider',
-                        alien: true,
-                        choices: this.props.application.providers
-                    },
-                    constraints: {},
                     valid: true,
                     value: null
                 },
@@ -150,8 +150,8 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
-                        label: 'Number of users',
                         takes: 'number',
+                        label: 'Number of users',
                         choices: valueLists.UserCountBreakdown
                     },
                     constraints: {},
@@ -165,6 +165,33 @@ class ApplicationCreateForm extends Component {
                         takes: 'string',
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objAppPlatformId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        takes: 'number',
+                        label: 'Application Platform',
+                        endpoint: 'platforms',
+                        choices: this.props.application.platforms
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                objAppHostingproviderId: {
+                    elementType: 'select',
+                    elementConfig: {
+                        nameField: 'keyname',
+                        takes: 'number',
+                        label: 'Application Hosting Provider',
+                        alien: true,
+                        endpoint: 'providers',
+                        choices: this.props.application.providers
                     },
                     constraints: {},
                     valid: true,
@@ -229,7 +256,7 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'name',
                         label: 'CUI',
-                        takes: 'string',
+                        'takes': 'string',
                         choices: valueLists.ConfirmChoices
                     },
                     constraints: {},
@@ -246,7 +273,7 @@ class ApplicationCreateForm extends Component {
                         presence: {allowEmpty: false},
                     },
                     valid: true,
-                    value: '0233-0000-0000000-xxxx'
+                    value: null
                 },
                 referenceDocument: {
                     elementType: 'text',
@@ -262,8 +289,9 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'SSO',
-                        takes: 'number',
                         alien: true,
+                        endpoint: 'users',
+                        takes: 'number',
                         choices: this.props.application.users
                     },
                     constraints: {},
@@ -274,9 +302,10 @@ class ApplicationCreateForm extends Component {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
-                        takes: 'number',
                         label: 'Parent System',
                         alien: true,
+                        endpoint: 'parents',
+                        takes: 'number',
                         choices: this.props.application.parents
                     },
                     constraints: {},
@@ -288,8 +317,9 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         nameField: 'keyname',
                         label: 'Investment',
-                        takes: 'number',
                         alien: true,
+                        endpoint: 'investments',
+                        takes: 'number',
                         choices: this.props.application.investments
                     },
                     constraints: {},
@@ -302,6 +332,7 @@ class ApplicationCreateForm extends Component {
                         nameField: 'keyname',
                         label: 'Portfolio',
                         alien: true,
+                        endpoint: 'portfolios',
                         takes: 'number',
                         choices: this.props.application.portfolios
                     },
@@ -316,6 +347,7 @@ class ApplicationCreateForm extends Component {
                         label: 'FISMA System',
                         takes: 'number',
                         alien: true,
+                        endpoint: 'fismas',
                         choices: this.props.application.fismas
                     },
                     constraints: {},
@@ -329,6 +361,7 @@ class ApplicationCreateForm extends Component {
                         label: 'User Location',
                         takes: 'number',
                         alien: true,
+                        endpoint: 'userlocations',
                         choices: this.props.application.userlocations
                     },
                     constraints: {},
@@ -347,7 +380,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     value: null
                 },
                 applicationNotes: {
@@ -368,18 +401,8 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         label: 'Technologies',
                         alien: true,
-                        options: this.props.application.technologies
-                    },
-                    valid: true,
-                    value: []
-                },
-                capabilities: {
-                    id: 'capabilities',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Capabilties',
-                        alien: true,
-                        options: this.props.application.capabilities
+                        endpoint: 'technologies',
+                        choices: this.props.application.technologies
                     },
                     valid: true,
                     value: []
@@ -390,7 +413,20 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         label: 'Users',
                         alien: true,
-                        options: this.props.application.users
+                        endpoint: 'users',
+                        choices: this.props.application.users
+                    },
+                    valid: true,
+                    value: []
+                },
+                capabilities: {
+                    id: 'capabilities',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Capabilties',
+                        alien: true,
+                        endpoint: 'capabilities',
+                        choices: this.props.application.capabilities
                     },
                     valid: true,
                     value: []
@@ -401,7 +437,8 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         label: 'Business POCs',
                         alien: true,
-                        options: this.props.application.pocs
+                        endpoint: 'pocs',
+                        choices: this.props.application.pocs
                     },
                     valid: true,
                     value: []
@@ -412,7 +449,8 @@ class ApplicationCreateForm extends Component {
                     elementConfig: {
                         label: 'Technology POCs',
                         alien: true,
-                        options: this.props.application.pocs
+                        endpoint: 'pocs',
+                        choices: this.props.application.pocs
                     },
                     valid: true,
                     value: []
@@ -465,7 +503,6 @@ class ApplicationCreateForm extends Component {
     };
 
     save = () => {
-        this.props.saveApplicationStart();
         if (!this.state.isFormValid) {
             this.props.showNotification({message: 'Validation Error: Fix fields before continuing', type: 'warning'});
             const updatedCreateForm = {...this.state.createForm};
@@ -519,6 +556,29 @@ class ApplicationCreateForm extends Component {
             updatedCreateForm['keyname'] = updatedFormElement;
             this.setState({createForm: updatedCreateForm});
         }
+
+        const updateCreateForm = {...this.state.createForm};
+        for (let inputIdentifier in updateCreateForm) {
+            const updatedFormElem = {...updateCreateForm[inputIdentifier]};
+            if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
+                const updatedElemConfig = {...updateCreateForm[inputIdentifier].elementConfig};
+                updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
+                    nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+                updatedFormElem.elementConfig = updatedElemConfig;
+            }
+            updateCreateForm[inputIdentifier] = updatedFormElem;
+        }
+        const updatedMultiSelect = {...this.state.multipleSelect};
+        for (let inputIdentifier in updatedMultiSelect) {
+            const updatedFormElem = {...updatedMultiSelect[inputIdentifier]};
+            const updatedElemConfig = {...updatedFormElem.elementConfig};
+            updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
+                nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+            updatedFormElem.elementConfig = updatedElemConfig;
+            updatedMultiSelect[inputIdentifier] = updatedFormElem;
+        }
+        this.setState({createForm: updateCreateForm, multipleSelect: updatedMultiSelect});
+
     }
 
     handleSubmit (app, updatedApp) {
