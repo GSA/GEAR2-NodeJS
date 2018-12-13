@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/investments?count=10000';
 
 function* fetchInvestments(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchInvestments(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(investmentActions.loadInvestmentsSuccess(data));
     } catch (error) {
         yield put(investmentActions.loadInvestmentsFailed());

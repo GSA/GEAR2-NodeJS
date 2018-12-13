@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/pocs?count=10000';
 
 function* fetchPOCs(action) {
     try {
-        const data = yield call(() => {
+        let data = yield call(() => {
                 return fetch(URL, {
                     method: 'GET',
                     headers: new Headers({
@@ -19,7 +19,7 @@ function* fetchPOCs(action) {
                     .then(res => res.json())
             }
         );
-        sortArrayOfObjectByProp(data, 'keyname');
+        data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(pocActions.loadPOCsSuccess(data));
     } catch (error) {
         yield put(pocActions.loadPOCsFailed());
