@@ -178,6 +178,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         takes: 'number',
                         label: 'Application Platform',
+                        endpoint: 'platforms',
                         choices: this.props.application.platforms
                     },
                     constraints: {},
@@ -493,7 +494,6 @@ class ApplicationEditForm extends PureComponent {
             updatedEditForm.valid = true;
             updatedEditForm[inputIdentifier] = updatedFormElem;
         }
-        console.log(updatedEditForm);
         this.setState({editForm: updatedEditForm});
     }
 
