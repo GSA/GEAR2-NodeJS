@@ -56,8 +56,6 @@ class GMultiSelectControl extends Component {
         let valueForm = null;
         let vals = this.props.value.map(a => a.id);
 
-        console.log(vals);
-
         if (this.props.value) {
             valueForm = (
                 <div id={this.props.id}>
