@@ -5,6 +5,7 @@ import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
+import {sortArrayOfObjectByProp} from "../../shared/utility";
 
 
 class GMultiSelectControl extends Component {
@@ -75,7 +76,9 @@ class GMultiSelectControl extends Component {
             </div>
             );
         }
-
+        let choices;
+        if (this.props.alien) choices = sortArrayOfObjectByProp(this.props.choices, this.props.nameField);
+        else choices = this.props.choices;
         return (
             <div>
                 <InputLabel htmlFor={this.props.id} disabled={this.props.disabled === true}>{this.props.label}</InputLabel>
@@ -86,7 +89,7 @@ class GMultiSelectControl extends Component {
                         value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
                     <option value=" "/>
-                    {this.props.choices.map(data => {
+                    {choices.map(data => {
                         if(!vals.includes(data.id)) {
                             return (
                                 <option key={data.id} value={data.id}>{data.keyname}</option>
