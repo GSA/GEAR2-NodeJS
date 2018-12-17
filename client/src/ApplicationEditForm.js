@@ -357,20 +357,6 @@ class ApplicationEditForm extends PureComponent {
                     valid: true,
                     value: null
                 },
-                objAppUserlocId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'User Location',
-                        takes: 'number',
-                        alien: true,
-                        endpoint: 'userlocations',
-                        choices: this.props.application.userlocations
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
                 objApplicationStatusId: {
                     elementType: 'select',
                     elementConfig: {
