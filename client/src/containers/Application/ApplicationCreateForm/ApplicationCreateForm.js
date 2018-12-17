@@ -33,7 +33,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     touched: false,
                     value: null
                 },
@@ -55,7 +55,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 cloudIndicator: {
@@ -80,7 +80,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 mobileAppIndicator: {
@@ -131,7 +131,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 numberOfUsers: {
@@ -262,7 +262,7 @@ class ApplicationCreateForm extends Component {
                         presence: {allowEmpty: false},
                     },
                     valid: true,
-                    value: null
+                    value: '0233-0000-0000000-xxxx'
                 },
                 referenceDocument: {
                     elementType: 'text',
@@ -355,7 +355,7 @@ class ApplicationCreateForm extends Component {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 applicationNotes: {

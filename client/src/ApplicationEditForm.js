@@ -47,7 +47,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     touched: false,
                     value: null
                 },
@@ -69,7 +69,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 cloudIndicator: {
@@ -94,7 +94,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 mobileAppIndicator: {
@@ -145,7 +145,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 numberOfUsers: {
@@ -276,7 +276,7 @@ class ApplicationEditForm extends PureComponent {
                         presence: {allowEmpty: false},
                     },
                     valid: true,
-                    value: null
+                    value: '0233-0000-0000000-xxxx'
                 },
                 referenceDocument: {
                     elementType: 'text',
@@ -369,7 +369,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: true,
+                    valid: false,
                     value: null
                 },
                 technologies: {

@@ -55,7 +55,6 @@ function* saveApplication(action) {
  * @returns {IterableIterator<*>}
  */
 function* saveNewApplication(action) {
-    debugger;
     // Save the new application without the one-to-many fields
     try {
         const data = yield call(() => {
