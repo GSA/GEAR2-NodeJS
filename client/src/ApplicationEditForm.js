@@ -472,21 +472,24 @@ class ApplicationEditForm extends PureComponent {
                 type: 'info'
             })
         }
-        const updatedEditForm = {...this.state.editForm};
-        for (let inputIdentifier in updatedEditForm) {
-            const updatedFormElem = {...updatedEditForm[inputIdentifier]};
-            updatedFormElem.value = nextProps.application.application[inputIdentifier];
 
-            if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
-                const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
-                updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
-                    nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
-                updatedFormElem.elementConfig = updatedElemConfig;
+        if (nextProps.application.application.id && !this.state.loaded) {
+            const updatedEditForm = {...this.state.editForm};
+            for (let inputIdentifier in updatedEditForm) {
+                const updatedFormElem = {...updatedEditForm[inputIdentifier]};
+                updatedFormElem.value = nextProps.application.application[inputIdentifier];
+
+                if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
+                    const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
+                    updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
+                        nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+                    updatedFormElem.elementConfig = updatedElemConfig;
+                }
+                updatedEditForm.valid = true;
+                updatedEditForm[inputIdentifier] = updatedFormElem;
             }
-            updatedEditForm.valid = true;
-            updatedEditForm[inputIdentifier] = updatedFormElem;
+            this.setState({editForm: updatedEditForm, loaded: true});
         }
-        this.setState({editForm: updatedEditForm});
     }
 
     inputChangedHandler = (event, inputIdentifier) => {

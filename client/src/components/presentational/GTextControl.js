@@ -5,9 +5,9 @@ import FormControl from "@material-ui/core/FormControl/FormControl";
 
 const GTextControl = (field) => {
     let errHelperText = field.errHelperText;
-/*    if (!field.valid && field.touched && !field.errHelperText) {
+    if (!field.valid && field.touched && !field.errHelperText) {
         errHelperText = `${field.label} cannot be blank!`
-    }*/
+    }
     if (field.valid) {
         errHelperText = null;
     }
