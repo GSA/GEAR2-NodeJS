@@ -47,7 +47,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     touched: false,
                     value: null
                 },
@@ -69,7 +69,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     value: null
                 },
                 cloudIndicator: {
@@ -94,7 +94,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     value: null
                 },
                 mobileAppIndicator: {
@@ -145,7 +145,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     value: null
                 },
                 numberOfUsers: {
@@ -369,7 +369,7 @@ class ApplicationEditForm extends PureComponent {
                     constraints: {
                         presence: {allowEmpty: false},
                     },
-                    valid: false,
+                    valid: true,
                     value: null
                 },
                 technologies: {
