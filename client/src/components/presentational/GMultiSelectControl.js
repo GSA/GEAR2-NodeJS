@@ -38,17 +38,17 @@ class GMultiSelectControl extends Component {
         if (addedChip) {
             this.props.value.push(addedChip);
         }
-        this.forceUpdate();
+        this.setState({id: '', keyname: ''});
     }
 
-    handleDeleteChip(id) {
+    handleDeleteChip(id, keyname) {
         for(let i in this.props.value ) {
             if(this.props.value[i].id === +id) {
                 this.props.value.splice(i, 1);
                 break;
             }
         }
-        this.forceUpdate();
+        this.setState({id: id, keyname: keyname});
     }
 
 
@@ -66,7 +66,7 @@ class GMultiSelectControl extends Component {
                             <Chip
                                 key={data.id}
                                 label={data.keyname}
-                                onDelete={() => this.handleDeleteChip(data.id)}
+                                onDelete={() => this.handleDeleteChip(data.id, data.keyname)}
                                 onClick={this.props.handleChipClick}
                                 className="Chip"
                             />
