@@ -473,7 +473,7 @@ class ApplicationEditForm extends PureComponent {
             })
         }
 
-        if (nextProps.application.application.id && !this.state.loaded) {
+        if (nextProps.application.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
