@@ -32,6 +32,7 @@ class ApplicationCreateForm extends Component {
                     },
                     constraints: {
                         presence: {allowEmpty: false},
+                        length: {maximum: 150}
                     },
                     valid: false,
                     touched: false,
@@ -54,6 +55,7 @@ class ApplicationCreateForm extends Component {
                     },
                     constraints: {
                         presence: {allowEmpty: false},
+                        length: {maximum: 25}
                     },
                     valid: false,
                     value: null
@@ -260,6 +262,7 @@ class ApplicationCreateForm extends Component {
                     },
                     constraints: {
                         presence: {allowEmpty: false},
+                        length: {maximum: 30}
                     },
                     valid: true,
                     value: '0233-0000-0000000-xxxx'
@@ -449,12 +452,14 @@ class ApplicationCreateForm extends Component {
         updatedFormElement.value = event.target.value;
 
         const isValid = validate({
-            inputIdentifier: event.target.value
+            [inputIdentifier]: event.target.value
         }, {
-            inputIdentifier: updatedFormElement.constraints
+            [inputIdentifier]: updatedFormElement.constraints
         });
         updatedFormElement.valid = !isValid;
-        updatedFormElement.errHelperText = `${updatedFormElement.elementConfig.label} cannot be blank!`
+        if (isValid) {
+            updatedFormElement.errHelperText = isValid[inputIdentifier][0];
+        }
         updatedFormElement.touched = true;
         if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
             updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;

@@ -46,6 +46,7 @@ class ApplicationEditForm extends PureComponent {
                     },
                     constraints: {
                         presence: {allowEmpty: false},
+                        length: {maximum: 150}
                     },
                     valid: true,
                     touched: false,
@@ -68,6 +69,7 @@ class ApplicationEditForm extends PureComponent {
                     },
                     constraints: {
                         presence: {allowEmpty: false},
+                        length: {maximum: 25}
                     },
                     valid: true,
                     value: null
@@ -274,6 +276,7 @@ class ApplicationEditForm extends PureComponent {
                     },
                     constraints: {
                         presence: {allowEmpty: false},
+                        length: {maximum: 30}
                     },
                     valid: true,
                     value: '0233-0000-0000000-xxxx'
@@ -500,11 +503,14 @@ class ApplicationEditForm extends PureComponent {
         updatedFormElement.value = event.target.value;
 
         const isValid = validate({
-            inputIdentifier: event.target.value
+            [inputIdentifier]: event.target.value
         }, {
-            inputIdentifier: updatedFormElement.constraints
+            [inputIdentifier]: updatedFormElement.constraints
         });
         updatedFormElement.valid = !isValid;
+        if (isValid) {
+            updatedFormElement.errHelperText = isValid[inputIdentifier][0];
+        }
         updatedFormElement.touched = true;
         if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
             updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;
