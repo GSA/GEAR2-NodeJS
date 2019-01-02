@@ -10,6 +10,7 @@ module.exports = {
         const config =
             {
                 application: [
+                    'replacedby',
                     'capabilities',
                     'users',
                     'business_pocs',
@@ -31,7 +32,8 @@ module.exports = {
                     'piis',
                 ],
                 applicationMultiSelect: [
-                    'userLocations'
+                    'userLocations',
+                    'organizations'
                 ]
             };
         return modelClassName ? config[modelClassName] : config;

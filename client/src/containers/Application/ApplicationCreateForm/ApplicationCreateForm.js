@@ -276,20 +276,6 @@ class ApplicationCreateForm extends Component {
                     valid: true,
                     value: null
                 },
-                objOrgSsoId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'SSO',
-                        alien: true,
-                        endpoint: 'users',
-                        takes: 'number',
-                        choices: this.props.application.users
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
                 objParentSystemId: {
                     elementType: 'select',
                     elementConfig: {
@@ -543,8 +529,8 @@ class ApplicationCreateForm extends Component {
             const updatedFormElem = {...updateCreateForm[inputIdentifier]};
             if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
                 const updatedElemConfig = {...updateCreateForm[inputIdentifier].elementConfig};
-                updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
-                    nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+                updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
+                    nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
                 updatedFormElem.elementConfig = updatedElemConfig;
             }
             updateCreateForm[inputIdentifier] = updatedFormElem;
@@ -553,8 +539,8 @@ class ApplicationCreateForm extends Component {
         for (let inputIdentifier in updatedMultiSelect) {
             const updatedFormElem = {...updatedMultiSelect[inputIdentifier]};
             const updatedElemConfig = {...updatedFormElem.elementConfig};
-            updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
-                nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+            updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
+                nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
             updatedFormElem.elementConfig = updatedElemConfig;
             updatedMultiSelect[inputIdentifier] = updatedFormElem;
         }
@@ -599,7 +585,10 @@ class ApplicationCreateForm extends Component {
     }
 }
 
-const mapStateToProps = state => ({application: state.application, errMessage: state.application.errorMessage, exists: state.application.exists});
+const mapStateToProps = state => ({application: state.application,
+    staticRepo: state.staticRepo,
+    errMessage: state.application.errorMessage,
+    exists: state.application.exists});
 
 function mapDispatchToProps(dispatch) {
     return {

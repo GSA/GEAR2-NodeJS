@@ -130,15 +130,6 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             field: 'Reference_Document'
         },
-        objOrgSsoId: {
-            type: DataTypes.INTEGER(11),
-            allowNull: true,
-            references: {
-                model: 'obj_organization',
-                key: 'Id'
-            },
-            field: 'obj_org_SSO_Id'
-        },
         objParentSystemId: {
             type: DataTypes.INTEGER(11),
             allowNull: true,
@@ -223,6 +214,14 @@ module.exports = function (sequelize, DataTypes) {
         tableName: 'obj_application'
     });
     application.associate = function (models) {
+        // first 2, 'replacedby', are n:m self-joins
+        models.application.belongsToMany(models.applicationreplacedby, {
+            as: 'replacedby',
+            foreignKey: 'obj_application_Id',
+            otherKey: 'obj_application_Id1',
+            through: 'zk_application_replacedby',
+            timestamps: false,
+        });
 
         models.application.belongsToMany(models.capability, {
             as: 'capabilities',

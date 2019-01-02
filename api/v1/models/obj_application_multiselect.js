@@ -46,6 +46,14 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     applicationMultiSelect.associate = (models) => {
+        models.applicationMultiSelect.belongsToMany(models.organization, {
+            as: 'organizations',
+            foreignKey: 'obj_application_Id',
+            otherKey: 'obj_org_owner_Id',
+            through: 'zk_application_owning_org',
+            timestamps: false
+        });
+
         models.applicationMultiSelect.belongsToMany(models.userLocation, {
             as: 'userLocations',
             foreignKey: 'obj_application_Id',

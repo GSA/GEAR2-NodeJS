@@ -4,6 +4,7 @@ import * as types from '../actions/actionTypes';
 import * as host from './env';
 
 const applicationURL = host.target + '/api/v1/applications/';
+const applicationBusinessURL = host.target + '/api/v1/appmultiselects/';
 
 function* fetchApplication(action) {
     try {
@@ -94,8 +95,29 @@ function* saveNewApplication(action) {
     }
 }
 
+function* loadApplicationBusiness (action) {
+    try {
+        //const state = yield select(); <- if we need anything from the store here
+        console.log('AROGARA', applicationBusinessURL+action.id);
+        const data = yield call(() => {
+                return fetch(applicationBusinessURL + action.id, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt
+                    })
+                })
+                    .then(res => res.json())
+            }
+        );
+        yield put(appActions.loadApplicationBusinessSuccess(data));
+    } catch (error) {
+        yield put(appActions.loadApplicationBusinessFailed());
+    }
+}
+
 export default function* watchGetApplication(data) {
     yield takeLatest(types.LOAD_APPLICATION, fetchApplication);
+    yield takeLatest(types.LOAD_APPLICATION_BUSINESS, loadApplicationBusiness)
     yield takeLatest(types.SAVE_APPLICATION, saveApplication);
     yield takeLatest(types.SAVE_NEW_APPLICATION, saveNewApplication);
 }

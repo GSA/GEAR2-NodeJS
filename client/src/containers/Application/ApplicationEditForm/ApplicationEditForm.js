@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import {SimpleForm} from 'react-admin';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,14 +6,14 @@ import {
     loadApplication as loadApplicationAction,
     loadApplicationStart,
     saveApplicationStart
-} from "./actions/applicationActions";
-import {saveApplication as saveApplicationAction} from "./actions/applicationActions";
-import * as valueLists from "./valuelists";
+} from "../../../actions/applicationActions";
+import {saveApplication as saveApplicationAction} from "../../../actions/applicationActions";
+import * as valueLists from "../../../valuelists";
 import {withRouter} from "react-router";
-import Spinner from "./components/UI/Spinner/Spinner";
-import {removeDuplicates} from "./shared/utility";
+import Spinner from "../../../components/UI/Spinner/Spinner";
+import {removeDuplicates} from "../../../shared/utility";
 import validate from "validate.js";
-import Input from "./components/presentational/Input";
+import Input from "../../../components/presentational/Input";
 
 class ApplicationEditForm extends PureComponent {
 
@@ -182,7 +181,7 @@ class ApplicationEditForm extends PureComponent {
                         label: 'Application Platform',
                         endpoint: 'platforms',
                         alien: true,
-                        choices: this.props.application.platforms
+                        choices: this.props.staticRepo.platforms
                     },
                     constraints: {},
                     valid: true,
@@ -196,7 +195,7 @@ class ApplicationEditForm extends PureComponent {
                         label: 'Application Hosting Provider',
                         alien: true,
                         endpoint: 'providers',
-                        choices: this.props.application.providers
+                        choices: this.props.staticRepo.providers
                     },
                     constraints: {},
                     valid: true,
@@ -290,20 +289,6 @@ class ApplicationEditForm extends PureComponent {
                     valid: true,
                     value: null
                 },
-                objOrgSsoId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'SSO',
-                        alien: true,
-                        endpoint: 'users',
-                        takes: 'number',
-                        choices: this.props.application.users
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
                 objParentSystemId: {
                     elementType: 'select',
                     elementConfig: {
@@ -312,7 +297,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         endpoint: 'parents',
                         takes: 'number',
-                        choices: this.props.application.parents
+                        choices: this.props.staticRepo.parents
                     },
                     constraints: {},
                     valid: true,
@@ -326,7 +311,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         endpoint: 'investments',
                         takes: 'number',
-                        choices: this.props.application.investments
+                        choices: this.props.staticRepo.investments
                     },
                     constraints: {},
                     valid: true,
@@ -340,7 +325,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         endpoint: 'portfolios',
                         takes: 'number',
-                        choices: this.props.application.portfolios
+                        choices: this.props.staticRepo.portfolios
                     },
                     constraints: {},
                     valid: true,
@@ -354,7 +339,7 @@ class ApplicationEditForm extends PureComponent {
                         takes: 'number',
                         alien: true,
                         endpoint: 'fismas',
-                        choices: this.props.application.fismas
+                        choices: this.props.staticRepo.fismas
                     },
                     constraints: {},
                     valid: true,
@@ -383,7 +368,7 @@ class ApplicationEditForm extends PureComponent {
                         nameField: 'keyname',
                         alien: true,
                         endpoint: 'technologies',
-                        choices: this.props.application.technologies
+                        choices: this.props.staticRepo.technologies
                     },
                     valid: true,
                     value: []
@@ -396,7 +381,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'users',
-                        choices: this.props.application.users
+                        choices: this.props.staticRepo.users
                     },
                     valid: true,
                     value: []
@@ -409,7 +394,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'capabilities',
-                        choices: this.props.application.capabilities
+                        choices: this.props.staticRepo.capabilities
                     },
                     valid: true,
                     value: []
@@ -422,7 +407,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'pocs',
-                        choices: this.props.application.pocs
+                        choices: this.props.staticRepo.pocs
                     },
                     valid: true,
                     value: []
@@ -435,7 +420,7 @@ class ApplicationEditForm extends PureComponent {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'pocs',
-                        choices: this.props.application.pocs
+                        choices: this.props.staticRepo.pocs
                     },
                     valid: true,
                     value: []
@@ -476,16 +461,16 @@ class ApplicationEditForm extends PureComponent {
             })
         }
 
-        if (nextProps.application.application.id && !this.state.loaded && !nextProps.application.loading) {
+        if (nextProps.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
-                updatedFormElem.value = nextProps.application.application[inputIdentifier];
+                updatedFormElem.value = nextProps.application[inputIdentifier];
 
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
                     const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
-                    updatedElemConfig.choices = nextProps.application[updatedFormElem.elementConfig.endpoint] ?
-                        nextProps.application[updatedFormElem.elementConfig.endpoint] : [];
+                    updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
+                        nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
                     updatedFormElem.elementConfig = updatedElemConfig;
                 }
                 updatedEditForm.valid = true;
@@ -589,11 +574,7 @@ class ApplicationEditForm extends PureComponent {
                 })
             );
         }
-        return (
-            <SimpleForm record={this.state.editForm} resource="applications" save={this.save}>
-                {simpleForm}
-            </SimpleForm>
-        );
+        return simpleForm;
     }
 }
 
@@ -605,6 +586,7 @@ ApplicationEditForm.propTypes = {
 
 const mapStateToProps = state => ({
     application: state.application,
+    staticRepo: state.staticRepo,
     loaded: state.application.loaded,
     errMessage: state.application.errorMessage,
     loading: state.application.loading

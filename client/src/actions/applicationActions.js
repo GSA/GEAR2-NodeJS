@@ -27,7 +27,7 @@ export const loadApplicationFailed = () => {
 
 export const saveApplicationStart = () => {
     return {type: types.SAVE_APPLICATION_START};
-}
+};
 
 export const saveNewApplicationFailed = (errMessage) => {
     return {type: types.SAVE_NEW_APPLICATION_FAILURE, errorMessage: errMessage};
@@ -35,4 +35,20 @@ export const saveNewApplicationFailed = (errMessage) => {
 
 export const saveApplicationSuccess = () => {
     return {type: types.SAVE_APPLICATION_SUCCESS};
+};
+
+export function loadApplicationBusiness(id) {
+    return {type: types.LOAD_APPLICATION_BUSINESS, id: id};
 }
+
+export const loadApplicationBusinessStart = () => {
+    return {type: types.LOAD_APPLICATION_BUSINESS_START};
+};
+
+export const loadApplicationBusinessSuccess = (application) => {
+    return {type: types.LOAD_APPLICATION_BUSINESS_SUCCESS, application: application}
+};
+
+export const loadApplicationBusinessFailed = () => {
+    return {type: types.LOAD_APPLICATION_BUSINESS_FAILURE};
+};
