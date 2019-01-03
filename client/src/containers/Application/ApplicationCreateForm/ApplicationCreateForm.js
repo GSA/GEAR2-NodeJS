@@ -504,12 +504,6 @@ class ApplicationCreateForm extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (nextProps.errMessage) {
-            this.props.showNotification({
-                message: `Create Application Fail: ${nextProps.errMessage}`,
-                    type: 'warning'
-            })
-        }
         if (nextProps.application.saved) {
             this.props.history.push('/applications');
             this.props.showNotification({
@@ -588,7 +582,8 @@ class ApplicationCreateForm extends Component {
 const mapStateToProps = state => ({application: state.application,
     staticRepo: state.staticRepo,
     errMessage: state.application.errorMessage,
-    exists: state.application.exists});
+    exists: state.application.exists
+});
 
 function mapDispatchToProps(dispatch) {
     return {

@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 
 //action creator
-export function saveApplication(application) {
-    return {type: types.SAVE_APPLICATION, application};
+export function saveApplication(id) {
+    return {type: types.SAVE_APPLICATION, id};
 }
 
 export function saveNewApplication(application, updatedApplication) {
@@ -51,4 +51,8 @@ export const loadApplicationBusinessSuccess = (application) => {
 
 export const loadApplicationBusinessFailed = () => {
     return {type: types.LOAD_APPLICATION_BUSINESS_FAILURE};
+};
+
+export const updateFieldApp = (obj) => {
+    return {type: types.UPDATE_FIELD_APP, obj: obj}
 };

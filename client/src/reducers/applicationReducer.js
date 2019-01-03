@@ -11,10 +11,8 @@ export default function applicationReducer(state = {
     saved: false
 }, action) {
     switch (action.type) {
-        case
-        types.LOAD_APPLICATION_START
-        :
-            return Object.assign({}, state, {loading: true});
+        case types.LOAD_APPLICATION_START:
+            return Object.assign({}, state, {loading: true, called: true});
 
         case types.SAVE_NEW_APPLICATION_FAILURE:
             return Object.assign({}, state, {errorMessage: action.errorMessage});
@@ -39,6 +37,18 @@ export default function applicationReducer(state = {
 
         case types.DOES_EXIST_FAILURE:
             return Object.assign({}, state, {exists: false});
+
+        case types.UPDATE_FIELD_APP:
+            if (action.obj) {
+                const key = Object.keys(action.obj)[0];
+                return Object.assign({}, state, {[key]: action.obj[key].value})
+            } else {
+                return state;
+            }
+
+        case 'RA/RESET_FORM':
+            return Object.assign({}, state, {called: false});
+
         default:
             return state;
     }

@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import {
     loadApplicationBusiness as loadApplicationAction, loadApplicationBusinessStart,
 } from "../../../actions/applicationActions";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/presentational/Input";
-import {withRouter} from "react-router";
-import {connect} from 'react-redux';
+import { withRouter } from "react-router";
+import { connect } from 'react-redux';
 
 class ApplicationBusinessEdit extends Component {
     constructor (props) {
@@ -60,6 +60,13 @@ class ApplicationBusinessEdit extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.application.saved) {
+            this.props.history.push('/applications');
+            this.props.showNotification({
+                message: `Edit Application Success`,
+                type: 'info'
+            })
+        }
 
         if (nextProps.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
@@ -137,6 +144,7 @@ function mapDispatchToProps(dispatch) {
     return {
         loadApplicationBusiness: bindActionCreators(loadApplicationAction, dispatch),
         loadApplicationBusinessStart: bindActionCreators(loadApplicationBusinessStart, dispatch),
+        showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch),
     }
 }
 

@@ -1,26 +1,26 @@
-import React, {PureComponent} from "react";
+import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
     loadApplication as loadApplicationAction,
     loadApplicationStart,
-    saveApplicationStart
+    saveApplicationStart, updateFieldApp
 } from "../../../actions/applicationActions";
 import {saveApplication as saveApplicationAction} from "../../../actions/applicationActions";
 import * as valueLists from "../../../valuelists";
 import {withRouter} from "react-router";
 import Spinner from "../../../components/UI/Spinner/Spinner";
-import {removeDuplicates} from "../../../shared/utility";
 import validate from "validate.js";
 import Input from "../../../components/presentational/Input";
 
-class ApplicationEditForm extends PureComponent {
+class ApplicationEditForm extends Component {
 
     constructor(props) {
+
         super(props);
-        this.props.saveApplicationStart();
         this.props.loadApplicationStart();
+        this.props.saveApplicationStart();
         this.props.loadApplication(this.props.id);
         this.state = {
             loaded: false,
@@ -442,17 +442,12 @@ class ApplicationEditForm extends PureComponent {
         this.handleClick = this.handleClick.bind(this);
         this.inputChangedHandler = this.inputChangedHandler.bind(this);
 
-        this.save = this.save.bind(this);
+        //this.save = this.save.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
         console.log(nextProps);
-        if (nextProps.errMessage) {
-            this.props.showNotification({
-                message: `Edit Application Fail: ${nextProps.errMessage}`,
-                type: 'warning'
-            })
-        }
+
         if (nextProps.application.saved) {
             this.props.history.push('/applications');
             this.props.showNotification({
@@ -481,11 +476,13 @@ class ApplicationEditForm extends PureComponent {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
+
         const updatedEditForm = {
             ...this.state.editForm
         };
         const updatedFormElement = {...updatedEditForm[inputIdentifier]};
         updatedFormElement.value = event.target.value;
+        this.props.updateFieldApp({[inputIdentifier]: updatedFormElement});
 
         const isValid = validate({
             [inputIdentifier]: event.target.value
@@ -517,7 +514,7 @@ class ApplicationEditForm extends PureComponent {
         this.setState({editForm: updatedEditForm, isFormValid: isFormValid});
     };
 
-    save() {
+/*    save() {
         if (!this.state.isFormValid) {
             this.props.showNotification({message: 'Validation Error: Fix fields before continuing', type: 'warning'});
             const updatedEditForm = {...this.state.editForm};
@@ -540,7 +537,7 @@ class ApplicationEditForm extends PureComponent {
             }
             this.props.saveApplication(applicationForm);
         }
-    }
+    }*/
 
     handleClick(data) {
         //maybe pop-up with information about the technology or open new tab to tech page
@@ -597,10 +594,9 @@ function mapDispatchToProps(dispatch) {
         loadApplication: bindActionCreators(loadApplicationAction, dispatch),
         saveApplication: bindActionCreators(saveApplicationAction, dispatch),
         saveApplicationStart: bindActionCreators(saveApplicationStart, dispatch),
+        showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch),
         loadApplicationStart: bindActionCreators(loadApplicationStart, dispatch),
-        showNotification: bindActionCreators((payload) => {
-            return {type: 'RA/SHOW_NOTIFICATION', payload: payload}
-        }, dispatch)
+        updateFieldApp: bindActionCreators(updateFieldApp, dispatch),
     }
 }
 

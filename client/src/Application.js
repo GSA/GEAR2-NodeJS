@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     List, Edit, Create, Datagrid, TextField, EditButton, Filter
     , CardActions, CreateButton, RefreshButton
     , SimpleForm, DisabledInput, LongTextInput, TextInput, NumberInput
     , ReferenceInput, SelectInput
     , ArrayInput, SimpleFormIterator
-    , required, maxLength, minValue, maxValue, TabbedForm, FormTab
+    , required, maxLength, minValue, maxValue
 } from 'react-admin';
 import {ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, TierChoices} from './valuelists';
 import ApplicationEditForm from "./containers/Application/ApplicationEditForm/ApplicationEditForm";
 import ApplicationCreateForm from "./containers/Application/ApplicationCreateForm/ApplicationCreateForm";
 import ApplicationBusinessEdit from "./containers/Application/ApplicationEditForm/ApplicationBusinessEdit";
+import AppEdit from "./containers/Application/AppEdit";
 
 const styles = theme => ({
     container: {
@@ -78,7 +79,7 @@ export const ApplicationList = (props) => (
     </List>
 );
 
-const ApplicationTitle = ({record}) => {
+export const ApplicationTitle = ({record}) => {
     return <span>Application {record ? `"${record.keyname}"` : ''}</span>;
 };
 
@@ -306,24 +307,16 @@ export const ApplicationEditOld = (props) => (
     </Edit>
 );
 
-export const ApplicationEdit = (props) => (
-    <Edit keyname={<ApplicationTitle/>} {...props}>
-        <TabbedForm>
-            <FormTab label="General">
-                <ApplicationEditForm id={props.id}/>
-            </FormTab>
-            <FormTab label="Business" path="business">
-                <ApplicationBusinessEdit id={props.id} />
-            </FormTab>
-
-        </TabbedForm>
-    </Edit>
-);
-
 export const ApplicationCreate = (props) => (
     <Create keyname={<ApplicationTitle/>} {...props}>
         <ApplicationCreateForm id={props.id} {...props.application} />
     </Create>
+);
+
+export const ApplicationEdit = (props) => (
+    <Edit keyname={<ApplicationTitle/>} {...props}>
+        <AppEdit id={props.id} {...props} />
+    </Edit>
 );
 
 export const ApplicationCreateOld = (props) => (
@@ -446,3 +439,7 @@ export const ApplicationCreateOld = (props) => (
         </SimpleForm>
     </Create>
 );
+
+
+
+

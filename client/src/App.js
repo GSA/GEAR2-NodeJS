@@ -119,6 +119,7 @@ class App extends Component {
                     <Resource name="technologyreplacedbys"/>,
                     <Resource name="applicationreplacedbys"/>,
                     <Resource name="fismareplacedbys"/>,
+                    <Resource name="appmultiselects"/>
                 ]}
             </Admin>
         );

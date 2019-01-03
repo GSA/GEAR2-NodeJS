@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import './Styles.css';
+import {connect} from 'react-redux';
 import Chip from "@material-ui/core/Chip/Chip";
 import Select from "@material-ui/core/Select/Select";
 import Button from "@material-ui/core/Button/Button";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 import {sortArrayOfObjectByProp} from "../../shared/utility";
+import {bindActionCreators} from 'redux';
+import {updateFieldApp} from "../../actions/applicationActions";
 
 
 class GMultiSelectControl extends Component {
@@ -38,6 +41,7 @@ class GMultiSelectControl extends Component {
         if (addedChip) {
             this.props.value.push(addedChip);
         }
+        this.props.updateFieldApp({[this.props.endpoint]: {value: this.props.value}});
         this.setState({id: '', keyname: ''});
     }
 
@@ -48,10 +52,9 @@ class GMultiSelectControl extends Component {
                 break;
             }
         }
+        this.props.updateFieldApp({[this.props.endpoint]: {value: this.props.value}});
         this.setState({id: id, keyname: keyname});
     }
-
-
 
     render() {
         let valueForm = null;
@@ -107,4 +110,10 @@ class GMultiSelectControl extends Component {
     }
 }
 
-export default GMultiSelectControl;
+function mapDispatchToProps (dispatch) {
+    return {
+        updateFieldApp: bindActionCreators(updateFieldApp, dispatch)
+    }
+}
+
+export default connect(null, mapDispatchToProps)(GMultiSelectControl);
