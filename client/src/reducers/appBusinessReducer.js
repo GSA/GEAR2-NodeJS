@@ -9,10 +9,10 @@ export default function appBusinessReducer(state = {
 }, action) {
     switch (action.type) {
         case types.LOAD_APPLICATION_BUSINESS_START:
-            return Object.assign({}, state, {loading: true, called: true});
+            return Object.assign({}, state, {loading: true, called: false});
 
         case types.LOAD_APPLICATION_BUSINESS_SUCCESS:
-            return Object.assign({}, state, action.application, {loading: false});
+            return Object.assign({}, state, action.application, {loading: false, called: true});
 
         case types.SAVE_NEW_APPLICATION_FAILURE:
             return Object.assign({}, state, {errorMessage: action.errorMessage});

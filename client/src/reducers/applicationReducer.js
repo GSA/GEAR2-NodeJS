@@ -8,11 +8,12 @@ export default function applicationReducer(state = {
     technical_pocs: [],
     loading: false,
     errorMessage: null,
+    called: false,
     saved: false
 }, action) {
     switch (action.type) {
         case types.LOAD_APPLICATION_START:
-            return Object.assign({}, state, {loading: true, called: true});
+            return Object.assign({}, state, {loading: true, called: false});
 
         case types.SAVE_NEW_APPLICATION_FAILURE:
             return Object.assign({}, state, {errorMessage: action.errorMessage});
@@ -27,7 +28,7 @@ export default function applicationReducer(state = {
             return Object.assign({}, state, {errorMessage: null});
 
         case types.LOAD_APPLICATION_SUCCESS:
-            return Object.assign({}, state, action.application, {loading: false});
+            return Object.assign({}, state, action.application, {loading: false, called: true});
 
         case types.DOES_EXIST_INITIATE:
             return Object.assign({}, state, {exists: false});

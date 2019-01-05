@@ -315,7 +315,7 @@ export const ApplicationCreate = (props) => (
 
 export const ApplicationEdit = (props) => (
     <Edit keyname={<ApplicationTitle/>} {...props}>
-        <AppEdit id={props.id} {...props} />
+        <AppEdit id={props.id} {...props}/>
     </Edit>
 );
 

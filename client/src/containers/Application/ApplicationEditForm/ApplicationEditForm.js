@@ -13,436 +13,435 @@ import {withRouter} from "react-router";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import validate from "validate.js";
 import Input from "../../../components/presentational/Input";
+import './ApplicationEditForm.css'
 
 class ApplicationEditForm extends Component {
 
-    constructor(props) {
-
-        super(props);
-        this.props.loadApplicationStart();
-        this.props.saveApplicationStart();
-        this.props.loadApplication(this.props.id);
-        this.state = {
-            loaded: false,
-            editForm: {
-                id: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'ID',
-                        disabled: true
-                    },
-                    constraints: {},
-                    valid: true,
-                    touched: false,
-                    value: null
+    state = {
+        loaded: false,
+        editForm: {
+            id: {
+                elementType: 'text',
+                elementConfig: {
+                    label: 'ID',
+                    disabled: true
                 },
-                keyname: {
-                    elementType: 'text',
-                    elementConfig: {
-                        required: true,
-                        placeholder: 'Application Name',
-                        label: 'Application Name'
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                        length: {maximum: 150}
-                    },
-                    valid: true,
-                    touched: false,
-                    value: null
-                },
-                applicationAlias: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'Application Alias'
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                displayName: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'Short name will appear in graphic',
-                        required: true
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                        length: {maximum: 25}
-                    },
-                    valid: true,
-                    value: null
-                },
-                cloudIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'Cloud',
-                        takes: 'string',
-                        choices: valueLists.ConfirmChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                description: {
-                    elementType: 'text',
-                    elementConfig: {
-                        multiline: true,
-                        required: true,
-                        label: "Description"
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                    },
-                    valid: true,
-                    value: null
-                },
-                mobileAppIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'Mobile',
-                        takes: 'string',
-                        choices: valueLists.ConfirmChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                desktopIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        takes: 'string',
-                        label: 'Desktop',
-                        choices: valueLists.ConfirmChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                regionalClassification: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        takes: 'string',
-                        label: 'Regional Classification',
-                        choices: valueLists.RegionChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                applicationOrWebsite: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        takes: 'string',
-                        required: true,
-                        label: 'Application Or Website',
-                        choices: valueLists.AppOrWebChoices
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                    },
-                    valid: true,
-                    value: null
-                },
-                numberOfUsers: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        takes: 'number',
-                        label: 'Number of users',
-                        choices: valueLists.UserCountBreakdown
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                generateRevenueIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        takes: 'string',
-                        label: 'Generates Revenue',
-                        choices: valueLists.ConfirmChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objAppPlatformId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        takes: 'number',
-                        label: 'Application Platform',
-                        endpoint: 'platforms',
-                        alien: true,
-                        choices: this.props.staticRepo.platforms
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objAppHostingproviderId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        takes: 'number',
-                        label: 'Application Hosting Provider',
-                        alien: true,
-                        endpoint: 'providers',
-                        choices: this.props.staticRepo.providers
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                tier: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'Tier',
-                        takes: 'number',
-                        choices: valueLists.TierChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                productionYear: {
-                    elementType: 'text',
-                    elementConfig: {
-                        type: "number",
-                        label: 'Production Year'
-                    },
-                    constraints: {
-                        presence: {allowEmpty: true},
-                        numericality: {
-                            greaterThan: 1950,
-                            lessThan: 2050
-                        }
-                    },
-                    valid: true,
-                    value: null
-                },
-                retiredYear: {
-                    elementType: 'text',
-                    elementConfig: {
-                        type: "number",
-                        label: 'Retired Year'
-                    },
-                    constraints: {
-                        numericality: {
-                            greaterThan: 1950,
-                            lessThan: 2050
-                        },
-                        presence: {allowEmpty: true},
-                    },
-                    valid: true,
-                    value: null
-                },
-                url: {
-                    elementType: 'text',
-                    elementConfig: {
-                        type: "url",
-                        label: 'URL'
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                cuiIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'CUI',
-                        'takes': 'string',
-                        choices: valueLists.ConfirmChoices
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                uniqueIdentifierCode: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'Unique Identifier Code',
-                        required: true
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                        length: {maximum: 30}
-                    },
-                    valid: true,
-                    value: '0233-0000-0000000-xxxx'
-                },
-                referenceDocument: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'Reference Document'
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objParentSystemId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'Parent System',
-                        alien: true,
-                        endpoint: 'parents',
-                        takes: 'number',
-                        choices: this.props.staticRepo.parents
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objInvestmentId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'Investment',
-                        alien: true,
-                        endpoint: 'investments',
-                        takes: 'number',
-                        choices: this.props.staticRepo.investments
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objPortfolioId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'Portfolio',
-                        alien: true,
-                        endpoint: 'portfolios',
-                        takes: 'number',
-                        choices: this.props.staticRepo.portfolios
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objFismaId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'FISMA System',
-                        takes: 'number',
-                        alien: true,
-                        endpoint: 'fismas',
-                        choices: this.props.staticRepo.fismas
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objApplicationStatusId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'Application Status',
-                        takes: 'number',
-                        required: true,
-                        choices: valueLists.ApplicationStatuses
-                    },
-                    constraints: {
-                        presence: {allowEmpty: false},
-                    },
-                    valid: true,
-                    value: null
-                },
-                technologies: {
-                    id: 'technologies',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Technologies',
-                        nameField: 'keyname',
-                        alien: true,
-                        endpoint: 'technologies',
-                        choices: this.props.staticRepo.technologies
-                    },
-                    valid: true,
-                    value: []
-                },
-                users: {
-                    id: 'users',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Users',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'users',
-                        choices: this.props.staticRepo.users
-                    },
-                    valid: true,
-                    value: []
-                },
-                capabilities: {
-                    id: 'capabilities',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Capabilties',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'capabilities',
-                        choices: this.props.staticRepo.capabilities
-                    },
-                    valid: true,
-                    value: []
-                },
-                business_pocs: {
-                    id: 'business_pocs',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Business POCs',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs
-                    },
-                    valid: true,
-                    value: []
-                },
-                technical_pocs: {
-                    id: 'technical_pocs',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Technology POCs',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs
-                    },
-                    valid: true,
-                    value: []
-                },
-                applicationNotes: {
-                    elementType: 'text',
-                    elementConfig: {
-                        label: 'Application Notes',
-                        multiline: true
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                }
+                constraints: {},
+                valid: true,
+                touched: false,
+                value: null
             },
-            isFormValid: true
-        };
+            keyname: {
+                elementType: 'text',
+                elementConfig: {
+                    required: true,
+                    placeholder: 'Application Name',
+                    label: 'Application Name'
+                },
+                constraints: {
+                    presence: {allowEmpty: false},
+                    length: {maximum: 150}
+                },
+                valid: true,
+                touched: false,
+                value: null
+            },
+            applicationAlias: {
+                elementType: 'text',
+                elementConfig: {
+                    label: 'Application Alias'
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            displayName: {
+                elementType: 'text',
+                elementConfig: {
+                    label: 'Short name will appear in graphic',
+                    required: true
+                },
+                constraints: {
+                    presence: {allowEmpty: false},
+                    length: {maximum: 25}
+                },
+                valid: true,
+                value: null
+            },
+            cloudIndicator: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    label: 'Cloud',
+                    takes: 'string',
+                    choices: valueLists.ConfirmChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            description: {
+                elementType: 'text',
+                elementConfig: {
+                    multiline: true,
+                    required: true,
+                    label: "Description"
+                },
+                constraints: {
+                    presence: {allowEmpty: false},
+                },
+                valid: true,
+                value: null
+            },
+            mobileAppIndicator: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    label: 'Mobile',
+                    takes: 'string',
+                    choices: valueLists.ConfirmChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            desktopIndicator: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    takes: 'string',
+                    label: 'Desktop',
+                    choices: valueLists.ConfirmChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            regionalClassification: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    takes: 'string',
+                    label: 'Regional Classification',
+                    choices: valueLists.RegionChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            applicationOrWebsite: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    takes: 'string',
+                    required: true,
+                    label: 'Application Or Website',
+                    choices: valueLists.AppOrWebChoices
+                },
+                constraints: {
+                    presence: {allowEmpty: false},
+                },
+                valid: true,
+                value: null
+            },
+            numberOfUsers: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    takes: 'number',
+                    label: 'Number of users',
+                    choices: valueLists.UserCountBreakdown
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            generateRevenueIndicator: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    takes: 'string',
+                    label: 'Generates Revenue',
+                    choices: valueLists.ConfirmChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objAppPlatformId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'keyname',
+                    takes: 'number',
+                    label: 'Application Platform',
+                    endpoint: 'platforms',
+                    alien: true,
+                    choices: this.props.staticRepo.platforms
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objAppHostingproviderId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'keyname',
+                    takes: 'number',
+                    label: 'Application Hosting Provider',
+                    alien: true,
+                    endpoint: 'providers',
+                    choices: this.props.staticRepo.providers
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            tier: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    label: 'Tier',
+                    takes: 'number',
+                    choices: valueLists.TierChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            productionYear: {
+                elementType: 'text',
+                elementConfig: {
+                    type: "number",
+                    label: 'Production Year'
+                },
+                constraints: {
+                    presence: {allowEmpty: true},
+                    numericality: {
+                        greaterThan: 1950,
+                        lessThan: 2050
+                    }
+                },
+                valid: true,
+                value: null
+            },
+            retiredYear: {
+                elementType: 'text',
+                elementConfig: {
+                    type: "number",
+                    label: 'Retired Year'
+                },
+                constraints: {
+                    numericality: {
+                        greaterThan: 1950,
+                        lessThan: 2050
+                    },
+                    presence: {allowEmpty: true},
+                },
+                valid: true,
+                value: null
+            },
+            url: {
+                elementType: 'text',
+                elementConfig: {
+                    type: "url",
+                    label: 'URL'
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            cuiIndicator: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    label: 'CUI',
+                    'takes': 'string',
+                    choices: valueLists.ConfirmChoices
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            uniqueIdentifierCode: {
+                elementType: 'text',
+                elementConfig: {
+                    label: 'Unique Identifier Code',
+                    required: true
+                },
+                constraints: {
+                    presence: {allowEmpty: false},
+                    length: {maximum: 30}
+                },
+                valid: true,
+                value: '0233-0000-0000000-xxxx'
+            },
+            referenceDocument: {
+                elementType: 'text',
+                elementConfig: {
+                    label: 'Reference Document'
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objParentSystemId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'keyname',
+                    label: 'Parent System',
+                    alien: true,
+                    endpoint: 'parents',
+                    takes: 'number',
+                    choices: this.props.staticRepo.parents
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objInvestmentId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'keyname',
+                    label: 'Investment',
+                    alien: true,
+                    endpoint: 'investments',
+                    takes: 'number',
+                    choices: this.props.staticRepo.investments
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objPortfolioId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'keyname',
+                    label: 'Portfolio',
+                    alien: true,
+                    endpoint: 'portfolios',
+                    takes: 'number',
+                    choices: this.props.staticRepo.portfolios
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objFismaId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'keyname',
+                    label: 'FISMA System',
+                    takes: 'number',
+                    alien: true,
+                    endpoint: 'fismas',
+                    choices: this.props.staticRepo.fismas
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            },
+            objApplicationStatusId: {
+                elementType: 'select',
+                elementConfig: {
+                    nameField: 'name',
+                    label: 'Application Status',
+                    takes: 'number',
+                    required: true,
+                    choices: valueLists.ApplicationStatuses
+                },
+                constraints: {
+                    presence: {allowEmpty: false},
+                },
+                valid: true,
+                value: null
+            },
+            technologies: {
+                id: 'technologies',
+                elementType: 'multiselect',
+                elementConfig: {
+                    label: 'Technologies',
+                    nameField: 'keyname',
+                    alien: true,
+                    endpoint: 'technologies',
+                    choices: this.props.staticRepo.technologies
+                },
+                valid: true,
+                value: []
+            },
+            users: {
+                id: 'users',
+                elementType: 'multiselect',
+                elementConfig: {
+                    label: 'Users',
+                    alien: true,
+                    nameField: 'keyname',
+                    endpoint: 'users',
+                    choices: this.props.staticRepo.users
+                },
+                valid: true,
+                value: []
+            },
+            capabilities: {
+                id: 'capabilities',
+                elementType: 'multiselect',
+                elementConfig: {
+                    label: 'Capabilties',
+                    alien: true,
+                    nameField: 'keyname',
+                    endpoint: 'capabilities',
+                    choices: this.props.staticRepo.capabilities
+                },
+                valid: true,
+                value: []
+            },
+            business_pocs: {
+                id: 'business_pocs',
+                elementType: 'multiselect',
+                elementConfig: {
+                    label: 'Business POCs',
+                    alien: true,
+                    nameField: 'keyname',
+                    endpoint: 'pocs',
+                    choices: this.props.staticRepo.pocs
+                },
+                valid: true,
+                value: []
+            },
+            technical_pocs: {
+                id: 'technical_pocs',
+                elementType: 'multiselect',
+                elementConfig: {
+                    label: 'Technology POCs',
+                    alien: true,
+                    nameField: 'keyname',
+                    endpoint: 'pocs',
+                    choices: this.props.staticRepo.pocs
+                },
+                valid: true,
+                value: []
+            },
+            applicationNotes: {
+                elementType: 'text',
+                elementConfig: {
+                    label: 'Application Notes',
+                    multiline: true
+                },
+                constraints: {},
+                valid: true,
+                value: null
+            }
+        },
+        isFormValid: true,
+        invalidMessage: null
+    };
 
-        this.handleClick = this.handleClick.bind(this);
-        this.inputChangedHandler = this.inputChangedHandler.bind(this);
-
-        //this.save = this.save.bind(this);
+    componentDidMount() {
+        if (!this.props.application.called) {
+            this.props.saveApplicationStart();
+            this.props.loadApplicationStart();
+            this.props.loadApplication(this.props.id);
+        }
+        console.log(this.state);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -476,6 +475,7 @@ class ApplicationEditForm extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
+        let message;
 
         const updatedEditForm = {
             ...this.state.editForm
@@ -506,9 +506,14 @@ class ApplicationEditForm extends Component {
         let isFormValid = true;
         for (let inputIdentifier in updatedEditForm) {
             if (updatedEditForm[inputIdentifier].valid !== undefined) {
-                isFormValid = updatedEditForm[inputIdentifier].valid && isFormValid
+                isFormValid = updatedEditForm[inputIdentifier].valid && isFormValid;
+                if (!updatedEditForm[inputIdentifier].valid) {
+                    message = updatedEditForm[inputIdentifier].errHelperText;
+                }
             }
         }
+
+        this.props.fromParent(isFormValid, message);
 
         //create form should now have all elements including multiselect
         this.setState({editForm: updatedEditForm, isFormValid: isFormValid});
@@ -571,7 +576,9 @@ class ApplicationEditForm extends Component {
                 })
             );
         }
-        return simpleForm;
+        return (<div className="ApplicationEditForm">
+            {simpleForm}
+        </div>);
     }
 }
 

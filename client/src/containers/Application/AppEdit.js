@@ -4,17 +4,27 @@ import ApplicationBusinessEdit from "./ApplicationEditForm/ApplicationBusinessEd
 import React from "react";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {
-    Edit, TabbedForm, FormTab, CardActions, ShowButton
-} from 'react-admin';
+import './react-tabs.css'
 import {
     saveApplication, saveApplicationStart
 } from "../../actions/applicationActions";
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import {SaveButton} from 'react-admin';
 
 class AppEdit extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            valid: true,
+            message: null
+        }
     }
+
+    myCallback = (dataFromChild, message) => {
+        debugger;
+        this.setState({ valid: dataFromChild,  message: message});
+
+    };
 
     save = () => {
         this.props.saveApplication(this.props.id);
@@ -31,14 +41,25 @@ class AppEdit extends Component {
 
     render() {
         return (
-            <TabbedForm save={this.save}>
-                <FormTab label="General">
-                    <ApplicationEditForm id={this.props.id}/>
-                </FormTab>
-                <FormTab label="Business" path="business">
-                    <ApplicationBusinessEdit id={this.props.id}/>
-                </FormTab>
-            </TabbedForm>
+            <div>
+                <Tabs forceRenderTabPanel save={this.save}>
+                    <TabList>
+                        <Tab>Genreal</Tab>
+                        <Tab>Business</Tab>
+                    </TabList>
+                    <TabPanel>
+                        <ApplicationEditForm fromParent={this.myCallback} id={this.props.id} style={{padding: '10px'}}/>
+                    </TabPanel>
+                    <TabPanel>
+                        <ApplicationBusinessEdit id={this.props.id}/>
+                    </TabPanel>
+                </Tabs>
+
+                <SaveButton disabled={!this.state.valid} style={{margin: '0px 0px 0px 40px'}} onClick={this.save}/>
+                <div style={{margin: '0px 40px', color: 'salmon', fontSize: '70%'}}>
+                    <p>{this.state.message} </p>
+                </div>
+            </div>
         );
     }
 }
@@ -49,7 +70,9 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
     return {
-        showNotification: bindActionCreators((payload) => {return {type: 'RA/SHOW_NOTIFICATION', payload: payload}}, dispatch),
+        showNotification: bindActionCreators((payload) => {
+            return {type: 'RA/SHOW_NOTIFICATION', payload: payload}
+        }, dispatch),
         saveApplication: bindActionCreators(saveApplication, dispatch)
     }
 }

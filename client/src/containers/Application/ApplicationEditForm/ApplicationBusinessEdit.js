@@ -7,11 +7,13 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/presentational/Input";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
+import './ApplicationEditForm.css'
+import * as _ from 'underscore';
 
 class ApplicationBusinessEdit extends Component {
     constructor (props) {
         super (props);
-        if (!this.props.application.loaded) {
+        if (!this.props.application.called) {
             this.props.loadApplicationBusinessStart();
             this.props.loadApplicationBusiness(this.props.id);
         }
@@ -100,6 +102,10 @@ class ApplicationBusinessEdit extends Component {
         this.setState({editForm: updatedEditForm});
     };
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return !_.isEqual(nextProps, this.props);
+    }
+
     render () {
         let simpleForm = <Spinner/>;
         if (!this.props.application.loading) {
@@ -128,7 +134,9 @@ class ApplicationBusinessEdit extends Component {
                 })
             );
         }
-        return simpleForm;
+        return (<div className="ApplicationEditForm">
+            {simpleForm}
+        </div>);
     }
 }
 
