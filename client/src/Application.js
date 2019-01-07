@@ -79,12 +79,8 @@ export const ApplicationList = (props) => (
     </List>
 );
 
-export const ApplicationTitle = ({record}) => {
-    return <span>Application {record ? `"${record.keyname}"` : ''}</span>;
-};
-
 export const ApplicationEditOld = (props) => (
-    <Edit keyname={<ApplicationTitle/>} {...props}>
+    <Edit {...props}>
         <SimpleForm>
             <DisabledInput source="id"/>
             <TextInput source="keyname" label="Application Name" validate={[required(), maxLength(80)]}/>
@@ -308,16 +304,20 @@ export const ApplicationEditOld = (props) => (
 );
 
 export const ApplicationCreate = (props) => (
-    <Create keyname={<ApplicationTitle/>} {...props}>
+    <Create {...props}>
         <ApplicationCreateForm id={props.id} {...props.application} />
     </Create>
 );
 
 export const ApplicationEdit = (props) => (
-    <Edit keyname={<ApplicationTitle/>} {...props}>
+    <Edit title={<PostTitle/>} {...props}>
         <AppEdit id={props.id} {...props}/>
     </Edit>
 );
+
+const PostTitle = ({ record }) => {
+    return <span>Application {record ? `"${record.keyname}"` : ''}</span>;
+};
 
 export const ApplicationCreateOld = (props) => (
     <Create {...props}>
