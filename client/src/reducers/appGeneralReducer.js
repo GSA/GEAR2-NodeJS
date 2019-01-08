@@ -1,24 +1,19 @@
 import * as types from '../actions/actionTypes';
 
-export default function appBusinessReducer(state = {
-    business_pocs: [],
-    organizations: [],
-    capabilities: [],
-    users: [],
-    userLocations: [],
+export default function appGeneralReducer(state = {
     loading: false,
     called: false,
     saved: false,
     errorMessage: null
 }, action) {
     switch (action.type) {
-        case types.LOAD_APPLICATION_BUSINESS_START:
+        case types.LOAD_APPLICATION_GENERAL_START:
             return Object.assign({}, state, {loading: true, called: false});
 
-        case types.LOAD_APPLICATION_BUSINESS_SUCCESS:
+        case types.LOAD_APPLICATION_GENERAL_SUCCESS:
             return Object.assign({}, state, action.application, {loading: false, called: true});
 
-        case types.SAVE_APPLICATION_BUSINESS_FAILURE:
+        case types.SAVE_APPLICATION_GENERAL_FAILURE:
             return Object.assign({}, state, {errorMessage: action.errorMessage});
 
         case 'RA/HIDE_NOTIFICATION':
@@ -32,14 +27,17 @@ export default function appBusinessReducer(state = {
                 return state;
             }
 
-        case types.SAVE_APPLICATION_BUSINESS_START:
+        case types.SAVE_APPLICATION_GENERAL_START:
             return Object.assign({}, state, {saved: false});
 
-        case types.SAVE_APPLICATION_BUSINESS_SUCCESS:
+        case types.SAVE_APPLICATION_SUCCESS:
             return Object.assign({}, state, {saved: true});
 
         case 'RA/RESET_FORM':
             return Object.assign({}, state, {called: false});
+
+        case types.SAVE_APPLICATION_FAILED:
+            return Object.assign({}, state, {errorMessage: action.errorMessage});
 
         default:
             return state;

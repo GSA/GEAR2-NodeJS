@@ -37,6 +37,26 @@ export const saveApplicationSuccess = () => {
     return {type: types.SAVE_APPLICATION_SUCCESS};
 };
 
+export function loadApplicationGeneral(id) {
+    return {type: types.LOAD_APPLICATION_GENERAL, id: id};
+}
+
+export const loadApplicationGeneralStart = () => {
+    return {type: types.LOAD_APPLICATION_GENERAL_START};
+};
+
+export const loadApplicationGeneralSuccess = (application) => {
+    return {type: types.LOAD_APPLICATION_GENERAL_SUCCESS, application: application}
+};
+
+export const loadApplicationGeneralFailed = () => {
+    return {type: types.LOAD_APPLICATION_GENERAL_FAILURE};
+};
+
+export const saveApplicationGeneralFailed = (errMessage) => {
+    return {type: types.SAVE_APPLICATION_GENERAL_FAILURE, errorMessage: errMessage};
+};
+
 export function loadApplicationBusiness(id) {
     return {type: types.LOAD_APPLICATION_BUSINESS, id: id};
 }
@@ -53,6 +73,38 @@ export const loadApplicationBusinessFailed = () => {
     return {type: types.LOAD_APPLICATION_BUSINESS_FAILURE};
 };
 
+export const saveApplicationBusinessFailed = (errMessage) => {
+    return {type: types.SAVE_APPLICATION_BUSINESS_FAILURE, errorMessage: errMessage};
+};
+
+export function loadApplicationTechnology(id) {
+    return {type: types.LOAD_APPLICATION_TECHNOLOGY, id: id};
+}
+
+export const loadApplicationTechnologyStart = () => {
+    return {type: types.LOAD_APPLICATION_TECHNOLOGY_START};
+};
+
+export const loadApplicationTechnologySuccess = (application) => {
+    return {type: types.LOAD_APPLICATION_TECHNOLOGY_SUCCESS, application: application}
+};
+
+export const loadApplicationTechnologyFailed = () => {
+    return {type: types.LOAD_APPLICATION_TECHNOLOGY_FAILURE};
+};
+
+export const saveApplicationTechnologyFailed = (errMessage) => {
+    return {type: types.SAVE_APPLICATION_TECHNOLOGY_FAILURE, errorMessage: errMessage};
+};
+
 export const updateFieldApp = (obj) => {
     return {type: types.UPDATE_FIELD_APP, obj: obj}
+};
+
+export const saveApplicationFailed = (errMessage) => {
+    return {type: types.SAVE_APPLICATION_FAILED, errMessage: errMessage}
+};
+
+export const saveApplicationGeneralStart = () => {
+    return {type: types.SAVE_APPLICATION_GENERAL_START}
 };

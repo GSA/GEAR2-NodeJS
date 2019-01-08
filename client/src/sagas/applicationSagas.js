@@ -4,7 +4,9 @@ import * as types from '../actions/actionTypes';
 import * as host from './env';
 
 const applicationURL = host.target + '/api/v1/applications/';
-const applicationBusinessURL = host.target + '/api/v1/appmultiselects/';
+const applicationGeneralURL = host.target + '/api/v1/appsGeneral/';
+const applicationBusinessURL = host.target + '/api/v1/appsBusiness/';
+const applicationTechnologyURL = host.target + '/api/v1/appsTechnology/';
 
 function* fetchApplication(action) {
     try {
@@ -27,15 +29,12 @@ function* fetchApplication(action) {
 
 function* saveApplication(action) {
     const state = yield select();
+
     try {
-        if (state.application.called) {
-            const payloadGen = {...state.application};
-            delete payloadGen.loading;
-            delete payloadGen.errorMessage;
-            delete payloadGen.saved;
-            delete payloadGen.called;
+        if (state.appGeneral.called) {
+            const payloadGen = {...state.appGeneral};
             const dataGeneral = yield call(() => {
-                    return fetch(applicationURL + action.id, {
+                    return fetch(applicationGeneralURL + action.id, {
                         method: 'PUT',
                         headers: new Headers({
                             'Authorization': 'Bearer ' + localStorage.jwt,
@@ -51,15 +50,15 @@ function* saveApplication(action) {
                 }
             );
             if (dataGeneral.errors) {
-                dataGeneral.errors[0].message = "Application General Cannot Be Saved";
-                throw dataGeneral;
+                throw {
+                    error: 'appGeneral',
+                    message: dataGeneral.errors
+                };
             }
         }
 
         if (state.appBusiness.called) {
             const payloadBus = {...state.appBusiness};
-            delete payloadBus.loading;
-            delete payloadBus.called;
             const dataBusiness = yield call(() => {
                 debugger;
                     return fetch(applicationBusinessURL + action.id, {
@@ -77,14 +76,44 @@ function* saveApplication(action) {
                 }
             );
             if (dataBusiness.errors) {
-                dataBusiness.errors[0].message = "Application Business Cannot Be Saved";
-                throw dataBusiness;
+                throw {
+                    error: 'appBusiness',
+                    message: dataBusiness.errors
+                };
+            }
+        }
+        if (state.appTechnology.called) {
+            const payloadBus = {...state.appTechnology};
+            const dataTech = yield call(() => {
+                    debugger;
+                    return fetch(applicationBusinessURL + action.id, {
+                        method: 'PUT',
+                        headers: new Headers({
+                            'Authorization': 'Bearer ' + localStorage.jwt,
+                            "Content-Type": "application/json; charset=utf-8"
+                        }),
+                        body: JSON.stringify(payloadBus)
+                    })
+                        .then(res => {
+                            console.log('saved');
+                            return res.json()
+                        })
+                }
+            );
+            if (dataTech.errors) {
+                throw {
+                    error: 'dataTech',
+                    message: dataTech.errors
+                };
             }
         }
         yield put(appActions.saveApplicationSuccess());
         yield put({type: 'RA/REFRESH_VIEW'})
     } catch (error) {
-        yield put(appActions.saveNewApplicationFailed(error.errors[0].message));
+        if (error.error === 'dataGeneral') yield put(appActions.saveApplicationGeneralFailed(error));
+        else if (error.error === 'dataBusiness') yield put(appActions.saveApplicationBusinessFailed(error));
+        else if (error.error === 'dataTech') yield put(appActions.saveApplicationTechnologyFailed(error));
+        else put(appActions.saveApplicationFailed(error));
     }
 }
 
@@ -133,6 +162,26 @@ function* saveNewApplication(action) {
     }
 }
 
+function* loadApplicationGeneral (action) {
+    try {
+        //const state = yield select(); <- if we need anything from the store here
+
+        const data = yield call(() => {
+                return fetch(applicationGeneralURL + action.id, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt
+                    })
+                })
+                    .then(res => res.json())
+            }
+        );
+        yield put(appActions.loadApplicationGeneralSuccess(data));
+    } catch (error) {
+        yield put(appActions.loadApplicationGeneralFailed());
+    }
+}
+
 function* loadApplicationBusiness (action) {
     try {
         //const state = yield select(); <- if we need anything from the store here
@@ -153,11 +202,32 @@ function* loadApplicationBusiness (action) {
     }
 }
 
+function* loadApplicationTechnology (action) {
+    try {
+        //const state = yield select(); <- if we need anything from the store here
+
+        const data = yield call(() => {
+                return fetch(applicationTechnologyURL + action.id, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt
+                    })
+                })
+                    .then(res => res.json())
+            }
+        );
+        yield put(appActions.loadApplicationTechnologySuccess(data));
+    } catch (error) {
+        yield put(appActions.loadApplicationTechnologyFailed());
+    }
+}
 
 
 export default function* watchGetApplication(data) {
     yield takeLatest(types.LOAD_APPLICATION, fetchApplication);
-    yield takeLatest(types.LOAD_APPLICATION_BUSINESS, loadApplicationBusiness)
+    yield takeLatest(types.LOAD_APPLICATION_BUSINESS, loadApplicationBusiness);
+    yield takeLatest(types.LOAD_APPLICATION_GENERAL, loadApplicationGeneral);
+    yield takeLatest(types.LOAD_APPLICATION_TECHNOLOGY, loadApplicationTechnology);
     yield takeLatest(types.SAVE_APPLICATION, saveApplication);
     yield takeLatest(types.SAVE_NEW_APPLICATION, saveNewApplication);
 }

@@ -11,7 +11,7 @@ import {ConfirmChoices, RegionChoices, AppOrWebChoices, UserCountBreakdown, Tier
 import ApplicationEditForm from "./containers/Application/ApplicationEditForm/ApplicationEditForm";
 import ApplicationCreateForm from "./containers/Application/ApplicationCreateForm/ApplicationCreateForm";
 import ApplicationBusinessEdit from "./containers/Application/ApplicationEditForm/ApplicationBusinessEdit";
-import AppEdit from "./containers/Application/AppEdit";
+import AppEdit from "./containers/Application/ApplicationEdit/AppEdit";
 
 const styles = theme => ({
     container: {

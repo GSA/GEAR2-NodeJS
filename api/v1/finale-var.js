@@ -31,9 +31,16 @@ module.exports = {
                 applicationInterface: [
                     'piis',
                 ],
-                applicationMultiSelect: [
+                applicationBusiness: [
                     'userLocations',
-                    'organizations'
+                    'organizations',
+                    'business_pocs',
+                    'capabilities',
+                    'users'
+                ],
+                applicationTechnology: [
+                    'technical_pocs',
+                    'technologies'
                 ]
             };
         return modelClassName ? config[modelClassName] : config;
