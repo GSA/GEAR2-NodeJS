@@ -60,7 +60,6 @@ function* saveApplication(action) {
         if (state.appBusiness.called) {
             const payloadBus = {...state.appBusiness};
             const dataBusiness = yield call(() => {
-                debugger;
                     return fetch(applicationBusinessURL + action.id, {
                         method: 'PUT',
                         headers: new Headers({
@@ -85,8 +84,7 @@ function* saveApplication(action) {
         if (state.appTechnology.called) {
             const payloadBus = {...state.appTechnology};
             const dataTech = yield call(() => {
-                    debugger;
-                    return fetch(applicationBusinessURL + action.id, {
+                    return fetch(applicationTechnologyURL + action.id, {
                         method: 'PUT',
                         headers: new Headers({
                             'Authorization': 'Bearer ' + localStorage.jwt,
