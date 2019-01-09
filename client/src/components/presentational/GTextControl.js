@@ -14,29 +14,31 @@ const GTextControl = (field) => {
     }
 
     return (
-        <FormControl fullWidth >
-			<Tooltip title={field.tooltipText}>
-				<TextField
-					fullWidth
-					required={field.required}
-					disabled={field.disabled}
-					multiline={field.multiline}
-					id={field.id}
-					label={field.label}
-					placeholder={field.placeholder}
-					error={!field.valid && field.touched}
-					margin="normal"
-					value={field.value}
-					onBlur={field.handleBlur}
-					type={field.type}
-					helperText={errHelperText}
-					onChange={(e) => field.handleChange(e, field.id)}
-				/>
-				{field.valid}
-		
-			</Tooltip>
-            <br/>
-        </FormControl>
+
+        <div>
+            <FormControl fullWidth>
+                <Tooltip title={field.tooltipText}>
+                    <TextField
+                        fullWidth
+                        required={field.required}
+                        disabled={field.disabled}
+                        multiline={field.multiline}
+                        id={field.id}
+                        label={field.label}
+                        placeholder={field.placeholder}
+                        error={!field.valid && field.touched}
+                        margin="normal"
+                        value={field.value}
+                        onBlur={field.handleBlur}
+                        type={field.type}
+                        helperText={errHelperText}
+                        onChange={(e) => field.handleChange(e, field.id)}
+                    >
+                    </TextField>
+                </Tooltip>
+                <br/>
+            </FormControl>
+        </div>
     )
 };
 
