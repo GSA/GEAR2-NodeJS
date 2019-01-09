@@ -18,7 +18,13 @@ import LoginPage from './LoginPage';
 import LogoutButton from './LogoutButton';
 import Dashboard from './Dashboard';
 
+import staticRepo from './reducers/staticRepoReducer';
+import technology from './reducers/technologyReducer';
 import application from './reducers/applicationReducer';
+import appBusiness from './reducers/appBusinessReducer';
+import appGeneral from './reducers/appGeneralReducer';
+import appTechnology from './reducers/appTechnologyReducer';
+
 import applicationSaga from './sagas/applicationSagas';
 import technologySaga from './sagas/technologySagas';
 import userSaga from './sagas/usersSagas';
@@ -45,7 +51,7 @@ class App extends Component {
                 dashboard={Dashboard}
                 //currently react-admin doesn't work with combined reducers and using more than one obviously messes
                 //up the state so everything is sadly shoved into this one reducer
-                customReducers={{application}}
+                customReducers={{staticRepo, appTechnology, appGeneral, appBusiness}}
                 customSagas={[appLoadSaga, applicationSaga, technologySaga, userSaga, capabilitySagas, fismaSagas,
                     platformsSagas, portfolioSagas, investmentSagas, parentSagas, providersSagas, userLocationSagas, pocSagas, validationSagas]}
                 dataProvider={epilogueClient(`/api/v1`)}
@@ -115,6 +121,9 @@ class App extends Component {
                     <Resource name="technologyreplacedbys"/>,
                     <Resource name="applicationreplacedbys"/>,
                     <Resource name="fismareplacedbys"/>,
+                    <Resource name="appsGeneral"/>,
+                    <Resource name="appsBusiness"/>,
+                    <Resource name="appsTechnology"/>
                 ]}
             </Admin>
         );

@@ -13,6 +13,7 @@
     "react-jss": "^8.6.1",
     "react-router-redux": "^4.0.8",
     "react-scripts": "^2.1.1",
+    "react-tabs": "^3.0.0",
     "underscore": "^1.9.1",
     "validate.js": "^0.12.0"
   },

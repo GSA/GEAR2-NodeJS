@@ -9,7 +9,7 @@ const URL = host.target + '/api/v1/capabilities?count=10000';
 function* fetchCapabilities(action) {
     try {
         const state = yield select();
-        if(state.application.capabilities.length > 0) {
+        if(state.staticRepo.capabilities.length > 0) {
             cancel();
         }
         let data = yield call(() => {
@@ -25,6 +25,7 @@ function* fetchCapabilities(action) {
         data = sortArrayOfObjectByProp(data, 'keyname');
         yield put(capabilitiesActions.loadCapabilitiesSuccess(data));
     } catch (error) {
+        console.log('error caps', error);
         yield put(capabilitiesActions.loadCapabilitiesFailed());
     }
 }

@@ -130,15 +130,6 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             field: 'Reference_Document'
         },
-        objOrgSsoId: {
-            type: DataTypes.INTEGER(11),
-            allowNull: true,
-            references: {
-                model: 'obj_organization',
-                key: 'Id'
-            },
-            field: 'obj_org_SSO_Id'
-        },
         objParentSystemId: {
             type: DataTypes.INTEGER(11),
             allowNull: true,

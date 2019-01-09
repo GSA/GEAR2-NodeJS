@@ -6,32 +6,43 @@
  * Aliases are defined in model.associate blocks
  */
 module.exports = {
-  getModelIncludes: (modelClassName) => {
-      const config =
-      {
-        application: [
-          'replacedby',
-          'capabilities',
-          'users',
-          'business_pocs',
-          'technical_pocs',
-          'technologies',
-        ],
-        fisma: [
-          'fisma_artifacts',
-          'issm',
-          'isso',
-          'replaced_by',
-        ],
-        technology: [
-          'replaced_by',
-          'categories',
-          'pocs',
-        ],
-        applicationInterface: [
-          'piis',
-        ],
-      };
-      return modelClassName? config[modelClassName]: config;
+    getModelIncludes: (modelClassName) => {
+        const config =
+            {
+                application: [
+                    'replacedby',
+                    'capabilities',
+                    'users',
+                    'business_pocs',
+                    'technical_pocs',
+                    'technologies',
+                ],
+                fisma: [
+                    'fisma_artifacts',
+                    'issm',
+                    'isso',
+                    'replaced_by',
+                ],
+                technology: [
+                    'replaced_by',
+                    'categories',
+                    'pocs',
+                ],
+                applicationInterface: [
+                    'piis',
+                ],
+                applicationBusiness: [
+                    'userLocations',
+                    'organizations',
+                    'business_pocs',
+                    'capabilities',
+                    'users'
+                ],
+                applicationTechnology: [
+                    'technical_pocs',
+                    'technologies'
+                ]
+            };
+        return modelClassName ? config[modelClassName] : config;
     }
 }
