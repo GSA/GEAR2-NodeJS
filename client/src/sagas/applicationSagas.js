@@ -33,7 +33,7 @@ function* saveApplication(action) {
     const payloadBus = {...state.appBusiness};
     const payloadTech = {...state.appTechnology};
 
-    const [general, technical, business] = yield all ([
+    const [general, business, technical] = yield all ([
         call(() => {
                 return fetch(applicationGeneralURL + action.id, {
                     method: 'PUT',
@@ -45,8 +45,11 @@ function* saveApplication(action) {
                     body: JSON.stringify(payloadGen)
                 })
                     .then(res => {
-                        console.log('saved');
-                        return res.json()
+                        if (res.status !== 200) {
+                            return {errors: 'error'};
+                        } else {
+                            return res.json();
+                        }
                     })
             }
         ),
@@ -60,8 +63,11 @@ function* saveApplication(action) {
                     body: JSON.stringify(payloadBus)
                 })
                     .then(res => {
-                        console.log('saved');
-                        return res.json()
+                        if (res.status !== 200) {
+                            return {errors: 'error'};
+                        } else {
+                            return res.json();
+                        }
                     })
             }
         ),
@@ -75,16 +81,15 @@ function* saveApplication(action) {
                     body: JSON.stringify(payloadTech)
                 })
                     .then(res => {
-                        console.log('saved');
-                        return res.json()
+                        if (res.status !== 200) {
+                            return {errors: 'error'};
+                        } else {
+                            return res.json();
+                        }
                     })
             }
         )
     ]);
-
-    console.log('gen', general);
-    console.log('bus', business);
-    console.log('tech', technical);
 
     let errMessage = null;
 

@@ -40,12 +40,12 @@ class ApplicationBusinessTab extends Component {
                     id: 'organizations',
                     elementType: 'multiselect',
                     elementConfig: {
-                        label: 'SSO',
+                        label: 'Owning Organizations',
                         endpoint: 'users',
                         alien: true,
                         nameField: 'keyname',
                         choices: this.props.staticRepo.users,
-                        tooltipText: 'High level organization using/owning the application. '
+                        tooltipText: 'Organization Unit that funds, develops and maintains the application. '
                     },
                     valid: true,
                     value: []
@@ -86,7 +86,8 @@ class ApplicationBusinessTab extends Component {
                     elementType: 'text',
                     elementConfig: {
                         type: "number",
-                        label: 'Retired Year'
+                        label: 'Retired Year',
+                        tooltipText: 'Year the application entered retirement'
                     },
                     constraints: {
                         numericality: {

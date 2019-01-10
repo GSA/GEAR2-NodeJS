@@ -118,8 +118,8 @@ class GMultiSelectControl extends Component {
                             })}
                         </Select>
                     </Tooltip>
-                    <Fab size='small' color='primary' aria-label="Add">
-                        <AddIcon onClick={this.addChip}/>
+                    <Fab size='small' color='primary' aria-label="Add" onClick={this.addChip}>
+                        <AddIcon />
                     </Fab>
                 </FormControl>
 
