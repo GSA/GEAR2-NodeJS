@@ -69,8 +69,8 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.INTEGER(11),
             allowNull: true,
             references: {
-                model: 'obj_fisma',
-                key: 'Id'
+                model: 'fisma',
+                key: 'ex:GEAR_ID'
             },
             field: 'obj_fisma_Id'
         },

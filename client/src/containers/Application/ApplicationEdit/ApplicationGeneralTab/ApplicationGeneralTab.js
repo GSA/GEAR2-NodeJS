@@ -206,7 +206,7 @@ class ApplicationGeneralTab extends Component {
         }}>
             Something went wrong when saving this tab. Contact GEAR team!
         </Paper>
-        let simpleForm;
+        let simpleForm = <Spinner/>;
         if (!this.props.application.loading) {
             const formElements = [];
             const consolidatedForm = {...this.state.editForm};

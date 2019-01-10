@@ -162,7 +162,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             references: {
                 model: 'obj_fisma',
-                key: 'Id'
+                key: 'GEAR_ID'
             },
             field: 'obj_fisma_Id'
         },
