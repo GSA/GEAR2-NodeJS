@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import TextField from "@material-ui/core/TextField/TextField";
 import FormControl from "@material-ui/core/FormControl/FormControl";
+import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
 
 const GTextControl = (field) => {
     let errHelperText = field.errHelperText;
@@ -13,26 +14,31 @@ const GTextControl = (field) => {
     }
 
     return (
-        <FormControl fullWidth >
-            <TextField
-                fullWidth
-                required={field.required}
-                disabled={field.disabled}
-                multiline={field.multiline}
-                id={field.id}
-                label={field.label}
-                placeholder={field.placeholder}
-                error={!field.valid && field.touched}
-                margin="normal"
-                value={field.value}
-                onBlur={field.handleBlur}
-                type={field.type}
-                helperText={errHelperText}
-                onChange={(e) => field.handleChange(e, field.id)}
-            />
-            {field.valid}
-            <br/>
-        </FormControl>
+
+        <div>
+            <FormControl fullWidth>
+                <Tooltip title={field.tooltipText}>
+                    <TextField
+                        fullWidth
+                        required={field.required}
+                        disabled={field.disabled}
+                        multiline={field.multiline}
+                        id={field.id}
+                        label={field.label}
+                        placeholder={field.placeholder}
+                        error={!field.valid && field.touched}
+                        margin="normal"
+                        value={field.value}
+                        onBlur={field.handleBlur}
+                        type={field.type}
+                        helperText={errHelperText}
+                        onChange={(e) => field.handleChange(e, field.id)}
+                    >
+                    </TextField>
+                </Tooltip>
+                <br/>
+            </FormControl>
+        </div>
     )
 };
 

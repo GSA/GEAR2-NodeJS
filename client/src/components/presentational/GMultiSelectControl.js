@@ -9,6 +9,7 @@ import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 import {sortArrayOfObjectByProp} from "../../shared/utility";
 import {bindActionCreators} from 'redux';
 import {updateFieldApp} from "../../actions/applicationActions";
+import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
 
 
 class GMultiSelectControl extends Component {
@@ -92,6 +93,7 @@ class GMultiSelectControl extends Component {
                 <br/><br/>
                 {valueForm}
                 <br/>
+				<Tooltip title={this.props.tooltipText}>
                 <Select native
                         value={this.state.id}
                         onChange={(e) => this.updateSelected(e)}>
@@ -103,7 +105,8 @@ class GMultiSelectControl extends Component {
                             )
                         }
                     })}
-                </Select>&nbsp;&nbsp;
+                </Select>
+				</Tooltip>&nbsp;&nbsp;
                 <Button variant="outlined" onClick={this.addChip}>
                     Add
                 </Button>
