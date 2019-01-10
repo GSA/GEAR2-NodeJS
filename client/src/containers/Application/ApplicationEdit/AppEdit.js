@@ -14,6 +14,22 @@ import {SaveButton} from 'react-admin';
 import ApplicationGeneralTab from "./ApplicationGeneralTab/ApplicationGeneralTab";
 import ApplicationBusinessTab from "./ApplicationBusinessTab/ApplicationBusinessTab";
 import ApplicationTechnologyTab from "./ApplicationTechnologyTab/ApplicationTechnologyTab";
+import ErrorIcon from '@material-ui/icons/Report'
+
+const TabCustom = (props) => {
+    return (
+        <div style={{alignItems: 'center', display: 'flex'}}>
+            {props.label}
+            {props.showChip ? <ErrorIcon
+                    label="Not Saved"
+                    style={{
+                        margin: '10px',
+                        color: "#f44336"
+                    }}
+                /> : undefined }
+        </div>
+    )
+}
 
 class AppEdit extends Component {
     constructor(props) {
@@ -36,26 +52,27 @@ class AppEdit extends Component {
     componentWillReceiveProps(nextProps, nextContext) {
         if (nextProps.errMessageGeneral) {
             this.props.showNotification({
-                message: `Edit Application Fail; All tabs not saved.`,
+                message: `General Tab was not saved; contact GEAR Team`,
                 type: 'warning'
             })
-        } else if (nextProps.errMessageBusiness) {
+        }
+        if (nextProps.errMessageBusiness) {
             this.props.showNotification({
-                message: `Edit Application Fail; Business and Technology tabs not saved.`,
+                message: `Business Tab was not saved; contact GEAR Team`,
                 type: 'warning'
             })
-        } else if (nextProps.errMessageTech)
+        }
+        if (nextProps.errMessageTech)
             this.props.showNotification({
-                message: `Edit Application Fail; Technology tab not saved.`,
+                message: `Technology Tab was not saved; contact GEAR Team`,
                 type: 'warning'
             });
-        else if (nextProps.saved) {
+        if (nextProps.saved) {
             this.props.history.push('/applications');
             this.props.showNotification({
                 message: `Edit Application Success: All tabs saved`,
                 type: 'info'
             });
-
         }
     }
 
@@ -64,9 +81,9 @@ class AppEdit extends Component {
             <div>
                 <Tabs forceRenderTabPanel save={this.save}>
                     <TabList>
-                        <Tab>General</Tab>
-                        <Tab>Business</Tab>
-                        <Tab>Technology</Tab>
+                        <Tab><TabCustom label="General" showChip={this.props.saveFailedGeneral}/></Tab>
+                        <Tab><TabCustom label="Business" showChip={this.props.saveFailedBusiness}/></Tab>
+                        <Tab><TabCustom label="Technology" showChip={this.props.saveFailedTechnology}/></Tab>
                     </TabList>
                     <TabPanel>
                         <ApplicationGeneralTab fromParent={this.myCallback} id={this.props.id} style={{padding: '10px'}}/>
@@ -92,7 +109,11 @@ const mapStateToProps = state => ({
     errMessageGeneral: state.appGeneral.errorMessage,
     errMessageBusiness: state.appBusiness.errorMessage,
     errMessageTech: state.appTechnology.errorMessage,
-    saved: state.appGeneral.saved
+    saved: state.appGeneral.saved,
+
+    saveFailedGeneral: state.appGeneral.saveFailed,
+    saveFailedBusiness: state.appBusiness.saveFailed,
+    saveFailedTechnology: state.appTechnology.saveFailed
 });
 
 function mapDispatchToProps(dispatch) {

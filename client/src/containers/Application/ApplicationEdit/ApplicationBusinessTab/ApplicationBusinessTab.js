@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import {
     loadApplicationBusiness, loadApplicationBusinessStart, updateFieldApp
 } from "../../../../actions/applicationActions";
+import Paper from "@material-ui/core/Paper/Paper";
 
 class ApplicationBusinessTab extends Component {
     constructor(props) {
@@ -21,16 +22,18 @@ class ApplicationBusinessTab extends Component {
         this.props.loadApplicationBusiness(this.props.id);
         this.state = {
             editForm: {
-                id: {
-                    elementType: 'text',
+                business_pocs: {
+                    id: 'business_pocs',
+                    elementType: 'multiselect',
                     elementConfig: {
-                        label: 'ID',
-                        disabled: true
+                        label: 'Business POCs',
+                        alien: true,
+                        nameField: 'keyname',
+                        endpoint: 'pocs',
+                        choices: this.props.staticRepo.pocs
                     },
-                    constraints: {},
                     valid: true,
-                    touched: false,
-                    value: null
+                    value: []
                 },
                 objOrgSsoId: {
                     elementType: 'select',
@@ -45,6 +48,19 @@ class ApplicationBusinessTab extends Component {
                     constraints: {},
                     valid: true,
                     value: null
+                },
+                organizations: {
+                    id: 'organizations',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Two Letter Org',
+                        endpoint: 'users',
+                        alien: true,
+                        nameField: 'keyname',
+                        choices: this.props.staticRepo.users
+                    },
+                    valid: true,
+                    value: []
                 },
                 productionYear: {
                     elementType: 'text',
@@ -179,32 +195,6 @@ class ApplicationBusinessTab extends Component {
                     valid: true,
                     value: null
                 },
-                business_pocs: {
-                    id: 'business_pocs',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Business POCs',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs
-                    },
-                    valid: true,
-                    value: []
-                },
-                organizations: {
-                    id: 'organizations',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'SSO',
-                        endpoint: 'users',
-                        alien: true,
-                        nameField: 'keyname',
-                        choices: this.props.staticRepo.users
-                    },
-                    valid: true,
-                    value: []
-                },
                 userLocations: {
                     id: 'userLocations',
                     elementType: 'multiselect',
@@ -317,6 +307,12 @@ class ApplicationBusinessTab extends Component {
 
     render() {
         let simpleForm = <Spinner/>;
+        let paper = <Paper style={{
+            padding: '20px',
+            backgroundColor: "salmon"
+        }}>
+            Something went wrong when saving this tab. Contact GEAR team!
+        </Paper>
 
         if (!this.props.application.loading) {
             const formElements = [];
@@ -346,6 +342,7 @@ class ApplicationBusinessTab extends Component {
         }
         return (
             <div className="ApplicationGeneralTab">
+                {this.props.application.saveFailed ? paper : undefined}
                 {simpleForm}
             </div>
         )

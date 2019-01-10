@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import {
     loadApplicationGeneral, loadApplicationGeneralStart, updateFieldApp, saveApplicationGeneralStart
 } from "../../../../actions/applicationActions";
+import Paper from "@material-ui/core/Paper/Paper";
 
 class ApplicationGeneralTab extends Component {
     constructor (props) {
@@ -191,8 +192,13 @@ class ApplicationGeneralTab extends Component {
     }
 
     render () {
-        let simpleForm = <Spinner/>;
-
+        let paper = <Paper style={{
+            padding: '20px',
+            backgroundColor: "salmon"
+        }}>
+            Something went wrong when saving this tab. Contact GEAR team!
+        </Paper>
+        let simpleForm;
         if (!this.props.application.loading) {
             const formElements = [];
             const consolidatedForm = {...this.state.editForm};
@@ -221,6 +227,7 @@ class ApplicationGeneralTab extends Component {
         }
         return (
             <div className="ApplicationGeneralTab">
+                {this.props.application.saveFailed ? paper : undefined}
                 {simpleForm}
             </div>
         )

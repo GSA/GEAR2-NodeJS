@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from "@material-ui/core/es/FormControl/FormControl";
+import FormControl from "@material-ui/core/FormControl/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText/FormHelperText";
 import {sortArrayOfObjectByProp} from "../../shared/utility";
 
@@ -9,18 +9,19 @@ const GSelectControl = (field) => {
     let choices;
     if (field.alien) {
         choices = sortArrayOfObjectByProp(field.choices, field.nameField);
-        console.log(field, field.nameField);
-        console.log('choices', choices);
     }
     else choices = field.choices;
     return (
-        <div>
             <FormControl fullWidth required={field.required} error={!field.valid && field.touched}>
-            <InputLabel htmlFor={field.id} disabled={field.disabled === true}>{field.label}</InputLabel>
+            <InputLabel htmlFor={field.label} disabled={field.disabled === true}>{field.label}</InputLabel>
             <br/>
             <Select native fullWidth={true}
                     onChange={(e) => field.handleChange(e, field.id)}
-                    value={field.value === null ? '' : field.value}>
+                    value={field.value === null ? '' : field.value}
+                    inputProps={{
+                        id: field.label,
+                        name: field.label
+                    }}>
                 <option value=" "/>
 
                 {choices.map(data => {
@@ -33,7 +34,6 @@ const GSelectControl = (field) => {
                 {!field.valid && field.touched ? <FormHelperText> {field.label} cannot be blank! </FormHelperText> : null}
             <br/><br/>
             </FormControl>
-        </div>
     )
 };
 

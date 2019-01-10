@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects'
+import { call, put, select, all, takeLatest } from 'redux-saga/effects'
 import * as appActions from '../actions/applicationActions';
 import * as types from '../actions/actionTypes';
 import * as host from './env';
@@ -29,90 +29,88 @@ function* fetchApplication(action) {
 
 function* saveApplication(action) {
     const state = yield select();
+    const payloadGen = {...state.appGeneral};
+    const payloadBus = {...state.appBusiness};
+    const payloadTech = {...state.appTechnology};
 
-    try {
-        if (state.appGeneral.called) {
-            const payloadGen = {...state.appGeneral};
-            const dataGeneral = yield call(() => {
-                    return fetch(applicationGeneralURL + action.id, {
-                        method: 'PUT',
-                        headers: new Headers({
-                            'Authorization': 'Bearer ' + localStorage.jwt,
-                            "Content-Type": "application/json; charset=utf-8"
-                        }),
+    const [general, technical, business] = yield all ([
+        call(() => {
+                return fetch(applicationGeneralURL + action.id, {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
 
-                        body: JSON.stringify(payloadGen)
+                    body: JSON.stringify(payloadGen)
+                })
+                    .then(res => {
+                        console.log('saved');
+                        return res.json()
                     })
-                        .then(res => {
-                            console.log('saved');
-                            return res.json()
-                        })
-                }
-            );
-            if (dataGeneral.errors) {
-                throw {
-                    error: 'appGeneral',
-                    message: dataGeneral.errors
-                };
             }
-        }
+        ),
+        call(() => {
+                return fetch(applicationBusinessURL + action.id, {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
+                    body: JSON.stringify(payloadBus)
+                })
+                    .then(res => {
+                        console.log('saved');
+                        return res.json()
+                    })
+            }
+        ),
+        call(() => {
+                return fetch(applicationTechnologyURL + action.id, {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
+                    body: JSON.stringify(payloadTech)
+                })
+                    .then(res => {
+                        console.log('saved');
+                        return res.json()
+                    })
+            }
+        )
+    ]);
 
-        if (state.appBusiness.called) {
-            const payloadBus = {...state.appBusiness};
-            const dataBusiness = yield call(() => {
-                    return fetch(applicationBusinessURL + action.id, {
-                        method: 'PUT',
-                        headers: new Headers({
-                            'Authorization': 'Bearer ' + localStorage.jwt,
-                            "Content-Type": "application/json; charset=utf-8"
-                        }),
-                        body: JSON.stringify(payloadBus)
-                    })
-                        .then(res => {
-                            console.log('saved');
-                            return res.json()
-                        })
-                }
-            );
-            if (dataBusiness.errors) {
-                throw {
-                    error: 'appBusiness',
-                    message: dataBusiness.errors
-                };
-            }
-        }
-        if (state.appTechnology.called) {
-            const payloadBus = {...state.appTechnology};
-            const dataTech = yield call(() => {
-                    return fetch(applicationTechnologyURL + action.id, {
-                        method: 'PUT',
-                        headers: new Headers({
-                            'Authorization': 'Bearer ' + localStorage.jwt,
-                            "Content-Type": "application/json; charset=utf-8"
-                        }),
-                        body: JSON.stringify(payloadBus)
-                    })
-                        .then(res => {
-                            console.log('saved');
-                            return res.json()
-                        })
-                }
-            );
-            if (dataTech.errors) {
-                throw {
-                    error: 'dataTech',
-                    message: dataTech.errors
-                };
-            }
-        }
+    let errMessage = null;
+
+    if (general.errors) {
+        errMessage = 'err';
+        yield put(appActions.saveApplicationGeneralFailed('General'));
+    }
+    if (technical.errors) {
+        errMessage = 'err';
+        yield put(appActions.saveApplicationTechnologyFailed('Technology'));
+    }
+    if (business.errors) {
+        errMessage = 'err';
+        yield put(appActions.saveApplicationBusinessFailed('Businesss'))
+    }
+
+    if (!errMessage) {
         yield put(appActions.saveApplicationSuccess());
-        yield put({type: 'RA/REFRESH_VIEW'})
+    }
+
+
+
+    /*
     } catch (error) {
         if (error.error === 'dataGeneral') yield put(appActions.saveApplicationGeneralFailed(error));
         else if (error.error === 'dataBusiness') yield put(appActions.saveApplicationBusinessFailed(error));
         else if (error.error === 'dataTech') yield put(appActions.saveApplicationTechnologyFailed(error));
         else put(appActions.saveApplicationFailed(error));
     }
+    */
 }
 
 /**
