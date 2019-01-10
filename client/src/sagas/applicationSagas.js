@@ -82,6 +82,10 @@ function* saveApplication(action) {
         )
     ]);
 
+    console.log('gen', general);
+    console.log('bus', business);
+    console.log('tech', technical);
+
     let errMessage = null;
 
     if (general.errors) {

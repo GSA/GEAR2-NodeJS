@@ -12,6 +12,7 @@ import {bindActionCreators} from 'redux';
 import {updateFieldApp} from "../../actions/applicationActions";
 import './GMultiSelectControl.css'
 import FormControl from "@material-ui/core/FormControl/FormControl";
+import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
 
 
 class GMultiSelectControl extends Component {
@@ -97,7 +98,8 @@ class GMultiSelectControl extends Component {
                 <br/><br/>
                 {valueForm}
                 <br/>
-                <FormControl class='container' >
+                <FormControl class='container'>
+                    <Tooltip title={this.props.tooltipText}>
                         <Select native
                                 value={this.state.id}
                                 onChange={(e) => this.updateSelected(e)}
@@ -115,12 +117,14 @@ class GMultiSelectControl extends Component {
 
                             })}
                         </Select>
+                    </Tooltip>
                     <Fab size='small' color='primary' aria-label="Add">
-                        <AddIcon onClick={this.addChip} />
+                        <AddIcon onClick={this.addChip}/>
                     </Fab>
                 </FormControl>
 
                 {this.props.helper ? <FormHelperText>{this.props.helper}</FormHelperText> : null}
+
                 <br/>
             </div>
         )

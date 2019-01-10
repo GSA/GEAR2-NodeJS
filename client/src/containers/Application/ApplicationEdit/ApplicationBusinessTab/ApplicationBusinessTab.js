@@ -30,7 +30,22 @@ class ApplicationBusinessTab extends Component {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs
+                        choices: this.props.staticRepo.pocs,
+                        tooltipText: 'GSA person responsible for the requirements of the application, usually representing the user community.'
+                    },
+                    valid: true,
+                    value: []
+                },
+                organizations: {
+                    id: 'organizations',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'SSO',
+                        endpoint: 'users',
+                        alien: true,
+                        nameField: 'keyname',
+                        choices: this.props.staticRepo.users,
+                        tooltipText: 'High level organization using/owning the application. '
                     },
                     valid: true,
                     value: []
@@ -43,30 +58,19 @@ class ApplicationBusinessTab extends Component {
                         alien: true,
                         endpoint: 'users',
                         takes: 'number',
-                        choices: this.props.application.users
+                        choices: this.props.application.users,
+						tooltipText: 'High level organization using/owning the application.'
                     },
                     constraints: {},
                     valid: true,
                     value: null
                 },
-                organizations: {
-                    id: 'organizations',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Two Letter Org',
-                        endpoint: 'users',
-                        alien: true,
-                        nameField: 'keyname',
-                        choices: this.props.staticRepo.users
-                    },
-                    valid: true,
-                    value: []
-                },
                 productionYear: {
                     elementType: 'text',
                     elementConfig: {
                         type: "number",
-                        label: 'Production Year'
+                        label: 'Production Year',
+						tooltipText: 'Year the application entered production'
                     },
                     constraints: {
                         presence: {allowEmpty: true},
@@ -74,6 +78,22 @@ class ApplicationBusinessTab extends Component {
                             greaterThan: 1950,
                             lessThan: 2050
                         }
+                    },
+                    valid: true,
+                    value: null
+                },
+                retiredYear: {
+                    elementType: 'text',
+                    elementConfig: {
+                        type: "number",
+                        label: 'Retired Year'
+                    },
+                    constraints: {
+                        numericality: {
+                            greaterThan: 1950,
+                            lessThan: 2050
+                        },
+                        presence: {allowEmpty: true},
                     },
                     valid: true,
                     value: null
@@ -86,7 +106,8 @@ class ApplicationBusinessTab extends Component {
                         alien: true,
                         endpoint: 'investments',
                         takes: 'number',
-                        choices: this.props.staticRepo.investments
+                        choices: this.props.staticRepo.investments,
+						tooltipText: 'OMB Investment funding the application'
                     },
                     constraints: {},
                     valid: true,
@@ -98,7 +119,8 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'name',
                         takes: 'number',
                         label: 'Number of users',
-                        choices: valueLists.UserCountBreakdown
+                        choices: valueLists.UserCountBreakdown,
+						tooltipText: 'Approximately how many people use this application.'
                     },
                     constraints: {},
                     valid: true,
@@ -110,7 +132,8 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'name',
                         takes: 'string',
                         label: 'Regional Classification',
-                        choices: valueLists.RegionChoices
+                        choices: valueLists.RegionChoices,
+						tooltipText: 'Field used to create sub reports of applications'
                     },
                     constraints: {},
                     valid: true,
@@ -122,7 +145,8 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'name',
                         takes: 'string',
                         label: 'Generates Revenue',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.ConfirmChoices,
+						tooltipText: 'Does the application generate revenue?'
                     },
                     constraints: {},
                     valid: true,
@@ -134,7 +158,8 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'name',
                         label: 'Tier',
                         takes: 'number',
-                        choices: valueLists.TierChoices
+                        choices: valueLists.TierChoices,
+						tooltipText: 'Application Classification with respect to ownership/funding. '
                     },
                     constraints: {},
                     valid: true,
@@ -144,7 +169,8 @@ class ApplicationBusinessTab extends Component {
                     elementType: 'text',
                     elementConfig: {
                         type: "url",
-                        label: 'URL'
+                        label: 'URL',
+						tooltipText: 'url used to access the application'
                     },
                     constraints: {},
                     valid: true,
@@ -156,7 +182,8 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'name',
                         label: 'CUI',
                         'takes': 'string',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.ConfirmChoices,
+						tooltipText: 'Indicator whether the application has some pricacy/PII or CUI implications'
                     },
                     constraints: {},
                     valid: true,
@@ -170,7 +197,8 @@ class ApplicationBusinessTab extends Component {
                         alien: true,
                         endpoint: 'portfolios',
                         takes: 'number',
-                        choices: this.props.staticRepo.portfolios
+                        choices: this.props.staticRepo.portfolios,
+						tooltipText: 'Governance portfolio to which the application belongs'
                     },
                     constraints: {},
                     valid: true,
@@ -179,7 +207,8 @@ class ApplicationBusinessTab extends Component {
                 referenceDocument: {
                     elementType: 'text',
                     elementConfig: {
-                        label: 'Reference Document'
+                        label: 'Reference Document',
+						tooltipText: 'Link to the location where reference document is stored'
                     },
                     constraints: {},
                     valid: true,
@@ -189,7 +218,8 @@ class ApplicationBusinessTab extends Component {
                     elementType: 'text',
                     elementConfig: {
                         label: 'Application Notes',
-                        multiline: true
+                        multiline: true,
+						tooltipText: 'Used to describe notes regarding the Application'
                     },
                     constraints: {},
                     valid: true,
@@ -203,7 +233,8 @@ class ApplicationBusinessTab extends Component {
                         endpoint: 'userlocations',
                         alien: true,
                         nameField: 'keyname',
-                        choices: this.props.staticRepo.userLocations
+                        choices: this.props.staticRepo.userLocations,
+						tooltipText: 'Application user locations'
                     },
                     valid: true,
                     value: []
@@ -216,7 +247,8 @@ class ApplicationBusinessTab extends Component {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'capabilities',
-                        choices: this.props.staticRepo.capabilities
+                        choices: this.props.staticRepo.capabilities,
+						tooltipText: 'List of Business Capabilities supported by the application'
                     },
                     valid: true,
                     value: []
@@ -229,7 +261,8 @@ class ApplicationBusinessTab extends Component {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'users',
-                        choices: this.props.staticRepo.users
+                        choices: this.props.staticRepo.users,
+						tooltipText: 'Organizations using the application'
                     },
                     valid: true,
                     value: []

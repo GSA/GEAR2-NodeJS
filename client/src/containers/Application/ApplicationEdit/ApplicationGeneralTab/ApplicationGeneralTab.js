@@ -27,7 +27,8 @@ class ApplicationGeneralTab extends Component {
                     elementType: 'text',
                     elementConfig: {
                         label: 'ID',
-                        disabled: true
+                        disabled: true,
+						tooltipText: 'Application ID stored in GEAR'
                     },
                     constraints: {},
                     valid: true,
@@ -39,7 +40,8 @@ class ApplicationGeneralTab extends Component {
                     elementConfig: {
                         required: true,
                         placeholder: 'Application Name',
-                        label: 'Application Name'
+                        label: 'Application Name',
+						tooltipText: 'Name of the application'
                     },
                     constraints: {
                         presence: {allowEmpty: false},
@@ -52,7 +54,8 @@ class ApplicationGeneralTab extends Component {
                 applicationAlias: {
                     elementType: 'text',
                     elementConfig: {
-                        label: 'Application Alias'
+                        label: 'Application Alias',
+						tooltipText: 'Other names the application is used as '
                     },
                     constraints: {},
                     valid: true,
@@ -62,7 +65,8 @@ class ApplicationGeneralTab extends Component {
                     elementType: 'text',
                     elementConfig: {
                         label: 'Short name will appear in graphic',
-                        required: true
+                        required: true,
+						tooltipText: 'Short name of the application (non acronym)' 
                     },
                     constraints: {
                         presence: {allowEmpty: false},
@@ -76,7 +80,8 @@ class ApplicationGeneralTab extends Component {
                     elementConfig: {
                         multiline: true,
                         required: true,
-                        label: "Description"
+                        label: "Description",
+						tooltipText: 'Description of the applications including what function it supports what organizations are using it, etc.' 
                     },
                     constraints: {
                         presence: {allowEmpty: false},
@@ -91,7 +96,8 @@ class ApplicationGeneralTab extends Component {
                         label: 'Application Status',
                         takes: 'number',
                         required: true,
-                        choices: valueLists.ApplicationStatuses
+                        choices: valueLists.ApplicationStatuses,
+						tooltipText: 'Current status of the application'
                     },
                     constraints: {
                         presence: {allowEmpty: false},
@@ -106,7 +112,8 @@ class ApplicationGeneralTab extends Component {
                         takes: 'string',
                         required: true,
                         label: 'Application Or Website',
-                        choices: valueLists.AppOrWebChoices
+                        choices: valueLists.AppOrWebChoices,
+						tooltipText: 'Indicator of whether the object is an application or a website'
                     },
                     constraints: {
                         presence: {allowEmpty: false},
@@ -122,7 +129,8 @@ class ApplicationGeneralTab extends Component {
                         alien: true,
                         endpoint: 'parents',
                         takes: 'number',
-                        choices: this.props.staticRepo.parents
+                        choices: this.props.staticRepo.parents,
+						tooltipText: 'System the application is part of'
                     },
                     constraints: {},
                     valid: true,

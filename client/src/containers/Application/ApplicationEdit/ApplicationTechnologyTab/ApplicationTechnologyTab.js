@@ -31,7 +31,8 @@ class ApplicationTechnologyTab extends Component {
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs
+                        choices: this.props.staticRepo.pocs,
+                        tooltipText: 'GSA person responsible for the maintenance of the application.'
                     },
                     valid: true,
                     value: []
@@ -42,7 +43,8 @@ class ApplicationTechnologyTab extends Component {
                         nameField: 'name',
                         label: 'Cloud',
                         takes: 'string',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.ConfirmChoices,
+						tooltipText: 'Indicator of whether the application is cloud based or not'
                     },
                     constraints: {},
                     valid: true,
@@ -54,7 +56,8 @@ class ApplicationTechnologyTab extends Component {
                         nameField: 'name',
                         label: 'Mobile',
                         takes: 'string',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.ConfirmChoices,
+						tooltipText: 'Indicator of whether a mobile version of the application has been developed'
                     },
                     constraints: {},
                     valid: true,
@@ -66,7 +69,8 @@ class ApplicationTechnologyTab extends Component {
                         nameField: 'name',
                         takes: 'string',
                         label: 'Desktop',
-                        choices: valueLists.ConfirmChoices
+                        choices: valueLists.ConfirmChoices,
+						tooltipText: 'Does this Business Application have an installable Desktop Component?'
                     },
                     constraints: {},
                     valid: true,
@@ -80,7 +84,8 @@ class ApplicationTechnologyTab extends Component {
                         label: 'Application Platform',
                         endpoint: 'platforms',
                         alien: true,
-                        choices: this.props.staticRepo.platforms
+                        choices: this.props.staticRepo.platforms,
+						tooltipText: 'Refers to a capability used to provide a set of common services the enterprise uses to build business applications.'
                     },
                     constraints: {},
                     valid: true,
@@ -94,7 +99,8 @@ class ApplicationTechnologyTab extends Component {
                         label: 'Application Hosting Provider',
                         alien: true,
                         endpoint: 'providers',
-                        choices: this.props.staticRepo.providers
+                        choices: this.props.staticRepo.providers,
+						tooltipText: 'Who provides the physical infrastructure for this Business Application? '
                     },
                     constraints: {},
                     valid: true,
@@ -108,7 +114,8 @@ class ApplicationTechnologyTab extends Component {
                         takes: 'number',
                         alien: true,
                         endpoint: 'fismas',
-                        choices: this.props.staticRepo.fismas
+                        choices: this.props.staticRepo.fismas,
+						tooltipText: 'Name of the FISMA System that provides the ATO for this application/website. '
                     },
                     constraints: {},
                     valid: true,
@@ -122,7 +129,8 @@ class ApplicationTechnologyTab extends Component {
                         nameField: 'keyname',
                         alien: true,
                         endpoint: 'technologies',
-                        choices: this.props.staticRepo.technologies
+                        choices: this.props.staticRepo.technologies,
+						tooltipText: 'Technologies used by the application. Includes Operating System, database, application server, web server, programming language, etc.'
                     },
                     valid: true,
                     value: []
