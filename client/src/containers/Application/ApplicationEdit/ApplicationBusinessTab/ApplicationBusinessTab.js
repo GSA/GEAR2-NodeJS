@@ -292,8 +292,33 @@ class ApplicationBusinessTab extends Component {
             updatedFormElement.errHelperText = isValid[inputIdentifier][0];
         }
         updatedFormElement.touched = true;
-        if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
-            updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;
+        if (inputIdentifier === 'retiredYear') {
+            if (!isValid) {
+                const updatedElemProdYear = {...updatedEditForm['productionYear']};
+                const updatedElemProdYearConstraints = {...updatedElemProdYear.constraints};
+                const updatedElemProdYearConstraintsNumericality = {...updatedElemProdYearConstraints.numericality};
+                updatedElemProdYearConstraintsNumericality.lessThan = +event.target.value;
+                updatedElemProdYearConstraints.numericality = updatedElemProdYearConstraintsNumericality;
+                updatedElemProdYear.constraints = updatedElemProdYearConstraints;
+                updatedEditForm['productionYear'] = updatedElemProdYear;
+            }
+
+            if (updatedFormElement.value === "") {
+                updatedFormElement.value = null;
+                updatedFormElement.valid = true;
+            }
+        }
+        if (inputIdentifier === 'productionYear') {
+            if (!isValid) {
+                const updatedElemRetYear = {...updatedEditForm['retiredYear']};
+                const updatedElemRetYearConstraints = {...updatedElemRetYear.constraints};
+                const updatedElemRetYearConstraintsNumericality = {...updatedElemRetYearConstraints.numericality};
+                updatedElemRetYearConstraintsNumericality.greaterThan = +event.target.value;
+                updatedElemRetYearConstraints.numericality = updatedElemRetYearConstraintsNumericality;
+                updatedElemRetYear.constraints = updatedElemRetYearConstraints;
+                updatedEditForm['retiredYear'] = updatedElemRetYear;
+            }
+
             if (updatedFormElement.value === "") {
                 updatedFormElement.value = null;
                 updatedFormElement.valid = true;
@@ -319,7 +344,7 @@ class ApplicationBusinessTab extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
 
-        if (!nextProps.application.loading) {
+        if (nextProps.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
