@@ -228,7 +228,8 @@ class ApplicationEditForm extends Component {
                 elementType: 'text',
                 elementConfig: {
                     type: "number",
-                    label: 'Retired Year'
+                    label: 'Retired Year',
+                    tooltipText: 'Year the application entered retirement'
                 },
                 constraints: {
                     numericality: {

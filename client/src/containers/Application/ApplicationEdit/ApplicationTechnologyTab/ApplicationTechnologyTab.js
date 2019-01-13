@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import {
     loadApplicationTechnology, loadApplicationTechnologyStart, updateFieldApp
 } from "../../../../actions/applicationActions";
+import Paper from "@material-ui/core/Paper/Paper";
 
 class ApplicationTechnologyTab extends Component {
     constructor(props) {
@@ -22,17 +23,19 @@ class ApplicationTechnologyTab extends Component {
 
         this.state = {
             editForm: {
-                id: {
-                    elementType: 'text',
+                technical_pocs: {
+                    id: 'technical_pocs',
+                    elementType: 'multiselect',
                     elementConfig: {
-                        label: 'ID',
-                        disabled: true,
-						tooltipText: 'Application ID stored in GEAR'
+                        label: 'Technology POCs',
+                        alien: true,
+                        nameField: 'keyname',
+                        endpoint: 'pocs',
+                        choices: this.props.staticRepo.pocs,
+                        tooltipText: 'GSA person responsible for the maintenance of the application.'
                     },
-                    constraints: {},
                     valid: true,
-                    touched: false,
-                    value: null
+                    value: []
                 },
                 cloudIndicator: {
                     elementType: 'select',
@@ -118,20 +121,6 @@ class ApplicationTechnologyTab extends Component {
                     valid: true,
                     value: null
                 },
-                technical_pocs: {
-                    id: 'technical_pocs',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Technology POCs',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs,
-						tooltipText: 'GSA person responsible for the maintenance of the application.'
-                    },
-                    valid: true,
-                    value: []
-                },
                 technologies: {
                     id: 'technologies',
                     elementType: 'multiselect',
@@ -213,6 +202,11 @@ class ApplicationTechnologyTab extends Component {
 
     render() {
         let simpleForm = <Spinner/>;
+        let paper = <Paper style={{
+            padding: '20px',
+            backgroundColor: "salmon"
+        }}>
+            Something went wrong when saving this tab. Contact GEAR team! </Paper>
 
         if (!this.props.application.loading) {
             const formElements = [];
@@ -242,6 +236,7 @@ class ApplicationTechnologyTab extends Component {
         }
         return (
             <div className="ApplicationTechnologyTab">
+                {this.props.application.saveFailed ? paper : undefined}
                 {simpleForm}
             </div>
         )

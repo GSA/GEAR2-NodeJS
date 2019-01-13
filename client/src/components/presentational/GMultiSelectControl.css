@@ -1,0 +1,27 @@
+.GMultiSelect {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 100%;
+    text-align: left;
+    background-color: rgba(24, 61, 252, 0.04);
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.GMultiSelect Select {
+    min-width: 500px;
+}
+
+.GMultiSelect button  {
+    margin: 10px;
+}
+
+.GMultiSelect div Chip {
+    background-color: #0f0f0f;
+}
+
+@media (min-width: 600px) {
+    .GMultiSelect {
+        width: 100%;
+    }
+}

@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import {
     loadApplicationBusiness, loadApplicationBusinessStart, updateFieldApp
 } from "../../../../actions/applicationActions";
+import Paper from "@material-ui/core/Paper/Paper";
 
 class ApplicationBusinessTab extends Component {
     constructor(props) {
@@ -21,17 +22,33 @@ class ApplicationBusinessTab extends Component {
         this.props.loadApplicationBusiness(this.props.id);
         this.state = {
             editForm: {
-                id: {
-                    elementType: 'text',
+                business_pocs: {
+                    id: 'business_pocs',
+                    elementType: 'multiselect',
                     elementConfig: {
-                        label: 'ID',
-                        disabled: true,
-						tooltipText: 'Application ID stored in GEAR'
+                        label: 'Business POCs',
+                        alien: true,
+                        nameField: 'keyname',
+                        endpoint: 'pocs',
+                        choices: this.props.staticRepo.pocs,
+                        tooltipText: 'GSA person responsible for the requirements of the application, usually representing the user community.'
                     },
-                    constraints: {},
                     valid: true,
-                    touched: false,
-                    value: null
+                    value: []
+                },
+                organizations: {
+                    id: 'organizations',
+                    elementType: 'multiselect',
+                    elementConfig: {
+                        label: 'Owning Organizations',
+                        endpoint: 'users',
+                        alien: true,
+                        nameField: 'keyname',
+                        choices: this.props.staticRepo.users,
+                        tooltipText: 'Organization Unit that funds, develops and maintains the application. '
+                    },
+                    valid: true,
+                    value: []
                 },
                 objOrgSsoId: {
                     elementType: 'select',
@@ -61,6 +78,23 @@ class ApplicationBusinessTab extends Component {
                             greaterThan: 1950,
                             lessThan: 2050
                         }
+                    },
+                    valid: true,
+                    value: null
+                },
+                retiredYear: {
+                    elementType: 'text',
+                    elementConfig: {
+                        type: "number",
+                        label: 'Retired Year',
+                        tooltipText: 'Year the application entered retirement'
+                    },
+                    constraints: {
+                        numericality: {
+                            greaterThan: 1950,
+                            lessThan: 2050
+                        },
+                        presence: {allowEmpty: true},
                     },
                     valid: true,
                     value: null
@@ -192,34 +226,6 @@ class ApplicationBusinessTab extends Component {
                     valid: true,
                     value: null
                 },
-                business_pocs: {
-                    id: 'business_pocs',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'Business POCs',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs,
-						tooltipText: 'GSA person responsible for the requirements of the application, usually representing the user community.'
-                    },
-                    valid: true,
-                    value: []
-                },
-                organizations: {
-                    id: 'organizations',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        label: 'SSO',
-                        endpoint: 'users',
-                        alien: true,
-                        nameField: 'keyname',
-                        choices: this.props.staticRepo.users,
-						tooltipText: 'High level organization using/owning the application. '
-                    },
-                    valid: true,
-                    value: []
-                },
                 userLocations: {
                     id: 'userLocations',
                     elementType: 'multiselect',
@@ -286,8 +292,33 @@ class ApplicationBusinessTab extends Component {
             updatedFormElement.errHelperText = isValid[inputIdentifier][0];
         }
         updatedFormElement.touched = true;
-        if (inputIdentifier === 'retiredYear' || inputIdentifier === 'productionYear') {
-            updatedFormElement.errHelperText = `${inputIdentifier} must be between 1950 and 2050`;
+        if (inputIdentifier === 'retiredYear') {
+            if (!isValid) {
+                const updatedElemProdYear = {...updatedEditForm['productionYear']};
+                const updatedElemProdYearConstraints = {...updatedElemProdYear.constraints};
+                const updatedElemProdYearConstraintsNumericality = {...updatedElemProdYearConstraints.numericality};
+                updatedElemProdYearConstraintsNumericality.lessThan = +event.target.value;
+                updatedElemProdYearConstraints.numericality = updatedElemProdYearConstraintsNumericality;
+                updatedElemProdYear.constraints = updatedElemProdYearConstraints;
+                updatedEditForm['productionYear'] = updatedElemProdYear;
+            }
+
+            if (updatedFormElement.value === "") {
+                updatedFormElement.value = null;
+                updatedFormElement.valid = true;
+            }
+        }
+        if (inputIdentifier === 'productionYear') {
+            if (!isValid) {
+                const updatedElemRetYear = {...updatedEditForm['retiredYear']};
+                const updatedElemRetYearConstraints = {...updatedElemRetYear.constraints};
+                const updatedElemRetYearConstraintsNumericality = {...updatedElemRetYearConstraints.numericality};
+                updatedElemRetYearConstraintsNumericality.greaterThan = +event.target.value;
+                updatedElemRetYearConstraints.numericality = updatedElemRetYearConstraintsNumericality;
+                updatedElemRetYear.constraints = updatedElemRetYearConstraints;
+                updatedEditForm['retiredYear'] = updatedElemRetYear;
+            }
+
             if (updatedFormElement.value === "") {
                 updatedFormElement.value = null;
                 updatedFormElement.valid = true;
@@ -313,7 +344,7 @@ class ApplicationBusinessTab extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
 
-        if (!nextProps.application.loading) {
+        if (nextProps.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
@@ -335,6 +366,12 @@ class ApplicationBusinessTab extends Component {
 
     render() {
         let simpleForm = <Spinner/>;
+        let paper = <Paper style={{
+            padding: '20px',
+            backgroundColor: "salmon"
+        }}>
+            Something went wrong when saving this tab. Contact GEAR team!
+        </Paper>
 
         if (!this.props.application.loading) {
             const formElements = [];
@@ -364,6 +401,7 @@ class ApplicationBusinessTab extends Component {
         }
         return (
             <div className="ApplicationGeneralTab">
+                {this.props.application.saveFailed ? paper : undefined}
                 {simpleForm}
             </div>
         )

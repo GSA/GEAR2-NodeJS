@@ -7,144 +7,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
-      field: 'Id'
+      field: 'ex:GEAR_ID'
     },
     keyname: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: 'Keyname'
+      field: 'ex:System_Name'
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'Description'
-    },
-    fismaSysId: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'FISMA_Sys_Id'
-    },
-    fedCtrLocated: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'Fed_Ctr_Located'
-    },
-    atoDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      field: 'ATODate'
-    },
-    interimAto: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'Interim_ATO'
-    },
-    atoRenewalDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      field: 'ATO_Renewal_Date'
-    },
-    inactiveDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      field: 'InactiveDate'
-    },
-    currentFyFismaAssessment: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'Current_FY_FISMA_Assessment'
-    },
-    pii: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'PII'
-    },
-    cloudHosted: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'CloudHosted'
-    },
-    comments: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      field: 'Comments'
-    },
-    authorizingOfficialId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-	  references: {
-        model: 'obj_poc',
-        key: 'Id'
-      },
-      field: 'obj_poc_ao_Id'
-    },
-    systemOwnerId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-	  references: {
-        model: 'obj_poc',
-        key: 'Id'
-      },
-      field: 'obj_poc_so_Id'
-    },
-    fscloudstId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      field: 'obj_fscloudst_Id'
-    },
-    fscloudspId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      field: 'obj_fscloudst_Id'
-    },
-    atoTypeId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      field: 'obj_atotype_Id'
-    },
-    ssoId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      references: {
-        model: 'obj_organization',
-        key: 'Id'
-      },
-      field: 'obj_organization_Id'
-    },
-    scImpactLevelId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      field: 'obj_scimpactlevel_Id'
-    },
-    createDtg: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW(),
-      field: 'CreateDTG'
-    },
-    changeDtg: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW(),
-      field: 'ChangeDTG'
-    },
-    createAudit: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'CreateAudit'
-    },
-    changeAudit: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'ChangeAudit'
-    }
   }, {
     name: {
       singular: 'fisma',
       plural: 'fismas',
     },
     timestamps: false,
-    tableName: 'obj_fisma',
+    tableName: 'obj_fisma_archer',
   });
 
   fisma.associate = function (models) {

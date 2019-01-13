@@ -7,11 +7,6 @@ module.exports = function (sequelize, DataTypes) {
             autoIncrement: true,
             field: 'Id'
         },
-        keyname: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'Keyname'
-        },
         createDtg: {
             type: DataTypes.DATE,
             allowNull: false,
