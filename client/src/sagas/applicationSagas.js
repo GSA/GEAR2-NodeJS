@@ -128,43 +128,92 @@ function* saveApplication(action) {
  * @returns {IterableIterator<*>}
  */
 function* saveNewApplication(action) {
-    // Save the new application without the one-to-many fields
-    try {
-        const data = yield call(() => {
-                return fetch(applicationURL, {
-                    method: 'POST',
-                    headers: new Headers({
-                        'Authorization': 'Bearer ' + localStorage.jwt,
-                        "Content-Type": "application/json; charset=utf-8"
-                    }),
-                    body: JSON.stringify(action.application)
+    const state = yield select();
+    const payloadGen = {...state.appGeneral};
+    const payloadBus = {...state.appBusiness};
+    const payloadTech = {...state.appTechnology};
+
+    const general = yield call(() => {
+            return fetch(applicationGeneralURL, {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': 'Bearer ' + localStorage.jwt,
+                    "Content-Type": "application/json; charset=utf-8"
+                }),
+                body: JSON.stringify(payloadGen)
+            })
+                .then(res => {
+                    if (res.status !== 201) {
+                        return {errors: 'error'};
+                    } else {
+                        return res.json();
+                    }
                 })
-                    .then(res => res.json())
-            }
-        );
-        const id = data.id;
-        // merge the saved app with one to many relationships and save it again.
-        const updatedData = {...data, ...action.updatedApplication};
-        const newData = yield call(() => {
-                return fetch(applicationURL + id, {
+        }
+    );
+
+    const id = general.id;
+
+    const [ business, technical ] = yield all ([
+        call(() => {
+                return fetch(applicationBusinessURL + id, {
                     method: 'PUT',
                     headers: new Headers({
                         'Authorization': 'Bearer ' + localStorage.jwt,
                         "Content-Type": "application/json; charset=utf-8"
                     }),
-                    body: JSON.stringify(updatedData)
+                    body: JSON.stringify(payloadBus)
                 })
-                    .then(res => res.json())
+                    .then(res => {
+                        if (res.status !== 200) {
+                            return {errors: 'error'};
+                        } else {
+                            return res.json();
+                        }
+                    })
             }
-        );
-        if (data.errors || newData.errors) {
-            throw data.errors ? data : newData;
-        }
-        yield put(appActions.saveApplicationSuccess());
-        yield put({type: 'RA/REFRESH_VIEW'})
-    } catch (error) {
-        yield put(appActions.saveNewApplicationFailed(error.errors[0].message));
+        ),
+        call(() => {
+                return fetch(applicationTechnologyURL + id, {
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt,
+                        "Content-Type": "application/json; charset=utf-8"
+                    }),
+                    body: JSON.stringify(payloadTech)
+                })
+                    .then(res => {
+                        if (res.status !== 200) {
+                            return {errors: 'error'};
+                        } else {
+                            return res.json();
+                        }
+                    })
+            }
+        )
+    ]);
+
+    let errMessage = null;
+
+    if (general.errors) {
+        errMessage = 'err';
+        yield put(appActions.saveApplicationGeneralFailed('General'));
+        yield put(appActions.saveApplicationTechnologyFailed('Technology'));
+        yield put(appActions.saveApplicationBusinessFailed('Businesss'));
     }
+    if (technical.errors) {
+        errMessage = 'err';
+        yield put(appActions.saveApplicationTechnologyFailed('Technology'));
+    }
+    if (business.errors) {
+        errMessage = 'err';
+        yield put(appActions.saveApplicationBusinessFailed('Businesss'))
+    }
+
+    if (!errMessage) {
+        yield put(appActions.saveApplicationSuccess());
+    }
+
 }
 
 function* loadApplicationGeneral (action) {

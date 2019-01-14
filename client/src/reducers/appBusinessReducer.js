@@ -43,7 +43,18 @@ export default function appBusinessReducer(state = {
             return Object.assign({}, state, {saveFailed: false});
 
         case 'RA/RESET_FORM':
-            return Object.assign({}, state, {called: false, saveFailed: false});
+            return Object.assign({}, {
+                business_pocs: [],
+                organizations: [],
+                capabilities: [],
+                users: [],
+                userLocations: [],
+                loading: false,
+                called: false,
+                saved: false,
+                errorMessage: null,
+                saveFailed: false
+            });
 
         default:
             return state;

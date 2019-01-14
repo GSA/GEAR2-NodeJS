@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 export default function appTechnologyReducer(state = {
-    technology_pocs: [],
+    technical_pocs: [],
     technologies: [],
     loading: false,
     called: false,
@@ -40,7 +40,15 @@ export default function appTechnologyReducer(state = {
             return Object.assign({}, state, {saved: true, saveFailed: false});
 
         case 'RA/RESET_FORM':
-            return Object.assign({}, state, {called: false, saveFailed: false});
+            return Object.assign({}, {
+                technical_pocs: [],
+                technologies: [],
+                loading: false,
+                called: false,
+                saved: false,
+                errorMessage: null,
+                saveFailed: false
+            });
 
         default:
             return state;

@@ -12,6 +12,7 @@ import ApplicationEditForm from "./containers/Application/ApplicationEditForm/Ap
 import ApplicationCreateForm from "./containers/Application/ApplicationCreateForm/ApplicationCreateForm";
 import ApplicationBusinessEdit from "./containers/Application/ApplicationEditForm/ApplicationBusinessEdit";
 import AppEdit from "./containers/Application/ApplicationEdit/AppEdit";
+import AppCreate from "./containers/Application/ApplicationCreate/AppCreate";
 
 const styles = theme => ({
     container: {
@@ -305,7 +306,7 @@ export const ApplicationEditOld = (props) => (
 
 export const ApplicationCreate = (props) => (
     <Create {...props}>
-        <ApplicationCreateForm id={props.id} {...props.application} />
+        <AppCreate id={props.id} {...props.application} />
     </Create>
 );
 

@@ -7,137 +7,134 @@ import {connect} from 'react-redux';
 import Input from "../../../../components/presentational/Input";
 import validate from "validate.js";
 
-import './ApplicationTechnologyTab.css';
+import './ApplicationGeneralTab.css';
 
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 import {
-    loadApplicationTechnology, loadApplicationTechnologyStart, updateFieldApp
+    updateFieldApp, saveApplicationGeneralStart
 } from "../../../../actions/applicationActions";
 import Paper from "@material-ui/core/Paper/Paper";
 
-class ApplicationTechnologyTab extends Component {
+class ApplicationGeneralTab extends Component {
     constructor(props) {
+        saveApplicationGeneralStart();
         super(props);
-        this.props.loadApplicationTechnologyStart();
-        this.props.loadApplicationTechnology(this.props.id);
-
         this.state = {
             loaded: false,
             editForm: {
-                technical_pocs: {
-                    id: 'technical_pocs',
-                    elementType: 'multiselect',
+                id: {
+                    elementType: 'text',
                     elementConfig: {
-                        id: 'technical_pocs',
-                        label: 'Technology POCs',
-                        alien: true,
-                        nameField: 'keyname',
-                        endpoint: 'pocs',
-                        choices: this.props.staticRepo.pocs,
-                        tooltipText: 'GSA person responsible for the maintenance of the application.'
+                        label: 'ID',
+                        disabled: true,
+                        tooltipText: 'Application ID stored in GEAR'
+                    },
+                    constraints: {},
+                    valid: true,
+                    touched: false,
+                    value: null
+                },
+                keyname: {
+                    elementType: 'text',
+                    elementConfig: {
+                        required: true,
+                        placeholder: 'Application Name',
+                        label: 'Application Name',
+                        tooltipText: 'Name of the application'
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                        length: {maximum: 150}
                     },
                     valid: true,
-                    value: []
+                    touched: false,
+                    value: null
                 },
-                cloudIndicator: {
+                applicationAlias: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Application Alias',
+                        tooltipText: 'Other names the application is used as '
+                    },
+                    constraints: {},
+                    valid: true,
+                    value: null
+                },
+                displayName: {
+                    elementType: 'text',
+                    elementConfig: {
+                        label: 'Short name will appear in graphic',
+                        required: true,
+                        tooltipText: 'Short name of the application (non acronym)'
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                        length: {maximum: 25}
+                    },
+                    valid: true,
+                    value: null
+                },
+                description: {
+                    elementType: 'text',
+                    elementConfig: {
+                        multiline: true,
+                        required: true,
+                        label: "Description",
+                        tooltipText: 'Description of the applications including what function it supports what organizations are using it, etc.'
+                    },
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
+                    valid: true,
+                    value: null
+                },
+                objApplicationStatusId: {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
-                        label: 'Cloud',
-                        takes: 'string',
-                        choices: valueLists.ConfirmChoices,
-						tooltipText: 'Indicator of whether the application is cloud based or not'
+                        label: 'Application Status',
+                        takes: 'number',
+                        required: true,
+                        choices: valueLists.ApplicationStatuses,
+                        tooltipText: 'Current status of the application'
                     },
-                    constraints: {},
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
                     valid: true,
                     value: null
                 },
-                mobileAppIndicator: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'name',
-                        label: 'Mobile',
-                        takes: 'string',
-                        choices: valueLists.ConfirmChoices,
-						tooltipText: 'Indicator of whether a mobile version of the application has been developed'
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                desktopIndicator: {
+                applicationOrWebsite: {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'name',
                         takes: 'string',
-                        label: 'Desktop',
-                        choices: valueLists.ConfirmChoices,
-						tooltipText: 'Does this Business Application have an installable Desktop Component?'
+                        required: true,
+                        label: 'Application Or Website',
+                        choices: valueLists.AppOrWebChoices,
+                        tooltipText: 'Indicator of whether the object is an application or a website'
                     },
-                    constraints: {},
+                    constraints: {
+                        presence: {allowEmpty: false},
+                    },
                     valid: true,
                     value: null
                 },
-                objAppPlatformId: {
+                objParentSystemId: {
                     elementType: 'select',
                     elementConfig: {
                         nameField: 'keyname',
-                        takes: 'number',
-                        label: 'Application Platform',
-                        endpoint: 'platforms',
+                        label: 'Parent System',
                         alien: true,
-                        choices: this.props.staticRepo.platforms,
-						tooltipText: 'Refers to a capability used to provide a set of common services the enterprise uses to build business applications.'
+                        endpoint: 'parents',
+                        takes: 'number',
+                        choices: this.props.staticRepo.parents,
+                        tooltipText: 'System the application is part of'
                     },
                     constraints: {},
                     valid: true,
                     value: null
-                },
-                objAppHostingproviderId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        takes: 'number',
-                        label: 'Application Hosting Provider',
-                        alien: true,
-                        endpoint: 'providers',
-                        choices: this.props.staticRepo.providers,
-						tooltipText: 'Who provides the physical infrastructure for this Business Application? '
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                objFismaId: {
-                    elementType: 'select',
-                    elementConfig: {
-                        nameField: 'keyname',
-                        label: 'FISMA System',
-                        takes: 'number',
-                        alien: true,
-                        endpoint: 'fismas',
-                        choices: this.props.staticRepo.fismas,
-						tooltipText: 'Name of the FISMA System that provides the ATO for this application/website. '
-                    },
-                    constraints: {},
-                    valid: true,
-                    value: null
-                },
-                technologies: {
-                    id: 'technologies',
-                    elementType: 'multiselect',
-                    elementConfig: {
-                        id: 'technologies',
-                        label: 'Technologies',
-                        nameField: 'keyname',
-                        alien: true,
-                        endpoint: 'technologies',
-                        choices: this.props.staticRepo.technologies,
-						tooltipText: 'Technologies used by the application. Includes Operating System, database, application server, web server, programming language, etc.'
-                    },
-                    valid: true,
-                    value: []
-                },
+                }
             }
         }
     }
@@ -162,7 +159,6 @@ class ApplicationTechnologyTab extends Component {
             updatedFormElement.errHelperText = isValid[inputIdentifier][0];
         }
         updatedFormElement.touched = true;
-
         updatedEditForm[inputIdentifier] = updatedFormElement;
 
         let isFormValid = true;
@@ -182,7 +178,6 @@ class ApplicationTechnologyTab extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-
         if (!this.state.loaded) {
             let loaded = true;
 
@@ -204,15 +199,14 @@ class ApplicationTechnologyTab extends Component {
         }
     }
 
-
     render() {
-        let simpleForm = <Spinner/>;
         let paper = <Paper style={{
             padding: '20px',
             backgroundColor: "salmon"
         }}>
-            Something went wrong when saving this tab. Contact GEAR team! </Paper>
-
+            Something went wrong when saving this tab. Contact GEAR team!
+        </Paper>
+        let simpleForm = <Spinner/>;
         if (!this.props.application.loading) {
             const formElements = [];
             const consolidatedForm = {...this.state.editForm};
@@ -240,7 +234,7 @@ class ApplicationTechnologyTab extends Component {
             );
         }
         return (
-            <div className="ApplicationTechnologyTab">
+            <div className="ApplicationGeneralTab">
                 {this.props.application.saveFailed ? paper : undefined}
                 {simpleForm}
             </div>
@@ -249,16 +243,14 @@ class ApplicationTechnologyTab extends Component {
 }
 
 const mapStateToProps = state => ({
-    application: state.appTechnology,
+    application: state.appGeneral,
     staticRepo: state.staticRepo
 });
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadApplicationTechnology: bindActionCreators(loadApplicationTechnology, dispatch),
-        loadApplicationTechnologyStart: bindActionCreators(loadApplicationTechnologyStart, dispatch),
         updateFieldApp: bindActionCreators(updateFieldApp, dispatch),
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ApplicationTechnologyTab));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ApplicationGeneralTab));

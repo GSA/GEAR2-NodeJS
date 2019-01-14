@@ -46,7 +46,7 @@ class GMultiSelectControl extends Component {
         if (addedChip) {
             this.props.value.push(addedChip);
         }
-        this.props.updateFieldApp({[this.props.endpoint]: {value: this.props.value}});
+        this.props.updateFieldApp({[this.props.id]: {value: this.props.value}});
         this.setState({id: '', keyname: ''});
     }
 
@@ -57,7 +57,7 @@ class GMultiSelectControl extends Component {
                 break;
             }
         }
-        this.props.updateFieldApp({[this.props.endpoint]: {value: this.props.value}});
+        this.props.updateFieldApp({[this.props.id]: {value: this.props.value}});
         this.setState({id: id, keyname: keyname});
     }
 
