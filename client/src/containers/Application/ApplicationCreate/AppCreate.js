@@ -70,7 +70,7 @@ class AppEdit extends Component {
         if (nextProps.saved) {
             this.props.history.push('/applications');
             this.props.showNotification({
-                message: `Edit Application Success: All tabs saved`,
+                message: `Create Application Success: All tabs saved`,
                 type: 'info'
             });
         }

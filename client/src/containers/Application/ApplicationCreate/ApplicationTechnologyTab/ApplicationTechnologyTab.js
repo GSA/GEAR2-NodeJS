@@ -20,6 +20,7 @@ class ApplicationTechnologyTab extends Component {
         super(props);
 
         this.state = {
+            loaded: false,
             editForm: {
                 technical_pocs: {
                     id: 'technical_pocs',
@@ -180,21 +181,26 @@ class ApplicationTechnologyTab extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        const updatedEditForm = {...this.state.editForm};
-        for (let inputIdentifier in updatedEditForm) {
-            const updatedFormElem = {...updatedEditForm[inputIdentifier]};
-            updatedFormElem.value = nextProps.application[inputIdentifier];
 
-            if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
-                const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
-                updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
-                    nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
-                updatedFormElem.elementConfig = updatedElemConfig;
+        if (!this.state.loaded) {
+            let loaded = true;
+
+            const updatedEditForm = {...this.state.editForm};
+            for (let inputIdentifier in updatedEditForm) {
+                const updatedFormElem = {...updatedEditForm[inputIdentifier]};
+                if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
+                    const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
+                    updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
+                        nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
+                    if (updatedElemConfig.choices.length === 0) {
+                        loaded = false
+                    }
+                    updatedFormElem.elementConfig = updatedElemConfig;
+                }
+                updatedEditForm[inputIdentifier] = updatedFormElem;
             }
-            updatedEditForm.valid = true;
-            updatedEditForm[inputIdentifier] = updatedFormElem;
+            this.setState({editForm: updatedEditForm, loaded: loaded});
         }
-        this.setState({editForm: updatedEditForm, loaded: true});
     }
 
 
