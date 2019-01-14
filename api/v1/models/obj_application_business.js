@@ -45,6 +45,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             field: 'Production_Year'
         },
+        retiredYear: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'Retired_Year'
+        },
         objInvestmentId: {
             type: DataTypes.INTEGER(11),
             allowNull: true,

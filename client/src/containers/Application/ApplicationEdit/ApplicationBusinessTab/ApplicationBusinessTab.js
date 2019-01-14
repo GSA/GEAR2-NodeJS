@@ -352,8 +352,16 @@ class ApplicationBusinessTab extends Component {
         if (nextProps.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
+
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
                 updatedFormElem.value = nextProps.application[inputIdentifier];
+
+                if (inputIdentifier === 'productionYear' && updatedFormElem.value) {
+                    updatedEditForm['retiredYear'].constraints.numericality.greaterThan = +updatedFormElem.value;
+                }
+                if (inputIdentifier === 'retiredYear' && updatedFormElem.value) {
+                    updatedEditForm['productionYear'].constraints.numericality.lessThan = +updatedFormElem.value;
+                }
 
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
                     const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
