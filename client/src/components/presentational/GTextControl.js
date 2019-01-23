@@ -6,6 +6,7 @@ import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
 
 const GTextControl = (field) => {
     let errHelperText = field.errHelperText;
+    console.log(errHelperText);
     if (!field.valid && field.touched && !field.errHelperText) {
         errHelperText = `${field.label} cannot be blank!`
     }

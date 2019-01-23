@@ -4,8 +4,8 @@ export function doesExist(payload) {
     return {type: types.DOES_EXIST, payload};
 }
 
-export const doesExistSuccess = (doesExist) => {
-    return {type: types.DOES_EXIST_SUCCESS, doesExist: doesExist};
+export const doesExistSuccess = (doesExist, field) => {
+    return {type: types.DOES_EXIST_SUCCESS, doesExist: doesExist, field: field};
 };
 
 export const doesExistFailure = () => {

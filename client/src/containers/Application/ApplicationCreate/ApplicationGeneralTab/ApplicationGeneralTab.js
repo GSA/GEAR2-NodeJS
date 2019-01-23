@@ -14,6 +14,7 @@ import {
     updateFieldApp, saveApplicationGeneralStart
 } from "../../../../actions/applicationActions";
 import Paper from "@material-ui/core/Paper/Paper";
+import {doesExist, doesExistInitiate} from "../../../../actions/validationActions";
 
 class ApplicationGeneralTab extends Component {
     constructor(props) {
@@ -178,10 +179,21 @@ class ApplicationGeneralTab extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (!this.state.loaded) {
             let loaded = true;
 
             const updatedEditForm = {...this.state.editForm};
+            if (nextProps.application.exists) {
+                console.log('inside')
+                const updatedFormElement = {...updatedEditForm[nextProps.application.existsField]};
+                updatedFormElement.valid = false;
+                updatedFormElement.errHelperText = `${nextProps.application.existsField} already exists`;
+                updatedEditForm[nextProps.application.existsField] = updatedFormElement;
+            } else {
+                const updatedFormElement = {...updatedEditForm[nextProps.application.existsField]};
+                updatedFormElement.valid = true;
+                updatedFormElement.errHelperText = null;
+                updatedEditForm[nextProps.application.existsField] = updatedFormElement;
+            }
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
@@ -196,8 +208,26 @@ class ApplicationGeneralTab extends Component {
                 updatedEditForm[inputIdentifier] = updatedFormElem;
             }
             this.setState({editForm: updatedEditForm, loaded: loaded});
-        }
     }
+
+    onBlur = (event, identifier) => {
+        switch (identifier) {
+            case 'keyname':
+                this.props.doesExistInitiate();
+                this.props.doesExist({
+                    modelInstance: 'applications',
+                    field: identifier, target: event.target.value
+                });
+                break;
+            case 'displayName':
+                this.props.doesExistInitiate();
+                this.props.doesExist({
+                    modelInstance: 'applications',
+                    field: identifier, target: event.target.value
+                });
+                break;
+        }
+    };
 
     render() {
         let paper = <Paper style={{
@@ -228,6 +258,7 @@ class ApplicationGeneralTab extends Component {
                             value={elem.config.value}
                             errHelperText={elem.config.errHelperText}
                             changed={(event) => this.inputChangedHandler(event, elem.id)}
+                            onBlur={(e) => this.onBlur(e, elem.id)}
                         />
                     )
                 })
@@ -250,6 +281,8 @@ const mapStateToProps = state => ({
 function mapDispatchToProps(dispatch) {
     return {
         updateFieldApp: bindActionCreators(updateFieldApp, dispatch),
+        doesExistInitiate: bindActionCreators(doesExistInitiate, dispatch),
+        doesExist: bindActionCreators(doesExist, dispatch)
     }
 }
 
