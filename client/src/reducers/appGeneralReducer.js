@@ -38,7 +38,13 @@ export default function appGeneralReducer(state = {
             return Object.assign({}, state, {saved: true, saveFailed: false});
 
         case 'RA/RESET_FORM':
-            return Object.assign({}, state, {called: false, saveFailed: false});
+            return Object.assign({}, {
+                loading: false,
+                called: false,
+                saved: false,
+                errorMessage: null,
+                saveFailed: false
+            });
 
         case types.SAVE_APPLICATION_FAILED:
             return Object.assign({}, state, {errorMessage: action.errorMessage});

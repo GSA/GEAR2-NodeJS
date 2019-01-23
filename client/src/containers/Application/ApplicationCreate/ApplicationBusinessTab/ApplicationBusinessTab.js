@@ -9,7 +9,7 @@ import validate from "validate.js";
 
 import './ApplicationBusinessTab.css';
 
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 import {
     loadApplicationBusiness, loadApplicationBusinessStart, updateFieldApp
 } from "../../../../actions/applicationActions";
@@ -18,16 +18,15 @@ import Paper from "@material-ui/core/Paper/Paper";
 class ApplicationBusinessTab extends Component {
     constructor(props) {
         super(props);
-        this.props.loadApplicationBusinessStart();
-        this.props.loadApplicationBusiness(this.props.id);
         this.state = {
+            loaded: false,
             editForm: {
                 business_pocs: {
                     id: 'business_pocs',
                     elementType: 'multiselect',
                     elementConfig: {
-                        label: 'Business POCs',
                         id: 'business_pocs',
+                        label: 'Business POCs',
                         alien: true,
                         nameField: 'keyname',
                         endpoint: 'pocs',
@@ -41,8 +40,8 @@ class ApplicationBusinessTab extends Component {
                     id: 'organizations',
                     elementType: 'multiselect',
                     elementConfig: {
-                        label: 'Owning Organizations',
                         id: 'organizations',
+                        label: 'Owning Organizations',
                         endpoint: 'users',
                         alien: true,
                         nameField: 'keyname',
@@ -61,7 +60,7 @@ class ApplicationBusinessTab extends Component {
                         endpoint: 'users',
                         takes: 'number',
                         choices: this.props.application.users,
-						tooltipText: 'High level organization using/owning the application.'
+                        tooltipText: 'High level organization using/owning the application.'
                     },
                     constraints: {},
                     valid: true,
@@ -72,7 +71,7 @@ class ApplicationBusinessTab extends Component {
                     elementConfig: {
                         type: "number",
                         label: 'Production Year',
-						tooltipText: 'Year the application entered production'
+                        tooltipText: 'Year the application entered production'
                     },
                     constraints: {
                         presence: {allowEmpty: true},
@@ -110,7 +109,7 @@ class ApplicationBusinessTab extends Component {
                         endpoint: 'investments',
                         takes: 'number',
                         choices: this.props.staticRepo.investments,
-						tooltipText: 'OMB Investment funding the application'
+                        tooltipText: 'OMB Investment funding the application'
                     },
                     constraints: {},
                     valid: true,
@@ -123,7 +122,7 @@ class ApplicationBusinessTab extends Component {
                         takes: 'number',
                         label: 'Number of users',
                         choices: valueLists.UserCountBreakdown,
-						tooltipText: 'Approximately how many people use this application.'
+                        tooltipText: 'Approximately how many people use this application.'
                     },
                     constraints: {},
                     valid: true,
@@ -136,7 +135,7 @@ class ApplicationBusinessTab extends Component {
                         takes: 'string',
                         label: 'Regional Classification',
                         choices: valueLists.RegionChoices,
-						tooltipText: 'Field used to create sub reports of applications'
+                        tooltipText: 'Field used to create sub reports of applications'
                     },
                     constraints: {},
                     valid: true,
@@ -149,7 +148,7 @@ class ApplicationBusinessTab extends Component {
                         takes: 'string',
                         label: 'Generates Revenue',
                         choices: valueLists.ConfirmChoices,
-						tooltipText: 'Does the application generate revenue?'
+                        tooltipText: 'Does the application generate revenue?'
                     },
                     constraints: {},
                     valid: true,
@@ -162,7 +161,7 @@ class ApplicationBusinessTab extends Component {
                         label: 'Tier',
                         takes: 'number',
                         choices: valueLists.TierChoices,
-						tooltipText: 'Application Classification with respect to ownership/funding. '
+                        tooltipText: 'Application Classification with respect to ownership/funding. '
                     },
                     constraints: {},
                     valid: true,
@@ -173,7 +172,7 @@ class ApplicationBusinessTab extends Component {
                     elementConfig: {
                         type: "url",
                         label: 'URL',
-						tooltipText: 'url used to access the application'
+                        tooltipText: 'url used to access the application'
                     },
                     constraints: {},
                     valid: true,
@@ -186,7 +185,7 @@ class ApplicationBusinessTab extends Component {
                         label: 'CUI',
                         'takes': 'string',
                         choices: valueLists.ConfirmChoices,
-						tooltipText: 'Indicator whether the application has some pricacy/PII or CUI implications'
+                        tooltipText: 'Indicator whether the application has some pricacy/PII or CUI implications'
                     },
                     constraints: {},
                     valid: true,
@@ -201,7 +200,7 @@ class ApplicationBusinessTab extends Component {
                         endpoint: 'portfolios',
                         takes: 'number',
                         choices: this.props.staticRepo.portfolios,
-						tooltipText: 'Governance portfolio to which the application belongs'
+                        tooltipText: 'Governance portfolio to which the application belongs'
                     },
                     constraints: {},
                     valid: true,
@@ -211,7 +210,7 @@ class ApplicationBusinessTab extends Component {
                     elementType: 'text',
                     elementConfig: {
                         label: 'Reference Document',
-						tooltipText: 'Link to the location where reference document is stored'
+                        tooltipText: 'Link to the location where reference document is stored'
                     },
                     constraints: {},
                     valid: true,
@@ -222,7 +221,7 @@ class ApplicationBusinessTab extends Component {
                     elementConfig: {
                         label: 'Application Notes',
                         multiline: true,
-						tooltipText: 'Used to describe notes regarding the Application'
+                        tooltipText: 'Used to describe notes regarding the Application'
                     },
                     constraints: {},
                     valid: true,
@@ -232,13 +231,13 @@ class ApplicationBusinessTab extends Component {
                     id: 'userLocations',
                     elementType: 'multiselect',
                     elementConfig: {
-                        label: 'User Locations',
                         id: 'userLocations',
+                        label: 'User Locations',
                         endpoint: 'userlocations',
                         alien: true,
                         nameField: 'keyname',
                         choices: this.props.staticRepo.userLocations,
-						tooltipText: 'Application user locations'
+                        tooltipText: 'Application user locations'
                     },
                     valid: true,
                     value: []
@@ -253,7 +252,7 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'keyname',
                         endpoint: 'capabilities',
                         choices: this.props.staticRepo.capabilities,
-						tooltipText: 'List of Business Capabilities supported by the application'
+                        tooltipText: 'List of Business Capabilities supported by the application'
                     },
                     valid: true,
                     value: []
@@ -268,7 +267,7 @@ class ApplicationBusinessTab extends Component {
                         nameField: 'keyname',
                         endpoint: 'users',
                         choices: this.props.staticRepo.users,
-						tooltipText: 'Organizations using the application'
+                        tooltipText: 'Organizations using the application'
                     },
                     valid: true,
                     value: []
@@ -348,31 +347,24 @@ class ApplicationBusinessTab extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
+        if (!this.state.loaded) {
+            let loaded = true;
 
-        if (nextProps.application.id && !this.state.loaded && !nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
-
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
-                updatedFormElem.value = nextProps.application[inputIdentifier];
-
-                if (inputIdentifier === 'productionYear' && updatedFormElem.value) {
-                    updatedEditForm['retiredYear'].constraints.numericality.greaterThan = +updatedFormElem.value;
-                }
-                if (inputIdentifier === 'retiredYear' && updatedFormElem.value) {
-                    updatedEditForm['productionYear'].constraints.numericality.lessThan = +updatedFormElem.value;
-                }
-
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
                     const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
                     updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
                         nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
+                    if (updatedElemConfig.choices.length === 0) {
+                        loaded = false
+                    }
                     updatedFormElem.elementConfig = updatedElemConfig;
                 }
-                updatedEditForm.valid = true;
                 updatedEditForm[inputIdentifier] = updatedFormElem;
             }
-            this.setState({editForm: updatedEditForm, loaded: true});
+            this.setState({editForm: updatedEditForm, loaded: loaded});
         }
     }
 
@@ -428,8 +420,6 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadApplicationBusinessStart: bindActionCreators(loadApplicationBusinessStart, dispatch),
-        loadApplicationBusiness: bindActionCreators(loadApplicationBusiness, dispatch),
         updateFieldApp: bindActionCreators(updateFieldApp, dispatch),
     }
 }

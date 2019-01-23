@@ -9,7 +9,7 @@ import validate from "validate.js";
 
 import './ApplicationTechnologyTab.css';
 
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 import {
     loadApplicationTechnology, loadApplicationTechnologyStart, updateFieldApp
 } from "../../../../actions/applicationActions";
@@ -18,10 +18,9 @@ import Paper from "@material-ui/core/Paper/Paper";
 class ApplicationTechnologyTab extends Component {
     constructor(props) {
         super(props);
-        this.props.loadApplicationTechnologyStart();
-        this.props.loadApplicationTechnology(this.props.id);
 
         this.state = {
+            loaded: false,
             editForm: {
                 technical_pocs: {
                     id: 'technical_pocs',
@@ -45,7 +44,7 @@ class ApplicationTechnologyTab extends Component {
                         label: 'Cloud',
                         takes: 'string',
                         choices: valueLists.ConfirmChoices,
-						tooltipText: 'Indicator of whether the application is cloud based or not'
+                        tooltipText: 'Indicator of whether the application is cloud based or not'
                     },
                     constraints: {},
                     valid: true,
@@ -58,7 +57,7 @@ class ApplicationTechnologyTab extends Component {
                         label: 'Mobile',
                         takes: 'string',
                         choices: valueLists.ConfirmChoices,
-						tooltipText: 'Indicator of whether a mobile version of the application has been developed'
+                        tooltipText: 'Indicator of whether a mobile version of the application has been developed'
                     },
                     constraints: {},
                     valid: true,
@@ -71,7 +70,7 @@ class ApplicationTechnologyTab extends Component {
                         takes: 'string',
                         label: 'Desktop',
                         choices: valueLists.ConfirmChoices,
-						tooltipText: 'Does this Business Application have an installable Desktop Component?'
+                        tooltipText: 'Does this Business Application have an installable Desktop Component?'
                     },
                     constraints: {},
                     valid: true,
@@ -86,7 +85,7 @@ class ApplicationTechnologyTab extends Component {
                         endpoint: 'platforms',
                         alien: true,
                         choices: this.props.staticRepo.platforms,
-						tooltipText: 'Refers to a capability used to provide a set of common services the enterprise uses to build business applications.'
+                        tooltipText: 'Refers to a capability used to provide a set of common services the enterprise uses to build business applications.'
                     },
                     constraints: {},
                     valid: true,
@@ -101,7 +100,7 @@ class ApplicationTechnologyTab extends Component {
                         alien: true,
                         endpoint: 'providers',
                         choices: this.props.staticRepo.providers,
-						tooltipText: 'Who provides the physical infrastructure for this Business Application? '
+                        tooltipText: 'Who provides the physical infrastructure for this Business Application? '
                     },
                     constraints: {},
                     valid: true,
@@ -116,7 +115,7 @@ class ApplicationTechnologyTab extends Component {
                         alien: true,
                         endpoint: 'fismas',
                         choices: this.props.staticRepo.fismas,
-						tooltipText: 'Name of the FISMA System that provides the ATO for this application/website. '
+                        tooltipText: 'Name of the FISMA System that provides the ATO for this application/website. '
                     },
                     constraints: {},
                     valid: true,
@@ -132,7 +131,7 @@ class ApplicationTechnologyTab extends Component {
                         alien: true,
                         endpoint: 'technologies',
                         choices: this.props.staticRepo.technologies,
-						tooltipText: 'Technologies used by the application. Includes Operating System, database, application server, web server, programming language, etc.'
+                        tooltipText: 'Technologies used by the application. Includes Operating System, database, application server, web server, programming language, etc.'
                     },
                     valid: true,
                     value: []
@@ -147,6 +146,7 @@ class ApplicationTechnologyTab extends Component {
         const updatedEditForm = {
             ...this.state.editForm
         };
+
         const updatedFormElement = {...updatedEditForm[inputIdentifier]};
         updatedFormElement.value = event.target.value;
         this.props.updateFieldApp({[inputIdentifier]: updatedFormElement});
@@ -182,22 +182,24 @@ class ApplicationTechnologyTab extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
 
-        if (!nextProps.application.loading) {
+        if (!this.state.loaded) {
+            let loaded = true;
+
             const updatedEditForm = {...this.state.editForm};
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
-                updatedFormElem.value = nextProps.application[inputIdentifier];
-
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
                     const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
                     updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
                         nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
+                    if (updatedElemConfig.choices.length === 0) {
+                        loaded = false
+                    }
                     updatedFormElem.elementConfig = updatedElemConfig;
                 }
-                updatedEditForm.valid = true;
                 updatedEditForm[inputIdentifier] = updatedFormElem;
             }
-            this.setState({editForm: updatedEditForm, loaded: true});
+            this.setState({editForm: updatedEditForm, loaded: loaded});
         }
     }
 
@@ -252,8 +254,6 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadApplicationTechnology: bindActionCreators(loadApplicationTechnology, dispatch),
-        loadApplicationTechnologyStart: bindActionCreators(loadApplicationTechnologyStart, dispatch),
         updateFieldApp: bindActionCreators(updateFieldApp, dispatch),
     }
 }
