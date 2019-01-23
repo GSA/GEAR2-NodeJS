@@ -16,7 +16,7 @@ function* doesExist(action) {
             } )
                 .then(res => res.json())
         });
-        yield put(validationActions.doesExistSuccess(data.length > 0))
+        yield put(validationActions.doesExistSuccess(data.length > 0, action.payload.field))
     } catch (err) {
         yield put(validationActions.doesExistFailure());
     }

@@ -5,7 +5,9 @@ export default function appGeneralReducer(state = {
     called: false,
     saved: false,
     errorMessage: null,
-    saveFailed: false
+    saveFailed: false,
+    exists: false,
+    existsField: null
 }, action) {
     switch (action.type) {
         case types.LOAD_APPLICATION_GENERAL_START:
@@ -22,6 +24,15 @@ export default function appGeneralReducer(state = {
 
         case 'RA/SHOW_NOTIFICATION':
             return Object.assign({}, state, {errorMessage: null});
+
+        case types.DOES_EXIST_INITIATE:
+            return Object.assign({}, state, {exists: false, existsField: null});
+
+        case types.DOES_EXIST_SUCCESS:
+            return Object.assign({}, state, {exists: action.doesExist, existsField: action.field});
+
+        case types.DOES_EXIST_FAILURE:
+            return Object.assign({}, state, {exists: false});
 
         case types.UPDATE_FIELD_APP:
             if (action.obj) {
@@ -43,7 +54,9 @@ export default function appGeneralReducer(state = {
                 called: false,
                 saved: false,
                 errorMessage: null,
-                saveFailed: false
+                saveFailed: false,
+                exists: false,
+                existsField: null
             });
 
         case types.SAVE_APPLICATION_FAILED:
