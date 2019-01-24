@@ -183,15 +183,16 @@ class ApplicationGeneralTab extends Component {
 
             const updatedEditForm = {...this.state.editForm};
             if (nextProps.application.exists) {
-                console.log('inside')
                 const updatedFormElement = {...updatedEditForm[nextProps.application.existsField]};
                 updatedFormElement.valid = false;
-                updatedFormElement.errHelperText = `${nextProps.application.existsField} already exists`;
+                updatedFormElement.errHelperText = `${nextProps.application.existsField} already exists. This field must to be unique.`;
+                updatedFormElement.touched = true;
                 updatedEditForm[nextProps.application.existsField] = updatedFormElement;
             } else {
                 const updatedFormElement = {...updatedEditForm[nextProps.application.existsField]};
                 updatedFormElement.valid = true;
                 updatedFormElement.errHelperText = null;
+                updatedFormElement.touched = true;
                 updatedEditForm[nextProps.application.existsField] = updatedFormElement;
             }
             for (let inputIdentifier in updatedEditForm) {
