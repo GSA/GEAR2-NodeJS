@@ -3,6 +3,7 @@ import React from 'react';
 import GTextControl from "./GTextControl";
 import GMultiSelectControl from "./GMultiSelectControl";
 import GSelectControl from "./GSelectControl";
+import GYearPicker from "./GYearPicker";
 
 const Input = ( props ) => {
     let inputElement = null;
@@ -32,6 +33,11 @@ const Input = ( props ) => {
                 {...props.elementConfig}
                 handleChange = {props.changed}/>
             break;
+        case ('picker'):
+            inputElement = <GYearPicker
+                value = {props.value}
+                {...props.elementConfig}
+                handleChange = {props.changed}/>
 
     }
     return (

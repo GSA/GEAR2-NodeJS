@@ -68,36 +68,28 @@ class ApplicationBusinessTab extends Component {
                     value: null
                 },
                 productionYear: {
-                    elementType: 'text',
+                    elementType: 'picker',
                     elementConfig: {
                         type: "number",
                         label: 'Production Year',
-						tooltipText: 'Year the application entered production'
+                        tooltipText: 'Year the application entered production',
+                        minYear: 1950,
+                        maxYear: 2050
                     },
-                    constraints: {
-                        presence: {allowEmpty: true},
-                        numericality: {
-                            greaterThan: 1950,
-                            lessThan: 2050
-                        }
-                    },
+                    constraints: {},
                     valid: true,
                     value: null
                 },
                 retiredYear: {
-                    elementType: 'text',
+                    elementType: 'picker',
                     elementConfig: {
                         type: "number",
                         label: 'Retired Year',
-                        tooltipText: 'Year the application entered retirement'
+                        tooltipText: 'Year the application entered retirement',
+                        minYear: 1950,
+                        maxYear: 2050
                     },
-                    constraints: {
-                        numericality: {
-                            greaterThan: 1950,
-                            lessThan: 2050
-                        },
-                        presence: {allowEmpty: true},
-                    },
+                    constraints: {},
                     valid: true,
                     value: null
                 },
@@ -298,36 +290,18 @@ class ApplicationBusinessTab extends Component {
         }
         updatedFormElement.touched = true;
         if (inputIdentifier === 'retiredYear') {
-            if (!isValid) {
-                const updatedElemProdYear = {...updatedEditForm['productionYear']};
-                const updatedElemProdYearConstraints = {...updatedElemProdYear.constraints};
-                const updatedElemProdYearConstraintsNumericality = {...updatedElemProdYearConstraints.numericality};
-                updatedElemProdYearConstraintsNumericality.lessThan = +event.target.value;
-                updatedElemProdYearConstraints.numericality = updatedElemProdYearConstraintsNumericality;
-                updatedElemProdYear.constraints = updatedElemProdYearConstraints;
-                updatedEditForm['productionYear'] = updatedElemProdYear;
-            }
-
-            if (updatedFormElement.value === "") {
-                updatedFormElement.value = null;
-                updatedFormElement.valid = true;
-            }
+            const updatedProdYearElement = {...updatedEditForm['productionYear']};
+            const updatedProdYearElemConfig = {...updatedProdYearElement.elementConfig}
+            updatedProdYearElemConfig.maxYear = +event.target.value - 1;
+            updatedProdYearElement.elementConfig = updatedProdYearElemConfig;
+            updatedEditForm['productionYear'] = updatedProdYearElement;
         }
         if (inputIdentifier === 'productionYear') {
-            if (!isValid) {
-                const updatedElemRetYear = {...updatedEditForm['retiredYear']};
-                const updatedElemRetYearConstraints = {...updatedElemRetYear.constraints};
-                const updatedElemRetYearConstraintsNumericality = {...updatedElemRetYearConstraints.numericality};
-                updatedElemRetYearConstraintsNumericality.greaterThan = +event.target.value;
-                updatedElemRetYearConstraints.numericality = updatedElemRetYearConstraintsNumericality;
-                updatedElemRetYear.constraints = updatedElemRetYearConstraints;
-                updatedEditForm['retiredYear'] = updatedElemRetYear;
-            }
-
-            if (updatedFormElement.value === "") {
-                updatedFormElement.value = null;
-                updatedFormElement.valid = true;
-            }
+            const updatedRetYearElement = {...updatedEditForm['retiredYear']};
+            const updatedRetYearElemConfig = {...updatedRetYearElement.elementConfig}
+            updatedRetYearElemConfig.minYear = +event.target.value + 1;
+            updatedRetYearElement.elementConfig = updatedRetYearElemConfig;
+            updatedEditForm['retiredYear'] = updatedRetYearElement;
         }
         updatedEditForm[inputIdentifier] = updatedFormElement;
 
@@ -357,10 +331,10 @@ class ApplicationBusinessTab extends Component {
                 updatedFormElem.value = nextProps.application[inputIdentifier];
 
                 if (inputIdentifier === 'productionYear' && updatedFormElem.value) {
-                    updatedEditForm['retiredYear'].constraints.numericality.greaterThan = +updatedFormElem.value;
+                    updatedEditForm['retiredYear'].elementConfig.minYear = +updatedFormElem.value + 1;
                 }
                 if (inputIdentifier === 'retiredYear' && updatedFormElem.value) {
-                    updatedEditForm['productionYear'].constraints.numericality.lessThan = +updatedFormElem.value;
+                    updatedEditForm['productionYear'].elementConfig.maxYear = +updatedFormElem.value - 1;
                 }
 
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
