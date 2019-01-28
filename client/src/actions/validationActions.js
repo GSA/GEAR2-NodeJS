@@ -12,6 +12,6 @@ export const doesExistFailure = () => {
     return {type: types.DOES_EXIST_FAILURE}
 };
 
-export const doesExistInitiate = () => {
-    return {type: types.DOES_EXIST_INITIATE}
+export const doesExistInitiate = (field) => {
+    return {type: types.DOES_EXIST_INITIATE, field: field.field}
 };

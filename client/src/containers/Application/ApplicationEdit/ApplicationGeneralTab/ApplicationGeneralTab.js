@@ -229,20 +229,20 @@ class ApplicationGeneralTab extends Component {
         if (this.state.backfill[identifier] !== target) {
             switch (identifier) {
                 case 'keyname':
-                    this.props.doesExistInitiate();
+                    this.props.doesExistInitiate({field: identifier});
                     this.props.doesExist({
                         modelInstance: 'applications',
                         field: identifier, target: event.target.value});
                     break;
                 case 'displayName':
-                    this.props.doesExistInitiate();
+                    this.props.doesExistInitiate({field: identifier});
                     this.props.doesExist({
                         modelInstance: 'applications',
                         field: identifier, target: event.target.value});
                     break;
             }
         } else {
-            this.props.doesExistInitiate();
+            this.props.doesExistInitiate({field: identifier});
         }
     };
 

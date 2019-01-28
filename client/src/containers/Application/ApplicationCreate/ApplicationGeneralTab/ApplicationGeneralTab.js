@@ -214,14 +214,14 @@ class ApplicationGeneralTab extends Component {
     onBlur = (event, identifier) => {
         switch (identifier) {
             case 'keyname':
-                this.props.doesExistInitiate();
+                this.props.doesExistInitiate({field: identifier});
                 this.props.doesExist({
                     modelInstance: 'applications',
                     field: identifier, target: event.target.value
                 });
                 break;
             case 'displayName':
-                this.props.doesExistInitiate();
+                this.props.doesExistInitiate({field: identifier});
                 this.props.doesExist({
                     modelInstance: 'applications',
                     field: identifier, target: event.target.value

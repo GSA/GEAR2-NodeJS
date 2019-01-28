@@ -292,7 +292,7 @@ class ApplicationBusinessTab extends Component {
             const updatedProdYearElement = {...updatedEditForm['productionYear']};
             const updatedProdYearElemConfig = {...updatedProdYearElement.elementConfig}
             updatedProdYearElemConfig.maxYear = +event.target.value - 1;
-            updatedProdYearElement.elementConfig = updatedProdYearElemConfig;
+            updatedProdYearElement.elemegntConfig = updatedProdYearElemConfig;
             updatedEditForm['productionYear'] = updatedProdYearElement;
         }
         if (inputIdentifier === 'productionYear') {
