@@ -26,7 +26,7 @@ export default function appGeneralReducer(state = {
             return Object.assign({}, state, {errorMessage: null});
 
         case types.DOES_EXIST_INITIATE:
-            return Object.assign({}, state, {exists: false, existsField: null});
+            return Object.assign({}, state, {exists: false});
 
         case types.DOES_EXIST_SUCCESS:
             return Object.assign({}, state, {exists: action.doesExist, existsField: action.field});

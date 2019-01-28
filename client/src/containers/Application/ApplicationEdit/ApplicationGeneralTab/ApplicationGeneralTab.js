@@ -241,6 +241,8 @@ class ApplicationGeneralTab extends Component {
                         field: identifier, target: event.target.value});
                     break;
             }
+        } else {
+            this.props.doesExistInitiate();
         }
     };
 
