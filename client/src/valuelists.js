@@ -5,9 +5,9 @@ export const ConfirmChoices = [
 ];
 
 export const ApplicationStatuses = [
-    {id: 1, name: "Retired"},
+    {id: 1, name: "Pre-Production"},
     {id: 2, name: "Production"},
-    {id: 3, name: "Pre-Production"},
+    {id: 3, name: "Retired"}
 ];
 
 export const RegionChoices = [
