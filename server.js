@@ -254,7 +254,8 @@ Object.entries(orm.models).forEach((m) => {
         console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
         if (error) {
           console.log(error);
-          res.status(401).send('UNAUTHORIZED');
+          // 400 is thrown to disable the prompt.
+          res.status(400).send('UNAUTHORIZED');
           return context.stop();
         }
         if (!jwt.scopes) {
