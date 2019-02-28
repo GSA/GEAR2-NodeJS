@@ -2,6 +2,7 @@ import { call, put, select, all, takeLatest } from 'redux-saga/effects'
 import * as appActions from '../actions/applicationActions';
 import * as types from '../actions/actionTypes';
 import * as host from './env';
+import decodeJwt from 'jwt-decode';
 
 const applicationURL = host.target + '/api/v1/applications/';
 const applicationGeneralURL = host.target + '/api/v1/appsGeneral/';
@@ -32,7 +33,13 @@ function* saveApplication(action) {
     const payloadGen = {...state.appGeneral};
     const payloadBus = {...state.appBusiness};
     const payloadTech = {...state.appTechnology};
+    if (localStorage.jwt && localStorage.jwt !== "") {
+        const decodedToken = decodeJwt(localStorage);
 
+        payloadGen.changeAudit = decodedToken.un;
+        payloadBus.changeAudit = decodedToken.un;
+        payloadTech.changeAudit = decodedToken.un;
+    }
     const [general, business, technical] = yield all ([
         call(() => {
                 return fetch(applicationGeneralURL + action.id, {
@@ -132,6 +139,14 @@ function* saveNewApplication(action) {
     const payloadGen = {...state.appGeneral};
     const payloadBus = {...state.appBusiness};
     const payloadTech = {...state.appTechnology};
+
+    if (localStorage.jwt && localStorage.jwt !== "") {
+        const decodedToken = decodeJwt(localStorage);
+
+        payloadGen.changeAudit = decodedToken.un;
+        payloadBus.changeAudit = decodedToken.un;
+        payloadTech.changeAudit = decodedToken.un;
+    }
 
     const general = yield call(() => {
             return fetch(applicationGeneralURL, {
