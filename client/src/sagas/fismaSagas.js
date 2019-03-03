@@ -19,8 +19,17 @@ function* fetchFismas(action) {
                     .then(res => res.json())
             }
         );
-        data = sortArrayOfObjectByProp(data, 'keyname');
-        yield put(fismaActions.loadFismasSuccess(data));
+        let activeFismas = [], inactiveFismas = [];
+
+        data.forEach(function (item) {
+            if (item.status === 'Active') {
+                activeFismas.push(item);
+            } else {
+                inactiveFismas.push (item);
+            }
+        });
+        activeFismas = sortArrayOfObjectByProp(activeFismas, 'keyname');
+        yield put(fismaActions.loadFismasSuccess(activeFismas, inactiveFismas));
     } catch (error) {
         yield put(fismaActions.loadFismasFailed());
     }

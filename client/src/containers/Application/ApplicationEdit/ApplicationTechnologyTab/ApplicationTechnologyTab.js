@@ -22,6 +22,8 @@ class ApplicationTechnologyTab extends Component {
         this.props.loadApplicationTechnology(this.props.id);
 
         this.state = {
+            inactivePresent: false,
+            inactiveMessage: null,
             editForm: {
                 technical_pocs: {
                     id: 'technical_pocs',
@@ -114,8 +116,8 @@ class ApplicationTechnologyTab extends Component {
                         label: 'FISMA System',
                         takes: 'number',
                         alien: true,
-                        endpoint: 'fismas',
-                        choices: this.props.staticRepo.fismas,
+                        endpoint: 'activeFismas',
+                        choices: this.props.staticRepo.activeFismas,
 						tooltipText: 'Name of the FISMA System that provides the ATO for this application/website. '
                     },
                     constraints: {},
@@ -181,6 +183,8 @@ class ApplicationTechnologyTab extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
+        let inactivePresent = false;
+        let inactiveMessage = null;
 
         if (!nextProps.application.loading) {
             const updatedEditForm = {...this.state.editForm};
@@ -194,10 +198,9 @@ class ApplicationTechnologyTab extends Component {
                         nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] : [];
                     updatedFormElem.elementConfig = updatedElemConfig;
                 }
-                updatedEditForm.valid = true;
                 updatedEditForm[inputIdentifier] = updatedFormElem;
             }
-            this.setState({editForm: updatedEditForm, loaded: true});
+            this.setState({editForm: updatedEditForm, loaded: true, inactivePresent: inactivePresent, inactiveMessage: inactiveMessage});
         }
     }
 
@@ -239,6 +242,10 @@ class ApplicationTechnologyTab extends Component {
         return (
             <div className="ApplicationTechnologyTab">
                 {this.props.application.saveFailed ? paper : undefined}
+                {this.state.inactivePresent ? <Paper style={{
+                    padding: '20px',
+                    backgroundColor: "yellow"
+                }}>{this.state.inactiveMessage}</Paper> : this.state.inactivePresent}
                 {simpleForm}
             </div>
         )
@@ -254,7 +261,7 @@ function mapDispatchToProps(dispatch) {
     return {
         loadApplicationTechnology: bindActionCreators(loadApplicationTechnology, dispatch),
         loadApplicationTechnologyStart: bindActionCreators(loadApplicationTechnologyStart, dispatch),
-        updateFieldApp: bindActionCreators(updateFieldApp, dispatch),
+        updateFieldApp: bindActionCreators(updateFieldApp, dispatch)
     }
 }
 
