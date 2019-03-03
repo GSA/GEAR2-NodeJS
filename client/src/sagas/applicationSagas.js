@@ -33,12 +33,17 @@ function* saveApplication(action) {
     const payloadGen = {...state.appGeneral};
     const payloadBus = {...state.appBusiness};
     const payloadTech = {...state.appTechnology};
-    if (localStorage.jwt && localStorage.jwt !== "") {
-        const decodedToken = decodeJwt(localStorage);
 
-        payloadGen.changeAudit = decodedToken.un;
-        payloadBus.changeAudit = decodedToken.un;
-        payloadTech.changeAudit = decodedToken.un;
+    if (localStorage.jwt && localStorage.jwt !== "") {
+        const decodedToken = decodeJwt(localStorage.jwt);
+        const email = decodedToken.sub;
+
+        let username;
+        if (email) username = email.substr(0, 10);
+
+        payloadGen.changeAudit = username;
+        payloadBus.changeAudit = username;
+        payloadTech.changeAudit = username;
     }
     const [general, business, technical] = yield all ([
         call(() => {
@@ -141,11 +146,15 @@ function* saveNewApplication(action) {
     const payloadTech = {...state.appTechnology};
 
     if (localStorage.jwt && localStorage.jwt !== "") {
-        const decodedToken = decodeJwt(localStorage);
+        const decodedToken = decodeJwt(localStorage.jwt);
+        const email = decodedToken.sub;
 
-        payloadGen.changeAudit = decodedToken.un;
-        payloadBus.changeAudit = decodedToken.un;
-        payloadTech.changeAudit = decodedToken.un;
+        let username;
+        if (email) username = email.substr(0, 10);
+
+        payloadGen.createAudit = username;
+        payloadBus.createAudit = username;
+        payloadTech.createAudit = username;
     }
 
     const general = yield call(() => {

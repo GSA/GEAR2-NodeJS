@@ -14,13 +14,16 @@ const GSelectControl = (field) => {
     else choices = field.choices;
     return (
             <FormControl fullWidth required={field.required} error={!field.valid && field.touched}>
-            <InputLabel htmlFor={field.label} disabled={field.disabled === true}>{field.label}</InputLabel>
+            <InputLabel htmlFor={field.label}
+                        disabled={field.disabled === true}
+                        shrink
+                        >{field.label}</InputLabel>
             <br/>
 			<Tooltip title={field.tooltipText}>
             <Select native fullWidth={true}
                     onChange={(e) => field.handleChange(e, field.id)}
                     value={field.value === null ? '' : field.value}
-                    inputProps={{
+                    InputLabelProps={{
                         id: field.label,
                         name: field.label
                     }}>
