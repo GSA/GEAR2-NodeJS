@@ -197,6 +197,7 @@ class ApplicationGeneralTab extends Component {
             }
             for (let inputIdentifier in updatedEditForm) {
                 const updatedFormElem = {...updatedEditForm[inputIdentifier]};
+                updatedFormElem.value = nextProps[inputIdentifier];
                 if (updatedFormElem.elementConfig && updatedFormElem.elementConfig.alien) {
                     const updatedElemConfig = {...updatedEditForm[inputIdentifier].elementConfig};
                     updatedElemConfig.choices = nextProps.staticRepo[updatedFormElem.elementConfig.endpoint] ?
