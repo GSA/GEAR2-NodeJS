@@ -4,8 +4,8 @@ export function loadFismas() {
     return {type: types.LOAD_FISMAS};
 }
 
-export const loadFismasSuccess = (fismas) => {
-    return {type: types.LOAD_FISMAS_SUCCESS, fismas: fismas};
+export const loadFismasSuccess = (activeFismas, inactiveFismas) => {
+    return {type: types.LOAD_FISMAS_SUCCESS, activeFismas: activeFismas, inactiveFismas: inactiveFismas};
 };
 
 export const loadFismasFailed = () => {

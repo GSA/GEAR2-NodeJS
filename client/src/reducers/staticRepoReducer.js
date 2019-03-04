@@ -6,7 +6,8 @@ export default function staticRepoReducer(state=
                                                     users: [],
                                                     capabilities: [],
                                                     pocs: [],
-                                                    fismas: [],
+                                                    activeFismas: [],
+                                                    inactiveFismas: [],
                                                     platforms: [],
                                                     parents: [],
                                                     investments: [],
@@ -37,7 +38,7 @@ export default function staticRepoReducer(state=
             return Object.assign({}, state, {platforms: action.platforms});
 
         case types.LOAD_FISMAS_SUCCESS:
-            return Object.assign({}, state, {fismas: action.fismas});
+            return Object.assign({}, state, {activeFismas: action.activeFismas, inactiveFismas: action.inactiveFismas});
 
         case types.LOAD_PARENTSYSTEMS_SUCCESS:
             return Object.assign({}, state, {parents: action.parents});

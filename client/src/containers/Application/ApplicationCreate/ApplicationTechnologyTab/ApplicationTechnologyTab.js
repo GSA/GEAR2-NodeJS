@@ -113,8 +113,8 @@ class ApplicationTechnologyTab extends Component {
                         label: 'FISMA System',
                         takes: 'number',
                         alien: true,
-                        endpoint: 'fismas',
-                        choices: this.props.staticRepo.fismas,
+                        endpoint: 'activeFismas',
+                        choices: this.props.staticRepo.activeFismas,
                         tooltipText: 'Name of the FISMA System that provides the ATO for this application/website. '
                     },
                     constraints: {},

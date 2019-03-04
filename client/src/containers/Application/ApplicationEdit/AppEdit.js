@@ -36,7 +36,8 @@ class AppEdit extends Component {
         super(props);
         this.state = {
             valid: true,
-            message: null
+            message: null,
+            inactivePresent: false
         }
     }
 
@@ -50,6 +51,7 @@ class AppEdit extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
+        this.checkIfFismaActive(nextProps);
         if (nextProps.errMessageGeneral) {
             this.props.showNotification({
                 message: `General Tab was not saved; contact GEAR Team`,
@@ -76,6 +78,22 @@ class AppEdit extends Component {
         }
     }
 
+    checkIfFismaActive = (nextProps) => {
+        if (nextProps.application && nextProps.application.objFismaId) {
+            let idVals = nextProps.staticRepo.activeFismas.map(a => a.id);
+            if (!idVals.includes(+nextProps.application.objFismaId)) {
+                let inactiveSelected = nextProps.staticRepo.inactiveFismas.find(x => x.id === nextProps.application.objFismaId);
+                this.setState({valid: false, message:
+                        `
+                        The FISMA selected (${inactiveSelected.keyname}) for this application is not active anymore. Was the name changed in the past?
+                        `
+                , inactivePresent: true})
+            } else {
+                this.setState({valid: true, message: null, inactivePresent: false})
+            }
+        }
+    };
+
     render() {
         return (
             <div>
@@ -83,7 +101,7 @@ class AppEdit extends Component {
                     <TabList>
                         <Tab><TabCustom label="General" showChip={this.props.saveFailedGeneral}/></Tab>
                         <Tab><TabCustom label="Business" showChip={this.props.saveFailedBusiness}/></Tab>
-                        <Tab><TabCustom label="Technology" showChip={this.props.saveFailedTechnology}/></Tab>
+                        <Tab><TabCustom label="Technology" showChip={this.props.saveFailedTechnology} showChip={this.state.inactivePresent}/></Tab>
                     </TabList>
                     <TabPanel>
                         <ApplicationGeneralTab fromParent={this.myCallback} id={this.props.id} style={{padding: '10px'}}/>
@@ -113,7 +131,10 @@ const mapStateToProps = state => ({
 
     saveFailedGeneral: state.appGeneral.saveFailed,
     saveFailedBusiness: state.appBusiness.saveFailed,
-    saveFailedTechnology: state.appTechnology.saveFailed
+    saveFailedTechnology: state.appTechnology.saveFailed,
+
+    application: state.appTechnology,
+    staticRepo: state.staticRepo
 });
 
 function mapDispatchToProps(dispatch) {

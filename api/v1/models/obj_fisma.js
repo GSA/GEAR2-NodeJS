@@ -14,6 +14,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       field: 'ex:System_Name'
     },
+      status: {
+      type: DataTypes.STRING,
+          field: 'ex:Status'
+      }
   }, {
     name: {
       singular: 'fisma',
