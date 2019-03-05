@@ -87,7 +87,7 @@ class AppEdit extends Component {
                     this.setState({
                         valid: false, message:
                             `
-                        The FISMA selected (${inactiveSelected.keyname}) for this application is not active anymore. Was the name changed in the past?
+                             The FISMA system on record (${inactiveSelected.keyname}) for this application is no longer an active FISMA system. Please update this application’s FISMA system from the drop-down list. 
                         `
                         , inactivePresent: true
                     })
