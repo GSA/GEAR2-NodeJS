@@ -83,11 +83,17 @@ class AppEdit extends Component {
             let idVals = nextProps.staticRepo.activeFismas.map(a => a.id);
             if (!idVals.includes(+nextProps.application.objFismaId)) {
                 let inactiveSelected = nextProps.staticRepo.inactiveFismas.find(x => x.id === nextProps.application.objFismaId);
-                this.setState({valid: false, message:
-                        `
+                if (inactiveSelected) {
+                    this.setState({
+                        valid: false, message:
+                            `
                         The FISMA selected (${inactiveSelected.keyname}) for this application is not active anymore. Was the name changed in the past?
                         `
-                , inactivePresent: true})
+                        , inactivePresent: true
+                    })
+                } else {
+                    this.setState({valid: true, message: null, inactivePresent: false})
+                }
             } else {
                 this.setState({valid: true, message: null, inactivePresent: false})
             }
