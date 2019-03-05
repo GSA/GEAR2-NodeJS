@@ -36,14 +36,13 @@ function* saveApplication(action) {
 
     if (localStorage.jwt && localStorage.jwt !== "") {
         const decodedToken = decodeJwt(localStorage.jwt);
-        const email = decodedToken.sub;
+        let auditID = decodedToken.auditID;
 
-        let username;
-        if (email) username = email.substr(0, 10);
+        auditID = auditID || 'Admin';
 
-        payloadGen.changeAudit = username;
-        payloadBus.changeAudit = username;
-        payloadTech.changeAudit = username;
+        payloadGen.changeAudit = auditID;
+        payloadBus.changeAudit = auditID;
+        payloadTech.changeAudit = auditID;
     }
     const [general, business, technical] = yield all ([
         call(() => {
@@ -147,14 +146,17 @@ function* saveNewApplication(action) {
 
     if (localStorage.jwt && localStorage.jwt !== "") {
         const decodedToken = decodeJwt(localStorage.jwt);
-        const email = decodedToken.sub;
+        let auditID = decodedToken.auditID;
 
-        let username;
-        if (email) username = email.substr(0, 10);
+        auditID = auditID || 'Admin';
 
-        payloadGen.createAudit = username;
-        payloadBus.createAudit = username;
-        payloadTech.createAudit = username;
+        payloadGen.createAudit = auditID;
+        payloadBus.createAudit = auditID;
+        payloadTech.createAudit = auditID;
+
+        payloadGen.changeAudit = auditID;
+        payloadBus.changeAudit = auditID;
+        payloadTech.changeAudit = auditID;
     }
 
     const general = yield call(() => {

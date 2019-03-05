@@ -28,6 +28,7 @@ export default function appTechnologyReducer(state = {
         case types.UPDATE_FIELD_APP:
             if (action.obj) {
                 const key = Object.keys(action.obj)[0];
+                if (action.obj[key].value === ' ') action.obj[key].value = null;
                 return Object.assign({}, state, {[key]: action.obj[key].value})
             } else {
                 return state;

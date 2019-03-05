@@ -162,7 +162,8 @@ app.post(samlConfig.path,
             sub: samlProfile.nameID,
             un: results[0][0].Username,
             exp: Math.floor(Date.now() / 1000) + 60 * 60,
-            scopes: results[0][0].PERMS
+            scopes: results[0][0].PERMS,
+              auditID: results[0][0].AuditID
           };
 
           // JWT TOKEN SIGNED HERE TO BE USED IN INLINE HTML PAGE NEXT
