@@ -376,7 +376,7 @@ function ($route, $scope, $http, $routeParams, $filter, $location, $sce, $window
     })
     .catch(function error(msg) {
       console.error(msg);
-      $chartContainer.html('<i class="load-warning fa fa-warning">System Architect services are unavailable at this time.</i>');
+      $chartContainer.html('<i class="load-warning fa fa-warning">Database services are unavailable at this time.</i>');
     });
   }
   // attach event handler to window.resize to redraw chart

@@ -7,7 +7,7 @@ dashboard.directive('pie', function ($location) {
     template: '<i ng-show="!dataset" ' +
     'class="load-indicator fa fa-spinner fa-spin fa-2x"></i>' +
     '<i ng-show="apiWarning" class="load-warning fa fa-warning">' +
-    'System Architect services are unavailable at this time.</i>',
+    'Database services are unavailable at this time.</i>',
     link: function (scope, element, attrs) {
       scope.$watch(function (scope) {return scope.dataset;},
       function (newValue, oldValue) {
