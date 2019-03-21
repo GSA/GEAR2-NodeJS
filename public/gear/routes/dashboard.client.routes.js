@@ -23,6 +23,9 @@ function($routeProvider, $locationProvider) {
   when('/glossary', {
     templateUrl: '/gear/partials/glossary.html'
   }).
+  when('/gear_manager', {
+    templateUrl: '/gear/partials/gear_manager.html'
+  }).
 
   //Configure Business Routes
   when('/organizations/find/:query*', {
