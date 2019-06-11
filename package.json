@@ -1,44 +1,40 @@
+
 {
-  "name": "gear-nodejs",
-  "version": "0.0.1",
-  "description": "GSA EA Analytics and Reporting",
-  "main": "./bin/www",
+  "name": "GEAR",
+  "version": "2.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "node --use_strict ./bin/www"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
+    "build": "react-scripts build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GSA/GEAR2-NodeJS.git"
-  },
-  "keywords": [
-    "enterprise architecture"
-  ],
-  "author": "GSA IDRA",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/GSA/GEAR2-NodeJS/issues"
-  },
-  "homepage": "https://github.com/GSA/GEAR2-NodeJS#readme",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "~1.16.0",
+    "body-parser": "^1.19.0",
+    "concurrently": "4.1.0",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.0",
-    "express": "~4.14.1",
-    "express-session": "^1.15.5",
-    "morgan": "~1.7.0",
-    "mysql": "^2.14.1",
-    "nodemon": "^1.11.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "pug": "^2.0.0-rc.3",
-    "tedious": "^1.14.0",
-    "underscore": "^1.8.3"
-  },
-  "devDependencies": {
-    "eslint": "^3.16.1",
-    "eslint-config-airbnb-base": "^11.1.0",
-    "eslint-plugin-import": "^2.2.0"
+    "cookie-parser": "~1.4.4",
+    "cors": "2.8.5",
+    "debug": "~4.1.1",
+    "dotenv": "~8.0.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "finale-rest": "1.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.17.1",
+    "mysql2": "~1.6.5",
+    "nodemon": "^1.19.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-saml": "^1.1.0",
+    "pug": "^2.0.3",
+    "sequelize": "^5.8.7",
+    "tedious": "^6.1.2",
+    "underscore": "^1.9.1"
   }
 }
