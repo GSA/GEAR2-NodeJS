@@ -1,0 +1,37 @@
+<!-- The list portfolio summaries view -->
+<h3>Links</h3>
+<p>Click on an item to open the form in a new window.</p>
+<div data-ng-controller="GlossaryController" data-ng-init="createFormsTable()">
+    <script>$("#stage").css({"background-color":"#FFF", "padding-bottom":"75px"})</script>
+    <script>$(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+    </script>
+    <table id="formstable" style="cursor: pointer;"
+           data-id-table="searchtable"
+           data-classes="table table-no-bordered table-hover table-condensed"
+           data-striped="true"
+           data-sort-name="Name"
+           data-sort-order="asc"
+    >
+    </table>
+
+</div>
+<br/>
+<br/>
+<div data-ng-controller="GlossaryController" data-ng-init="createGlossaryTable()">
+    <script>$("#stage").css({"background-color":"#FFF", "padding-bottom":"75px"})</script>
+    <script>$(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+    </script>
+    <table id="glossarytable" style="cursor: pointer;"
+           data-id-table="searchtable"
+           data-classes="table table-no-bordered table-hover table-condensed"
+           data-striped="true"
+           data-sort-name="Name"
+           data-sort-order="asc"
+    >
+    </table>
+
+</div>

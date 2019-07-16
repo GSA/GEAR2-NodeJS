@@ -1,0 +1,103 @@
+import React from 'react';
+import { List, Edit, Create, Datagrid, TextField, EditButton
+  , DisabledInput, SimpleForm, TextInput
+  , CardActions, CreateButton, RefreshButton, Filter
+  , ReferenceInput, SelectInput
+  , ArrayInput, SimpleFormIterator
+  , required, maxLength } from 'react-admin';
+
+  const ListActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter, push }) => (
+      <CardActions>
+          {/* filters && React.cloneElement(filters, {
+              resource,
+              showFilter,
+              displayedFilters,
+              filterValues,
+              context: 'button',
+          })  */}
+          <CreateButton basePath={basePath} />
+          <RefreshButton />
+      </CardActions>
+  );
+
+  const KeynameFilter = props => (
+      <Filter {...props}>
+        <TextInput label="Search" source="kn"  alwaysOn />
+      </Filter>
+  );
+
+  export const ApplicationInterfaceList = (props) => (
+      <List {...props} actions={<ListActions />} title="Application Interfaces" filters={<KeynameFilter />} bulkActionButtons={false} >
+        <Datagrid>
+            <TextField source="id" />
+            <TextField source="keyname" label="Interfaces Name" />
+            <EditButton />
+        </Datagrid>
+    </List>
+);
+
+const ApplicationInterfaceTitle = ({ record }) => {
+    return <span>ApplicationInterface {record ? `"${record.keyname}"` : ''}</span>;
+};
+
+export const ApplicationInterfaceEdit = (props) => (
+    <Edit undoable={false} keyname={<ApplicationInterfaceTitle />} {...props}>
+        <SimpleForm>
+            <DisabledInput source="id" />
+            <TextInput source="keyname" label="Interfaces Name" validate={[required(), maxLength(80)]} />
+
+    <ReferenceInput source="objApplicationId" label="Source Application"
+          reference="applications"
+          sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={ 1000000 }
+          allowEmpty>
+          <SelectInput optionText="keyname" />
+        </ReferenceInput>
+
+    <ReferenceInput source="objApplicationId1" label="Destination Application"
+          reference="applications"
+          sort={{ field: 'keyname', order: 'ASC' }}
+          perPage={ 1000000 }
+          allowEmpty>
+          <SelectInput optionText="keyname" />
+        </ReferenceInput>
+
+        <ArrayInput source="piis"
+            label="PII">
+            <SimpleFormIterator>
+              <ReferenceInput label="PII"
+			  source="id" reference="pii_categories" 
+			   sort={{ field: 'keyname', order: 'ASC' }}
+              perPage={ 1000000 }
+              allowEmpty>
+                <SelectInput optionText="keyname" />
+              </ReferenceInput>
+            </SimpleFormIterator>
+        </ArrayInput>
+
+        </SimpleForm>
+    </Edit>
+);
+
+export const ApplicationInterfaceCreate = (props) => (
+    <Create undoable={false} {...props}>
+        <SimpleForm>
+            <TextInput source="keyname" label="Interfaces Name" validate={[required(), maxLength(80)]} />
+		    <ReferenceInput source="objApplicationId" label="Source Application"
+		      reference="applications" validate={[required()]}
+			  sort={{ field: 'keyname', order: 'ASC' }}
+			  perPage={ 10000 }
+			  allowEmpty>
+			  <SelectInput optionText="keyname" />
+			</ReferenceInput>				
+			{/* 			<ReferenceInput source="objApplicationId1" label="Destination Application"
+			  reference="applications" validate={[required()]}
+			  sort={{ field: 'keyname', order: 'ASC' }}
+			  perPage={ 10000 }
+			  allowEmpty>
+			  <SelectInput optionText="keyname" />
+			</ReferenceInput> */}
+
+ </SimpleForm>
+    </Create>
+);

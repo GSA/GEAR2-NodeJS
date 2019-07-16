@@ -1,0 +1,32 @@
+import { call, put, takeLatest } from 'redux-saga/effects'
+import * as types from '../actions/actionTypes';
+import * as investmentActions from '../actions/investmentActions';
+import * as host from './env';
+import {sortArrayOfObjectByProp} from "../shared/utility";
+
+const URL = host.target + '/api/v1/investments?count=10000';
+
+
+function* fetchInvestments(action) {
+    try {
+        let data = yield call(() => {
+                return fetch(URL, {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Authorization': 'Bearer ' + localStorage.jwt
+                    })
+                })
+                    .then(res => res.json())
+            }
+        );
+        data = sortArrayOfObjectByProp(data, 'keyname');
+        yield put(investmentActions.loadInvestmentsSuccess(data));
+    } catch (error) {
+        yield put(investmentActions.loadInvestmentsFailed());
+    }
+}
+
+
+export default function* watchGetParents() {
+    yield takeLatest(types.LOAD_INVESTMENTS, fetchInvestments);
+}

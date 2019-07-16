@@ -1,0 +1,14 @@
+.ApplicationGeneralTab {
+    margin: 40px;
+}
+
+.InfoBanner {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 100%;
+    text-align: left;
+    background-color: rgba(255, 249, 222, 1);
+    padding: 30px;
+    box-sizing: border-box;
+    font-size: 70%;
+}

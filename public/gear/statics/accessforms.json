@@ -1,0 +1,13 @@
+[
+  {
+    "Title": "New IT Standard Request Form",
+    "Link": "https://gsa--c.na21.visual.force.com/apex/TechnologyRequestForm",
+    "Description": "To request unapproved software:\n\nComplete the New Software Request form.\nFor additional details on the process, review the How to Request New Software document.\nAfter you submit the New Software Request form, you will receive an email with a Request Tracker (RT) ticket number. Track your request with the ticket number.\n\nOur goal in the CTO office is to continuously improve our processes and ensure we are able to meet your technology needs. Please send feedback to it-standards@gsa.gov.",
+    "POC": "Cindy Smith"
+  },
+  {
+    "Title": "GEAR Admin/Developer User Group Request Form",
+    "Link": "https://docs.google.com/forms/d/1LPI2X4YpQvsuSGZxvMZZn-T7qvA07SYmQqKCKxVLNmQ/edit",
+    "POC": "Mark Pratt"
+  }
+]

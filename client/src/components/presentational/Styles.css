@@ -1,0 +1,10 @@
+.Chip {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    line-height: 32px;
+    margin: 2px 2px;
+    min-width: 100px;
+}

@@ -1,0 +1,31 @@
+extends ../layout.pug
+
+block content
+  h1
+    span.fa.fa-cogs 
+    span GEAR Login
+
+  if !!message.length
+    .alert.alert-danger= message
+
+  form(action='/login', method='post')
+    .form-group
+      label Email
+      input(type='text', class='form-control', name='username')
+    
+    .form-group.hidden
+      label Password
+      input(type='password', class='form-control', name='password', value='123')
+    
+    .form-group
+      label Remember Me
+      input(type='checkbox' class='form-control' name='remember' value='yes')
+    
+    button.btn.btn-warning.btn-lg(type='submit') Login
+
+  hr
+
+  //- p Need an account? 
+  //-   a(href='/signup') Signup
+  p Or go 
+    a(href='/#!/') home.
