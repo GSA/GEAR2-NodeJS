@@ -33,7 +33,7 @@
     "passport-jwt": "^4.0.0",
     "passport-saml": "^1.1.0",
     "pug": "^2.0.3",
-    "sequelize": "^5.8.7",
+    "sequelize": "^5.15.1",
     "tedious": "^6.1.2",
     "underscore": "^1.9.1"
   }
