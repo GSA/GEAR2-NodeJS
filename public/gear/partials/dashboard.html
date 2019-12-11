@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-6">
+        <div id="appssocontainer" class="dashboard-chart ea-pie-chart panel panel-default" data-ng-controller="appsBySsoChartController">
+            <div id="appssoheader" class="panel-heading">
+                <h5 style='text-align:center'><b>GSA Business Applications by Owning SSO</b></h5>
+            </div>
+            <div pie id="appssopiehchart">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-offset-6">
+        <div id="investmentcontainer" class="dashboard-chart investment-cntr panel panel-default" data-ng-controller="StrategyController">
+            <div id="investmentheader" class="panel-heading">
+                <h5 style= 'text-align:center'><b>GSA Investments by Type</b></h5>
+            </div>
+            <div id="investchart" class="panel-body" data-ng-init="createInvestmentBar()">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+    <div id="capcontainer" class="panel panel-default" data-ng-controller="BusinessController">
+            <div id="capheader" class="panel-heading">
+                <h5 style= 'text-align:center'><b>GSA Capabilities</b></h5>
+            </div>
+      <div id="capbody" data-ng-init="createDashCloud()" data-toggle="tooltip" title="Click to view the GSA Capability Model">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-offset-6">
+        <div id="orgcontainer" class="panel panel-default">
+            <div id="orgheader" class="panel-heading">
+                <h5 style= 'text-align:center'><b>GSA Organization</b></h5>
+            </div>
+            <div id="orgbody">
+                <a class="hover" href="#!/organization_model">
+                    <img style="display:block; margin-left:auto; margin-right:auto; margin-top:10px;" src="/gear/lib/gsaea/images/Organization225.png" class="img-rounded" alt="GSA Organizational Chart icon" data-toggle="tooltip" title="Click to view the GSA Organization"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

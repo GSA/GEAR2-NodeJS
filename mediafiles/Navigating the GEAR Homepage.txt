@@ -1,0 +1,39 @@
+﻿Request: During your review, please read the text below out loud.
+Purpose: Introduce GEAR’s homepage
+Goal Duration/length: <230 words, <1.5 minutes
+
+
+In this tutorial video, we are going to learn how to navigate the GEAR homepage. GEAR is short for GSA Enterprise Architecture Analytics & Reporting.
+
+
+Along the top of the page, there are five links. Both the home and the GSA EA Analytics & Reporting links bring you back to the home page.
+
+
+The Assistive Technology link describes the page for those using screen reading software.  
+
+
+The About link provides a general overview of GEAR and other information, including an overview of Application Rationalization and information on GEAR’s data services.
+
+
+Clicking the Contact EA Team link will open a new tab and start a draft email to the team who maintain GEAR. 
+
+
+The Strategy, Business, Business Applications, Security, Technologies and Quick Video Tutorials buttons are interactive. Clicking them will reveal related sub categories.  
+
+
+For example clicking on the Business Applications button will allow you to view the authoritative list of GSA Business Applications and the authoritative list of retired applications.
+
+
+Each one of the quadrants on the homepage is interactive as well.
+
+
+Within the GSA Business Applications quadrant, both the circular chart and the color coded SSO’s are clickable and will take you to a detailed listing of their applications.
+
+
+The GSA Investment quadrant allows you to view detailed investment categories by clicking on the graph segments. These are the IT Investments that are reported to OMB.
+
+
+Clicking on the GSA Capabilities or GSA Organization quadrant allows you to dive deeper into GSA capabilities and decompose the organization down to the two-letter office. 
+
+
+Be sure to check out the other tutorial videos if you’re interested in learning how to fully utilize GEAR.

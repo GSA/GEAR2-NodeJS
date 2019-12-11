@@ -1,0 +1,40 @@
+﻿Purpose: Introduce GEAR and answer questions: what’s viewer’s problem, what is the solution, why are we the solution? Call to action.
+
+
+Goal Duration/length: 1.5 minutes
+
+
+Historically, Enterprise Architecture created complex diagrams more geared towards IT professionals, not considering the needs of the business.  
+
+
+Without a trusted source to go to for information, IT and Business may find themselves unable to make informed decisions quickly. 
+
+
+Here at GSA, we are changing how the organization uses Enterprise Architecture. Our new business-focused approach is about providing IT and business data to everyone at GSA, using GEAR.
+
+
+Have you wondered where to go to learn more about GSA’s organization structure?
+
+
+Or how IT supports GSA’s business?  
+
+
+What software can be used at GSA? 
+
+
+Or what an application is used for? 
+
+
+GEAR, short for GSA Enterprise Architecture Analytics & Reporting, was developed with these questions in mind. 
+
+
+Use Chrome for the best experience, go to ea.gsa.gov and explore the site!
+
+
+You will be able to quickly learn about GSA. For example, you can click on the interactive GSA Organization chart icon to learn more about the organization structure. 
+
+
+To learn more about how to fully utilize the information accessible on GEAR, visit the other tutorial videos by navigating to the Quick Video Tutorials button.
+
+
+And if you see something that would be helpful in your day-to-day job, please contact the EA team. We want to hear from you, as you may have the next great idea!

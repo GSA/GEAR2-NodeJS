@@ -1,0 +1,21 @@
+﻿Request: During your review, please read the text below out loud.
+Purpose: Introduce GEAR’s homepage
+Goal Duration/length: <200 words, <1.5 minutes
+
+
+If you’ve found yourself needing to learn more about the GSA organizational structure, there are two ways to access the org chart.
+
+
+The first way is by clicking on the GSA Organization quadrant on the homepage. This activates an interactive organization chart for all of GSA.
+
+
+Mousing over the SSO bubbles reveals an executive description of that SSO.  When each bubble is clicked the next level relationship is shown, down to the two letter organization.  
+
+
+You’ll notice when the description window pops up, there is a small page icon next to the ‘x’ to close the window.  Clicking this icon takes you to an overview of the organization with 3 other tabs for that SSO’s Business, Applications, and Interfaces, if populated.
+
+
+The second way to navigate this section is by clicking on the Business tab on the sidebar. Clicking here reveals four sub-categories; the last two are GSA Organization List and GSA Organization Chart.  The Organization List covers the org name, a description, and its parent org in report format.  The Organization Chart takes you to the bubble model as previously described.
+
+
+Be sure to check out the other tutorial videos if you’re interested in learning how to fully utilize GEAR.

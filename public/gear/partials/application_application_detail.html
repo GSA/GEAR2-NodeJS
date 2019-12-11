@@ -1,0 +1,266 @@
+<!-- The article view -->
+<section class="row" data-ng-controller="ApplicationController" data-ng-init="createAppDetail()">
+    <script>$(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+    </script>
+
+    <div class="col-md-12">
+        <div id="application" class="panel panel-default" style="height: auto;">
+            <div id="applicationheader" class="panel-heading">
+                <h3><i class="fa fa-laptop fa-fw"></i>&nbsp;{{ application.Name }}</h3>
+                <button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
+                data-content="<b>Overview:</b> Contains a general description of the business application.<br>
+                <b>Business:</b> Contains an overview of business-related information as well as the related business capabilities for the business application.”<br>
+                <b>Technology:</b> Contains an overview of technical information as well as the related technologies/IT standards the business application uses.”<br>
+                <b>Interfaces:</b> The interface tab only appears if the business application has interfaces to other business applications. The model can be utilized by hovering over the arc to see the information of the business application, or by hovering over the chord to see the interfaces with other applications. Left click an arc to go to the detail page of that business application.
+                ">Help using this report</button>
+            </div>
+            <div class="panel-body" style="margin : 20px">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active" role="presentation">
+                        <a href="#overview-pane" data-toggle="tab"
+                            aria-controls="overview-pane" role="tab" aria-expanded="true">
+                            Overview
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#business-pane" data-toggle="tab"
+                            aria-controls="business-pane" role="tab" aria-expanded="false">
+                            Business
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#technology-pane" data-toggle="tab"
+                            aria-controls="technology-pane" role="tab" aria-expanded="false">
+                            Technology
+                        </a>
+                    </li>
+                    <li role="presentation" ng-show="!!interfaces.length">
+                        <a href="#interfaces-pane" data-toggle="tab"
+                            aria-controls="interfaces-pane" role="tab" aria-expanded="false"
+                            ng-click="createInterfaceSSOChart(application.Id)">
+                            Interfaces
+                        </a>
+                    </li>
+					<li role="presentation" ng-show="!!interfacesv2.length">
+                        <a href="#interfacesv2-pane" data-toggle="tab"
+                            aria-controls="interfacesv2-pane" role="tab" aria-expanded="false"
+                            ng-click="createInterfacev2(application.Id)">
+                            Data Flow
+                        </a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="overview-pane" class="tab-pane fade in active"
+                        aria-labelledby="overview-tab" role="tabpanel">
+                        <div ng-show="application.Alias">
+                            <h4>Alias</h4>
+                            <p>{{ application.Alias }}</p>
+                        </div>
+                        <h4>Description</h4>
+                        <p>{{ application.Description }}</p>
+                        <div id="Link" ng-show="!!application.Link.length">
+                            <h4>Link</h4>
+                            <a style="display:block" target="_blank" ng-repeat="url in application.Link" href="{{ url }}">{{ url }}</a>
+                        </div>
+                    </div>
+                    <div id="business-pane" class="tab-pane fade"
+                        aria-labelledby="business-tab" role="tabpanel">
+                        <br>
+                        <h4>Business Overview</h4>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-sitemap"></i>&nbsp;SSO</td>
+                                <td>{{ application.SSO }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-sitemap"></i>&nbsp;2 Letter Office</td>
+                                <td>{{ application.Owner }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
+                                <td>
+                                    <ul class="list-unstyled" style="margin-bottom: 0">
+                                        <li ng-repeat="p in pocs|filter:{Type: 'Business'}">
+                                            <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
+                                        </li>
+                                        <li ng-hide="!!pocs.length">
+                                            <span ng-hide="!application.BusinessPOC">{{ application.BusinessPOC }}</span>
+                                            <span ng-hide="application.BusinessPOC">None Provided</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-money"></i>&nbsp;Related Investment</td>
+                                <td>{{ application.Investment||"None Provided" }}</td>
+                            </tr>
+                            <tr ng-show="!!application.IsRevenueGenerator">
+                                <td><i class="fa fa-line-chart"></i>&nbsp;Revenue Generator</td>
+                                <td>{{ application.IsRevenueGenerator }}</td>
+                            </tr>
+                            <tr ng-show="!!application.OMBUID">
+                                <td><i class="fa fa-bookmark"></i>&nbsp;Application ID</td>
+                                <td>{{ application.OMBUID }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-bookmark"></i>&nbsp;CUI Indicator</td>
+                                <td>{{ application.CUI }}</td>
+                            </tr>
+							<tr ng-show="!!application.OMBUID">
+                                <td><i class="fa fa-bookmark"></i>&nbsp;Status</td>
+                                <td>{{ application.Status }}</td>
+                            </tr>
+							<tr ng-show="!!application.OMBUID">
+                                <td><i class="fa fa-bookmark"></i>&nbsp;Production Year</td>
+                                <td>{{ application.ProdYear }}</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div id="timeblock" ng-show="!!time.length">
+                            <!-- <h4>Business Application Roadmap</h4> -->
+                            <!-- <table class="table table-hover"> -->
+                                <!-- <tr> -->
+                                    <!-- <th>FY17</th> -->
+                                    <!-- <th>FY18</th> -->
+                                    <!-- <th>FY19</th> -->
+                                    <!-- <th>FY20</th> -->
+                                    <!-- <th>FY21</th> -->
+                                    <!-- <th>Notes</th> -->
+                                <!-- </tr> -->
+                                <!-- <tr ng-repeat="t in time"> -->
+                                    <!-- <td>{{ t.FY17 }}</td> -->
+                                    <!-- <td>{{ t.FY18 }}</td> -->
+                                    <!-- <td>{{ t.FY19 }}</td> -->
+                                    <!-- <td>{{ t.FY20 }}</td> -->
+                                    <!-- <td>{{ t.FY21 }}</td> -->
+                                    <!-- <td>{{ t.Notes }}</td> -->
+                                <!-- </tr> -->
+                            <!-- </table> -->
+                        <h4>Business Application Roadmap</h4>
+                        <table id="apptimetable" style="cursor: pointer;"
+                            data-search="true"
+                            data-advanced-search="true"
+                            data-id-table="sysapptable"
+                            data-trim-on-search="false"
+                            data-show-columns="true"
+                            data-show-export="true"
+                            data-classes="table table-no-bordered table-hover table-condensed"
+                            data-striped="true"
+                            data-pagination="true"
+                            data-show-pagination-switch="true"
+                            data-sort-name="Ref"
+                            data-sort-order="asc">
+                        </table>
+                        </div>
+                        <br>
+                        <br>
+                        <h4>Related Business Capabilities</h4>
+                        <table id="appcaptable" style="cursor: pointer;"
+                            data-search="true"
+                            data-advanced-search="true"
+                            data-id-table="sysapptable"
+                            data-trim-on-search="false"
+                            data-show-columns="true"
+                            data-show-export="true"
+                            data-classes="table table-no-bordered table-hover table-condensed"
+                            data-striped="true"
+                            data-pagination="true"
+                            data-show-pagination-switch="true"
+                            data-sort-name="Ref"
+                            data-sort-order="asc">
+                        </table>
+                    </div>
+                    <div id="technology-pane" class="tab-pane fade"
+                        aria-labelledby="technology-tab" role="tabpanel">
+                        <br>
+                        <h4>Technical Overview</h4>
+                        <table id="technicaltable" class="table table-hover">
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-user"></i>&nbsp;Technical POC</td>
+                                <td>
+                                    <ul class="list-unstyled" style="margin-bottom: 0">
+                                        <li ng-repeat="p in pocs|filter:{Type: 'Technical'}">
+                                            <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
+                                        </li>
+                                        <li ng-hide="!!pocs.length">
+                                            <span ng-hide="!application.TechnicalPOC">{{ application.TechnicalPOC }}</span>
+                                            <span ng-hide="application.TechnicalPOC">None Provided</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-user"></i>&nbsp;Hosting Provider</td>
+                                <td>{{ application.HostingProvider }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-cloud"></i>&nbsp;Cloud</td>
+                                <td>{{ application.Cloud }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-cogs"></i>&nbsp;Technology Platform</td>
+                                <td>{{ application.TechnologyPlatform }}</td>
+                            </tr>
+                            <tr id="parentsysrow" ng-show="!!application.System">
+                                <td><i class="fa fa-cog"></i>&nbsp;Parent System</td>
+                                <td>{{ application.System }}</td>
+                            </tr>
+                            <!-- <tr id="fismasysrow" ng-show="!!application.RelFISMASys.length"> -->
+                            <tr id="fismasysrow" ng-show="!!application.FISMASystem">
+                                <td><i class="fa fa-cog"></i>&nbsp;FISMA System</td>
+                                <td>{{ application.FISMASystem }}</td>
+                                <!-- <td> -->
+                                    <!-- <ul class="list-unstyled"> -->
+                                        <!-- <li ng-repeat="fs in application.FISMASystem">  -->
+                                           <!--  {{ fs.Name }} -->
+                                        <!-- </li> -->
+                                    <!-- </ul> -->
+                                <!-- </td> -->
+                            </tr>
+                        </table>
+                        <br>
+                        <h4>Related Technology</h4>
+                        <table id="apptechtable" style="cursor: pointer;"
+
+                        data-search="true"
+                        data-advanced-search="true"
+                        data-id-table="apptechtable"
+                        data-trim-on-search="false"
+                        data-show-columns="true"
+                        data-show-export="true"
+                        data-classes="table table-no-bordered table-hover table-condensed"
+                        data-striped="true"
+                        data-pagination="true"
+                        data-show-pagination-switch="true"
+                        data-sort-name="Name"
+                        data-sort-order="asc"
+                        >
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfaces-tab"  id="interfaces-pane">
+                    <div id="interfacessochart" style="margin-top:20px">
+					<div id = "tooltip1" > </div>
+
+                    </div>
+                </div>
+				<div role="tabpanel" class="tab-pane fade in active" aria-labelledby="interfacesv2-tab"  id="interfacesv2-pane">
+                    <div id="interfacesankey" style="margin-top:20px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

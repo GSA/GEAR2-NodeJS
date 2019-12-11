@@ -1,0 +1,103 @@
+<!-- The detail view -->
+<section class="row" data-ng-controller="InfrastructureController" data-ng-init="createITStandDetail()">
+<script>$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
+    <div class="col-md-12">
+        <div id="function" class="panel panel-default" style="height: auto;">
+            <div id="functionheader" class="panel-heading">
+                <h3><i class="fa fa-gears fa-fw"></i>&nbsp;{{standName}} </h3>
+				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
+				data-content="
+				<b>Overview:</b> Contains a general description of the business application.<br>
+				<b>Business Applications Using this Standard:</b> List of all business applications that use the standard.<br>
+				">Help using this report</button>
+			</div>
+                <div class="panel-body" style="margin : 20px">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                            <li id="relapps" ng-show="!!applications.length"><a href="#applications" aria-controls="applications" role="tab" data-toggle="tab">Business Applications Using This Standard</a></li>
+                        </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
+                            <h4>Description</h4>
+                            <p>{{standDescription}}</p>
+							              <br />
+                            <h3>Business Overview</h3>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th style="min-width:110px">Attribute</th>
+                                    <th>Value</th>
+                                </tr>
+								                <tr>
+                                    <td><i class="fa fa-sitemap"></i>&nbsp;Category</td>
+                                    <td>{{cat}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-clock-o"></i>&nbsp;Status</td>
+                                    <td>{{status}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-calendar-o"></i>&nbsp;Approval Expiration Date</td>
+                                    <td>{{ approvalExpirationDate ? approvalExpirationDate : 'null' }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-user"></i>&nbsp;POC</td>
+                                    <td>{{poc}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-sitemap"></i>&nbsp;Two Letter Org of the POC</td>
+                                    <td>{{ twoLetterOrgPOC ? twoLetterOrgPOC : "null" }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-comment-o"></i>&nbsp;Comments</td>
+                                    <td>{{comments}}</td>
+                                </tr>
+								<tr>
+                                    <td><i class="fa fa-file"></i>&nbsp;Reference Documents</td>
+<!--                                     <td><a href="{{refdocdetail}}" + " target = '_blank'">
+									<div style="height:100%;width:100%">
+									  {{refdocdetail}}
+									</div>
+									</a>
+									</td> -->
+									<td>
+									<div	ng-repeat = "x in refdocdetail">
+												<a href="{{x}}" + " target = '_blank'" + >
+												<!-- <div style="height:100%;width:100%"> -->
+												   {{x}}
+												<!-- </div> -->
+
+												</a>
+										</div>
+									</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="applications">
+						  <table id="standrelapptable" style="cursor: pointer;"
+								data-search="true"
+								data-advanced-search="true"
+								data-id-table="standrelapptable"
+								data-trim-on-search="false"
+								data-show-columns="true"
+								data-show-export="true"
+								data-classes="table table-no-bordered table-hover table-condensed"
+								data-striped="true"
+								data-pagination="true"
+								data-show-pagination-switch="true"
+								data-sort-name="Name"
+								data-sort-order="asc"
+								>
+							</table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
