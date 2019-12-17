@@ -52,12 +52,12 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: "Admin",
       field: 'ChangeAudit'
     },
-	keyname: {
+	  keyname: {
       type: DataTypes.STRING,
       allowNull: true,
       field: 'Keyname'
     },
-	id: {
+	  id: {
       type: DataTypes.INTEGER(11),
       field: 'Id'
     }
