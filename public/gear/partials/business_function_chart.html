@@ -1,91 +1,103 @@
 <!-- The article view -->
-<section oncontextmenu="return false" class="row" data-ng-controller="BusinessController" data-ng-init="createCapabilityTree()">
-<style>
-#chart {
-  width: 960px;
-  height: 600px;
-<!--  background: #ddd;  -->
-}
+<section oncontextmenu="return false" class="row"
+  data-ng-controller="BusinessController" data-ng-init="createCapabilityTree()">
+  <style>
+    #chart {
+      width: 960px;
+      height: 600px;
+      < !-- background: #ddd;
+      -->
+    }
 
-text {
-  pointer-events: none;
-  font-size: 12px;
-}
+    text {
+      pointer-events: none;
+      font-size: 12px;
+    }
 
-.grandparent text {
-  font-weight: bold;
-}
+    .grandparent text {
+      font-weight: bold;
+    }
 
-rect {
-  fill: none;
-  stroke: #fff;
-}
+    rect {
+      fill: none;
+      stroke: #fff;
+    }
 
-rect.parent,
-.grandparent rect {
-  stroke-width: 2px;
-}
+    rect.parent,
+    .grandparent rect {
+      stroke-width: 2px;
+    }
 
-.grandparent rect {
-  fill: steelblue;
-}
+    .grandparent rect {
+      fill: steelblue;
+    }
 
-.grandparent:hover rect {
-  fill: #8FA4B5;
-}
+    .grandparent:hover rect {
+      fill: #8FA4B5;
+    }
 
-.children rect.parent,
-.grandparent rect {
-  cursor: pointer;
-}
+    .children rect.parent,
+    .grandparent rect {
+      cursor: pointer;
+    }
 
-.children rect.parent {
-<!--  fill: #bbb;  -->
-  fill-opacity: .5;
-}
+    .children rect.parent {
+      < !-- fill: #bbb;
+      -->fill-opacity: .5;
+    }
 
-<!--.children:hover rect.child {
-  fill: #bbb;
-}   -->
+    < !--.children:hover rect.child {
+      fill: #bbb;
+    }
 
-</style>
-<script>$(function () {
-  $('[data-toggle="popover"]').popover()
-})
-</script>
-    <div class="col-md-12">
-        <div id="business" class="panel panel-default" style="height: auto;">
-            <div id="businessheader" class="panel-heading">
-                <h3><i class="fa fa-sitemap fa-fw"></i>Business Capability Model</h3>
+    -->
+  </style>
+  <script>
+    $(function() {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
+  <div class="col-md-12">
+    <div id="business" class="panel panel-default" style="height: auto;">
+      <div id="businessheader" class="panel-heading">
+        <h3><i class="fa fa-sitemap fa-fw"></i>Business Capability Model</h3>
 
-				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Model Help"
-				data-content="
+        <button style="position:absolute;right:30px; top:15px;" type="button"
+          class="btn btn-lg btn-info" data-toggle="popover"
+          data-placement="bottom" data-html="true" title="Model Help"
+          data-content="
 				<b>Zoom:</b> Left click on a capability to zoom into the model and see the lower level capabilities. Click on the top bar (Manage GSA) to zoom back out one level.”.<br>
 				<b>Details:</b> Right-click on a capability to see additional information and related business applications.<br>
-				<b>Heat Map:</b> Colors in the model indicate the number of business applications that support the capability. Dark blue areas indicate a large number of business applications support the capability while lighter shades indicate fewer business applications. ">Help using this model</button>
+				<b>Heat Map:</b> Colors in the model indicate the number of business applications that support the capability. Dark blue areas indicate a large number of business applications support the capability while lighter shades indicate fewer business applications. ">Help
+          using this model</button>
 
 
-		<!--		<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Model Help"
+        <!--		<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Model Help"
 				data-content="<b>Zoom:</b> Click on a capability to zoom into the model and see the children.  Click on the far left panel while zoomed in to zoom back out.<br>
 				<b>Drill-down:</b> Double-click on a capability to drill into the description and to see the list of business applications that support that capability.<br>
 				<b>Heat Map:</b> The colors in the model indicate the number of business applications that support the capability.  Dark blue areas indicate a large number of business applications support the capability while lighter shades indicate fewer business applications.">Click to see how to use this model</button>  -->
 
-			</div>
-			<div id="buschart" class="panel-body" >
-			</div>
-        </div>
-		<div class="panel panel-info" id="funcdetail" style="display:none; width:400px; height: auto; position: fixed; top: 150px; right: 60px;">
-			<div id="funcdetailheader" class="panel-heading">
-				<div id ='funcname' style= "margin-right:25px;">
-				</div>
-				<div style= 'margin-left:30px;'>
-					<i id= 'funcdet' class='fa fa-file-text-o' style= "position:absolute;right:30px; top:10px;" data-toggle="tooltip" title="Click to view capability details"></i>
-					<i id= 'funcclose' class='fa fa-close' style= 'position:absolute;right:10px; top:10px;' data-toggle="tooltip" title="Close this box"></i>
-				</div>
-			</div>
-			<div id="funcdetailbody" class="panel-body" style="margin: 10px;">
-
-			</div>
-		</div>
+      </div>
+      <div id="buschart" class="panel-body">
+      </div>
     </div>
+    <div class="panel panel-info" id="funcdetail"
+      style="display:none; width:400px; height: auto; position: fixed; top: 150px; right: 60px;">
+      <div id="funcdetailheader" class="panel-heading">
+        <div id='funcname' style="margin-right:25px;">
+        </div>
+        <div style='margin-left:30px;'>
+          <i id='funcdet' class='fa fa-file-text-o'
+            style="position:absolute;right:30px; top:10px;"
+            data-toggle="tooltip" title="Click to view capability details"></i>
+          <i id='funcclose' class='fa fa-close'
+            style='position:absolute;right:10px; top:10px;'
+            data-toggle="tooltip" title="Close this box"></i>
+        </div>
+      </div>
+      <div id="funcdetailbody" class="panel-body" style="margin: 10px;">
+
+      </div>
+    </div>
+  </div>
 </section>

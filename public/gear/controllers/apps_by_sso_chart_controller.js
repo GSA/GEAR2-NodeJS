@@ -8,8 +8,10 @@ app.controller('appsBySsoChartController', function($scope, ApplicationsSrc) {
       // TODO: check if business logic is redundant with new API or if we can remove any if-statements
       var pass = false;
       if (
-        (Object.hasOwnProperty.call(item, 'Status') && item.Status !== 'Retired') &&
-        (Object.hasOwnProperty.call(item, 'SSO') && item.SSO !== null) &&
+        (Object.hasOwnProperty.call(item, 'Status') && item.Status !==
+          'Retired') &&
+        (Object.hasOwnProperty.call(item, 'SSO') && item.SSO !==
+          null) &&
         (item.SSO.toLowerCase() !== 'external') &&
         (item.SSO.indexOf('Sample Office') < 0)) {
         pass = true;

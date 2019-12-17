@@ -1,19 +1,21 @@
 <!-- The list portfolio summaries view -->
 <div data-ng-controller="SearchController" data-ng-init="createSearchTable()">
-    <script>$("#stage").css({"background-color":"#FFF", "padding-bottom":"75px"})</script>
-    <script>$(function () {
-        $('[data-toggle="popover"]').popover()
+  <script>
+    $("#stage").css({
+      "background-color": "#FFF",
+      "padding-bottom": "75px"
     })
-    </script>
-    <table id="searchtable" style="cursor: pointer;"
-           data-id-table="searchtable"
-           data-classes="table table-no-bordered table-hover table-condensed"
-           data-striped="true"
-           data-pagination="true"
-           data-show-pagination-switch="true"
-           data-sort-name="Name"
-           data-sort-order="asc"
-    >
-    </table>
+  </script>
+  <script>
+    $(function() {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
+  <table id="searchtable" style="cursor: pointer;" data-id-table="searchtable"
+    data-classes="table table-no-bordered table-hover table-condensed"
+    data-striped="true" data-pagination="true"
+    data-show-pagination-switch="true" data-sort-name="Name"
+    data-sort-order="asc">
+  </table>
 
-</div> 
+</div>

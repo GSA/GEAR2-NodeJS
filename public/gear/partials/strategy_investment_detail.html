@@ -1,85 +1,96 @@
 <!-- The detail view -->
-<section class="row" data-ng-controller="StrategyController" data-ng-init="createInvDetail()">
-<script>$(function () {
-  $('[data-toggle="popover"]').popover()
-})
-</script>
-<div class="col-md-12">
+<section class="row" data-ng-controller="StrategyController"
+  data-ng-init="createInvDetail()">
+  <script>
+    $(function() {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
+  <div class="col-md-12">
     <div id="function" class="panel panel-default" style="height: auto;">
-        <div id="functionheader" class="panel-heading">
-            <h3><i class="fa fa-money"></i>&nbsp;{{ investment.Name }}</h3>
-            <button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info"
-                title="Report Help"
-                data-toggle="popover"
-                data-placement="bottom"
-                data-html="true"
-                data-content="
+      <div id="functionheader" class="panel-heading">
+        <h3><i class="fa fa-money"></i>&nbsp;{{ investment.Name }}</h3>
+        <button style="position:absolute;right:30px; top:15px;" type="button"
+          class="btn btn-lg btn-info" title="Report Help" data-toggle="popover"
+          data-placement="bottom" data-html="true" data-content="
                     <b>Overview:</b> Contains a general description of the business application.<br>
                     <b>Related Business Applications:</b> Lists all of the business applications that have been aligned to that investment.<br>
                 ">
-                <span>Help using this report</span>
-            </button>
-        </div>
-        <div class="panel-body" style="margin : 20px">
-            <div role="tabpanel">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                    <li role="presentation">
-                        <a href="#technology" aria-controls="technology" role="tab" data-toggle="tab"
-                            ng-show="!!applications.length">
-                            <span>Related Business Applications</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="overview">
-                        <h4>Description</h4>
-                        <p>{{ investment.Description }}</p>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>Attribute</th>
-                                <th>Value</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-user"></i>&nbsp;Investment Manager</td>
-                                <td>
-<!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
+          <span>Help using this report</span>
+        </button>
+      </div>
+      <div class="panel-body" style="margin : 20px">
+        <div role="tabpanel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#overview"
+                aria-controls="overview" role="tab"
+                data-toggle="tab">Overview</a></li>
+            <li role="presentation">
+              <a href="#technology" aria-controls="technology" role="tab"
+                data-toggle="tab" ng-show="!!applications.length">
+                <span>Related Business Applications</span>
+              </a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="overview">
+              <h4>Description</h4>
+              <p>{{ investment.Description }}</p>
+              <table class="table table-hover">
+                <tr>
+                  <th>Attribute</th>
+                  <th>Value</th>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-user"></i>&nbsp;Investment Manager</td>
+                  <td>
+                    <!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
                                         <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
                                     </div> -->
-									<a href="mailto:{{investment.InvManagerEmail}}">{{investment.InvManager}}</a>
-                                    <div ng-hide="!!investment.InvManager">
-                                        None Provided
-                                    </div>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-tag"></i>&nbsp;Investment UII</td>
-                                <td>{{ investment.UII }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-folder"></i>&nbsp;Investment Type</td>
-                                <td>{{ investment.Type }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-th"></i>&nbsp;Primary Service Area</td>
-                                <td>{{ investment.PSA }}</td>
-                            </tr>
-                            <tr ng-show="!!investment.SSA">     <!--investment.SecondarySA -->
-                                <td><i class="fa fa-th-large"></i>&nbsp;Secondary Service Area #1</td>
-                                <td>{{ investment.SSA }}</td>
-                            </tr>
-                        </table>
+                    <a
+                      href="mailto:{{investment.InvManagerEmail}}">{{investment.InvManager}}</a>
+                    <div ng-hide="!!investment.InvManager">
+                      None Provided
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="technology">
-                        <table id="invrelappstable" style="cursor: pointer;" data-search="true" data-advanced-search="true" data-id-table="invrelappstable" data-trim-on-search="false" data-show-columns="true" data-show-export="true" data-classes="table table-no-bordered table-hover table-condensed"
-                            data-striped="true" data-pagination="true" data-show-pagination-switch="true" data-sort-name="Name" data-sort-order="asc">
-                        </table>
-                    </div>
-                </div>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-tag"></i>&nbsp;Investment UII</td>
+                  <td>{{ investment.UII }}</td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-folder"></i>&nbsp;Investment Type</td>
+                  <td>{{ investment.Type }}</td>
+                </tr>
+                <tr>
+                  <td><i class="fa fa-th"></i>&nbsp;Primary Service Area</td>
+                  <td>{{ investment.PSA }}</td>
+                </tr>
+                <tr ng-show="!!investment.SSA">
+                  <!--investment.SecondarySA -->
+                  <td><i class="fa fa-th-large"></i>&nbsp;Secondary Service Area
+                    #1</td>
+                  <td>{{ investment.SSA }}</td>
+                </tr>
+              </table>
             </div>
+            <div role="tabpanel" class="tab-pane fade" id="technology">
+              <table id="invrelappstable" style="cursor: pointer;"
+                data-search="true" data-advanced-search="true"
+                data-id-table="invrelappstable" data-trim-on-search="false"
+                data-show-columns="true" data-show-export="true"
+                data-classes="table table-no-bordered table-hover table-condensed"
+                data-striped="true" data-pagination="true"
+                data-show-pagination-switch="true" data-sort-name="Name"
+                data-sort-order="asc">
+              </table>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div></section>
+  </div>
+</section>

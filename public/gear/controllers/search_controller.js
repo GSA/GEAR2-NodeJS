@@ -4,8 +4,20 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('SearchController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'ApplicationsSrc', 'SearchSrc', 'ApplicationsRetired', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'AppInterfacesv2Src', 'OrgInterfacesSrc', 'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
-  function($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, ApplicationsSrc, SearchSrc, ApplicationsRetired, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, AppInterfacesv2Src, OrgInterfacesSrc, System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
+angular.module('dashboard').controller('SearchController', ['$route', '$scope',
+  '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
+  'ApplicationsSrc', 'SearchSrc', 'ApplicationsRetired',
+  'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc',
+  'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc',
+  'AppInterfacesv2Src', 'OrgInterfacesSrc', 'System', 'AppTIMESrc',
+  'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface',
+  'FISMA', 'bstSearchUtils',
+  function($route, $scope, $http, $routeParams, $filter, $location, $sce,
+    $window, ApplicationsSrc, SearchSrc, ApplicationsRetired,
+    AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc,
+    SysAppSrc, InterfacesSrc, AppInterfacesSrc, AppInterfacesv2Src,
+    OrgInterfacesSrc, System, AppTIMESrc, AppTechMap, ITStandard,
+    FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
     $scope.rootPath = '';
     $scope.bstData = [];
     $scope.$bstEl = null;
@@ -74,7 +86,9 @@ angular.module('dashboard').controller('SearchController', ['$route', '$scope', 
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
       console.log($element);
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         let apppath;
         console.log('type', row.Type);
         switch (row.Type) {

@@ -1,31 +1,33 @@
 <!-- The list portfolio summaries view -->
-<div data-ng-controller="SecurityController" data-ng-init="createFISMAPOCTable()">
-<script>$("#stage").css({"background-color":"#FFF", "padding-bottom":"75px"})</script>
-<script>$(function () {
-  $('[data-toggle="popover"]').popover()
-})
-</script>
-<button style="float:left;" type="button" class="btn btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help" 
-data-content="<b>Sorting:</b>Sort fields by clicking on the arrows in the column headers.<br>
+<div data-ng-controller="SecurityController"
+  data-ng-init="createFISMAPOCTable()">
+  <script>
+    $("#stage").css({
+      "background-color": "#FFF",
+      "padding-bottom": "75px"
+    })
+  </script>
+  <script>
+    $(function() {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
+  <button style="float:left;" type="button" class="btn btn-info"
+    data-toggle="popover" data-placement="bottom" data-html="true"
+    title="Report Help"
+    data-content="<b>Sorting:</b>Sort fields by clicking on the arrows in the column headers.<br>
 <b>Export:</b>Export data by clicking on the &nbsp<span class='glyphicon glyphicon-export' aria-hidden='true'></span>&nbsp icon and selecting the format that meets your needs.<br>
 <b>Hidden Fields:</b>Access hidden fields by clicking on the &nbsp<span class='glyphicon glyphicon-th' aria-hidden='true'></span>&nbsp icon.<br>
 <b>Search:</b>Perform a filtered search across all fields in the displayed data.  Search within specific columns by clicking on the &nbsp<span class='glyphicon glyphicon-search' aria-hidden='true'></span>&nbsp icon.<br>
 <b>Pages:</b>Choose how many rows per page are displayed.  Click on the &nbsp<span class='glyphicon glyphicon-collapse-down' aria-hidden='true'></span>&nbsp icon to display everything on one page.">
-Help using this report</button>
-<table id="fismapoctable" style="cursor: pointer;"
-data-search="true"
-data-advanced-search="true"
-data-id-table="fismapoctable"
-data-trim-on-search="false"
-data-show-columns="true"
-data-show-export="true"
-data-classes="table table-no-bordered table-hover table-condensed"
-data-striped="true"
-data-pagination="true"
-data-show-pagination-switch="true"
-data-sort-name="Name"
-data-sort-order="asc"
->
-</table>		
+    Help using this report</button>
+  <table id="fismapoctable" style="cursor: pointer;" data-search="true"
+    data-advanced-search="true" data-id-table="fismapoctable"
+    data-trim-on-search="false" data-show-columns="true" data-show-export="true"
+    data-classes="table table-no-bordered table-hover table-condensed"
+    data-striped="true" data-pagination="true"
+    data-show-pagination-switch="true" data-sort-name="Name"
+    data-sort-order="asc">
+  </table>
 
 </div>

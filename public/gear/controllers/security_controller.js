@@ -4,11 +4,14 @@
 'use strict';
 
 // Create the 'Security' controller
-angular.module('dashboard').controller('SecurityController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
-  'FISMASrc', 'FISMAexpSrc', 'FISMAexp1Src', 'FISMAexp2Src', 'FISMAPOCsSrc', 'POCSrc', 'FISMAAppsSrc', 'FISMAApplicationsSrc',
+angular.module('dashboard').controller('SecurityController', ['$route',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  'FISMASrc', 'FISMAexpSrc', 'FISMAexp1Src', 'FISMAexp2Src', 'FISMAPOCsSrc',
+  'POCSrc', 'FISMAAppsSrc', 'FISMAApplicationsSrc',
   'FISMAPOC', 'bstSearchUtils',
   function($route, $scope, $http, $routeParams, $filter, $location, $sce,
-    FISMASrc, FISMAexpSrc, FISMAexp1Src, FISMAexp2Src, FISMAPOCsSrc, POCSrc, FISMAAppsSrc, FISMAApplicationsSrc,
+    FISMASrc, FISMAexpSrc, FISMAexp1Src, FISMAexp2Src, FISMAPOCsSrc, POCSrc,
+    FISMAAppsSrc, FISMAApplicationsSrc,
     FISMAPOC, bstSearchUtils) {
     $scope.rootPath = '';
     $scope.bstData = [];
@@ -48,12 +51,14 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val.FISMASystemIdentifier,
+            "FISMASystemIdentifier": val
+              .FISMASystemIdentifier,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
+            "Artifacts": val
+              .RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -147,7 +152,9 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
         // ALSO: bs-table plugin captures events and prevents propagation
         // from inner children to bubble back up. The only solution so
         // far is to explicitly exclude by column name
-        if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) &&
+        if ((!!$(
+            '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+          ).length) &&
           field !== 'Artifacts') {
           $location.path('/FISMA/' + row.Id);
           $scope.$apply();
@@ -185,13 +192,15 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val.FISMASystemIdentifier,
+            "FISMASystemIdentifier": val
+              .FISMASystemIdentifier,
             "InactiveDate": val.InactiveDate,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val.RelatedArtifacts // artifacts.join(',<br/>')
+            "Artifacts": val
+              .RelatedArtifacts // artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -287,7 +296,9 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
         // ALSO: bs-table plugin captures events and prevents propagation
         // from inner children to bubble back up. The only solution so
         // far is to explicitly exclude by column name
-        if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) &&
+        if ((!!$(
+            '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+          ).length) &&
           field !== 'Artifacts') {
           $location.path('/FISMA/' + '-' + row.Id);
           $scope.$apply();
@@ -325,13 +336,15 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val.FISMASystemIdentifier,
+            "FISMASystemIdentifier": val
+              .FISMASystemIdentifier,
             "InactiveDate": val.InactiveDate,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
+            "Artifacts": val
+              .RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -425,7 +438,9 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
         // ALSO: bs-table plugin captures events and prevents propagation
         // from inner children to bubble back up. The only solution so
         // far is to explicitly exclude by column name
-        if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) &&
+        if ((!!$(
+            '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+          ).length) &&
           field !== 'Artifacts') {
           $location.path('/FISMA/' + row.Id);
           $scope.$apply();
@@ -463,13 +478,15 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val.FISMASystemIdentifier,
+            "FISMASystemIdentifier": val
+              .FISMASystemIdentifier,
             "InactiveDate": val.InactiveDate,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
+            "Artifacts": val
+              .RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -563,7 +580,9 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
         // ALSO: bs-table plugin captures events and prevents propagation
         // from inner children to bubble back up. The only solution so
         // far is to explicitly exclude by column name
-        if ((!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) &&
+        if ((!!$(
+            '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+          ).length) &&
           field !== 'Artifacts') {
           $location.path('/FISMA/' + row.Id);
           $scope.$apply();
@@ -600,13 +619,20 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
 
         for (var i = 0; i < fisma[0].RelatedArtifacts.length; i++) {
           var cb = {
-            ArtName: fisma[0].RelatedArtifacts[i].substr(fisma[0].RelatedArtifacts[i].indexOf("\">") + 2, fisma[0].RelatedArtifacts[i].indexOf("</a>") - fisma[0].RelatedArtifacts[i].indexOf("\">") - 2),
-            ArtURL: fisma[0].RelatedArtifacts[i].substr(fisma[0].RelatedArtifacts[i].indexOf("href=\"") + 6, fisma[0].RelatedArtifacts[0].indexOf("\">") - fisma[0].RelatedArtifacts[0].indexOf("href=\"") - 6),
+            ArtName: fisma[0].RelatedArtifacts[i].substr(fisma[0]
+              .RelatedArtifacts[i].indexOf("\">") + 2, fisma[0]
+              .RelatedArtifacts[i].indexOf("</a>") - fisma[0]
+              .RelatedArtifacts[i].indexOf("\">") - 2),
+            ArtURL: fisma[0].RelatedArtifacts[i].substr(fisma[0]
+              .RelatedArtifacts[i].indexOf("href=\"") + 6, fisma[
+                0].RelatedArtifacts[0].indexOf("\">") - fisma[0]
+              .RelatedArtifacts[0].indexOf("href=\"") - 6),
           }
           $scope.fisma.RelatedArtName_test.push(cb);
         }
         if (fisma[0].CSP == 'N/A') $scope.fisma.CSP = '';
-        if (fisma[0].ServiceType == 'N/A') $scope.fisma.ServiceType = '';
+        if (fisma[0].ServiceType == 'N/A') $scope.fisma.ServiceType =
+          '';
         var newpoc;
         pocs.$promise.then(function() {
 
@@ -827,10 +853,13 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
 
 
     // Method to handle click events on FISMA Certified Applications table
-    $('#fismaappstable').on('click-row.bs.table', function(e, row, $element) {
+    $('#fismaappstable').on('click-row.bs.table', function(e, row,
+      $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/applications/' + row.Id);
         $route.reload();
       }
@@ -911,10 +940,13 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
       });
     }
 
-    $('#fismapoctable').on('click-row.bs.table', function(e, row, $element) {
+    $('#fismapoctable').on('click-row.bs.table', function(e, row,
+      $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/FISMA/' + row.Id);
         $route.reload();
       }
@@ -938,7 +970,8 @@ angular.module('dashboard').controller('SecurityController', ['$route', '$scope'
             "SecurityRole": "RISSO",
             "Region": val.Region,
             "PhoneNumber": val.Phone,
-            "Email": "<a href=mailto:" + val.Email + ">" + val.Email + "</a>"
+            "Email": "<a href=mailto:" + val.Email + ">" + val
+              .Email + "</a>"
           });
           //       }
         });

@@ -4,8 +4,19 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('ApplicationController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'ApplicationsSrc', 'ApplicationsRetired', 'AppCapabilitiesSrc', 'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc', 'InterfacesSrc', 'AppInterfacesSrc', 'AppInterfacesv2Src', 'OrgInterfacesSrc', 'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard', 'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
-  function($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, ApplicationsSrc, ApplicationsRetired, AppCapabilitiesSrc, AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc, InterfacesSrc, AppInterfacesSrc, AppInterfacesv2Src, OrgInterfacesSrc, System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction, Interface, FISMA, bstSearchUtils) {
+angular.module('dashboard').controller('ApplicationController', ['$route',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  '$window', 'ApplicationsSrc', 'ApplicationsRetired', 'AppCapabilitiesSrc',
+  'AppTechnologiesSrc', 'AppPOCsSrc', 'ParentSystemsSrc', 'SysAppSrc',
+  'InterfacesSrc', 'AppInterfacesSrc', 'AppInterfacesv2Src',
+  'OrgInterfacesSrc', 'System', 'AppTIMESrc', 'AppTechMap', 'ITStandard',
+  'FuncAppMap', 'BusFunction', 'Interface', 'FISMA', 'bstSearchUtils',
+  function($route, $scope, $http, $routeParams, $filter, $location, $sce,
+    $window, ApplicationsSrc, ApplicationsRetired, AppCapabilitiesSrc,
+    AppTechnologiesSrc, AppPOCsSrc, ParentSystemsSrc, SysAppSrc,
+    InterfacesSrc, AppInterfacesSrc, AppInterfacesv2Src, OrgInterfacesSrc,
+    System, AppTIMESrc, AppTechMap, ITStandard, FuncAppMap, BusFunction,
+    Interface, FISMA, bstSearchUtils) {
     $scope.rootPath = '';
     $scope.bstData = [];
     $scope.$bstEl = null;
@@ -31,7 +42,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
       $scope.applications = applications;
       applications.$promise.then(function(populateData) {
         $.each(applications, function(key, val) {
-          if ([val.Status] != "Retired" && [val.SSO] != "External") {
+          if ([val.Status] != "Retired" && [val.SSO] !=
+            "External") {
             var sys = '';
             var fismasys = '';
             if ([val.ParentSystem] == '') {
@@ -59,7 +71,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
               "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
               "Alias": val.Alias,
-              "RegionClassification": val.RegionClassification,
+              "RegionClassification": val
+                .RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
               "Id": val.Id,
@@ -223,7 +236,9 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
     $('#appstable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         var apppath = '/applications/' + row.Id;
         $location.path(apppath);
         $route.reload();
@@ -255,7 +270,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
               "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
               "Alias": val.Alias,
-              "RegionClassification": val.RegionClassification,
+              "RegionClassification": val
+                .RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
               "Id": val.Id,
@@ -477,7 +493,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                 }
               }
             });
-            if (status != 'Retired' && [val.SSO] != "External") {
+            if (status != 'Retired' && [val.SSO] !=
+              "External") {
               $scope.bstData.push({
                 "Owner": owner,
                 "SSO": sso,
@@ -502,7 +519,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                 "Notes": notes,
                 "Alias": val.Alias,
                 "CUI": val.CUI,
-                "RegionClassification": val.RegionClassification,
+                "RegionClassification": val
+                  .RegionClassification,
                 "OwnerLongName": val.Owner,
                 "BusinessPOC": val.BusinessPOC,
                 "TechnicalPOC": val.TechnicalPOC,
@@ -676,7 +694,9 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
     $('#timetable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         var apppath = row.Id
         //      apppath = apppath.replace(/\//g , "-%")
         $location.path('/applications/' + apppath);
@@ -728,7 +748,9 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
     $('#systemtable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/systems/' + row.Id);
         $route.reload();
       }
@@ -774,12 +796,19 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
                 $scope.systype = 'sys';
 
                 interfaces.$promise.then(function() {
-                  $.each(application, function(i, app) {
+                  $.each(application, function(i,
+                    app) {
                     // if (app.Owner == org.Name)
                     //   {//org.DisplayName
-                    $.each(interfaces, function(i, iface) {
-                      if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
-                        d3.select("#interfaces-tab").style("display", "block");
+                    $.each(interfaces, function(i,
+                      iface) {
+                      if (iface.AppID1 == app
+                        .Id || iface.AppID2 ==
+                        app.Id) {
+                        d3.select(
+                            "#interfaces-tab")
+                          .style("display",
+                            "block");
                       }
                     });
                     // };
@@ -1003,7 +1032,9 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
     $('#sysapptable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         var apppath = row.Id;
         //     apppath = apppath.replace(/\//g , "-%")
         $location.path('/applications/' + apppath);
@@ -1042,7 +1073,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
       application.$promise.then(function(d) {
         // rule is multiple Links are single string, delimited with a comma
-        if (!!application[0].Link && application[0].Link.indexOf(',') > -1) {
+        if (!!application[0].Link && application[0].Link.indexOf(
+            ',') > -1) {
           application[0].Link = application[0].Link.split(',');
         } else if (!!application[0].Link) {
           application[0].Link = [application[0].Link];
@@ -1059,8 +1091,10 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
         interfaces.$promise.then(function() {
           $.each(application, function(i, app) {
             $.each(interfaces, function(i, iface) {
-              if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
-                d3.select("#interfaces-tab").style("display", "block");
+              if (iface.AppID1 == app.Id || iface
+                .AppID2 == app.Id) {
+                d3.select("#interfaces-tab").style(
+                  "display", "block");
               }
             });
             // };
@@ -1072,8 +1106,10 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
         interfacesv2.$promise.then(function() {
           $.each(application, function(i, app) {
             $.each(interfacesv2, function(i, iface2) {
-              if (iface2.srcAppID == app.Id || iface2.destAppID == app.Id) {
-                d3.select("#interfacesv2-tab").style("display", "block");
+              if (iface2.srcAppID == app.Id || iface2
+                .destAppID == app.Id) {
+                d3.select("#interfacesv2-tab").style(
+                  "display", "block");
               }
             });
             // };
@@ -1242,7 +1278,9 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
     $('#appcaptable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/capabilities/' + row.Id);
         $route.reload();
       }
@@ -1252,7 +1290,9 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
     $('#apptechtable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/itstandards/' + row.Id);
         $route.reload();
       }
@@ -1331,7 +1371,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
           .addValuesToMap("NameShort1")
 
           .setFilter(function(row, a, b) {
-            return (row.NameShort1 === a.name && row.NameShort2 === b.name);
+            return (row.NameShort1 === a.name && row.NameShort2 ===
+              b.name);
           })
           .setAccessor(function(recs, a, b) {
             if (!recs[0]) return 0;
@@ -1348,7 +1389,12 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
           var color = d3.scale.category20b();
           var fill = d3.scale.ordinal()
-            .range(['#6b6ecf', '#b5cf6b', '#e7ba52', '#d6616b', '#de9ed6', '#393b79', '#637939', '#8c6d31', '#843c39', '#7b4173', '#ce6dbd', '#9c9ede', '#cedb9c', '#e7cb94', '#e7969c', '#5254a3', '#8ca252', '#bd9e39', '#ad494a', '#a55194', ])
+            .range(['#6b6ecf', '#b5cf6b', '#e7ba52', '#d6616b',
+              '#de9ed6', '#393b79', '#637939', '#8c6d31', '#843c39',
+              '#7b4173', '#ce6dbd', '#9c9ede', '#cedb9c', '#e7cb94',
+              '#e7969c', '#5254a3', '#8ca252', '#bd9e39', '#ad494a',
+              '#a55194',
+            ])
 
           var chord = d3.layout.chord()
             .sortSubgroups(d3.descending)
@@ -1372,7 +1418,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             .attr("id", SVG_ID)
             .append("svg:g")
             //            .attr("id", "circle")
-            .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+            .attr("transform", "translate(" + w / 2 + "," + h / 2 +
+              ")");
 
           // if(mmapsize <=2){
           // svg.attr("transform", "translate(" + w / 2 + "," + h / 2 + ") rotate(57) ");}
@@ -1417,7 +1464,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
               return d.angle > Math.PI ? "end" : null;
             })
             .attr("transform", function(d) {
-              return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")" +
+              return "rotate(" + (d.angle * 180 / Math.PI - 90) +
+                ")" +
                 "translate(" + (r0 + 21) + ")" +
                 (d.angle > Math.PI ? "rotate(180)" : "");
             })
@@ -1477,13 +1525,16 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
             .enter().append("svg:path")
             .attr("class", "chord")
             .style("stroke-opacity", .4) // set the stroke opacity
-            .style("stroke", "#3182bd") // set the line colour, #3182bd seems GSA Blue
+            .style("stroke",
+              "#3182bd"
+              ) // set the line colour, #3182bd seems GSA Blue
             .style("fill", "#c6dbef") // set the fill colour
             .attr("d", d3.svg.chord().radius(r0))
             .on("mouseover", function(d) {
               d3.select("#tooltip1")
                 .style("visibility", "visible")
-                .html(chordTip(rdr(d))) //controls whether the tips are moving or not
+                .html(chordTip(rdr(
+                  d))) //controls whether the tips are moving or not
                 .style("top", function() {
                   return (d3.event.y - 100) + "px"
                 }) //d3.event.pageY - 100
@@ -1593,7 +1644,11 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
           },
           // color = d3.scale.category20b();
           color = d3.scale.ordinal()
-          .range(['#9dc6d8', '#00b3ca', '#7dd0b6', '#1d4e89', '#d2b29b', '#e38690', '#f69256', '#ead98b', '#965251', '#c6cccc', '#e5dfef', '#fbdce0', '#cbefe7', '#fffdce', '#d7ffdd', ]);
+          .range(['#9dc6d8', '#00b3ca', '#7dd0b6', '#1d4e89',
+            '#d2b29b', '#e38690', '#f69256', '#ead98b', '#965251',
+            '#c6cccc', '#e5dfef', '#fbdce0', '#cbefe7', '#fffdce',
+            '#d7ffdd',
+          ]);
 
         // append the svg canvas to the page
         var svg = d3.select('#' + CONTAINER_ID)
@@ -1666,8 +1721,10 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
 
         // loop through each link replacing the text with its index from node
         graph.links.forEach(function(d, i) {
-          graph.links[i].source = nodes_k.indexOf(graph.links[i].source);
-          graph.links[i].target = nodes_k.indexOf(graph.links[i].target);
+          graph.links[i].source = nodes_k.indexOf(graph.links[i]
+            .source);
+          graph.links[i].target = nodes_k.indexOf(graph.links[i]
+            .target);
         });
 
         graph.links.sort(function(a, b) {
@@ -1799,7 +1856,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route', '$sco
           // if( d3.select(this).attr("data-clicked") == "1" ){
           // d3.select(this).attr("data-clicked","0");
           var appid = d.id;
-          window.location = window.location.pathname + ('#!/applications/' + appid);
+          window.location = window.location.pathname + (
+            '#!/applications/' + appid);
           // }
           // else{
           // d3.select(this).attr("data-clicked","1");

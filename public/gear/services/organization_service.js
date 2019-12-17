@@ -5,18 +5,20 @@
 // UNUSED, LEGACY
 // Delete reference in BusinessController and this is good to be removed
 
-angular.module('dashboard').factory('OrgSvc', ['$http', 'WcfConfig',function ($http, WcfConfig) {
-  var endpoint = WcfConfig.urlRoot + 'v0/organizations';//'EAOpen.svc/organizations';
+angular.module('dashboard').factory('OrgSvc', ['$http', 'WcfConfig', function(
+  $http, WcfConfig) {
+  var endpoint = WcfConfig.urlRoot +
+    'v0/organizations'; //'EAOpen.svc/organizations';
   var req = $http.get(endpoint, {
     cache: true
   });
   var dataset = null;
 
-  req.success(function (res) {
+  req.success(function(res) {
     dataset = res.data;
   });
 
-  function getDisplayName (name) {
+  function getDisplayName(name) {
     if (dataset) {
       return dataset;
     } else {

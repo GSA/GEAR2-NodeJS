@@ -4,16 +4,22 @@
 'use strict';
 
 // Create the 'business' controller
-angular.module('dashboard').controller('BusinessController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+angular.module('dashboard').controller('BusinessController', ['$route',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc', 'CapAppCountsSrc', 'OrgAppsSrc', 'InterfacesSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
+  'CapAppCountsSrc', 'OrgAppsSrc', 'InterfacesSrc',
   // resume legacy
-  'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System', 'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME', 'bstSearchUtils', 'Utils',
+  'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System',
+  'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME',
+  'bstSearchUtils', 'Utils',
   function($route, $scope, $http, $routeParams, $filter, $location, $sce,
     // insert new here
-    OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc, OrgAppsSrc, InterfacesSrc,
+    OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc,
+    OrgAppsSrc, InterfacesSrc,
     // resume legacy
-    BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application, Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
+    BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application,
+    Interface, FuncAppMap, Goal, TIME, bstSearchUtils, Utils) {
 
     $scope.rootPath = '';
     $scope.bstData = [];
@@ -34,7 +40,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
       organizations.$promise.then(function(populateData) {
         $scope.bstData = [];
         $.each(organizations, function(key, val) {
-          if ([val.Name] != "External" && [val.Name] != "FAS Enterprise") {
+          if ([val.Name] != "External" && [val.Name] !=
+            "FAS Enterprise") {
             var description = val.Description;
             var name = val.Name;
             var parent = val.Parent;
@@ -74,7 +81,9 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
     $('#orgtable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         //   var orgpath =  row.Id;
         //      orgpath = orgpath.replace(/\//g , "-%")
         $location.path('/organizations/' + row.Id);
@@ -122,9 +131,13 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
                 $.each(application, function(i, app) {
                   // if (app.Owner == org.Name)
                   //   {//org.DisplayName
-                  $.each(interfaces, function(i, iface) {
-                    if (iface.AppID1 == app.Id || iface.AppID2 == app.Id) {
-                      d3.select("#interfaces-tab").style("display", "block");
+                  $.each(interfaces, function(i,
+                    iface) {
+                    if (iface.AppID1 == app.Id ||
+                      iface.AppID2 == app.Id) {
+                      d3.select("#interfaces-tab")
+                        .style("display",
+                          "block");
                     }
                   });
                   // };
@@ -405,7 +418,9 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
     $('#orgapptable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         var apppath = row.Id
         //        apppath = apppath.replace(/\//g , "-%")
         $location.path('/applications/' + apppath);
@@ -457,10 +472,13 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
       });
     }
 
-    $('#capabilitytable').on('click-row.bs.table', function(e, row, $element) {
+    $('#capabilitytable').on('click-row.bs.table', function(e, row,
+      $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/capabilities/' + row.Id);
         $route.reload();
       }
@@ -519,7 +537,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
         });
         // set third-level children
         $.each(orgTree.children, function(i, firstLevelOrg) {
-          $.each(firstLevelOrg.children, function(i, secondLevelOrg) {
+          $.each(firstLevelOrg.children, function(i,
+            secondLevelOrg) {
             $.each(orgs, function(i, org) {
               if (org.Parent == secondLevelOrg.name) {
                 secondLevelOrg.children.push({
@@ -544,7 +563,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
         var tree = d3.layout.tree()
           .size([h, w])
           .sort(function(a, b) {
-            return a.displayName.toLowerCase().localeCompare(b.displayName.toLowerCase());
+            return a.displayName.toLowerCase().localeCompare(b
+              .displayName.toLowerCase());
           });
 
         var diagonal = d3.svg.diagonal()
@@ -609,7 +629,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
 
 
             .attr("transform", function(d) {
-              return "translate(" + source.y0 + "," + source.x0 + ")";
+              return "translate(" + source.y0 + "," + source.x0 +
+                ")";
             })
 
 
@@ -657,7 +678,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
               return d.children || d._children ? -10 : 10;
             })
             .attr("dy", function(d) {
-              return d.children || d._children ? "-0.8em" : "0.35em";
+              return d.children || d._children ? "-0.8em" :
+                "0.35em";
             })
             .attr("id", function(d) {
               return "textnode-" + d.identity;
@@ -672,7 +694,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
 
           nodeEnter.select('text').attr('x', function(d) {
             var centerPoint = this.getBBox().width / 2,
-              offset = d.children || d._children ? centerPoint : 10;
+              offset = d.children || d._children ? centerPoint :
+              10;
             return offset;
           });
 
@@ -799,11 +822,14 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
               fkName = fkName || 'parent_id';
               rootId = rootId || (_.first(data) || {})[pkName] || 0;
 
-              var output = _.clone(_.find(data, _.partial(attrEq, pkName, rootId))),
-                childnodes = _.filter(data, _.partial(attrEq, fkName, rootId));
+              var output = _.clone(_.find(data, _.partial(attrEq,
+                  pkName, rootId))),
+                childnodes = _.filter(data, _.partial(attrEq,
+                  fkName, rootId));
 
               output.children = _.map(childnodes, function(child) {
-                return arrayToTree(data, child[pkName], pkName, fkName);
+                return arrayToTree(data, child[pkName], pkName,
+                  fkName);
               });
 
               return output;
@@ -843,7 +869,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
             left: 0
           },
           width = $('#buschart').width(),
-          height = $('#stage').height() - $('#businessheader').height() - parseInt($('#stage').css('padding-top')) * 2,
+          height = $('#stage').height() - $('#businessheader')
+          .height() - parseInt($('#stage').css('padding-top')) * 2,
           formatNumber = d3.format(",d"),
           transitioning;
 
@@ -873,7 +900,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
           .style("margin-left", -margin.left + "px")
           .style("margin.right", -margin.right + "px")
           .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+          .attr("transform", "translate(" + margin.left + "," + margin
+            .top + ")")
           .style("shape-rendering", "crispEdges");
 
         var grandparent = svg.append("g")
@@ -983,7 +1011,9 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
 
             //		.text(function(d) { return d.name + ' : ' + d.description; });
             .text(function(d) {
-              return 'Right-click to view the details for ' + d.name + '. Left-click to view the lower level capabilities.';
+              return 'Right-click to view the details for ' + d
+                .name +
+                '. Left-click to view the lower level capabilities.';
             });
 
           g.append("text")
@@ -1044,7 +1074,9 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
                 .each(function() {
                   try {
                     Utils.wrapSVGText(this,
-                      Math.floor($(this).prev('.ea-tree-node-rect')[0].getBBox().width - 12));
+                      Math.floor($(this).prev(
+                          '.ea-tree-node-rect')[0].getBBox()
+                        .width - 12));
                   } catch (e) {
                     console.warn('EXCEPTION: ', e);
                   }
@@ -1061,7 +1093,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
           try {
             var genGovRect = $('#org-190').prev('rect.parent')[0];
             var evt = document.createEvent("MouseEvents");
-            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            evt.initMouseEvent("click", true, true, window, 0, 0, 0,
+              0, 0, false, false, false, false, 0, null);
             genGovRect.dispatchEvent(evt);
           } catch (e) {}
 
@@ -1139,7 +1172,9 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
       this.render = function() {
         // Wait until both queries are resolved before proceding
         // Per MLD: This render() is unnecessary. No need to wait for all $resources to be resolved.
-        if (capabilities.$resolved) { //timeResource.$resolved && capabilities.$resolved) {
+        if (capabilities
+          .$resolved
+          ) { //timeResource.$resolved && capabilities.$resolved) {
           $scope.capability = capabilities[0];
           applications.$promise.then(function() {
             if (applications.length > 0) {
@@ -1332,10 +1367,13 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
                 data: applications
               });
               // Method to handle click events on the Capability Applications table
-              $('#funcappstable').on('click-row.bs.table', function(e, row, $element) {
+              $('#funcappstable').on('click-row.bs.table', function(
+                e, row, $element) {
                 // note: this :has selector cannot be cached; done this way to get
                 // around caching & DOM availabily issues
-                if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+                if (!!$(
+                    '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+                  ).length) {
                   $location.path('/applications/' + row.Id);
                   $route.reload();
                 }
@@ -1352,7 +1390,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
 
       d3.layout.cloud().size([400, 240])
         .words([
-          "Financial", "Acquisition", "Building", "Security", "Logistics", "Fleet", "Workforce"
+          "Financial", "Acquisition", "Building", "Security",
+          "Logistics", "Fleet", "Workforce"
         ].map(function(d) {
           return {
             text: d,
@@ -1402,7 +1441,8 @@ angular.module('dashboard').controller('BusinessController', ['$route', '$scope'
           })
           .attr("text-anchor", "middle")
           .attr("transform", function(d) {
-            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate +
+              ")";
           })
           .text(function(d) {
             return d.text;

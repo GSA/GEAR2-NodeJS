@@ -1,5 +1,4 @@
-﻿[
-  {
+[{
     "Term": "Agile Approach to Federal Enterprise Architecture",
     "Definition": "Agile is a term in Information Technology (IT) circles today that essentially means growth happens with small, iterative, customer-centric steps that produce results quickly. Agile EA is an approach to architecture development that is focused on small EA deliverables with the needs of the customer in mind. When starting to build (or rebuild) an agency’s architecture, start small with one aspect that would benefit the stakeholders, and put something together. It doesn’t have to be complete and polished, and actually shouldn’t be. Each draft and subsequent improvement should be based on what will best fit the stakeholder’s most immediate needs. The architecture should not be developed to serve the enterprise architect."
   },

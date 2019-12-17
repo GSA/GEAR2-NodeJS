@@ -4,8 +4,13 @@
 'use strict';
 
 // Create the 'Infrastructure' controller
-angular.module('dashboard').controller('InfrastructureController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', 'ITStandardsSrc', 'ITStdApplicationsSrc', 'ITStandardByCat', 'AppTechMap', 'Application', 'bstSearchUtils',
-  function($route, $scope, $http, $routeParams, $filter, $location, $sce, ITStandardsSrc, ITStdApplicationsSrc, ITStandardByCat, AppTechMap, Application, bstSearchUtils) {
+angular.module('dashboard').controller('InfrastructureController', ['$route',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  'ITStandardsSrc', 'ITStdApplicationsSrc', 'ITStandardByCat', 'AppTechMap',
+  'Application', 'bstSearchUtils',
+  function($route, $scope, $http, $routeParams, $filter, $location, $sce,
+    ITStandardsSrc, ITStdApplicationsSrc, ITStandardByCat, AppTechMap,
+    Application, bstSearchUtils) {
     $scope.rootPath = '';
     $scope.bstData = [];
     $scope.$bstEl = null;
@@ -90,7 +95,9 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
     $('#standtable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/itstandards/' + row.ID);
         $route.reload();
       }
@@ -149,7 +156,9 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
     $('#goldtable').on('click-row.bs.table', function(e, row, $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         var standpath = row.Name
         //     standpath = standpath.replace(/\//g , "-%")
         $location.path('/itstandards/' + standpath);
@@ -367,10 +376,13 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
     }
 
     // Method for handling click events on the IT Standards app table
-    $('#standrelapptable').on('click-row.bs.table', function(e, row, $element) {
+    $('#standrelapptable').on('click-row.bs.table', function(e, row,
+      $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/applications/' + row.Id);
         $route.reload();
       }
@@ -381,7 +393,8 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
       // Use the IT Standard By Category 'query' method to send an appropriate GET request
       var stands = ITStandardByCat.query();
       stands.$promise.then(function(populateData) {
-        $('#standardsbody').html('<svg id="standardschart" class="dashboard"></svg>');
+        $('#standardsbody').html(
+          '<svg id="standardschart" class="dashboard"></svg>');
         var count = [];
         var parent = 'IT Standard Catagories';
         var parentcats = [];
@@ -410,7 +423,8 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
             childstandnum = 0;
           });
 
-          var uchildcats = _.uniq(childcats, function(item, key, name) {
+          var uchildcats = _.uniq(childcats, function(item, key,
+            name) {
             return item.name;
           });
           if (parentname == "") {
@@ -425,7 +439,8 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
           uchildcats = [];
           parentstandnum = 0;
         });
-        var uparentcats = _.uniq(parentcats, function(item, key, name) {
+        var uparentcats = _.uniq(parentcats, function(item, key,
+          name) {
           return item.name;
         });
         var root = {
@@ -473,7 +488,8 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
           .style("margin-left", -margin.left + "px")
           .style("margin.right", -margin.right + "px")
           .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+          .attr("transform", "translate(" + margin.left + "," + margin
+            .top + ")")
           .style("shape-rendering", "crispEdges");
 
         var grandparent = svg.append("g")
@@ -584,7 +600,9 @@ angular.module('dashboard').controller('InfrastructureController', ['$route', '$
 
             //		.text(function(d) { return d.name + ' : ' + d.description; });
             .text(function(d) {
-              return 'Right-click to view the IT Standards for ' + d.name + '. Left-click to view the lower level categories.';
+              return 'Right-click to view the IT Standards for ' + d
+                .name +
+                '. Left-click to view the lower level categories.';
             });
 
           g.append("text")

@@ -4,12 +4,15 @@
 'use strict';
 
 // Create the 'strategy' controller
-angular.module('dashboard').controller('StrategyController', ['$route', '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window', 'Goal',
+angular.module('dashboard').controller('StrategyController', ['$route',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  '$window', 'Goal',
   // new
   'InvestmentsSrc', 'InvestmentAppsSrc', 'InvestmentPOCsSrc',
   // remaining legacy
   'Utils', 'bstSearchUtils',
-  function($route, $scope, $http, $routeParams, $filter, $location, $sce, $window, Goal,
+  function($route, $scope, $http, $routeParams, $filter, $location, $sce,
+    $window, Goal,
     // new
     InvestmentsSrc, InvestmentAppsSrc, InvestmentPOCsSrc,
     // remaining legacy
@@ -140,10 +143,13 @@ angular.module('dashboard').controller('StrategyController', ['$route', '$scope'
     }
 
     // Method to handle click events on the Investments table
-    $('#investmenttable').on('click-row.bs.table', function(e, row, $element) {
+    $('#investmenttable').on('click-row.bs.table', function(e, row,
+      $element) {
       // note: this :has selector cannot be cached; done this way to get
       // around caching & DOM availabily issues
-      if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
         $location.path('/investment/' + row.ID);
         $route.reload();
       }
@@ -338,10 +344,13 @@ angular.module('dashboard').controller('StrategyController', ['$route', '$scope'
             data: $scope.applications
           });
           // Method to handle click events on the Investments table
-          $('#invrelappstable').on('click-row.bs.table', function(e, row, $element) {
+          $('#invrelappstable').on('click-row.bs.table', function(
+            e, row, $element) {
             // note: this :has selector cannot be cached; done this way to get
             // around caching & DOM availabily issues
-            if (!!$('.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))').length) {
+            if (!!$(
+                '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+              ).length) {
               $location.path('/applications/' + row.Id);
               $route.reload();
             }
@@ -357,7 +366,8 @@ angular.module('dashboard').controller('StrategyController', ['$route', '$scope'
       var invests = InvestmentsSrc.query();
       var chartContainerSelector = '#investchart'; // used by d3
       var $chartContainer = $(chartContainerSelector); // used by jQuery
-      var $spinner = $chartContainer.append('<i class="load-indicator fa fa-spinner fa-spin fa-2x"></i>');
+      var $spinner = $chartContainer.append(
+        '<i class="load-indicator fa fa-spinner fa-spin fa-2x"></i>');
 
       invests.$promise.then(function() {
           var count = _.countBy(invests, 'Type');
@@ -387,11 +397,14 @@ angular.module('dashboard').controller('StrategyController', ['$route', '$scope'
             return o.key === "Cumulative Return";
           }).values;
 
-          $scope.renderBarChart(chartContainerSelector, $scope.investmentBarData);
+          $scope.renderBarChart(chartContainerSelector, $scope
+            .investmentBarData);
         })
         .catch(function error(msg) {
           console.error(msg);
-          $chartContainer.html('<i class="load-warning fa fa-warning">System Architect services are unavailable at this time.</i>');
+          $chartContainer.html(
+            '<i class="load-warning fa fa-warning">System Architect services are unavailable at this time.</i>'
+          );
         });
     }
     // attach event handler to window.resize to redraw chart
@@ -401,7 +414,8 @@ angular.module('dashboard').controller('StrategyController', ['$route', '$scope'
         $(chartContainerSelector).find('svg').remove();
       }
       if ($scope.investmentBarData) {
-        $scope.renderBarChart('#investchart', $scope.investmentBarData);
+        $scope.renderBarChart('#investchart', $scope
+          .investmentBarData);
       }
     }, 200));
 
@@ -415,7 +429,8 @@ angular.module('dashboard').controller('StrategyController', ['$route', '$scope'
           left: 40
         },
         width = $chartContainer.width() - margin.left - margin.right,
-        height = $('#investmentcontainer').height() - $('#investmentheader').height() - margin.top - margin.bottom,
+        height = $('#investmentcontainer').height() - $(
+          '#investmentheader').height() - margin.top - margin.bottom,
         tooltip = null;
 
       var svg = d3.select(chartContainerSelector)

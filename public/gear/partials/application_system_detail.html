@@ -1,88 +1,85 @@
 <!-- The article view -->
-<section class="row" data-ng-controller="ApplicationController" data-ng-init="createSysDetail()">
-<script>$(function () {
-  $('[data-toggle="popover"]').popover()
-})
-</script>
-    <div class="col-md-12">
-        <div id="system" class="panel panel-default" style="height: auto;">
-            <div id="systemheader" class="panel-heading">
-                <h3><i class="fa fa-laptop fa-fw"></i>&nbsp;{{sysName}}</h3>
-				<button style="position:absolute;right:30px; top:15px;" type="button" class="btn btn-lg btn-info" data-toggle="popover" data-placement="bottom" data-html="true" title="Report Help"
-				data-content="<b>Overview:</b> Contains a general description of the system.<br>
-				<b>Child Business Applications:</b> List of all business applications that fall under this system.<br>"
-				>Help using this report</button>
-			</div>
-                <div class="panel-body" style="margin : 20px">
-                    <div role="tabpanel">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-							<li role="presentation"><a href="#applications" aria-controls="applications" role="tab" data-toggle="tab">Child Business Applications</a></li>
-							<li id="interfaces-tab"style="display:none;" role="presentation"><a href="#interfaces" aria-controls="interfaces" role="tab" data-toggle="tab" data-ng-controller="ApplicationController"ng-click="createInterfaceSSOChart(null,tempname,systype)">Interfaces</a></li> 
-    
+<section class="row" data-ng-controller="ApplicationController"
+  data-ng-init="createSysDetail()">
+  <script>
+    $(function() {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
+  <div class="col-md-12">
+    <div id="system" class="panel panel-default" style="height: auto;">
+      <div id="systemheader" class="panel-heading">
+        <h3><i class="fa fa-laptop fa-fw"></i>&nbsp;{{sysName}}</h3>
+        <button style="position:absolute;right:30px; top:15px;" type="button"
+          class="btn btn-lg btn-info" data-toggle="popover"
+          data-placement="bottom" data-html="true" title="Report Help"
+          data-content="<b>Overview:</b> Contains a general description of the system.<br>
+				<b>Child Business Applications:</b> List of all business applications that fall under this system.<br>">Help
+          using this report</button>
+      </div>
+      <div class="panel-body" style="margin : 20px">
+        <div role="tabpanel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#overview"
+                aria-controls="overview" role="tab"
+                data-toggle="tab">Overview</a></li>
+            <li role="presentation"><a href="#applications"
+                aria-controls="applications" role="tab" data-toggle="tab">Child
+                Business Applications</a></li>
+            <li id="interfaces-tab" style="display:none;" role="presentation"><a
+                href="#interfaces" aria-controls="interfaces" role="tab"
+                data-toggle="tab" data-ng-controller="ApplicationController"
+                ng-click="createInterfaceSSOChart(null,tempname,systype)">Interfaces</a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="overview">
+              <h4>Description</h4>
+              <p>{{sysDescription}}</p>
+              <div ng-show="!!sysURL">
+                <h4>Link</h4>
+                <a target="_blank" href="{{ sysURL }}">{{ sysURL }}</a>
+              </div>
+            </div>
 
-						</ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
-                            <h4>Description</h4>
-                            <p>{{sysDescription}}</p>
-                            <div ng-show="!!sysURL">
-                                <h4>Link</h4>
-                                <a target="_blank" href="{{ sysURL }}">{{ sysURL }}</a>
-                            </div>
-                        </div>
+            <div role="tabpanel" class="tab-pane fade" id="applications">
+              <table id="sysapptable" style="cursor: pointer;"
+                data-search="true" data-advanced-search="true"
+                data-id-table="sysapptable" data-trim-on-search="false"
+                data-show-columns="true" data-show-export="true"
+                data-classes="table table-no-bordered table-hover table-condensed"
+                data-striped="true" data-pagination="true"
+                data-show-pagination-switch="true" data-sort-name="Name"
+                data-sort-order="asc">
+              </table>
+            </div>
 
-						<div role= "tabpanel" class="tab-pane fade" id ="applications">
-							<table id="sysapptable" style="cursor: pointer;"
-							data-search="true"
-							data-advanced-search="true"
-							data-id-table="sysapptable"
-							data-trim-on-search="false"
-							data-show-columns="true"
-							data-show-export="true"
-							data-classes="table table-no-bordered table-hover table-condensed"
-							data-striped="true"
-							data-pagination="true"
-							data-show-pagination-switch="true"
-							data-sort-name="Name"
-							data-sort-order="asc"
-							>
-							</table>
-						</div>
-
-
-
-
-
-
-						<div role="tabpanel" class="tab-pane fade" id="applications"">
+            <div role="tabpanel" class="tab-pane fade" id="applications"">
 							<br>
 							<h3>Child Business Applications</h3>
-							<table class="table table-hover">
-								<tr>
-									<th>Business Application</th>
-									<th>Description</th>
-								</tr>
-								<tr data-ng-repeat="app in appgroup">
-									<td data-title="'App Name'">{{app.Name}}</td>
-									<td data-title="'App Definition'">{{app.Description}}</td>
-								</tr>
-							</table>
-						</div>
-						
-					
-          <div role="tabpanel" class="tab-pane fade in active" id="interfaces">
-						<div id="interfacessochart" style="margin-top:20px">
-						<div id = "tooltip1" > </div>
-
-						</div>
-					</div>
-						
-                    </div>
-                </div>
+							<table class=" table table-hover">
+              <tr>
+                <th>Business Application</th>
+                <th>Description</th>
+              </tr>
+              <tr data-ng-repeat="app in appgroup">
+                <td data-title="'App Name'">{{app.Name}}</td>
+                <td data-title="'App Definition'">{{app.Description}}</td>
+              </tr>
+              </table>
             </div>
+
+            <div role="tabpanel" class="tab-pane fade in active"
+              id="interfaces">
+              <div id="interfacessochart" style="margin-top:20px">
+                <div id="tooltip1"></div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
