@@ -43,7 +43,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     tableName: 'obj_fscloudst',
     timestamps: false,
-  }
-);
+  });
   return fsCloudSt;
 };

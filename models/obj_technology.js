@@ -115,7 +115,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'obj_technology'
   });
 
-  technology.associate = function (models) {
+  technology.associate = function(models) {
 
     models.technology.belongsToMany(models.application, {
       as: 'applications',

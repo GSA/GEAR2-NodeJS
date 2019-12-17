@@ -216,7 +216,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     tableName: 'obj_application'
   });
-  application.associate = function (models) {
+  application.associate = function(models) {
     models.application.belongsToMany(models.application, {
       as: 'replacedby',
       foreignKey: 'obj_application_Id',
