@@ -247,6 +247,35 @@ class FISMAModel extends Model {
             return pocs;
           },
         },
+        {
+          name: 'COR',
+          type: 'string',
+        },
+        {
+          name: 'Contracting Officer Rep.',
+          type: 'string',
+          mapping: 'COR',
+          mapping(d) {
+            let poc = null;
+            let poctype = null;
+            let pocs = '';
+            if (d.CO) {
+              poctype = d.CO.split(':');
+              poc = poctype[1].split('; ');
+              poc = poc.map((art) => {
+                const pieces = art.split(',');
+                var cb = ' ';
+                if (pieces[0] !== '')
+                  cb = pieces[0] + " " + '<br>' + "<a href=mailto:" +
+                  pieces[1] + ">" + pieces[1] + "</a>" + " " + (('<br>' +
+                    (pieces[2] === undefined ? '' : pieces[2])) || '') +
+                  "<br>"; //+ (pieces[2] || '');
+                pocs += cb;
+              });
+            }
+            return pocs;
+          },
+        },
       },
       {
         name: 'SO',

@@ -99,9 +99,18 @@ class FISMAexpModel extends Model {
         type: 'string',
       },
       {
-        name: 'Contracting Official',
+        name: 'Contracting Officer',
         type: 'string',
         mapping: 'CO',
+      },
+      {
+        name: 'COR',
+        type: 'string',
+      },
+      {
+        name: 'Contracting Officer Rep.',
+        type: 'string',
+        mapping: 'COR',
       },
       {
         name: 'PM',

@@ -892,6 +892,10 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             field: 'Contracting Officer',
             title: 'Contracting Officer',
             sortable: true
+          }, {
+            field: 'Contracting Officer Rep.',
+            title: 'Contracting Officer Rep.',
+            sortable: true
           }],
           data: $scope.bstData
         };
