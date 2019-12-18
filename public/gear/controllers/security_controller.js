@@ -51,14 +51,12 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val
-              .FISMASystemIdentifier,
+            "FISMASystemIdentifier": val.FISMASystemIdentifier,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val
-              .RelatedArtifacts //artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -192,15 +190,13 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val
-              .FISMASystemIdentifier,
+            "FISMASystemIdentifier": val.FISMASystemIdentifier,
             "InactiveDate": val.InactiveDate,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val
-              .RelatedArtifacts // artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts // artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -336,15 +332,13 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val
-              .FISMASystemIdentifier,
+            "FISMASystemIdentifier": val.FISMASystemIdentifier,
             "InactiveDate": val.InactiveDate,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val
-              .RelatedArtifacts //artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -478,15 +472,13 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             "ATOType": val.ATOType,
             "RenewalDate": val.RenewalDate,
             "ComplFISMA": val.ComplFISMA,
-            "FISMASystemIdentifier": val
-              .FISMASystemIdentifier,
+            "FISMASystemIdentifier": val.FISMASystemIdentifier,
             "InactiveDate": val.InactiveDate,
             "PII": val.PII,
             "CloudYN": val.CloudYN,
             "CSP": val.CSP,
             "ServiceType": val.ServiceType,
-            "Artifacts": val
-              .RelatedArtifacts //artifacts.join(',<br/>')
+            "Artifacts": val.RelatedArtifacts //artifacts.join(',<br/>')
           });
         });
         bstSearchUtils.checkFilterState($scope);
@@ -631,29 +623,24 @@ angular.module('dashboard').controller('SecurityController', ['$route',
           $scope.fisma.RelatedArtName_test.push(cb);
         }
         if (fisma[0].CSP == 'N/A') $scope.fisma.CSP = '';
-        if (fisma[0].ServiceType == 'N/A') $scope.fisma.ServiceType =
-          '';
+        if (fisma[0].ServiceType == 'N/A') $scope.fisma.ServiceType = '';
         var newpoc;
         pocs.$promise.then(function() {
-
           newpoc = pocs[0].POC;
           $('#fismapocstable').bootstrapTable({
             columns: [{
                 field: 'Type',
                 title: 'Role',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Name',
                 title: 'Name',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Phone',
                 title: 'Phone Number',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Email',
                 title: 'Email',
                 sortable: true
@@ -671,37 +658,31 @@ angular.module('dashboard').controller('SecurityController', ['$route',
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            },
-            {
+            }, {
               field: 'Alias',
               title: 'Alias',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Description',
               title: 'Description',
               sortable: true
-            },
-            {
+            }, {
               field: 'SSOShort',
               title: 'SSO',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'SSO',
               title: 'SSO (Long)',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Owner',
               title: 'Two Letter Org (Long)',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'OwnerShort',
               title: 'Two Letter Org (Short)',
               sortable: true
@@ -719,108 +700,88 @@ angular.module('dashboard').controller('SecurityController', ['$route',
               title: 'Business POC',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'TechPOC',
               title: 'Technical POC',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'ParentSystem',
               title: 'Parent System',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'RegionClassification',
               title: 'Region Classification',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'IsRevenueGenerator',
               title: 'Revenue Generator',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'HostingProvider',
               title: 'Hosting Provider',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Cloud',
               title: 'Cloud',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'TechnologyPlatform',
               title: 'Platform',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'FY14',
               title: 'FY14',
               visible: false
-            },
-            {
+            }, {
               field: 'FY15',
               title: 'FY15',
               visible: false
-            },
-            {
+            }, {
               field: 'FY16',
               title: 'FY16',
               visible: false
-            },
-            {
+            }, {
               field: 'FY17',
               title: 'FY17',
               visible: false
-            },
-            {
+            }, {
               field: 'FY18',
               title: 'FY18',
               visible: false
-            },
-            {
+            }, {
               field: 'FY19',
               title: 'FY19',
               visible: false
-            },
-            {
+            }, {
               field: 'FY20',
               title: 'FY20',
               visible: false
-            },
-            {
+            }, {
               field: 'FY21',
               title: 'FY21',
               visible: false
-            },
-            {
+            }, {
               field: 'Notes',
               title: 'Notes',
               visible: false
-            },
-            {
+            }, {
               field: 'Status',
               title: 'Status',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'ProdYear',
               title: 'Production Year',
               sortable: true,
               visible: false
-            },
-
-            {
+            }, {
               field: 'FISMASystem',
               title: 'FISMA System',
               sortable: true,
@@ -837,9 +798,7 @@ angular.module('dashboard').controller('SecurityController', ['$route',
               title: 'Investment',
               sortable: true,
               visible: false
-
-            },
-            {
+            }, {
               field: 'OMBUID',
               title: 'Application ID',
               sortable: true,
@@ -928,6 +887,10 @@ angular.module('dashboard').controller('SecurityController', ['$route',
           }, {
             field: 'Authorizing Official', // an alias to fisma.AO so we can match poc.Type value
             title: 'Authorizing Official',
+            sortable: true
+          }, {
+            field: 'Contracting Officer',
+            title: 'Contracting Officer',
             sortable: true
           }],
           data: $scope.bstData

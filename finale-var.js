@@ -7,33 +7,33 @@
  */
 module.exports = {
   getModelIncludes: (modelClassName) => {
-      const config =
-      {
-        application: [
-          'replaces',
-          'capabilities',
-          'users',
-          'business_pocs',
-          'technical_pocs',
-          'technologies',
-        ],
-        fisma: [
-          'fisma_artifacts',
-          'issm',
-          'isso',
-          'replaced_by',
-          'technologies',
-        ],
-        technology: [
-          'applications',
-          'replaced_by',
-          'categories',
-          'pocs',
-        ],
-		applicationInterface: [
-          'piis',
-        ],
-      };
-      return modelClassName? config[modelClassName]: config;
-    }
+    const config = {
+      application: [
+        'replaces',
+        'capabilities',
+        'users',
+        'business_pocs',
+        'technical_pocs',
+        'technologies',
+      ],
+      fisma: [
+        'fisma_artifacts',
+        'issm',
+        'isso',
+        'co',
+        'replaced_by',
+        'technologies',
+      ],
+      technology: [
+        'applications',
+        'replaced_by',
+        'categories',
+        'pocs',
+      ],
+      applicationInterface: [
+        'piis',
+      ],
+    };
+    return modelClassName ? config[modelClassName] : config;
+  }
 }

@@ -71,15 +71,13 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
               "Alias": val.Alias,
-              "RegionClassification": val
-                .RegionClassification,
+              "RegionClassification": val.RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
               "Id": val.Id,
               "Investment": val.Investment,
               "IsRevenueGenerator": val.IsRevenueGenerator,
               "DesktopComponent": val.DesktopComponent,
-
               "OMBUID": val.OMBUID,
               "ProdYear": val.ProdYear
             });
@@ -95,105 +93,87 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            },
-            {
+            }, {
               field: 'Alias',
               title: 'Alias',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Description',
               title: 'Description',
               sortable: true
-            },
-            {
+            }, {
               field: 'SSO',
               title: 'SSO',
               sortable: true
-            },
-            {
+            }, {
               field: 'SSOLong',
               title: 'SSO (Long)',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'CUI',
               title: 'CUI',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Owner',
               title: 'Two Letter Org (Long)',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'OwnerShort',
               title: 'Two Letter Org (Short)',
               sortable: true
-            },
-            {
+            }, {
               field: 'BusinessPOC',
               title: 'Business POC',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'TechnicalPOC',
               title: 'Technical POC',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'System',
               title: 'Parent System',
               sortable: true,
-            },
-            {
+            }, {
               field: 'RegionClassification',
               title: 'Region Classification',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'IsRevenueGenerator',
               title: 'Revenue Generator',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'HostingProvider',
               title: 'Hosting Provider',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Cloud',
               title: 'Cloud',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'TechnologyPlatform',
               title: 'Platform',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Status',
               title: 'Status',
               sortable: true
-            },
-            {
+            }, {
               field: 'ProdYear',
               title: 'Production Year',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'FismaSystem',
               title: 'FISMA System',
               sortable: true,
@@ -210,9 +190,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               title: 'Investment',
               sortable: true,
               visible: false
-
-            },
-            {
+            }, {
               field: 'OMBUID',
               title: 'Application ID',
               sortable: true,
@@ -270,8 +248,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
               "Alias": val.Alias,
-              "RegionClassification": val
-                .RegionClassification,
+              "RegionClassification": val.RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
               "Id": val.Id,
@@ -292,100 +269,83 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            },
-            {
+            }, {
               field: 'Alias',
               title: 'Alias',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Description',
               title: 'Description',
               sortable: true
-            },
-            {
+            }, {
               field: 'SSO',
               title: 'SSO',
               sortable: true
-            },
-            {
+            }, {
               field: 'CUI',
               title: 'CUI',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Owner',
               title: 'Two Letter Org (Long)',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'OwnerShort',
               title: 'Two Letter Org (Short)',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'BusinessPOC',
               title: 'Business POC',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'TechnicalPOC',
               title: 'Technical POC',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'System',
               title: 'Parent System',
               sortable: true,
-            },
-            {
+            }, {
               field: 'RegionClassification',
               title: 'Region Classification',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'IsRevenueGenerator',
               title: 'Revenue Generator',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'HostingProvider',
               title: 'Hosting Provider',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Cloud',
               title: 'Cloud',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'TechnologyPlatform',
               title: 'Platform',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Status',
               title: 'Status',
               sortable: true
-            },
-            {
+            }, {
               field: 'ProdYear',
               title: 'Production Year',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'FismaSystem',
               title: 'FISMA System',
               sortable: true,
@@ -403,19 +363,16 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               sortable: true,
               visible: false
 
-            },
-            {
+            }, {
               field: 'RetiredYear',
               title: 'Retired Year (CY)',
               sortable: true
-            },
-            {
+            }, {
               field: 'OMBUID',
               title: 'Application ID',
               sortable: true,
               visible: false
-            },
-            {
+            }, {
               field: 'Replacedby',
               title: 'Application Replaced By',
               sortable: true,
@@ -535,47 +492,39 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 title: 'SSO',
                 visible: false,
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Owner',
                 title: 'Two Letter Org (Short)',
                 sortable: true,
-              },
-              {
+              }, {
                 field: 'OwnerLongName',
                 title: 'Two Letter Org (Long)',
                 visible: false,
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Alias',
                 title: 'Alias',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'Name',
                 title: 'Application Name',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'ParentSystem',
                 title: 'Parent System',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'CUI',
                 title: 'CUI',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'Status',
                 title: 'Status',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'ProdYear',
                 title: 'Production Year',
                 sortable: true,
@@ -591,90 +540,71 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 field: 'FY14',
                 title: 'FY14',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY15',
                 title: 'FY15',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY16',
                 title: 'FY16',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY17',
                 title: 'FY17',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY18',
                 title: 'FY18'
-              },
-              {
+              }, {
                 field: 'FY19',
                 title: 'FY19'
-              },
-              {
+              }, {
                 field: 'FY20',
                 title: 'FY20'
-              },
-              {
+              }, {
                 field: 'FY21',
                 title: 'FY21'
-              },
-              {
+              }, {
                 field: 'FY22',
                 title: 'FY22',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY23',
                 title: 'FY23',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY24',
                 title: 'FY24',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY25',
                 title: 'FY25',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY26',
                 title: 'FY26',
                 visible: false
-              },
-              {
+              }, {
                 field: 'Notes',
                 title: 'Notes',
                 visible: false,
                 sortable: true
-
-              },
-              {
+              }, {
                 field: 'BusinessPOC',
                 title: 'Business POC',
                 visible: false,
                 sortable: true
-
-              },
-              {
+              }, {
                 field: 'TechnicalPOC',
                 title: 'Technical POC',
                 visible: false,
                 sortable: true
-              },
-              {
+              }, {
                 field: 'RegionClassification',
                 title: 'Region Classification',
                 visible: false,
                 sortable: true
-              },
-              {
+              }, {
                 field: 'OMBUID',
                 title: 'Application ID',
                 sortable: true,
@@ -830,36 +760,30 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 field: 'Name',
                 title: 'Application Name',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Description',
                 title: 'Description',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Alias',
                 title: 'Alias',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'SSOShort',
                 title: 'SSO',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Owner',
                 title: 'Two Letter Org (Long)',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'CUI',
                 title: 'CUI',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'OwnerShort',
                 title: 'Two Letter Org (Short)',
                 sortable: true
@@ -870,132 +794,107 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               // sortable: true,
               // visible: false
               // }
-
               {
                 field: 'BusinessPOC',
                 title: 'Business POC',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'TechnicalPOC',
                 title: 'Technical POC',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'RegionClassification',
                 title: 'Region Classification',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'IsRevenueGenerator',
                 title: 'Revenue Generator',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'HostingProvider',
                 title: 'Hosting Provider',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'Cloud',
                 title: 'Cloud',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'TechnologyPlatform',
                 title: 'Platform',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY14',
                 title: 'FY14',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY15',
                 title: 'FY15',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY16',
                 title: 'FY16',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY17',
                 title: 'FY17',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY18',
                 title: 'FY18',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY19',
                 title: 'FY19',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY20',
                 title: 'FY20',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY21',
                 title: 'FY21',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY22',
                 title: 'FY22',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY23',
                 title: 'FY23',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY24',
                 title: 'FY24',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY25',
                 title: 'FY25',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY26',
                 title: 'FY26',
                 visible: false
-              },
-              {
+              }, {
                 field: 'Notes',
                 title: 'Notes',
                 visible: false
-
-              },
-              {
+              }, {
                 field: 'Status',
                 title: 'Status',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'ProdYear',
                 title: 'Production Year',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'FISMASystem',
                 title: 'FISMA System',
                 sortable: true,
@@ -1012,9 +911,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 title: 'Investment',
                 sortable: true,
                 visible: false
-
-              },
-              {
+              }, {
                 field: 'OMBUID',
                 title: 'Application ID',
                 sortable: true,
@@ -1130,69 +1027,55 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 field: 'FY14',
                 title: 'FY14',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY15',
                 title: 'FY15',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY16',
                 title: 'FY16',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY17',
                 title: 'FY17',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY18',
                 title: 'FY18'
-              },
-              {
+              }, {
                 field: 'FY19',
                 title: 'FY19'
-              },
-              {
+              }, {
                 field: 'FY20',
                 title: 'FY20'
-              },
-              {
+              }, {
                 field: 'FY21',
                 title: 'FY21'
-              },
-              {
+              }, {
                 field: 'FY22',
                 title: 'FY22',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY23',
                 title: 'FY23',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY24',
                 title: 'FY24',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY25',
                 title: 'FY25',
                 visible: false
-              },
-              {
+              }, {
                 field: 'FY26',
                 title: 'FY26',
                 visible: false
-              },
-              {
+              }, {
                 field: 'TIME_Notes',
                 title: 'Notes',
                 // visible: false,
                 sortable: true
-
               },
             ],
             data: time
@@ -1205,13 +1088,11 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 field: 'ReferenceNum',
                 title: 'Hierarchy number',
                 //    sortable: true
-              },
-              {
+              }, {
                 field: 'Name',
                 title: 'Business Capability',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Description',
                 title: 'Description',
                 sortable: true
@@ -1237,30 +1118,25 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 field: 'Name',
                 title: 'Technology',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Description',
                 title: 'Description',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'Status',
                 title: 'Status',
                 sortable: true
-              },
-              {
+              }, {
                 field: 'ProdYear',
                 title: 'Production Year',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'Category',
                 title: 'Software Category',
                 sortable: true,
                 visible: false
-              },
-              {
+              }, {
                 field: 'Expiration',
                 title: 'Approved Status Expiration Date',
                 sortable: true,
@@ -1527,7 +1403,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             .style("stroke-opacity", .4) // set the stroke opacity
             .style("stroke",
               "#3182bd"
-              ) // set the line colour, #3182bd seems GSA Blue
+            ) // set the line colour, #3182bd seems GSA Blue
             .style("fill", "#c6dbef") // set the fill colour
             .attr("d", d3.svg.chord().radius(r0))
             .on("mouseover", function(d) {

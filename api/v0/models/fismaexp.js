@@ -3,8 +3,7 @@ const Model = require('./model');
 class FISMAexpModel extends Model {
   constructor(f) {
     super(f);
-    this.fields = [
-      {
+    this.fields = [{
         name: 'Id',
         type: 'int',
         mapping: 'ID',
@@ -16,7 +15,7 @@ class FISMAexpModel extends Model {
       {
         name: 'RelOrgDisplayName',
         type: 'string',
-		mapping(o) {
+        mapping(o) {
           return o.RelOrgDisplayName || o.orgName;
         },
       },
@@ -31,11 +30,12 @@ class FISMAexpModel extends Model {
       {
         name: 'ATODate',
         type: 'string',
- 		mapping(d){
-			if(d.ATODate){
-			let s = d.ATODate.toISOString();
-			return s.substring(0,10);}
-		}, 
+        mapping(d) {
+          if (d.ATODate) {
+            let s = d.ATODate.toISOString();
+            return s.substring(0, 10);
+          }
+        },
       },
       {
         name: 'ATOType',
@@ -44,11 +44,12 @@ class FISMAexpModel extends Model {
       {
         name: 'RenewalDate',
         type: 'string',
- 		mapping(d){
-			if(d.RenewalDate){
-			let s = d.RenewalDate.toISOString();
-			return s.substring(0,10);}
-		},
+        mapping(d) {
+          if (d.RenewalDate) {
+            let s = d.RenewalDate.toISOString();
+            return s.substring(0, 10);
+          }
+        },
       },
       {
         name: 'ComplFISMA',
@@ -94,13 +95,22 @@ class FISMAexpModel extends Model {
         mapping: 'AO',
       },
       {
+        name: 'CO',
+        type: 'string',
+      },
+      {
+        name: 'Contracting Official',
+        type: 'string',
+        mapping: 'CO',
+      },
+      {
         name: 'PM',
         type: 'string',
       },
       {
         name: 'System Owner',
         type: 'string',
-        mapping: 'PM'||'Program Manager',
+        mapping: 'PM' || 'Program Manager',
       },
       {
         name: 'RelOrgDisplayName',
@@ -110,33 +120,34 @@ class FISMAexpModel extends Model {
         name: 'FedContractorLoc',
         type: 'string',
       },
-	  {
+      {
         name: 'PII',
         type: 'string',
       },
-	  {
+      {
         name: 'CloudYN',
         type: 'string',
       },
-	  {
+      {
         name: 'CSP',
         type: 'string',
       },
-	  {
+      {
         name: 'ServiceType',
         type: 'string',
       },
-	  {
-		name: 'InactiveDate',
-		type: 'string',
- 		mapping(d){
-			if(d.InactiveDate){
-			let s = d.InactiveDate.toISOString();
-			return s.substring(0,10);}
-		},
-	
-	  },
-	  {
+      {
+        name: 'InactiveDate',
+        type: 'string',
+        mapping(d) {
+          if (d.InactiveDate) {
+            let s = d.InactiveDate.toISOString();
+            return s.substring(0, 10);
+          }
+        },
+
+      },
+      {
         name: 'old_Id',
         type: 'string',
       },

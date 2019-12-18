@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'obj_fisma_archer',
   });
 
-  fisma.associate = function (models) {
+  fisma.associate = function(models) {
     models.fisma.belongsToMany(models.fismaArtifact, {
       as: 'fisma_artifacts',
       foreignKey: 'objFismaSystem_Id',

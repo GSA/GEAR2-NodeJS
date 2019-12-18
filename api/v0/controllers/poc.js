@@ -15,7 +15,6 @@ function findOne(req, res) {
 }
 
 module.exports = {
-
   findAll,
   findOne,
 };

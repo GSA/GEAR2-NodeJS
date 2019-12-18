@@ -18,46 +18,41 @@ class StoreMySql {
   }
   create(done) {
     connection.query(`CALL sp_create();`, (err, rows) => {
-
       done(err, rows[0]);
     });
   }
 
-    search(sql, done) {
+  search(sql, done) {
     const request = connection.query(sql, (err, rows) => {
 
       if (err) {
         this.data.push(err);
-    done.call(done, this.data);
+        done.call(done, this.data);
       } else {
-
-     this.data = [];
-     for (var i = 0; i< rows[0].length; i ++){
-      this.data.push(this.model.apply(rows[0][i]));
-     }
-     done.call(done, this.data);
-
+        this.data = [];
+        for (var i = 0; i < rows[0].length; i++) {
+          this.data.push(this.model.apply(rows[0][i]));
+        }
+        done.call(done, this.data);
       }
     });
-
   }
 
-  query (sql, done) {
+  query(sql, done) {
     const request = connection.query(sql, (err, rows) => {
 
-        if (err) {
-            this.data.push(err);
-            done.call(done, this.data);
-        } else {
-            this.data = [];
-            for (var i = 0; i< rows.length; i ++){
-                this.data.push(this.model.apply(rows[i]));
-            }
-            done.call(done, this.data);
-
+      if (err) {
+        this.data.push(err);
+        done.call(done, this.data);
+      } else {
+        this.data = [];
+        for (var i = 0; i < rows.length; i++) {
+          this.data.push(this.model.apply(rows[i]));
         }
+        done.call(done, this.data);
+      }
     });
-}
+  }
 }
 
 module.exports = StoreMySql;
