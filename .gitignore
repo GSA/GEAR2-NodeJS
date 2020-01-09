@@ -5,6 +5,7 @@
 
 # sensitive data
 *.securables/
+.env
 
 # OS-specific
 .DS_Store
