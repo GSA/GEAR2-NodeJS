@@ -12,7 +12,7 @@
   'use strict';
 
   function emulatedIEMajorVersion() {
-    var groups = /MSIE ([0-9.]+)/.exec(window.navigator.userAgent)
+    var groups = /Trident ([0-9.]+)/.exec(window.navigator.userAgent)
     if (groups === null) {
       return null
     }

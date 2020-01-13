@@ -259,8 +259,8 @@ class FISMAModel extends Model {
             let poc = null;
             let poctype = null;
             let pocs = '';
-            if (d.CO) {
-              poctype = d.CO.split(':');
+            if (d.COR) {
+              poctype = d.COR.split(':');
               poc = poctype[1].split('; ');
               poc = poc.map((art) => {
                 const pieces = art.split(',');
