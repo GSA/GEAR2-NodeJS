@@ -7,7 +7,7 @@ const appStore = new AppStore();
 const pocStore = new POCStore();
 
 function findAll(req, res) {
-  fismaStore.search(`CALL get_fisma_detail(0)`, (results) => {
+  fismaStore.search(`CALL get_fisma_detail_archer(0)`, (results) => {
     let newResults = results.filter(res => res.SystemLevel !== 'SubSystem')
     res.json(newResults);
   });
@@ -18,7 +18,7 @@ function findOne(req, res, next) {
   if (req.params.id === 'pocs') {
     next();
   } else {
-    fismaStore.search(`CALL get_fisma_detail( ${req.params.id})`, (results) => {
+    fismaStore.search(`CALL get_fisma_detail_archer( ${req.params.id})`, (results) => {
       let newResults = results[0].POC.filter(res => res.Email !==
       undefined);
       results[0].POC = newResults;
@@ -38,7 +38,7 @@ function findApplications(req, res) {
 function findPOCs(req, res) {
   const filter = req.params.id ? req.params.id : 0;
 
-  fismaStore.search(`CALL get_fisma_detail( ${filter})`, (results) => {
+  fismaStore.search(`CALL get_fisma_detail_archer( ${filter})`, (results) => {
     let newResults = results[0].POC.filter(res => res.Email !== undefined);
     /*let isso = results[0].ISSO.filter(res => res.Email !== undefined);
     let issm = results[0].ISSM.filter(res => res.Email !== undefined);

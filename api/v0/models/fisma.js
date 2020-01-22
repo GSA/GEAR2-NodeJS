@@ -44,7 +44,7 @@ class FISMAModel extends Model {
         mapping(d) {
           if (d.ATODate) {
             let s = d.ATODate;
-            return s.substring(0, 10);
+            return String(s).substring(0, 10);
           }
         },
       },
@@ -59,7 +59,7 @@ class FISMAModel extends Model {
           if (d.RenewalDate) {
             // let s = d.RenewalDate.toISOString();
             let s = d.RenewalDate;
-            return s.substring(0, 10);
+            return String(s).substring(0, 10);
           }
         },
       },
@@ -322,7 +322,7 @@ class FISMAModel extends Model {
         mapping(d) {
           if (d.InactiveDate) {
             let s = d.InactiveDate; //.toISOString();
-            return s.substring(0, 10);
+            return String(s).substring(0, 10);
           }
         },
       },

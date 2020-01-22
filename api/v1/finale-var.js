@@ -21,6 +21,7 @@ module.exports = {
         'issm',
         'isso',
         'co',
+        'cor',
         'replaced_by',
       ],
       technology: [
