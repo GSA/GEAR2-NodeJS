@@ -66,6 +66,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "System": sys,
               "BusinessPOC": val.BusPOC,
               "TechnicalPOC": val.TechPOC,
+              "TechnicalPOCOrg": val.TechPOCOrg,
               "Cloud": val.Cloud,
               "CUI": val.CUI,
               "TechnologyPlatform": val.TechnologyPlatform,
@@ -134,6 +135,11 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               field: 'TechnicalPOC',
               title: 'Technical POC',
               sortable: true,
+              visible: false
+            }, {
+              field: 'TechnicalPOCOrg',
+              title: 'Technical POC Org',
+              sortable: false,
               visible: false
             }, {
               field: 'System',

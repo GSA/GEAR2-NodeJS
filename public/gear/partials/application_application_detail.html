@@ -191,6 +191,8 @@
                   <ul class="list-unstyled" style="margin-bottom: 0">
                     <li ng-repeat="p in pocs|filter:{Type: 'Technical'}">
                       <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
+                      <span ng-hide="!p.Org">, {{p.Org}}</span>
+                      <span ng-hide="p.Org">, No Org Provided for POC</span>
                     </li>
                     <li ng-hide="!!pocs.length">
                       <span

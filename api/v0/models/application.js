@@ -4,8 +4,7 @@ class Application extends Model {
   constructor(f) {
     super(f);
 
-    this.fields = this.fields.concat([
-      {
+    this.fields = this.fields.concat([{
         name: 'Description',
         type: 'string',
       },
@@ -32,7 +31,7 @@ class Application extends Model {
       {
         name: 'OwnerShort',
         type: 'string',
-		mapping(o) {
+        mapping(o) {
           return o.RelOrgDisplayName || o.orgName || o.OwnerShort;
         },
       },
@@ -40,60 +39,60 @@ class Application extends Model {
         name: 'ParentSystem',
         type: 'string',
         mapping(d) {
-        return d.System || d.ParentSystem;
+          return d.System || d.ParentSystem;
         },
 
       },
-	  {
+      {
         name: 'BusPOC',
         type: 'string',
       },
-	  {
+      {
         name: 'TechPOC',
         type: 'string',
       },
-/*       {
-        name: 'System',
-        type: 'string',
+      /*       {
+              name: 'System',
+              type: 'string',
 
-      }, */
+            }, */
       {
         name: 'BusinessPOC',
         type: 'string',
-         mapping(d) {
+        mapping(d) {
           let pocs = null;
-		  let poc = null;
-		  let poc1 = [];
-		  if (d.BusinessPOC){
-				  pocs = d.BusinessPOC.split(';');
-				  pocs = pocs.map((poc, cb) =>
-				{
-					 var pieces = poc.split(',');
-					 var cb =   "<a href=mailto:" + pieces[1] + ">" + pieces[0] + "</a>";// + "<br>" ;
-					//console.log(cb);
-					poc1.push(cb);
-				})
-		  }
+          let poc = null;
+          let poc1 = [];
+          if (d.BusinessPOC) {
+            pocs = d.BusinessPOC.split(';');
+            pocs = pocs.map((poc, cb) => {
+              var pieces = poc.split(',');
+              var cb = "<a href=mailto:" + pieces[1] + ">" + pieces[
+                0] + "</a>"; // + "<br>" ;
+              //console.log(cb);
+              poc1.push(cb);
+            })
+          }
           return poc1;
         },
       },
       {
         name: 'TechnicalPOC',
         type: 'string',
-         mapping(d) {
+        mapping(d) {
           let pocs = null;
-		  let poc = null;
-		  let poc1 = [];
-		  if (d.TechnicalPOC){
-				  pocs = d.TechnicalPOC.split(';');
-				  pocs = pocs.map((poc, cb) =>
-				{
-					 var pieces = poc.split(',');
-					 var cb =   "<a href=mailto:" + pieces[1] + ">" + pieces[0] + "</a>";// + "<br>" ;
-					//console.log(cb);
-					poc1.push(cb);
-				})
-		  }
+          let poc = null;
+          let poc1 = [];
+          if (d.TechnicalPOC) {
+            pocs = d.TechnicalPOC.split(';');
+            pocs = pocs.map((poc, cb) => {
+              var pieces = poc.split(',');
+              var cb = "<a href=mailto:" + pieces[1] + ">" + pieces[0]
+               + "</a>"; // + "<br>" ;
+              //console.log(cb);
+              poc1.push(cb);
+            })
+          }
           return poc1;
         },
       },
@@ -104,29 +103,32 @@ class Application extends Model {
           let poc = null;
           let poc1 = null;
           let poctype = null;
-		  let pocs = [];
+          let pocs = [];
           if (d.POC) {
             poc1 = d.POC.split('*');
-			poc1 = poc1.map((poctype, cb) =>
-			{
-				poctype = poctype.split(':');
-				poc = poctype[1].split('; ');
-				for(var i = 0; i< poc.length; i++){
-				 var pieces = poc[i].split(',');
-			//	poc = poc.map((art) => {
-				//  const pieces = art.split(',');
-				 var cb = {
-					Type: poctype[0],
-					Name: pieces[0],
-					Email: pieces[1],
-					Phone: pieces[2],
-				};
-				pocs.push(cb);
-			}
-			})
-		  }
+            poc1 = poc1.map((poctype, cb) => {
+              poctype = poctype.split(':');
+              poc = poctype[1].split('; ');
+              for (var i = 0; i < poc.length; i++) {
+                var pieces = poc[i].split(',');
+                //	poc = poc.map((art) => {
+                //  const pieces = art.split(',');
+                var cb = {
+                  Type: poctype[0],
+                  Name: pieces[0],
+                  Email: pieces[1],
+                  Org: pieces[2],
+                };
+                pocs.push(cb);
+              }
+            })
+          }
           return pocs;
         },
+      },
+      {
+        name: 'TechPOCOrg',
+        type: 'string',
       },
       {
         name: 'Cloud',
@@ -184,15 +186,15 @@ class Application extends Model {
       {
         name: 'FY14',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY14')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY14')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -201,15 +203,15 @@ class Application extends Model {
       {
         name: 'FY15',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY15')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY15')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -218,15 +220,15 @@ class Application extends Model {
       {
         name: 'FY16',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY16')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY16')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -235,15 +237,15 @@ class Application extends Model {
       {
         name: 'FY17',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY17')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY17')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -252,15 +254,15 @@ class Application extends Model {
       {
         name: 'FY18',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY18')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY18')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -269,15 +271,15 @@ class Application extends Model {
       {
         name: 'FY19',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY19')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY19')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -286,15 +288,15 @@ class Application extends Model {
       {
         name: 'FY20',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY20')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY20')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -303,15 +305,15 @@ class Application extends Model {
       {
         name: 'FY21',
         type: 'string',
-	    mapping(d) {
+        mapping(d) {
           let apptime = null;
-		  let cb = '';
+          let cb = '';
           if (d.AppTime) {
             apptime = d.AppTime.split('; ');
             apptime = apptime.map((art) => {
               const pieces = art.split(',');
-              if(pieces[0] == 'FY21')
-				cb = pieces[1] ;
+              if (pieces[0] == 'FY21')
+                cb = pieces[1];
             });
           }
           return cb;
@@ -324,16 +326,13 @@ class Application extends Model {
       {
         name: 'Link',
         type: 'string',
-        mapping(d)
-        {
+        mapping(d) {
           let s = '';
-          if (d.Link && d.Link.indexOf('http://') !== 0 && d.Link.indexOf('https://') !== 0)
-          {
+          if (d.Link && d.Link.indexOf('http://') !== 0 && d.Link.indexOf(
+              'https://') !== 0) {
             s = 'http://' + d.Link;
-          }
-          else
-          {
-           s = d.Link;
+          } else {
+            s = d.Link;
           }
           return s;
         },
@@ -342,15 +341,15 @@ class Application extends Model {
         name: 'OMBUID',
         type: 'string',
       },
-	  {
+      {
         name: 'ProdYear',
         type: 'string',
       },
-	  {
+      {
         name: 'old_Id',
         type: 'string',
       },
-	  {
+      {
         name: 'Replacedby',
         type: 'string',
       },
