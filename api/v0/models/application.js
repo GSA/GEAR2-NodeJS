@@ -67,7 +67,7 @@ class Application extends Model {
             pocs = d.BusinessPOC.split(';');
             pocs = pocs.map((poc, cb) => {
               var pieces = poc.split(',');
-              var cb = "<a href=mailto:" + pieces[1] + ">" + pieces[
+              var cb = "<a href=\"https://mail.google.com/mail/?view=cm&fs=1&to=" + pieces[1] + "\" target=\"_blank\">" + pieces[
                 0] + "</a>"; // + "<br>" ;
               //console.log(cb);
               poc1.push(cb);
@@ -87,8 +87,8 @@ class Application extends Model {
             pocs = d.TechnicalPOC.split(';');
             pocs = pocs.map((poc, cb) => {
               var pieces = poc.split(',');
-              var cb = "<a href=mailto:" + pieces[1] + ">" + pieces[0]
-               + "</a>"; // + "<br>" ;
+              var cb = "<a href=\"https://mail.google.com/mail/?view=cm&fs=1&to=" + pieces[1] + "\" target=\"_blank\">" + pieces[
+                0] + "</a>"; // + "<br>" ;
               //console.log(cb);
               poc1.push(cb);
             })

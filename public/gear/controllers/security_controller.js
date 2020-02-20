@@ -629,23 +629,22 @@ angular.module('dashboard').controller('SecurityController', ['$route',
           newpoc = pocs[0].POC;
           $('#fismapocstable').bootstrapTable({
             columns: [{
-                field: 'Type',
-                title: 'Role',
-                sortable: true
-              }, {
-                field: 'Name',
-                title: 'Name',
-                sortable: true
-              }, {
-                field: 'Phone',
-                title: 'Phone Number',
-                sortable: true
-              }, {
-                field: 'Email',
-                title: 'Email',
-                sortable: true
-              },
-            ],
+              field: 'Type',
+              title: 'Role',
+              sortable: true
+            }, {
+              field: 'Name',
+              title: 'Name',
+              sortable: true
+            }, {
+              field: 'Phone',
+              title: 'Phone Number',
+              sortable: true
+            }, {
+              field: 'Email',
+              title: 'Email',
+              sortable: true
+            }, ],
             data: newpoc
           });
         });
@@ -937,8 +936,8 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             "SecurityRole": "RISSO",
             "Region": val.Region,
             "PhoneNumber": val.Phone,
-            "Email": "<a href=mailto:" + val.Email + ">" + val
-              .Email + "</a>"
+            "Email": "<a href=\"https://mail.google.com/mail/?view=cm&fs=1&to=" +
+              val.Email + "\" target=\"_blank\">" + val.Email + "</a>"
           });
           //       }
         });

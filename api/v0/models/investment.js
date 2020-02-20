@@ -36,6 +36,10 @@ class InvestmentModel extends Model {
         type: 'string',
       },
       {
+        name: 'InvManagerEmail',
+        type: 'string',
+      },
+      {
         name: 'UII',
         type: 'string',
       },

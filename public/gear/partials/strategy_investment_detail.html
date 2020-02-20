@@ -12,7 +12,8 @@
         <h3><i class="fa fa-money"></i>&nbsp;{{ investment.Name }}</h3>
         <button style="position:absolute;right:30px; top:15px;" type="button"
           class="btn btn-lg btn-info" title="Report Help" data-toggle="popover"
-          data-placement="bottom" data-html="true" data-container="body" data-trigger="'outsideClick'" data-content="
+          data-placement="bottom" data-html="true" data-container="body"
+          data-trigger="'outsideClick'" data-content="
                     <b>Overview:</b> Contains a general description of the business application.<br>
                     <b>Related Business Applications:</b> Lists all of the business applications that have been aligned to that investment.<br>
                 ">
@@ -49,12 +50,11 @@
                     <!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
                                         <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
                                     </div> -->
-                    <a
-                      href="mailto:{{investment.InvManagerEmail}}">{{investment.InvManager}}</a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ investment.InvManagerEmail }}"
+                      target="_blank">{{ investment.InvManager }}</a>
                     <div ng-hide="!!investment.InvManager">
                       None Provided
                     </div>
-                    </ul>
                   </td>
                 </tr>
                 <tr>
