@@ -91,14 +91,13 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
         // init call and mutate options/properties a little more cleanly
         $scope.bsTableConfig = {
           columns: [{
+              field: 'Alias',
+              title: 'Alias',
+              sortable: true
+            }, {
               field: 'Name',
               title: 'Application Name',
               sortable: true
-            }, {
-              field: 'Alias',
-              title: 'Alias',
-              sortable: true,
-              visible: false
             }, {
               field: 'Description',
               title: 'Description',
@@ -1030,60 +1029,59 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
         time.$promise.then(function() {
           $('#apptimetable').bootstrapTable({
             columns: [{
-                field: 'FY14',
-                title: 'FY14',
-                visible: false
-              }, {
-                field: 'FY15',
-                title: 'FY15',
-                visible: false
-              }, {
-                field: 'FY16',
-                title: 'FY16',
-                visible: false
-              }, {
-                field: 'FY17',
-                title: 'FY17',
-                visible: false
-              }, {
-                field: 'FY18',
-                title: 'FY18'
-              }, {
-                field: 'FY19',
-                title: 'FY19'
-              }, {
-                field: 'FY20',
-                title: 'FY20'
-              }, {
-                field: 'FY21',
-                title: 'FY21'
-              }, {
-                field: 'FY22',
-                title: 'FY22',
-                visible: false
-              }, {
-                field: 'FY23',
-                title: 'FY23',
-                visible: false
-              }, {
-                field: 'FY24',
-                title: 'FY24',
-                visible: false
-              }, {
-                field: 'FY25',
-                title: 'FY25',
-                visible: false
-              }, {
-                field: 'FY26',
-                title: 'FY26',
-                visible: false
-              }, {
-                field: 'TIME_Notes',
-                title: 'Notes',
-                // visible: false,
-                sortable: true
-              },
-            ],
+              field: 'FY14',
+              title: 'FY14',
+              visible: false
+            }, {
+              field: 'FY15',
+              title: 'FY15',
+              visible: false
+            }, {
+              field: 'FY16',
+              title: 'FY16',
+              visible: false
+            }, {
+              field: 'FY17',
+              title: 'FY17',
+              visible: false
+            }, {
+              field: 'FY18',
+              title: 'FY18'
+            }, {
+              field: 'FY19',
+              title: 'FY19'
+            }, {
+              field: 'FY20',
+              title: 'FY20'
+            }, {
+              field: 'FY21',
+              title: 'FY21'
+            }, {
+              field: 'FY22',
+              title: 'FY22',
+              visible: false
+            }, {
+              field: 'FY23',
+              title: 'FY23',
+              visible: false
+            }, {
+              field: 'FY24',
+              title: 'FY24',
+              visible: false
+            }, {
+              field: 'FY25',
+              title: 'FY25',
+              visible: false
+            }, {
+              field: 'FY26',
+              title: 'FY26',
+              visible: false
+            }, {
+              field: 'TIME_Notes',
+              title: 'Notes',
+              // visible: false,
+              sortable: true
+            }, ],
             data: time
           });
         });
@@ -1121,34 +1119,33 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
         technologies.$promise.then(function() {
           $('#apptechtable').bootstrapTable({
             columns: [{
-                field: 'Name',
-                title: 'Technology',
-                sortable: true
-              }, {
-                field: 'Description',
-                title: 'Description',
-                sortable: true
-              }, {
-                field: 'Status',
-                title: 'Status',
-                sortable: true
-              }, {
-                field: 'ProdYear',
-                title: 'Production Year',
-                sortable: true,
-                visible: false
-              }, {
-                field: 'Category',
-                title: 'Software Category',
-                sortable: true,
-                visible: false
-              }, {
-                field: 'Expiration',
-                title: 'Approved Status Expiration Date',
-                sortable: true,
-                visible: false
-              },
-            ],
+              field: 'Name',
+              title: 'Technology',
+              sortable: true
+            }, {
+              field: 'Description',
+              title: 'Description',
+              sortable: true
+            }, {
+              field: 'Status',
+              title: 'Status',
+              sortable: true
+            }, {
+              field: 'ProdYear',
+              title: 'Production Year',
+              sortable: true,
+              visible: false
+            }, {
+              field: 'Category',
+              title: 'Software Category',
+              sortable: true,
+              visible: false
+            }, {
+              field: 'Expiration',
+              title: 'Approved Status Expiration Date',
+              sortable: true,
+              visible: false
+            }, ],
             data: technologies
           });
         });
