@@ -1,32 +1,31 @@
-var
-  dotenv = require('dotenv').config(),
-  finale = require('finale-rest'),
-  finaleMiddleware = require('./api/v1/finale-middleware'),
-  finaleVar = require('./api/v1/finale-var'),
-  http = require('http'),
-  fs = require('fs'),
-  express = require('express'),
-  path = require('path'),
-  bodyParser = require('body-parser'),
-  cors = require('cors'),
-  passport = require('passport'),
-  SAMLStrategy = require('passport-saml').Strategy,
-  jsonwebtoken = require('jsonwebtoken'),
-  jwt = require('express-jwt'),
-  mysql = require('mysql2'),
-  util = require('util'),
-  models = require('./api/v1/models'),
-  passportJWT = require("passport-jwt"),
-  // Legacy API
-  api_v0 = require('./api/v0/routes/api_v0.1/index');
+﻿var
+    dotenv = require('dotenv').config(),
+    finale = require('finale-rest'),
+    finaleMiddleware = require('./api/v1/finale-middleware'),
+    finaleVar = require('./api/v1/finale-var'),
+    http = require('http'),
+    express = require('express'),
+    path = require('path'),
+    bodyParser = require('body-parser'),
+    cors = require('cors'),
+    passport = require('passport'),
+    SAMLStrategy = require('passport-saml').Strategy,
+    jsonwebtoken = require('jsonwebtoken'),
+    jwt = require('express-jwt'),
+    mysql = require('mysql2'),
+    util = require('util'),
+    models = require('./api/v1/models'),
+    passportJWT = require("passport-jwt"),
+    // Legacy API
+    api_v0 = require('./api/v0/routes/api_v0.1/index');
 
-const JWTStrategy = passportJWT.Strategy;
+const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
 const orm = models.sequelize;
 
 // Define a default port if the env variable doesn't exist
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3334;
 
 // Initialize server
 var app = express();
@@ -57,12 +56,12 @@ passport.use(new SAMLStrategy(samlConfig, (secureAuthProfile, cb) => {
 }));
 // PASSPORT JWT STRATEGY
 passport.use(new JWTStrategy({
-  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET
-},
-  function (jwtPayload, cb) {
-    return cb(null, jwtPayload);
-  }
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+      secretOrKey   : process.env.SECRET
+    },
+    function (jwtPayload, cb) {
+      return cb(null, jwtPayload);
+    }
 ));
 
 /********************************************************************/
@@ -103,7 +102,7 @@ app.get('/beginAuth', passport.authenticate('saml'), (req, res) => {
   // change the client src to use /admin (no-hash) instead? Perhaps
   // it's needed while running the React app in dev b/c its proxy.
   const html =
-    `
+`
 <html>
 <body>
   <script>
@@ -140,19 +139,14 @@ app.post(samlConfig.path,
       password: process.env.DB_PASS,
       database: process.env.ACL_DB,
     });
-    console.log('Passport Authenticated!!')
     db.connect();
-    console.log('DB Connected!!')
     db.query(`CALL acl.get_user_perms('${samlProfile.nameID}');`,
       (err, results, fields) => {
         if (err) {
-          console.log('ERRORRED OUT');
-          console.log('ERROR', err);
           res.status(500);
-          res.json({ error: err });
+          res.json({error: err});
         }
         else {
-          console.log('SUCCESSFUL');
           let html = ``;
           let userLookupStatus = ``;
           if (results[0].length === 0) {
@@ -166,19 +160,19 @@ app.post(samlConfig.path,
           // TODO: (1) DECIDE IF PAYLOAD IS TOO LARGE. (2) IF SO, ADD LOGIC TO QUERY PERMS AS NEEDED
           const jwt = {
             sub: samlProfile.nameID,
-            auditID: results[0][0].AuditID,
             un: results[0][0].Username,
             exp: Math.floor(Date.now() / 1000) + 60 * 60,
-            scopes: results[0][0].PERMS
+            scopes: results[0][0].PERMS,
+              auditID: results[0][0].AuditID
           };
-
-          console.log('JWT prepared', jwt);
 
           // JWT TOKEN SIGNED HERE TO BE USED IN INLINE HTML PAGE NEXT
           const token = jsonwebtoken.sign(jwt, process.env.SECRET);
 
+          let adminRoute = (process.env.SAML_HOST === 'localhost') ? 'http://localhost:3000/admin/#/' : '/admin/#/';
+
           html =
-            `
+`
 <html>
   <body>
     <em>Redirecting to GEAR Manager...</em>
@@ -187,7 +181,7 @@ app.post(samlConfig.path,
       delete localStorage.redirectPath;
       localStorage.jwt = '${token}';
       localStorage.samlEntryPoint = '${process.env.SAML_ENTRY_POINT}';
-      window.location.replace('/admin/#/' + path);
+      window.location.replace('${adminRoute}' + path);
     </script>
   </body>
 </html>
@@ -218,72 +212,50 @@ Object.entries(orm.models).forEach((m) => {
   const modelInstance = m[1];
   const modelRefName = m[1].options.name; // { singular, plural }
 
-  //console.log(finaleVar.getModelIncludes(modelClassName));
-  /* if ((m[0] == ['application']))
-	  {
-  	    var resource_temp = finale.resource({
-		model: modelInstance,
-		endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
-		pagination: true, 
-		include: [
-			finaleVar.getModelIncludes(modelClassName),
-		attribute: {['id','keyname']}
-		],
-		search: [{
-		  param: 'kn',
-		  attributes: ['keyname']		  
-		}],
-	  });
-	  console.log('Hello TEST');
-	  }
-  else 
-  {
-	 */	  const resource = finale.resource({
+  const resource = finale.resource({
     model: modelInstance,
     endpoints: [`/${modelRefName.plural}`, `/${modelRefName.plural}/:id`],
-    pagination: true,
+    pagination: true, 
     include: finaleVar.getModelIncludes(modelClassName),
     search: [{
       param: 'kn',
-      attributes: ['keyname'],
-
+      attributes: ['keyname']
     }]
   });
-  // }
-  // const resource = resource_temp;
   resource.use(finaleMiddleware);
-  // TODO: Can these milestone hooks be moved to finale-middleware.js?
-     resource.update.write.before((req, res, context) => {
-       if (context.instance._modelOptions.tableName === 'obj_technology') {
-         if (req.body.approvedStatusExpirationDate === '') {
-           req.body.approvedStatusExpirationDate = null;
-         }
-         return context.continue();
-       } else {
-         return context.continue();
-       }
-     });
-     resource.read.fetch.after((req, res, context) => {
-      if (context.instance._modelOptions.tableName === 'obj_application') {
-        orm.query(`SELECT * FROM zk_app_capabilities WHERE obj_application_Id = ${context.instance.dataValues.id}`)
-          .then(appCaps => {
-            if (!!appCaps[0].length) {
-              var cap_ids = appCaps[0].map(d => d.obj_capability_Id);
-              orm.query(`SELECT Id AS 'id', Keyname AS 'keyname' FROM obj_capability WHERE obj_capability.Id IN (${cap_ids.join(',')})`)
-                .then(caps => {
-                  context.instance.dataValues.relCapabilities = caps[0];
-                  return context.continue();
-                });
-            } else {
-              return context.continue();
-            }
-          });
+  resource.update.write.before((req, res, context) => {
+      if (context.instance._modelOptions.tableName === 'obj_technology') {
+        if (req.body.approvedStatusExpirationDate ==='') {
+          req.body.approvedStatusExpirationDate = null;
+        }
+        return context.continue();
       } else {
         return context.continue();
       }
-    }); 
+  });
+  // TODO: Can these milestone hooks be moved to finale-middleware.js?
+  resource.read.fetch.after((req, res, context) => {
+    if (context.instance._modelOptions.tableName === 'obj_application') {
+      orm.query(`SELECT * FROM zk_app_capabilities WHERE obj_application_Id = ${context.instance.dataValues.id}`)
+        .then(appCaps => {
+          if (!!appCaps[0].length) {
+            var cap_ids = appCaps[0].map(d => d.obj_capability_Id);
+            orm.query(`SELECT Id AS 'id', Keyname AS 'keyname' FROM obj_capability WHERE obj_capability.Id IN (${cap_ids.join(',')})`)
+              .then(caps => {
+                context.instance.dataValues.relCapabilities = caps[0];
+                return context.continue();
+              });
+          } else {
+            return context.continue();
+          }
+        });
+    } else {
+      return context.continue();
+    }
+  });
   // Run on port 3334 to disable auth on local API
-  if (process.env.PORT !== 3334) {
+  if (process.env.PORT !== '3334') {
+    console.log("WHY AM I HERE?? " + process.env.PORT);
     resource.all.auth((req, res, context) => {
       // token will store 'scopes' where a 'scope' is a concatenation of resource model className
       // and HTTP verb (e.g. 'application:GET')
@@ -293,33 +265,32 @@ Object.entries(orm.models).forEach((m) => {
         console.log('TEST: ' + modelClassName + ':' + req.method + ' in...');
         if (error) {
           console.log(error);
+          // 400 is thrown to disable the prompt.
           res.status(400).send('UNAUTHORIZED');
           return context.stop();
         }
         if (!jwt.scopes) {
           console.log('ACCESS DENIED: !jwt.scopes');
-          res.status(403).json({ msg: 'ACCESS DENIED: !jwt.scopes' });
+          res.status(403).json({msg: 'ACCESS DENIED: !jwt.scopes'});
         }
         if (!jwt.scopes.split(',').includes(modelClassName + ':' + req.method)) {
-          console.log('ACCESS DENIED: ' + modelClassName + ':' + req.method)
+          console.log('ACCESS DENIED: '  + modelClassName +':'+req.method)
           console.log(jwt.scopes.split(','));
-          res.status(403).json({ msg: 'ACCESS DENIED', resource: modelClassName, method: req.method });
+          res.status(403).json({msg: 'ACCESS DENIED', resource: modelClassName, method: req.method});
           return context.stop();
         }
-        console.log('ACCESS GRANTED: ' + modelClassName + ':' + req.method);
+        console.log('ACCESS GRANTED: ' + modelClassName +':'+req.method);
         console.log('AUTH COMPLETE\n');
         context.continue();
-      })(req, res);
+        })(req, res);
     });
   }
 });
 
 // Create database and listen
-orm.sync().then(function () {
-  server.listen(process.env.PORT, function () {
+orm.sync().then(function() {
+  server.listen(process.env.PORT, function() {
     console.log('Express server listening on port ' + server.address().port);
-    console.log('processes', process.versions);
-    console.log('properties la', process.env)
   });
   server.on('error', onError);
   server.on('listening', onListening);
