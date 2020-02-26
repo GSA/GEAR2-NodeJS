@@ -6,15 +6,15 @@ class FISMAModel extends Model {
     this.fields = [{
         name: 'Id',
         type: 'int',
-        mapping: 'ID',
+        mapping: 'ID'
       },
       {
         name: 'Name',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'TLO',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'RelOrgDisplayName',
@@ -25,11 +25,11 @@ class FISMAModel extends Model {
       },
       {
         name: 'FedContractorLoc',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'Located',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'FIPS199',
@@ -50,7 +50,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'ATOType',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'RenewalDate',
@@ -65,7 +65,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'ComplFISMA',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'RelatedArtifacts',
@@ -89,7 +89,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'FISMASystemIdentifier',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'POC',
@@ -171,7 +171,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'AO',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'Authorizing Official',
@@ -201,7 +201,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'CO',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'Contracting Officer',
@@ -230,7 +230,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'COR',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'Contracting Officer Rep.',
@@ -259,12 +259,11 @@ class FISMAModel extends Model {
       },
       {
         name: 'SO',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'System Owner',
         type: 'string',
-
         mapping: 'SO' || 'Program Manager' || 'System Owner',
         mapping(d) {
           let poc = null;
@@ -288,23 +287,23 @@ class FISMAModel extends Model {
       },
       {
         name: 'RelOrgDisplayName',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'FedContractorLoc',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'PII',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'CloudYN',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'CSP',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'SystemLevel',
@@ -316,7 +315,7 @@ class FISMAModel extends Model {
       },
       {
         name: 'ServiceType',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'InactiveDate',
@@ -330,8 +329,12 @@ class FISMAModel extends Model {
       },
       {
         name: 'old_Id',
-        type: 'string',
+        type: 'string'
       },
+      {
+        name: 'Reportable',
+        type: 'string'
+      }
     ];
   }
 }
