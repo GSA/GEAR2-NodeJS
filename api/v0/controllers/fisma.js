@@ -8,7 +8,7 @@ const pocStore = new POCStore();
 
 function findAll(req, res) {
   fismaStore.search(`CALL get_fisma_detail_archer(0)`, (results) => {
-    let newResults = results.filter(res => res.SystemLevel !== 'SubSystem')
+    let newResults = results.filter(res => res.Reportable !== 'No')
     res.json(newResults);
   });
 }
