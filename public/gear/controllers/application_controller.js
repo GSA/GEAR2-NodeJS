@@ -71,7 +71,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "CUI": val.CUI,
               "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
-              "Alias": val.Alias,
+              "DisplayName": val.DisplayName,
               "RegionClassification": val.RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
@@ -91,8 +91,8 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
         // init call and mutate options/properties a little more cleanly
         $scope.bsTableConfig = {
           columns: [{
-              field: 'Alias',
-              title: 'Alias',
+              field: 'DisplayName',
+              title: 'Display Name',
               sortable: true
             }, {
               field: 'Name',
