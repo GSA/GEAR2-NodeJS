@@ -9,7 +9,7 @@ class Application extends Model {
         type: 'string',
       },
       {
-        name: 'Alias',
+        name: 'DisplayName',
         type: 'string',
       },
       {
