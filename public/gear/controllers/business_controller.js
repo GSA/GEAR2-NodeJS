@@ -43,10 +43,13 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           if ([val.Name] != "External" && [val.Name] !=
             "FAS Enterprise") {
             var description = val.Description;
-            var name = val.Name;
+            var name = "<a href=\"" + val.Link +
+              "\" target=\"_blank\">" + val.Name + "</a>";
+            var displayName = val.DisplayName;
             var parent = val.Parent;
             var id = val.Id;
             $scope.bstData.push({
+              "DisplayName": displayName,
               "Name": name,
               "Description": description,
               "Parent": parent,
@@ -57,16 +60,20 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
           columns: [{
+            field: 'Parent',
+            title: 'Parent',
+            sortable: true
+          }, {
+            field: 'DisplayName',
+            title: 'Short Name',
+            sortable: true
+          }, {
             field: 'Name',
             title: 'Organization Name',
             sortable: true
           }, {
             field: 'Description',
             title: 'Description',
-            sortable: true
-          }, {
-            field: 'Parent',
-            title: 'Parent',
             sortable: true
           }],
           data: $scope.bstData
@@ -503,6 +510,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               identity: org.Id,
               displayName: org.DisplayName,
               description: org.Description,
+              link: org.Link,
               children: []
             };
           }
@@ -516,6 +524,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               displayName: org.DisplayName,
               parent: org.Parent,
               description: org.Description,
+              link: org.Link,
               children: []
             });
           }
@@ -530,6 +539,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                 displayName: org.DisplayName,
                 parent: org.Parent,
                 description: org.Description,
+                link: org.Link,
                 children: []
               });
             }
@@ -547,6 +557,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                   displayName: org.DisplayName,
                   parent: org.Parent,
                   description: org.Description,
+                  link: org.Link,
                   children: false
                 });
               }
@@ -652,10 +663,11 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                 .classed('info2', true)
                 .text(d.description);
               var a = d3.select("#orgname");
-              var info = a.append('text')
+              var info = a.append('a')
                 .classed('info', true)
-                .text(d.name);
-
+                .text(d.name)
+                .attr("href", d.link)
+                .attr("target", "_blank");
             });
 
           /*	    .on("mouseout", function() {
@@ -1174,7 +1186,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         // Per MLD: This render() is unnecessary. No need to wait for all $resources to be resolved.
         if (capabilities
           .$resolved
-          ) { //timeResource.$resolved && capabilities.$resolved) {
+        ) { //timeResource.$resolved && capabilities.$resolved) {
           $scope.capability = capabilities[0];
           applications.$promise.then(function() {
             if (applications.length > 0) {
