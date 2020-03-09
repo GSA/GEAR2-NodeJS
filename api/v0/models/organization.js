@@ -3,8 +3,7 @@ const Model = require('./model');
 class OrganizationModel extends Model {
   constructor(f) {
     super(f);
-    this.fields = [
-      {
+    this.fields = [{
         name: 'Id',
         type: 'int',
         mapping(data) {
@@ -13,25 +12,25 @@ class OrganizationModel extends Model {
       },
       {
         name: 'Name',
-        type: 'string',
-
+        type: 'string'
       },
       {
         name: 'DisplayName',
-        type: 'string',
-
+        type: 'string'
       },
       {
         name: 'Description',
-        type: 'string',
-
+        type: 'string'
       },
       {
         name: 'Parent',
-        type: 'string',
-
+        type: 'string'
       },
-	  {
+      {
+        name: 'Link',
+        type: 'string'
+      },
+      {
         name: 'old_Id',
         type: 'string',
       },
