@@ -43,8 +43,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           if ([val.Name] != "External" && [val.Name] !=
             "FAS Enterprise") {
             var description = val.Description;
-            var name = "<a href=\"" + val.Link +
-              "\" target=\"_blank\">" + val.Name + "</a>";
+            if ([val.Link] != "") {
+              var name = "<a href=\"" + val.Link +
+                "\" target=\"_blank\">" + val.Name + "</a>";
+            } else {
+              var name =  val.Name;
+            }
             var displayName = val.DisplayName;
             var parent = val.Parent;
             var id = val.Id;
@@ -663,11 +667,19 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                 .classed('info2', true)
                 .text(d.description);
               var a = d3.select("#orgname");
-              var info = a.append('a')
-                .classed('info', true)
-                .text(d.name)
-                .attr("href", d.link)
-                .attr("target", "_blank");
+
+              if (d.link != null) {
+                var info = a.append('a')
+                  .classed('info', true)
+                  .text(d.name)
+                  .attr("href", d.link)
+                  .attr("target", "_blank");
+              } else {
+                var info = a.append('span')
+                  .classed('info', true)
+                  .text(d.name);
+              }
+
             });
 
           /*	    .on("mouseout", function() {
