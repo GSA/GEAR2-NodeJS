@@ -562,9 +562,31 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                   parent: org.Parent,
                   description: org.Description,
                   link: org.Link,
-                  children: false
+                  children: []
                 });
               }
+            });
+          });
+        });
+        // set fourth-level children
+        $.each(orgTree.children, function(i, firstLevelOrg) {
+          $.each(firstLevelOrg.children, function(i,
+            secondLevelOrg) {
+            $.each(secondLevelOrg.children, function(i,
+              thirdLevelOrg) {
+              $.each(orgs, function(i, org) {
+                if (org.Parent == thirdLevelOrg.name) {
+                  thirdLevelOrg.children.push({
+                    name: org.Name,
+                    identity: org.Id,
+                    displayName: org.DisplayName,
+                    parent: org.Parent,
+                    description: org.Description,
+                    link: org.Link,
+                    children: false
+                  });
+                }
+              });
             });
           });
         });
