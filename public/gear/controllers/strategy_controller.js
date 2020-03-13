@@ -116,6 +116,14 @@ angular.module('dashboard').controller('StrategyController', ['$route',
             title: 'Type',
             sortable: true
           }, {
+            field: 'InvManager',
+            title: 'Investment Manager',
+            sortable: true
+          }, {
+            field: 'SSO',
+            title: 'SSO',
+            sortable: true
+          }, {
             field: 'PSA',
             title: 'Primary Service Area',
             sortable: true
@@ -124,10 +132,6 @@ angular.module('dashboard').controller('StrategyController', ['$route',
             title: 'Secondary Service Area',
             sortable: true,
             visible: false
-          }, {
-            field: 'InvManager',
-            title: 'Investment Manager',
-            sortable: true
           }, {
             field: 'UII',
             title: 'Investment UII',
