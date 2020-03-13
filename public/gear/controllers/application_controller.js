@@ -65,6 +65,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "OwnerShort": val.OwnerShort,
               "System": sys,
               "BusinessPOC": val.BusPOC,
+              "BusinessPOCOrg": val.BusPOCOrg,
               "TechnicalPOC": val.TechPOC,
               "TechnicalPOCOrg": val.TechPOCOrg,
               "Cloud": val.Cloud,
@@ -131,6 +132,11 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               sortable: true,
               visible: false
             }, {
+              field: 'BusinessPOCOrg',
+              title: 'Business POC Org',
+              sortable: true,
+              visible: false
+            }, {
               field: 'TechnicalPOC',
               title: 'Technical POC',
               sortable: true,
@@ -138,7 +144,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             }, {
               field: 'TechnicalPOCOrg',
               title: 'Technical POC Org',
-              sortable: false,
+              sortable: true,
               visible: false
             }, {
               field: 'System',

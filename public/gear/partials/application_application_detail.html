@@ -88,7 +88,8 @@
               </tr>
               <tr>
                 <td><i class="fa fa-sitemap"></i>&nbsp;2 Letter Office</td>
-                <td>{{ application.Owner }}</td>
+                <td ng-hide="!application.Owner">{{ application.Owner }}</td>
+                <td ng-hide="application.Owner">None Provided</td>
               </tr>
               <tr>
                 <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
@@ -96,6 +97,8 @@
                   <ul class="list-unstyled" style="margin-bottom: 0">
                     <li ng-repeat="p in pocs|filter:{Type: 'Business'}">
                       <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ p.Email }}" target="_blank">{{ p.Name }}</a>
+                      <span ng-hide="!p.Org">, {{p.Org}}</span>
+                      <span ng-hide="p.Org">, No Org Provided</span>
                     </li>
                     <li ng-hide="!!pocs.length">
                       <span
@@ -192,7 +195,7 @@
                     <li ng-repeat="p in pocs|filter:{Type: 'Technical'}">
                       <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ p.Email }}" target="_blank">{{ p.Name }}</a>
                       <span ng-hide="!p.Org">, {{p.Org}}</span>
-                      <span ng-hide="p.Org">, No Org Provided for POC</span>
+                      <span ng-hide="p.Org">, No Org Provided</span>
                     </li>
                     <li ng-hide="!!pocs.length">
                       <span
