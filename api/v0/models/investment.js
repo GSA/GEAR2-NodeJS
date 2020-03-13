@@ -3,8 +3,7 @@ const Model = require('./model');
 class InvestmentModel extends Model {
   constructor(f) {
     super(f);
-    this.fields = [
-      {
+    this.fields = [{
         name: 'ID',
         type: 'string',
         mapping(o) {
@@ -13,43 +12,47 @@ class InvestmentModel extends Model {
       },
       {
         name: 'Name',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'Description',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'Type',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'PSA',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'SSA',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'InvManager',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'InvManagerEmail',
-        type: 'string',
+        type: 'string'
       },
       {
         name: 'UII',
         type: 'string',
       },
-	  {
+      {
         name: 'POC',
-        type: 'string',
+        type: 'string'
       },
-	  {
+      {
+        name: 'SSO',
+        type: 'string'
+      },
+      {
         name: 'old_Id',
-        type: 'string',
+        type: 'string'
       },
     ];
   }
