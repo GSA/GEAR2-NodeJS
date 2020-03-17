@@ -593,7 +593,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
         var m = [20, 120, 20, 120],
           w = 1280 - m[1] - m[3],
-          h = 700 - m[0] - m[2],
+          h = 1000 - m[0] - m[2],
           i = 0,
           root;
 
