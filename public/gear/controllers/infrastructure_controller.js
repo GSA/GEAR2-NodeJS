@@ -53,8 +53,8 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
             sortable: true,
             visible: false
           }, {
-            field: 'TwoLetterOrgPOC',
-            title: 'Two Letter Org of the POC',
+            field: 'POCorg',
+            title: 'POC Org',
             sortable: true,
             visible: false
           }, {
@@ -180,7 +180,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
         $scope.standDescription = std.Description;
         $scope.cat = std.Category;
         $scope.poc = std.POC;
-        $scope.twoLetterOrgPOC = std.TwoLetterOrgPOC;
+        $scope.pocOrg = std.POCorg;
         $scope.status = std.Status;
         $scope.type = std.Type;
         $scope.comments = std.Comments || $scope.noITStdCommentsMsg;
