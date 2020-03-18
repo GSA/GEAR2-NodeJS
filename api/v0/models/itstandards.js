@@ -3,8 +3,7 @@ const Model = require('./model');
 class ITStandardsModel extends Model {
   constructor(f) {
     super(f);
-    this.fields = [
-      {
+    this.fields = [{
         name: 'ID',
         type: 'int',
         mapping(data) {
@@ -55,50 +54,47 @@ class ITStandardsModel extends Model {
 
       },
       {
-        name: 'TwoLetterOrgPOC',
+        name: 'POCorg',
         type: 'string',
 
       },
       {
         name: 'ReferenceDocuments',
         type: 'string',
-		mapping(d) {
+        mapping(d) {
           let its = null;
-		  let s = [];
-		  if (d.ReferenceDocuments){
-				  its = d.ReferenceDocuments.split(';');
-				  its = its.map((it, cb) =>
-				{
-					 cb =  '<a class="no-propagation" target="_blank" href="' + it +  '">' + ' ' + it + '</a>' ;
-					console.log(cb);
-					s.push(cb);
-				})
-				console.log(s);
-		  }
-		   else{
+          let s = [];
+          if (d.ReferenceDocuments) {
+            its = d.ReferenceDocuments.split(';');
+            its = its.map((it, cb) => {
+              cb = '<a class="no-propagation" target="_blank" href="' +
+                it + '">' + ' ' + it + '</a>';
+              console.log(cb);
+              s.push(cb);
+            })
+            console.log(s);
+          } else {
             s.push(d.ReferenceDocuments);
           }
           return s;
         },
       },
- 	    {
+      {
         name: 'Refdocdetail',
         type: 'string',
-		mapping(d) {
+        mapping(d) {
           let its = null;
-		  let s = [];
-		  if (d.ReferenceDocuments){
-				  its = d.ReferenceDocuments.split(';');
-				  its = its.map((it, cb) =>
-				{
-					// cb =  '<a class="no-propagation" target="_blank" href="' + it +  '">' + ' ' + it + '</a>' ;
-					cb =  it;
-					//console.log(cb);
-					s.push(cb);
-				})
-				//console.log(s);
-		  }
-		   else{
+          let s = [];
+          if (d.ReferenceDocuments) {
+            its = d.ReferenceDocuments.split(';');
+            its = its.map((it, cb) => {
+              // cb =  '<a class="no-propagation" target="_blank" href="' + it +  '">' + ' ' + it + '</a>' ;
+              cb = it;
+              //console.log(cb);
+              s.push(cb);
+            })
+            //console.log(s);
+          } else {
             s.push(d.ReferenceDocuments);
           }
           return s;
@@ -107,11 +103,12 @@ class ITStandardsModel extends Model {
       {
         name: 'ApprovalExpirationDate',
         type: 'string',
- 		mapping(d){
-			if(d.ApprovalExpirationDate){
-			let s = d.ApprovalExpirationDate.toISOString();
-			return s.substring(0,10);}
-		},
+        mapping(d) {
+          if (d.ApprovalExpirationDate) {
+            let s = d.ApprovalExpirationDate.toISOString();
+            return s.substring(0, 10);
+          }
+        },
 
       },
     ];
