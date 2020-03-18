@@ -53,6 +53,11 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
             sortable: true,
             visible: false
           }, {
+            field: 'POC',
+            title: 'POC',
+            sortable: true,
+            visible: false
+          }, {
             field: 'POCorg',
             title: 'POC Org',
             sortable: true,
@@ -67,11 +72,6 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
             //     classes: (value.length > 175)? 'col-rpt-wider' : 'col-rpt-wide',
             //   };
             // }
-          }, {
-            field: 'POC',
-            title: 'POC',
-            sortable: true,
-            visible: false
           }, {
             field: 'ReferenceDocuments',
             title: 'Reference Documents',
