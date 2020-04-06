@@ -5,7 +5,7 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('BusinessController', ['$route',
-  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
   // insert new here
   'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
   'CapAppCountsSrc', 'OrgAppsSrc', 'InterfacesSrc',
@@ -13,7 +13,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
   'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System',
   'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME',
   'bstSearchUtils', 'Utils',
-  function($route, $scope, $http, $routeParams, $filter, $location, $sce,
+  function($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
     // insert new here
     OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc,
     OrgAppsSrc, InterfacesSrc,
@@ -1145,9 +1145,8 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           var capclose = d3.select('#funcclose');
 
           capdetail.on("click", function() {
-            var cappath = $scope.selectedcap;
-            $location.path('/capabilities/' + cappath);
-            $scope.$apply();
+            var cappath = location.host + '/#!/capabilities/' + $scope.selectedcap;
+            $window.open(cappath, "_blank");
           });
 
           capclose.on("click", function(d) {
