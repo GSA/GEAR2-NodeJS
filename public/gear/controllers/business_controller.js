@@ -866,7 +866,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         $.each(caps, function(i, cap) {
           if (cap.Name == parentcap) {
             capTree = {
-              identity: cap.ID,
+              identity: cap.Id,
               name: cap.Name,
               description: cap.Description,
               referenceNum: cap.ReferenceNum,
@@ -878,7 +878,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         $.each(caps, function(i, cap) {
           if (cap.Parent == capTree.name) {
             capTree.children.push({
-              identity: cap.ID,
+              identity: cap.Id,
               name: cap.Name,
               description: cap.Description,
               referenceNum: cap.ReferenceNum,
@@ -892,7 +892,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           $.each(caps, function(i, cap) {
             if (cap.Parent == firstLevelCap.name) {
               firstLevelCap.children.push({
-                identity: cap.ID,
+                identity: cap.Id,
                 name: cap.Name,
                 description: cap.Description,
                 referenceNum: cap.ReferenceNum,
@@ -909,7 +909,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
             $.each(caps, function(i, cap) {
               if (cap.Parent == secondLevelCap.name) {
                 secondLevelCap.children.push({
-                  identity: cap.ID,
+                  identity: cap.Id,
                   name: cap.Name,
                   description: cap.Description,
                   referenceNum: cap.ReferenceNum,
@@ -951,8 +951,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         var tree = d3.layout.tree()
           .size([h, w])
           .sort(function(a, b) {
-            return a.name.toLowerCase().localeCompare(b
-              .name.toLowerCase());
+            return a.referenceNum.localeCompare(b.referenceNum);
           });
 
         var diagonal = d3.svg.diagonal()
@@ -1016,7 +1015,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               d3.select("#funcdetail").style("display", "block");
               d3.select("#funcdetailheader").text = "";
               d3.select("#funcdetailbody").text = "";
-              $scope.selectedapp = d.identity;
+              $scope.selectedcap = d.identity;
               var b = d3.select("#funcdetailbody")
                 .text("");
               var a = d3.select("#funcname")
@@ -1142,17 +1141,16 @@ angular.module('dashboard').controller('BusinessController', ['$route',
             d.x0 = d.x;
             d.y0 = d.y;
           });
-          var orgdetail = d3.select('#funcdet');
-          var orgclose = d3.select('#funcclose');
+          var capdetail = d3.select('#funcdet');
+          var capclose = d3.select('#funcclose');
 
-          orgdetail.on("click", function() {
-            var orgpath = $scope.selectedapp;
-            //    orgpath = orgpath.replace(/\//g , "-%")
-            $location.path('/capabilities/' + orgpath);
+          capdetail.on("click", function() {
+            var cappath = $scope.selectedcap;
+            $location.path('/capabilities/' + cappath);
             $scope.$apply();
           });
 
-          orgclose.on("click", function(d) {
+          capclose.on("click", function(d) {
             d3.select("#funcdetail").style("display", "none");
           });
 
