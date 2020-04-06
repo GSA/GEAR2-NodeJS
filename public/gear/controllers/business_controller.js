@@ -1145,7 +1145,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           var capclose = d3.select('#funcclose');
 
           capdetail.on("click", function() {
-            var cappath = location.host + '/#!/capabilities/' + $scope.selectedcap;
+            var cappath = '/#!/capabilities/' + $scope.selectedcap;
             $window.open(cappath, "_blank");
           });
 
