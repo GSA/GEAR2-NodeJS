@@ -207,16 +207,14 @@ path {
 */
 
 
-#orgchart,
-#buschart .node circle {
+.node circle {
   cursor: pointer;
   fill: #fff;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
 
-#orgchart,
-#buschart .node text {
+.node text {
   font-size: 11px;
 }
 
