@@ -211,7 +211,7 @@ path {
   cursor: pointer;
   fill: #fff;
   stroke: steelblue;
-  stroke-width: 1.5px;
+  /* stroke-width: 1.5px; */
 }
 
 .node text {
