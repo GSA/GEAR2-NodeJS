@@ -127,6 +127,10 @@ class Application extends Model {
         },
       },
       {
+        name: 'BusPOCOrg',
+        type: 'string',
+      },
+      {
         name: 'TechPOCOrg',
         type: 'string',
       },
