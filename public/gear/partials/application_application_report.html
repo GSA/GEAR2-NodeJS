@@ -10,16 +10,30 @@
       $('[data-toggle="popover"]').popover()
     })
   </script>
-  <button style="float:left;" type="button" class="btn btn-info"
-    data-toggle="popover" data-placement="bottom" data-html="true"
-    title="Report Help" data-container="body" data-trigger="'outsideClick'"
-    data-content="<b>Details:</b>Left click on a row within the table to view additional details.<br>
-<b>Sorting:</b>Sort fields by clicking on the arrows in the column headers.<br>
-<b>Export:</b>Export data by clicking on the &nbsp<span class='glyphicon glyphicon-export' aria-hidden='true'></span>&nbsp icon and selecting the format that meets your needs.<br>
-<b>Hidden Fields:</b>Access hidden fields by clicking on the &nbsp<span class='glyphicon glyphicon-th' aria-hidden='true'></span>&nbsp icon.<br>
-<b>Search:</b>Perform a filtered search across all fields in the displayed data.  Search within specific columns by clicking on the &nbsp<span class='glyphicon glyphicon-search' aria-hidden='true'></span>&nbsp icon.<br>
-<b>Pages:</b>Choose how many rows per page are displayed. Click on the &nbsp<span class='glyphicon glyphicon-collapse-down' aria-hidden='true'></span>&nbsp icon to display everything on one page.">
-    Help using this report</button>
+  <div class="row">
+    <button style="float:left;" type="button" class="btn btn-info"
+      data-toggle="popover" data-placement="bottom" data-html="true"
+      title="Report Help" data-container="body" data-trigger="'outsideClick'"
+      data-content="<b>Details:</b>Left click on a row within the table to view additional details.<br>
+  <b>Sorting:</b>Sort fields by clicking on the arrows in the column headers.<br>
+  <b>Export:</b>Export data by clicking on the &nbsp<span class='glyphicon glyphicon-export' aria-hidden='true'></span>&nbsp icon and selecting the format that meets your needs.<br>
+  <b>Hidden Fields:</b>Access hidden fields by clicking on the &nbsp<span class='glyphicon glyphicon-th' aria-hidden='true'></span>&nbsp icon.<br>
+  <b>Search:</b>Perform a filtered search across all fields in the displayed data.  Search within specific columns by clicking on the &nbsp<span class='glyphicon glyphicon-search' aria-hidden='true'></span>&nbsp icon.<br>
+  <b>Pages:</b>Choose how many rows per page are displayed. Click on the &nbsp<span class='glyphicon glyphicon-collapse-down' aria-hidden='true'></span>&nbsp icon to display everything on one page.">
+      Help using this report
+    </button>
+    <div class="col-sm-offset-4">
+      Filters:
+      <a role="button" name="FASbttn" class="btn btn-primary"
+        href="#!/applications/find/DisplayName=&Name=&Description=&SSO=FAS&OwnerShort=&System=&Status=">FAS (Q)</a>
+      <a role="button" name="ITbttn" class="btn btn-primary"
+        href="#!/applications/find/DisplayName=&Name=&Description=&SSO=GSA%20IT&OwnerShort=&System=&Status=">GSA IT (I)</a>
+      <a role="button" name="OCFObttn" class="btn btn-primary"
+        href="#!/applications/find/DisplayName=&Name=&Description=&SSO=OCFO&OwnerShort=&System=&Status=">OCFO (B)</a>
+      <a role="button" name="PBSbttn" class="btn btn-primary"
+        href="#!/applications/find/DisplayName=&Name=&Description=&SSO=PBS&OwnerShort=&System=&Status=">PBS (P)</a>
+    </div>
+  </div>
   <table id="appstable" style="cursor: pointer;" data-search="true"
     data-advanced-search="true" data-id-table="appstable"
     data-trim-on-search="false" data-show-columns="true" data-show-export="true"
