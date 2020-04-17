@@ -147,16 +147,23 @@ angular.module('dashboard').config(['$routeProvider', '$locationProvider',
     when('/itstandards', {
       templateUrl: '/gear/partials/infrastructure_itstandards_report.html'
     }).
-    when('/itstandards_ByCategory', {
-      templateUrl: '/gear/partials/infrastructure_itstandardsbycat_report.html'
+    when('/itstandards/desktop', {
+      templateUrl: '/gear/partials/infrastructure_desktop_itstandards_report.html'
+    }).
+    when('/itstandards/server', {
+      templateUrl: '/gear/partials/infrastructure_server_itstandards_report.html'
+    }).
+    when('/itstandards/denied', {
+      templateUrl: '/gear/partials/infrastructure_denied_itstandards_report.html'
+    }).
+    when('/itstandards/sunsetting', {
+      templateUrl: '/gear/partials/infrastructure_sunsetting_itstandards_report.html'
     }).
     when('/itstandards/:id', {
       templateUrl: '/gear/partials/infrastructure_itstandards_detail.html'
     }).
 
-    when('/itstandards_ByCategory/:standardCat', {
-      templateUrl: '/gear/partials/infrastructure_itstandards_report.html'
-    }).
+
     when('/itstandards_goldimage/find/:query*', {
       templateUrl: '/gear/partials/infrastructure_goldimage_report.html'
     }).
