@@ -69,10 +69,10 @@ class ITStandardsModel extends Model {
             its = its.map((it, cb) => {
               cb = '<a class="no-propagation" target="_blank" href="' +
                 it + '">' + ' ' + it + '</a>';
-              console.log(cb);
+              // console.log(cb);
               s.push(cb);
             })
-            console.log(s);
+            // console.log(s);
           } else {
             s.push(d.ReferenceDocuments);
           }
