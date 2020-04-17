@@ -27,7 +27,12 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
 
       var itstandards = ITStandardsSrc.query();
       itstandards.$promise.then(function() {
-        $scope.bstData = itstandards;
+        $.each(itstandards, function(key, val) {
+          if (val.Status != "Denied" && val.Status !=
+            "Sunsetting") {
+            $scope.bstData.push(val);
+          }
+        });
 
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
@@ -50,8 +55,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
           }, {
             field: 'DeploymentType',
             title: 'Deployment Type',
-            sortable: true,
-            visible: false
+            sortable: true
           }, {
             field: 'POC',
             title: 'POC',
@@ -65,13 +69,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
           }, {
             field: 'Comments',
             title: 'Comments',
-            sortable: true,
-            // class: 'col-rpt-varchar',
-            // cellStyle: function (value, row, index, field) {
-            //   return {
-            //     classes: (value.length > 175)? 'col-rpt-wider' : 'col-rpt-wide',
-            //   };
-            // }
+            sortable: true
           }, {
             field: 'ReferenceDocuments',
             title: 'Reference Documents',
@@ -103,6 +101,339 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
       }
     });
 
+
+    // Method for Desktop IT Standards table
+    $scope.createDesktopITStandardTable = function() {
+      $scope.$bstEl = $('#desktopstandtable');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/itstandards/desktop';
+
+      var itstandards = ITStandardsSrc.query();
+      itstandards.$promise.then(function() {
+        $.each(itstandards, function(key, val) {
+          if (val.DeploymentType === "Desktop" && val.Status !=
+            "Denied" && val.Status != "Sunsetting") {
+            $scope.bstData.push(val);
+          }
+        });
+
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'Standard Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'Category',
+            title: 'Category',
+            sortable: true
+          }, {
+            field: 'Status',
+            title: 'Status',
+            sortable: true
+          }, {
+            field: 'DeploymentType',
+            title: 'Deployment Type',
+            sortable: true
+          }, {
+            field: 'POC',
+            title: 'POC',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'POCorg',
+            title: 'POC Org',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'Comments',
+            title: 'Comments',
+            sortable: true
+          }, {
+            field: 'ReferenceDocuments',
+            title: 'Reference Documents',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ApprovalExpirationDate',
+            title: 'Approval Expiration Date',
+            sortable: true,
+            visible: false
+          }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+      });
+    } // END Method for IT Standards table
+
+    // Method for handling click events on the IT Standards table
+    $('#desktopstandtable').on('click-row.bs.table', function(e, row,
+      $element) {
+      // note: this :has selector cannot be cached; done this way to get
+      // around caching & DOM availabily issues
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
+        $location.path('/itstandards/' + row.ID);
+        $route.reload();
+      }
+    });
+
+
+    // Method for Server IT Standards table
+    $scope.createServerITStandardTable = function() {
+      $scope.$bstEl = $('#serverstandtable');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/itstandards/server';
+
+      var itstandards = ITStandardsSrc.query();
+      itstandards.$promise.then(function() {
+        $.each(itstandards, function(key, val) {
+          if (val.DeploymentType === "Server" && val.Status !=
+            "Denied" && val.Status != "Sunsetting") {
+            $scope.bstData.push(val);
+          }
+        });
+
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'Standard Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'Category',
+            title: 'Category',
+            sortable: true
+          }, {
+            field: 'Status',
+            title: 'Status',
+            sortable: true
+          }, {
+            field: 'DeploymentType',
+            title: 'Deployment Type',
+            sortable: true
+          }, {
+            field: 'POC',
+            title: 'POC',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'POCorg',
+            title: 'POC Org',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'Comments',
+            title: 'Comments',
+            sortable: true
+          }, {
+            field: 'ReferenceDocuments',
+            title: 'Reference Documents',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ApprovalExpirationDate',
+            title: 'Approval Expiration Date',
+            sortable: true,
+            visible: false
+          }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+      });
+    } // END Method for IT Standards table
+
+    // Method for handling click events on the IT Standards table
+    $('#serverstandtable').on('click-row.bs.table', function(e, row,
+      $element) {
+      // note: this :has selector cannot be cached; done this way to get
+      // around caching & DOM availabily issues
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
+        $location.path('/itstandards/' + row.ID);
+        $route.reload();
+      }
+    });
+
+
+    // Method for Denied IT Standards table
+    $scope.createDeniedITStandardTable = function() {
+      $scope.$bstEl = $('#deniedstandtable');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/itstandards/denied';
+
+      var itstandards = ITStandardsSrc.query();
+      itstandards.$promise.then(function() {
+        $.each(itstandards, function(key, val) {
+          if (val.Status === "Denied") {
+            $scope.bstData.push(val);
+          }
+        });
+
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'Standard Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'Category',
+            title: 'Category',
+            sortable: true
+          }, {
+            field: 'Status',
+            title: 'Status',
+            sortable: true
+          }, {
+            field: 'DeploymentType',
+            title: 'Deployment Type',
+            sortable: true
+          }, {
+            field: 'POC',
+            title: 'POC',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'POCorg',
+            title: 'POC Org',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'Comments',
+            title: 'Comments',
+            sortable: true
+          }, {
+            field: 'ReferenceDocuments',
+            title: 'Reference Documents',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ApprovalExpirationDate',
+            title: 'Approval Expiration Date',
+            sortable: true,
+            visible: false
+          }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+      });
+    } // END Method for IT Standards table
+
+    // Method for handling click events on the IT Standards table
+    $('#deniedstandtable').on('click-row.bs.table', function(e, row,
+      $element) {
+      // note: this :has selector cannot be cached; done this way to get
+      // around caching & DOM availabily issues
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
+        $location.path('/itstandards/' + row.ID);
+        $route.reload();
+      }
+    });
+
+
+    // Method for Sunsetting IT Standards table
+    $scope.createSunsettingITStandardTable = function() {
+      $scope.$bstEl = $('#sunsettingstandtable');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/itstandards/sunsetting';
+
+      var itstandards = ITStandardsSrc.query();
+      itstandards.$promise.then(function() {
+        $.each(itstandards, function(key, val) {
+          if (val.Status === "Sunsetting") {
+            $scope.bstData.push(val);
+          }
+        });
+
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+            field: 'Name',
+            title: 'Standard Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'Category',
+            title: 'Category',
+            sortable: true
+          }, {
+            field: 'Status',
+            title: 'Status',
+            sortable: true
+          }, {
+            field: 'DeploymentType',
+            title: 'Deployment Type',
+            sortable: true
+          }, {
+            field: 'POC',
+            title: 'POC',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'POCorg',
+            title: 'POC Org',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'Comments',
+            title: 'Comments',
+            sortable: true
+          }, {
+            field: 'ReferenceDocuments',
+            title: 'Reference Documents',
+            sortable: true,
+            visible: false
+          }, {
+            field: 'ApprovalExpirationDate',
+            title: 'Approval Expiration Date',
+            sortable: true,
+            visible: false
+          }],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+      });
+    } // END Method for IT Standards table
+
+    // Method for handling click events on the IT Standards table
+    $('#sunsettingstandtable').on('click-row.bs.table', function(e, row,
+      $element) {
+      // note: this :has selector cannot be cached; done this way to get
+      // around caching & DOM availabily issues
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
+        $location.path('/itstandards/' + row.ID);
+        $route.reload();
+      }
+    });
 
 
     // Method for Gold Image table
