@@ -392,6 +392,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               sortable: true,
               visible: false
             },
+            {
+              field: 'HelpDesk',
+              title: 'Help Desk',
+              sortable: true,
+              visible: false
+            },
             // {
             // field: 'Id',
             // title: 'Id',
@@ -1394,6 +1400,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                   {
                     field: 'FISMASystem',
                     title: 'FISMA System',
+                    sortable: true,
+                    visible: false
+                  },
+                  {
+                    field: 'HelpDesk',
+                    title: 'Help Desk',
                     sortable: true,
                     visible: false
                   },

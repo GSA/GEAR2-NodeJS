@@ -163,6 +163,10 @@ class Application extends Model {
         type: 'string',
       },
       {
+        name: 'HelpDesk',
+        type: 'string',
+      },
+      {
         name: 'Investment',
         type: 'string',
       },
