@@ -75,6 +75,7 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "RegionClassification": val.RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
+              "HelpDesk": val.HelpDesk,
               "Id": val.Id,
               "DesktopComponent": val.DesktopComponent,
               "OMBUID": val.OMBUID,
@@ -169,6 +170,11 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             }, {
               field: 'FismaSystem',
               title: 'FISMA System',
+              sortable: true,
+              visible: false
+            }, {
+              field: 'HelpDesk',
+              title: 'Help Desk',
               sortable: true,
               visible: false
             },
@@ -841,6 +847,11 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               }, {
                 field: 'FISMASystem',
                 title: 'FISMA System',
+                sortable: true,
+                visible: false
+              }, {
+                field: 'HelpDesk',
+                title: 'Help Desk',
                 sortable: true,
                 visible: false
               },
