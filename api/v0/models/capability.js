@@ -62,7 +62,11 @@ class CapModel extends Model {
       },
       // Used by SSO filters
       {
-        name: 'Organization',
+        name: 'Organizations',
+        type: 'string',
+      },
+      {
+        name: 'Applications',
         type: 'string',
       },
     ];

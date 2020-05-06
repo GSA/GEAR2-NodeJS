@@ -511,13 +511,14 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         } else {
           // Grab capabilities that include SSO
           $.each(capSSOs, function(key, val) {
-            if (String(val.Organization).includes($routeParams.name)) {
+            if (String(val.Organizations).includes($routeParams.name)) {
               $scope.bstData.push({
                 "ReferenceNum": val.ReferenceNum,
                 "Name": val.Name,
                 "Description": val.Description,
                 "ParentCap": val.ParentCap,
-                "Organization": val.Organization
+                "Organizations": val.Organizations,
+                "Applications": val.Applications
               });
             }
           });
@@ -542,8 +543,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               title: 'Parent',
               sortable: true
             }, {
-              field: 'Organization',
+              field: 'Organizations',
               title: 'SSO',
+              sortable: true
+            }, {
+              field: 'Applications',
+              title: 'Apps',
               sortable: true
             }
           ],
