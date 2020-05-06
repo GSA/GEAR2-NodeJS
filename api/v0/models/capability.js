@@ -3,8 +3,7 @@ const Model = require('./model');
 class CapModel extends Model {
   constructor(f) {
     super(f);
-    this.fields = [
-      {
+    this.fields = [{
         name: 'Id',
         type: 'string',
         mapping(data) {
@@ -26,9 +25,9 @@ class CapModel extends Model {
       {
         name: 'ReferenceNum',
         type: 'string',
-		mapping(o){
-			return o.RefNum || o.ReferenceNum;
-		}
+        mapping(o) {
+          return o.RefNum || o.ReferenceNum;
+        }
       },
       // next 3 fields are used by cap visualization
       {
@@ -38,15 +37,15 @@ class CapModel extends Model {
       {
         name: 'RefNum',
         type: 'string',
-		mapping(o){
-			return o.RefNum || o.ReferenceNum;
-		}
+        mapping(o) {
+          return o.RefNum || o.ReferenceNum;
+        }
       },
       {
         name: 'ParRefNum',
         type: 'string',
       },
-     /*  {
+      /*  {
         name: 'Ref',
         type: 'string',
 		mapping(o){
@@ -57,10 +56,15 @@ class CapModel extends Model {
         name: 'ParentCap',
         type: 'string',
       },
-	  {
+      {
         name: 'old_Id',
         type: 'string',
-      },	  
+      },
+      // Used by SSO filters
+      {
+        name: 'Organization',
+        type: 'string',
+      },
     ];
   }
 }

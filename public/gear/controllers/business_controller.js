@@ -7,7 +7,7 @@
 angular.module('dashboard').controller('BusinessController', ['$route',
   '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapApplicationsSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapabilitiesSSOSrc', 'CapApplicationsSrc',
   'CapAppCountsSrc', 'OrgAppsSrc', 'InterfacesSrc',
   // resume legacy
   'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System',
@@ -15,7 +15,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
   'bstSearchUtils', 'Utils',
   function($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
     // insert new here
-    OrganizationsSrc, CapabilitiesSrc, CapApplicationsSrc, CapAppCountsSrc,
+    OrganizationsSrc, CapabilitiesSrc, CapabilitiesSSOSrc, CapApplicationsSrc, CapAppCountsSrc,
     OrgAppsSrc, InterfacesSrc,
     // resume legacy
     BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application,
@@ -501,6 +501,79 @@ angular.module('dashboard').controller('BusinessController', ['$route',
       }
     });
 
+
+    // Method for Business Functions by SSO Table
+    $scope.createFuncSSOTable = function() {
+      $scope.$bstEl = $('#capabilityssotable');
+      $scope.hasUsedSearchForm = false;
+      $scope.rootPath = '/capabilities_by_sso';
+
+      var capSSOs = CapabilitiesSSOSrc.query();
+
+      capSSOs.$promise.then(function(populateData) {
+        // Grab everything if no routeParams
+        if ($.isEmptyObject($routeParams)) {
+          $scope.bstData = capSSOs;
+        } else {
+          // Grab capabilities that include SSO
+          $.each(capSSOs, function(key, val) {
+            if (String(val.Organization).includes($routeParams.name)) {
+              $scope.bstData.push({
+                "ReferenceNum": val.ReferenceNum,
+                "Name": val.Name,
+                "Description": val.Description,
+                "ParentCap": val.ParentCap,
+                "Organization": val.Organization
+              });
+            }
+          });
+        }
+
+        bstSearchUtils.checkFilterState($scope);
+        $scope.bsTableConfig = {
+          columns: [{
+              field: 'ReferenceNum',
+              title: 'Ref Id',
+              sortable: true
+            }, {
+              field: 'Name',
+              title: 'Function Name',
+              sortable: true
+            }, {
+              field: 'Description',
+              title: 'Description',
+              sortable: true
+            }, {
+              field: 'ParentCap',
+              title: 'Parent',
+              sortable: true
+            }, {
+              field: 'Organization',
+              title: 'SSO',
+              sortable: true
+            }
+          ],
+          data: $scope.bstData
+        };
+        bstSearchUtils.updateConfig($scope);
+        $scope.$bstEl.bootstrapTable($scope.bsTableConfig);
+        bstSearchUtils.handleSearchState($scope);
+      });
+    }
+
+    $('#capabilityssotable').on('click-row.bs.table', function(e, row,
+      $element) {
+      // note: this :has selector cannot be cached; done this way to get
+      // around caching & DOM availabily issues
+      if (!!$(
+          '.bootstrap-table:not(:has(.dropdown-toggle[aria-expanded="true"]))'
+        ).length) {
+        $location.path('/capabilities/' + row.Id);
+        $route.reload();
+      }
+    });
+
+
     $scope.removePag = function() {
       $(".report").attr("data-pagination", false);
     }
@@ -940,9 +1013,33 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                     description: cap.Description,
                     referenceNum: cap.ReferenceNum,
                     parent: cap.Parent,
-                    children: false
+                    children: []
                   });
                 }
+              });
+            });
+          });
+        });
+        // set fifth-level children
+        $.each(capTree.children, function(i, firstLevelCap) {
+          $.each(firstLevelCap.children, function(i,
+            secondLevelCap) {
+            $.each(secondLevelCap.children, function(i,
+              thirdLevelCap) {
+              $.each(thirdLevelCap.children, function(i,
+                fourthLevelCap) {
+                $.each(caps, function(i, cap) {
+                  if (cap.Parent == fourthLevelCap.name) {
+                    fourthLevelCap.children.push({
+                      identity: cap.ID,
+                      name: cap.Name,
+                      description: cap.Description,
+                      referenceNum: cap.ReferenceNum,
+                      parent: cap.Parent,
+                      children: false
+                    });
+                  }
+                });
               });
             });
           });
