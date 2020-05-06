@@ -25,6 +25,11 @@ angular.module('dashboard')
     WcfConfig) {
     return $resource('/api/v0/capabilities/:id');
   }])
+  // Capabiilties by SSO
+  .factory('CapabilitiesSSOSrc', ['$resource', 'WcfConfig', function($resource,
+    WcfConfig) {
+    return $resource('/api/v0/capabilities_by_sso/:name');
+  }])
   // new CapApplicationsSrc (prev used apps AppFuncMap)
   .factory('CapApplicationsSrc', ['$resource', 'WcfConfig', function($resource,
     WcfConfig) {

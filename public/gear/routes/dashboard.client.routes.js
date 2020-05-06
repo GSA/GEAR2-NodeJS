@@ -53,6 +53,13 @@ angular.module('dashboard').config(['$routeProvider', '$locationProvider',
       templateUrl: '/gear/partials/business_function_detail.html'
     }).
 
+    when('/capabilities_by_sso', {
+      templateUrl: '/gear/partials/business_function_by_sso.html'
+    }).
+    when('/capabilities_by_sso/:name', {
+      templateUrl: '/gear/partials/business_function_by_sso.html'
+    }).
+
     //Configure Strategy Routes
     when('/goals/find/:query*', {
       templateUrl: '/gear/partials/strategy_goal_report.html'

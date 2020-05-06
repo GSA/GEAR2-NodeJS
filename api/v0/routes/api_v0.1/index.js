@@ -1,5 +1,6 @@
 const express = require('express');
 const cap = require('./capability');
+const capsso = require('./capability_sso');
 const app = require('./application');
 const appTIME = require('./apptime');
 const fisma = require('./fisma');
@@ -20,6 +21,7 @@ const router = express.Router();
 router.use('/applications', app);
 router.use('/apptime', appTIME);
 router.use('/capabilities', cap);
+router.use('/capabilities_by_sso', capsso);
 router.use('/fisma', fisma);
 router.use('/fismaexp', fismaexp);
 router.use('/itstandards', its);
