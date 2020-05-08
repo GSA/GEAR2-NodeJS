@@ -938,6 +938,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
       var caps = CapabilitiesSrc.query();
       var parentcap = 'Manage GSA';
       var capTree = {};
+      var highlightColor = '#ff4136';
 
       caps.$promise.then(function(populateData) {
         // set root node
@@ -974,7 +975,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                 name: cap.Name,
                 description: cap.Description,
                 referenceNum: cap.ReferenceNum,
-                parent: cap.Parent,
+                parent: firstLevelCap,
                 children: []
               });
             }
@@ -991,7 +992,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                   name: cap.Name,
                   description: cap.Description,
                   referenceNum: cap.ReferenceNum,
-                  parent: cap.Parent,
+                  parent: secondLevelCap,
                   children: []
                 });
               }
@@ -1007,11 +1008,11 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               $.each(caps, function(i, cap) {
                 if (cap.Parent == thirdLevelCap.name) {
                   thirdLevelCap.children.push({
-                    identity: cap.ID,
+                    identity: cap.Id,
                     name: cap.Name,
                     description: cap.Description,
                     referenceNum: cap.ReferenceNum,
-                    parent: cap.Parent,
+                    parent: thirdLevelCap,
                     children: []
                   });
                 }
@@ -1030,11 +1031,11 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                 $.each(caps, function(i, cap) {
                   if (cap.Parent == fourthLevelCap.name) {
                     fourthLevelCap.children.push({
-                      identity: cap.ID,
+                      identity: cap.Id,
                       name: cap.Name,
                       description: cap.Description,
                       referenceNum: cap.ReferenceNum,
-                      parent: cap.Parent,
+                      parent: fourthLevelCap,
                       children: false
                     });
                   }
@@ -1072,15 +1073,25 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         root.x0 = h / 2;
         root.y0 = 0;
 
-        function toggleAll(d) {
+        // Collapse all nodes
+        function collapseAll(d) {
           if (d.children) {
-            d.children.forEach(toggleAll);
+            d._children = d.children;
+            d._children.forEach(collapseAll);
+            d.children = null;
+          }
+        }
+
+        // Expand only root node
+        function toggleFirst(d) {
+          if (d.children) {
+            d.children.forEach(toggleFirst);
             toggle(d);
           }
         }
 
         // Initialize the display to show a few nodes.
-        root.children.forEach(toggleAll);
+        root.children.forEach(toggleFirst);
 
         update(root);
 
@@ -1175,11 +1186,29 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           nodeUpdate.select("circle")
             .attr("r", 4.5)
             .style("fill", function(d) {
-              return d._children ? "lightsteelblue" : "#fff";
-            });
+              if(d.selected){
+      					return highlightColor; //red
+      				}
+      				else if(d._children){
+      					return "lightsteelblue";
+      				}
+      				else{
+      					return "#fff";
+      				}
+            })
+            .style("stroke", function(d) {
+      				if(d.selected){
+      					return highlightColor; //red
+      				}
+              });
 
           nodeUpdate.select("text")
-            .style("fill-opacity", 1);
+            .style("fill-opacity", 1)
+            .style("fill", function(d) {
+      				if(d.selected){
+      					return highlightColor; //red
+      				}
+              });
 
           // Transition exiting nodes to the parent's new position.
           var nodeExit = node.exit().transition()
@@ -1221,7 +1250,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           // Transition links to their new position.
           link.transition()
             .duration(duration)
-            .attr("d", diagonal);
+            .attr("d", diagonal)
+            .style("stroke",function(d){
+      				if(d.target.selected){
+      					return highlightColor;
+      				}
+      			});
 
           // Transition exiting nodes to the parent's new position.
           link.exit().transition()
@@ -1268,341 +1302,93 @@ angular.module('dashboard').controller('BusinessController', ['$route',
             d._children = null;
           }
         }
+
+        $scope.search = function() {
+          var text = document.getElementById('searchField').value.toUpperCase();
+
+          //reset
+          var selected = [];
+          var selection = '';
+          var scope = [];
+          var paths = [];
+          vis.selectAll("text").attr("fill", "black").style("fill-opacity", 0.6);
+          var filtered = true;
+
+          // Collapse tree between each search
+          collapseAll(root);
+          update(root);
+
+          root._children.forEach(searchChildren, text);
+
+          // If paths is empty, nothing was found
+          if(paths.length != 0){ // if not empty
+      			openPaths(paths);
+      		}
+      		else{
+            root._children.forEach(toggleFirst);
+            update(root);
+      			alert(text + " not found!");
+      		}
+
+          function searchChildren(d) {
+            d.selected = 0;
+            var patt = new RegExp("\\b" + this + "\\b", "i");
+
+            paths.push(d); // we assume this path is the right one
+
+            if (d.name.match(patt) != null) {
+              var selection = '#textnode-' + d.identity;
+              selected.push(selection);
+              if (!paths.includes(d)) {paths.push(d);}  // Avoid duplication
+              d.selected = 1;
+              addToScope(d);
+            } else {
+              paths.pop()
+            }
+
+            if (d.children)
+              d.children.forEach(searchChildren, this);
+            else if (d._children)
+              d._children.forEach(searchChildren, this);
+
+          }
+
+          function addToScope(d) {
+      			if (scope.indexOf(selection) >= 0) return;
+      			scope.push(selection);
+      			if (d.parent == null) return;
+      			addToScope(d.parent);
+      		}
+
+          function openPaths(paths) {
+        		for(var i = 0; i < paths.length; i++){
+      				paths[i].selected = 1;
+      				if (paths[i]._children) { //if children are hidden: open them, otherwise: don't do anything
+      					paths[i].children = paths[i]._children;
+      	    		paths[i]._children = null;
+      				}
+              if (paths[i].parent != null && !containsObject(paths[i].parent, paths)) {
+                paths.push(paths[i].parent);
+              }
+      				update(paths[i]);
+      			}
+        	}
+
+          function containsObject(obj, list) {
+              var i;
+              if (list != null) {
+                for (i = 0; i < list.length; i++) {
+                    if (list[i] === obj) {
+                        return true;
+                    }
+                }
+              }
+
+              return false;
+          }
+        }
       });
     }
-
-    // Method for creating the Capability Tree view
-    // $scope.createCapabilityTree = function() {
-    //   var capApps = CapAppCountsSrc.query();
-    //   capApps.$promise.then(function() {
-    //     // TODO: make this function shareable--it adds _.tree() feature to underscore.js
-    //     (function() {
-    //       var attrEq = function(key, value, input) {
-    //           return input[key] && input[key] == value;
-    //         },
-    //
-    //         arrayToTree = function(data, rootId, pkName, fkName) {
-    //           pkName = pkName || 'id';
-    //           fkName = fkName || 'parent_id';
-    //           rootId = rootId || (_.first(data) || {})[pkName] || 0;
-    //
-    //           var output = _.clone(_.find(data, _.partial(attrEq,
-    //               pkName, rootId))),
-    //             childnodes = _.filter(data, _.partial(attrEq,
-    //               fkName, rootId));
-    //
-    //           output.children = _.map(childnodes, function(child) {
-    //             return arrayToTree(data, child[pkName], pkName,
-    //               fkName);
-    //           });
-    //
-    //           return output;
-    //         };
-    //
-    //       _.mixin({
-    //         tree: arrayToTree
-    //       });
-    //
-    //     }).call(this);
-    //
-    //     var rootNode = {
-    //       Id: 277,
-    //       Name: 'Manage GSA',
-    //       Parent: null,
-    //       AppCount: 0,
-    //       RefNum: null,
-    //       ParRefNum: null,
-    //     }
-    //     capApps.unshift(rootNode);
-    //
-    //     capApps = _.map(capApps, function(c) {
-    //       return {
-    //         id: Number(c.Id),
-    //         name: c.Name,
-    //         pname: c.Parent,
-    //         appnum: Number(c.AppCount)
-    //       }
-    //     });
-    //
-    //     var root = _.tree(capApps, 'Manage GSA', 'name', 'pname');
-    //
-    //     var margin = {
-    //         top: 20,
-    //         right: 0,
-    //         bottom: 0,
-    //         left: 0
-    //       },
-    //       width = $('#buschart').width(),
-    //       height = $('#stage').height() - $('#businessheader')
-    //       .height() - parseInt($('#stage').css('padding-top')) * 2,
-    //       formatNumber = d3.format(",d"),
-    //       transitioning;
-    //
-    //     var x = d3.scale.linear()
-    //       .domain([0, width])
-    //       .range([0, width]);
-    //
-    //     var y = d3.scale.linear()
-    //       .domain([0, height])
-    //       .range([0, height]);
-    //
-    //     var treemap = d3.layout.treemap()
-    //       .children(function(d, depth) {
-    //         return depth ? null : d._children;
-    //       })
-    //       .sort(function(a, b) {
-    //         return a.value - b.value;
-    //       })
-    //       .ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
-    //       .round(false);
-    //
-    //
-    //     var svg = d3.select("#buschart").append("svg")
-    //       .attr("id", "capability-tree")
-    //       .attr("width", width + margin.left + margin.right)
-    //       .attr("height", height + margin.bottom + margin.top)
-    //       .style("margin-left", -margin.left + "px")
-    //       .style("margin.right", -margin.right + "px")
-    //       .append("g")
-    //       .attr("transform", "translate(" + margin.left + "," + margin
-    //         .top + ")")
-    //       .style("shape-rendering", "crispEdges");
-    //
-    //     var grandparent = svg.append("g")
-    //       .attr("class", "grandparent");
-    //
-    //     grandparent.append("rect")
-    //       .attr("y", -margin.top)
-    //       .attr("width", width)
-    //       .attr("height", margin.top);
-    //
-    //     grandparent.append("text")
-    //       .attr("x", 6)
-    //       .attr("y", 6 - margin.top)
-    //       .attr("dy", ".75em");
-    //
-    //
-    //     initialize(root);
-    //     accumulate(root);
-    //     layout(root);
-    //     display(root);
-    //
-    //     function initialize(root) {
-    //       root.x = root.y = 0;
-    //       root.dx = width;
-    //       root.dy = height;
-    //       root.depth = 0;
-    //     }
-    //
-    //     // Aggregate the values for internal nodes. This is normally done by the
-    //     // treemap layout, but not here because of our custom implementation.
-    //     // We also take a snapshot of the original children (_children) to avoid
-    //     // the children being overwritten when when layout is computed.
-    //     function accumulate(d) {
-    //       if (!d.children.length) {
-    //         d.value = 25;
-    //         delete d.children;
-    //       }
-    //       return (d._children = d.children) ?
-    //         d.value = d.children.reduce(function(p, v) {
-    //           return p + accumulate(v);
-    //         }, 0) :
-    //         d.value;
-    //     }
-    //
-    //     // Compute the treemap layout recursively such that each group of siblings
-    //     // uses the same size (1×1) rather than the dimensions of the parent cell.
-    //     // This optimizes the layout for the current zoom state. Note that a wrapper
-    //     // object is created for the parent node for each group of siblings so that
-    //     // the parent’s dimensions are not discarded as we recurse. Since each group
-    //     // of sibling was laid out in 1×1, we must rescale to fit using absolute
-    //     // coordinates. This lets us use a viewport to zoom.
-    //     function layout(d) {
-    //       if (d._children) {
-    //         treemap.nodes({
-    //           _children: d._children
-    //         });
-    //         d._children.forEach(function(c) {
-    //           c.x = d.x + c.x * d.dx;
-    //           c.y = d.y + c.y * d.dy;
-    //           c.dx *= d.dx;
-    //           c.dy *= d.dy;
-    //           c.parent = d;
-    //           layout(c);
-    //         });
-    //       }
-    //     }
-    //
-    //     function display(d) {
-    //       grandparent
-    //         .datum(d.parent)
-    //         .on("click", transition)
-    //         .select("text")
-    //         .text(name(d));
-    //
-    //       var g1 = svg.insert("g", ".grandparent")
-    //         .datum(d)
-    //         .attr("class", "depth");
-    //
-    //       var g = g1.selectAll("g")
-    //         .data(d._children)
-    //         .enter().append("g")
-    //         .on("contextmenu", function(d) {
-    //           $location.path('/capabilities/' + d.id);
-    //           $scope.$apply();
-    //         });
-    //
-    //
-    //       g.filter(function(d) {
-    //           return d._children;
-    //         })
-    //         .classed("children", true)
-    //         .on("click", transition);
-    //
-    //       g.selectAll(".child")
-    //         .data(function(d) {
-    //           return d._children || [d];
-    //         })
-    //         .enter().append("rect")
-    //         .attr("class", "child")
-    //         .call(rect);
-    //
-    //
-    //       g.append("rect")
-    //         .attr("class", "parent ea-tree-node-rect")
-    //         .call(rect)
-    //         .append("title")
-    //
-    //         //		.text(function(d) { return d.name + ' : ' + d.description; });
-    //         .text(function(d) {
-    //           return 'Right-click to view the details for ' + d
-    //             .name +
-    //             '. Left-click to view the lower level capabilities.';
-    //         });
-    //
-    //       g.append("text")
-    //         .attr("dy", ".75em")
-    //         .attr("id", function(d) {
-    //           return 'org-' + d.id;
-    //         })
-    //         .attr('class', 'ea-tree-node-label')
-    //         .text(function(d) {
-    //           return d.name;
-    //         })
-    //         .call(text);
-    //
-    //       function transition(d) {
-    //         if (transitioning || !d) return;
-    //         transitioning = true;
-    //
-    //         var g2 = display(d),
-    //           t1 = g1.transition().duration(750),
-    //           t2 = g2.transition().duration(750);
-    //
-    //         // Update the domain only after entering new elements.
-    //         x.domain([d.x, d.x + d.dx]);
-    //         y.domain([d.y, d.y + d.dy]);
-    //
-    //         // Enable anti-aliasing during the transition.
-    //         svg.style("shape-rendering", null);
-    //
-    //         // Draw child nodes on top of parent nodes.
-    //         svg.selectAll(".depth").sort(function(a, b) {
-    //           return a.depth - b.depth;
-    //         });
-    //
-    //         // Fade-in entering text.
-    //         g2.selectAll("text").style("fill-opacity", 0);
-    //
-    //         // Transition to the new view.
-    //         t1.selectAll("text").call(text).style("fill-opacity", 0);
-    //         t1.selectAll("rect").call(rect);
-    //         t2.selectAll("rect").call(rect);
-    //
-    //         // Remove the old node when the transition is finished.
-    //         t1.remove().each("end", function(d) {
-    //           svg.style("shape-rendering", "crispEdges");
-    //           transitioning = false;
-    //         });
-    //
-    //         // WORD WRAP: Called at the end of the text (t2)
-    //         // transitions.
-    //         t2.each("end", function(d, i) {
-    //           $('.ea-tree-node-label').each(function(el, i) {
-    //             $(this).animate({
-    //               'fill-opacity': 1
-    //             }, 750);
-    //           });
-    //           d3.select(this).selectAll('.ea-tree-node-label')
-    //             .call(text)
-    //             .each(function() {
-    //               try {
-    //                 Utils.wrapSVGText(this,
-    //                   Math.floor($(this).prev(
-    //                       '.ea-tree-node-rect')[0].getBBox()
-    //                     .width - 12));
-    //               } catch (e) {
-    //                 console.warn('EXCEPTION: ', e);
-    //               }
-    //             });
-    //         });
-    //       }
-    //
-    //       // LATE-ADDITION to select "General Government" capability
-    //       // by default. The faux tree structure of the data does not
-    //       // allow us to do this correctly so let's script a click in
-    //       // the UI for now.
-    //       // TODO This should use the d3 event API instead. Fire the
-    //       // event here, and define a listener with this logic elsewhere.
-    //       try {
-    //         var genGovRect = $('#org-190').prev('rect.parent')[0];
-    //         var evt = document.createEvent("MouseEvents");
-    //         evt.initMouseEvent("click", true, true, window, 0, 0, 0,
-    //           0, 0, false, false, false, false, 0, null);
-    //         genGovRect.dispatchEvent(evt);
-    //       } catch (e) {}
-    //
-    //       return g;
-    //     }
-    //
-    //     function text(text) {
-    //       text.attr("x", function(d) {
-    //           return x(d.x) + 6;
-    //         })
-    //         .attr("y", function(d) {
-    //           return y(d.y) + 6;
-    //         });
-    //     }
-    //
-    //     function rect(rect) {
-    //       var colorScale = d3.scale.linear()
-    //         .domain([0, 300])
-    //         .range(["#CEE3F6", "#045FB4"]);
-    //
-    //       rect.attr("x", function(d) {
-    //           return x(d.x);
-    //         })
-    //         .attr("y", function(d) {
-    //           return y(d.y);
-    //         })
-    //         .attr("width", function(d) {
-    //           return x(d.x + d.dx) - x(d.x);
-    //         })
-    //         .attr("height", function(d) {
-    //           return y(d.y + d.dy) - y(d.y);
-    //         })
-    //         .style("fill", function(d) {
-    //           return colorScale(d.appnum);
-    //         });
-    //     }
-    //
-    //     function name(d) {
-    //       return d.parent ?
-    //         name(d.parent) + "." + d.name :
-    //         d.name;
-    //     }
-    //   });
-    // }
 
 
     // Method for retrieving a single Business Function's details
