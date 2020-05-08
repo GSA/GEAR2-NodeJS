@@ -207,15 +207,16 @@ path {
 */
 
 
-#orgchart .node circle {
+.node circle {
   cursor: pointer;
   fill: #fff;
   stroke: steelblue;
-  stroke-width: 1.5px;
+  /* stroke-width: 1.5px; */
 }
 
-#orgchart .node text {
-  font-size: 11px;
+.node text {
+  pointer-events: none;
+  font: 12px sans-serif;
 }
 
 path.link {
@@ -296,11 +297,6 @@ text {
 */
 .link {
   stroke: #ccc;
-}
-
-.node text {
-  pointer-events: none;
-  font: 10px sans-serif;
 }
 
 #contextMenu {
