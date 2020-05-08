@@ -19,10 +19,22 @@
 				<b>Click:</b> Left click on the circle next to a capability to see the next level of the capability. (Not all capabilities have another level).">Help
           using this model</button>
       </div>
+      <div class="input-group pull-right col-lg-3" style="padding-top: 7px;">
+        <input type="text" class="form-control" placeholder="Search Names" id="searchField"/>
+        <div class="input-group-btn">
+          <button class="btn btn-primary" ng-click="search()">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </div>
+      </div>
+      <!-- <div id="buschartsearch" class="pull-right">
+    		<input id="searchField" type="text" name="fname" style="float:left;">
+    		<input type="button" value="search"  style="float:left; margin-left:5px;">
+    	</div> -->
       <div id="buschart" class="panel-body" style="margin-top:100px"></div>
     </div>
     <div class="panel panel-info" id="funcdetail"
-      style="display:none; width:75%; height: auto; position: fixed; top: 150px;">
+      style="display:none; width:50%; height: auto; position: fixed; top: 150px;">
       <div id="funcdetailheader" class="panel-heading">
         <div id='funcname' style="margin-right:25px;">
         </div>

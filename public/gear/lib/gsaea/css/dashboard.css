@@ -215,7 +215,8 @@ path {
 }
 
 .node text {
-  font-size: 11px;
+  pointer-events: none;
+  font: 12px sans-serif;
 }
 
 path.link {
@@ -296,11 +297,6 @@ text {
 */
 .link {
   stroke: #ccc;
-}
-
-.node text {
-  pointer-events: none;
-  font: 10px sans-serif;
 }
 
 #contextMenu {
