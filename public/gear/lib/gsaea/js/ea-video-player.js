@@ -40,7 +40,7 @@ ea.videoPlayer = (function (_) {
     // elements together for the sake of maintainability.
     var $navSubsectionCntr = $('' +
         '<li>' +
-            '<a href="#"><span class="fa fa-video"></span>Quick Video Tutorials<span class="fa fa-angle-down pull-right"></span></a>' +
+            '<a href="#"><span class="fa fa-video"></span>&nbsp;&nbsp;Quick Video Tutorials<span class="fa fa-angle-down pull-right"></span></a>' +
             '<ul id="side-submenu-vids" class="nav nav-second-level">' +
                 '<li class="eavp-side-submenu-item">' +
                 '</li>' +
