@@ -572,6 +572,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
       var orgs = OrganizationsSrc.query();
       var parentorg = 'Office of the Administrator (A)';
       var orgTree = {};
+      var highlightColor = '#ff4136';
 
       orgs.$promise.then(function(populateData) {
         // set root node
@@ -692,25 +693,25 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         root.x0 = h / 2;
         root.y0 = 0;
 
-        function toggleAll(d) {
+        // Collapse all nodes
+        function collapseAll(d) {
           if (d.children) {
-            d.children.forEach(toggleAll);
+            d._children = d.children;
+            d._children.forEach(collapseAll);
+            d.children = null;
+          }
+        }
+
+        // Expand only root node
+        function toggleFirst(d) {
+          if (d.children) {
+            d.children.forEach(toggleFirst);
             toggle(d);
           }
         }
-        /*		function showDetail(d){
-        var	showDet = d3.select("orgdet");
-        showDet.on("mouseover", function(d){
-        d3.select("#orgdetail").style("display", "none");
-      });
-    }  */
-        // Initialize the display to show a few nodes.
-        root.children.forEach(toggleAll);
-        //	toggle(root.children[1]);
-        //	toggle(root.children[1].children[2]);
-        //	toggle(root.children[9]);
-        //	toggle(root.children[9].children[0]);
 
+        // Initialize the display to show a few nodes.
+        root.children.forEach(toggleFirst);
         update(root);
 
 
@@ -821,14 +822,30 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               return "translate(" + d.y + "," + d.x + ")";
             });
 
-          nodeUpdate.select("circle")
-            .attr("r", 4.5)
-            .style("fill", function(d) {
-              return d._children ? "lightsteelblue" : "#fff";
-            });
+            nodeUpdate.select("circle")
+              .attr("r", 4.5)
+              .style("fill", function(d) {
+                if (d.selected) {
+                  return highlightColor;
+                } else if (d._children) {
+                  return "lightsteelblue";
+                } else {
+                  return "#fff";
+                }
+              })
+              .style("stroke", function(d) {
+                if (d.selected) {
+                  return highlightColor;
+                }
+              });
 
-          nodeUpdate.select("text")
-            .style("fill-opacity", 1);
+            nodeUpdate.select("text")
+              .style("fill-opacity", 1)
+              .style("fill", function(d) {
+                if (d.selected) {
+                  return highlightColor;
+                }
+              });
 
           // Transition exiting nodes to the parent's new position.
           var nodeExit = node.exit().transition()
@@ -870,7 +887,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           // Transition links to their new position.
           link.transition()
             .duration(duration)
-            .attr("d", diagonal);
+            .attr("d", diagonal)
+            .style("stroke", function(d) {
+              if (d.target.selected) {
+                return highlightColor;
+              }
+            });
 
           // Transition exiting nodes to the parent's new position.
           link.exit().transition()
@@ -896,10 +918,9 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           var orgclose = d3.select('#orgclose');
 
           orgdetail.on("click", function() {
-            var orgpath = $scope.selectedapp;
-            //    orgpath = orgpath.replace(/\//g , "-%")
-            $location.path('/organizations/' + orgpath);
-            $scope.$apply();
+            var orgpath = '/#!/organizations/' + $scope
+            .selectedcap;
+            $window.open(orgpath, "_blank");
           });
 
           orgclose.on("click", function(d) {
@@ -917,6 +938,95 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           } else {
             d.children = d._children;
             d._children = null;
+          }
+        }
+
+        $scope.search = function() {
+          var text = $scope.searchKey.toUpperCase();
+
+          //reset
+          var selected = [];
+          var selection = '';
+          var scope = [];
+          var paths = [];
+          vis.selectAll("text")
+            .attr("fill", "black")
+            .style("fill-opacity", 0.6);
+          var filtered = true;
+
+          // Collapse tree between each search
+          collapseAll(root);
+          update(root);
+
+          root._children.forEach(searchChildren, text);
+
+          // If 'paths' is empty, nothing was found
+          if (paths.length != 0) {
+            openPaths(paths);
+          } else {
+            root._children.forEach(toggleFirst);
+            update(root);
+            alert(text + " not found!");
+          }
+
+          function searchChildren(d) {
+            d.selected = 0;
+            var patt = new RegExp(this, "i");
+
+            paths.push(d); // we assume this path is the right one
+
+            if (d.name.match(patt) != null) {
+              var selection = '#textnode-' + d.identity;
+              selected.push(selection);
+              if (!paths.includes(d)) {
+                paths.push(d);
+              } // Avoid duplication
+              d.selected = 1;
+              addToScope(d);
+            } else {
+              paths.pop()
+            }
+
+            if (d.children)
+              d.children.forEach(searchChildren, this);
+            else if (d._children)
+              d._children.forEach(searchChildren, this);
+
+          }
+
+          function addToScope(d) {
+            if (scope.indexOf(selection) >= 0) return;
+            scope.push(selection);
+            if (d.parent == null) return;
+            addToScope(d.parent);
+          }
+
+          function openPaths(paths) {
+            for (var i = 0; i < paths.length; i++) {
+              paths[i].selected = 1;
+
+              //if children are hidden: open them, otherwise: don't do anything
+              if (paths[i]._children) {
+                paths[i].children = paths[i]._children;
+                paths[i]._children = null;
+              }
+              if (paths[i].parent != null &&
+                !containsObject(paths[i].parent, paths)) {
+                paths.push(paths[i].parent);
+              }
+              update(paths[i]);
+            }
+          }
+
+          function containsObject(obj, list) {
+            var i;
+            if (list != null) {
+              for (i = 0; i < list.length; i++) {
+                if (list[i] === obj) {
+                  return true;
+                }
+              }
+            }
           }
         }
       });
@@ -1088,7 +1198,6 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
         // Initialize the display to show a few nodes.
         root.children.forEach(toggleFirst);
-
         update(root);
 
         function update(source) {
