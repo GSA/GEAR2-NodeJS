@@ -9,7 +9,7 @@
   <div class="col-md-12">
     <div id="organization" class="panel panel-default" style="height: auto;">
       <div id="organizationheader" class="panel-heading">
-        <h3><i class="fa fa-sitemap fa-fw"></i>&nbsp;{{orgName}}</h3>
+        <h3><span class="fa fa-door-open fa-fw"></span>&nbsp;{{ orgName }}</h3>
         <button style="position:absolute;right:30px; top:15px;" type="button"
           class="btn btn-lg btn-info" data-toggle="popover" data-container="body" data-trigger="'outsideClick'"
           data-placement="bottom" data-html="true" title="Report Help"
@@ -17,7 +17,7 @@
 				<b>Business:</b> Contains an overview of business-related information as well as the organizational goals.<br>
 				<b>Business Application:</b> Contains a list of systems and business applications owned by the organization.<br>
 				<b>Interfaces:</b> The interface tab only appears if the organization has business applications. The tab contains a model that has a legend indicating the organizational owner of the business application. The model can be manipulated by dragging the circles in different positions on the white space. Left clicking an individual Business Application will highlight only that Business Application and others that it interfaces with.
-				">Help using this report</button>
+				">Help Using this Report</button>
       </div>
       <div class="panel-body" style="margin : 20px">
         <div role="tabpanel">
@@ -54,9 +54,9 @@
                   <th>Value</th>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-sitemap"></i>&nbsp;Parent Organization
+                  <td><span class="fa fa-sitemap"></span>&nbsp;Parent Organization
                   </td>
-                  <td>{{orgParent}}</td>
+                  <td>{{ orgParent }}</td>
                 </tr>
               </table>
               <br>

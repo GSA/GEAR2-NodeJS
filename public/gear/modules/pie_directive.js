@@ -4,10 +4,10 @@ dashboard.directive('pie', function($location) {
   'use strict';
 
   return {
-    template: '<i ng-show="!dataset" ' +
-      'class="load-indicator fa fa-spinner fa-spin fa-2x"></i>' +
-      '<i ng-show="apiWarning" class="load-warning fa fa-warning">' +
-      'System Architect services are unavailable at this time.</i>',
+    template: '<span ng-show="!dataset" ' +
+      'class="load-indicator fa fa-spinner fa-spin fa-2x"></span>' +
+      '<span ng-show="apiWarning" class="load-warning fa fa-exclamation-triangle">' +
+      'System Architect services are unavailable at this time.</span>',
     link: function(scope, element, attrs) {
       scope.$watch(function(scope) {
           return scope.dataset;

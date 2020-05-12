@@ -15,7 +15,7 @@
           class="btn btn-lg btn-info" data-toggle="popover" data-container="body" data-trigger="'outsideClick'"
           data-placement="bottom" data-html="true" title="Model Help"
           data-content="
-				<b>Hover:</b> Hover over a circle next to an organization to see its description. In the pop-up window, click the <i class='fa fa-file-text-o'></i>  icon to see additional information about the organization or click the <i class='fa fa-close'></i> icon to close the window.<br>
+				<b>Hover:</b> Hover over a circle next to an organization to see its description. In the pop-up window, click the <span class='far fa-file-alt'></span>  icon to see additional information about the organization or click the <span class='fa fa-times'></span> icon to close the window.<br>
 				<b>Click:</b> Left click on the circle next to an organization to see the next level of the organization. (Not all organizations have another level).
         <br>
         <b>Search:</b> The search box below can search for any of the organization display names and expand the chart to the nodes that match. Enter your desired term into the search bar and press <i>Enter</i> or click the magnifying glass. You will get an alert if no matching term is found.">
@@ -39,13 +39,13 @@
         <div id='orgname' style="margin-right:25px;">
         </div>
         <div style='margin-left:30px;'>
-          <i id='orgdet' class='fa fa-file-text-o'
+          <span id='orgdet' class='far fa-file-alt'
             style="position:absolute;right:30px; top:10px;"
             data-toggle="tooltip"
-            title="Click to view organization details"></i>
-          <i id='orgclose' class='fa fa-close'
+            title="Click to view organization details"></span>
+          <span id='orgclose' class='fa fa-times'
             style='position:absolute;right:10px; top:10px;'
-            data-toggle="tooltip" title="Close this box"></i>
+            data-toggle="tooltip" title="Close this box"></span>
         </div>
       </div>
       <div id="orgdetailbody" class="panel-body" style="margin: 10px;">

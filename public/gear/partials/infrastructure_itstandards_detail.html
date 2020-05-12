@@ -9,14 +9,14 @@
   <div class="col-md-12">
     <div id="function" class="panel panel-default" style="height: auto;">
       <div id="functionheader" class="panel-heading">
-        <h3><i class="fa fa-gears fa-fw"></i>&nbsp;{{standName}} </h3>
+        <h3><span class="fa fa-microchip fa-fw"></span>&nbsp;{{ standName }} </h3>
         <button style="position:absolute;right:30px; top:15px;" type="button"
           class="btn btn-lg btn-info" data-toggle="popover" data-container="body" data-trigger="'outsideClick'"
           data-placement="bottom" data-html="true" title="Report Help"
           data-content="
 				<b>Overview:</b> Contains a general description of the business application.<br>
 				<b>Business Applications Using this Standard:</b> List of all business applications that use the standard.<br>
-				">Help using this report</button>
+				">Help Using this Report</button>
       </div>
       <div class="panel-body" style="margin : 20px">
         <div role="tabpanel">
@@ -43,34 +43,34 @@
                   <th>Value</th>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-sitemap"></i>&nbsp;Category</td>
+                  <td><span class="far fa-list-alt"></span>&nbsp;Category</td>
                   <td>{{cat}}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-clock-o"></i>&nbsp;Status</td>
+                  <td><span class="fa fa-info-circle"></span>&nbsp;Status</td>
                   <td>{{status}}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-calendar-o"></i>&nbsp;Approval Expiration
+                  <td><span class="fa fa-calendar-alt"></span>&nbsp;Approval Expiration
                     Date</td>
                   <td>
                     {{ approvalExpirationDate ? approvalExpirationDate : 'null' }}
                   </td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-user"></i>&nbsp;POC</td>
+                  <td><span class="fa fa-user"></span>&nbsp;POC</td>
                   <td>{{poc}}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-sitemap"></i>&nbsp;POC Org</td>
+                  <td><span class="fa fa-door-open"></span>&nbsp;POC Org</td>
                   <td>{{ pocOrg ? pocOrg : "No Org Provided" }}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-comment-o"></i>&nbsp;Comments</td>
+                  <td><span class="far fa-comment"></span>&nbsp;Comments</td>
                   <td>{{comments}}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-file"></i>&nbsp;Reference Documents</td>
+                  <td><i class="far fa-file"></i>&nbsp;Reference Documents</td>
                   <!--                                     <td><a href="{{refdocdetail}}" + " target = '_blank'">
 									<div style="height:100%;width:100%">
 									  {{refdocdetail}}

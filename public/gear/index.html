@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans"
     rel="stylesheet">
   <link href="/gear/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/gear/lib/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
+  <link href="/gear/lib/bootstrap/fonts/font-awesome/css/all.min.css" rel="stylesheet">
   <link href="/gear/lib/bootstrap-table/bootstrap-table.min.css"
     rel="stylesheet" type="text/css">
   <!-- Video player dependencies -->
@@ -32,6 +32,7 @@
     href="/gear/lib/ea-charts/css/ea-charts.css" />
 
   <script type="text/javascript">
+    // Checking if browser is Internet Explorer to show alert that site might not work properly
     if (window.navigator.userAgent.indexOf('Trident') !== -1) {
       alert("We noticed you are using Internet Explorer. GEAR works best on Google Chrome. " +
             "\nPlease note that there are several incompatabilities with IE and " +
@@ -55,8 +56,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#!"><i class="fa fa-gears fa-fw"></i>GSA
-            EA Analytics & Reporting (GEAR) - <span style="color: red">STAGING ENVIRONMENT</span></a>
+          <a class="navbar-brand" href="#!">
+            <span class="fa fa-cogs fa-fw"></span>&nbsp;
+            GSA EA Analytics & Reporting (GEAR) - <span style="color: red">STAGING ENVIRONMENT</span></a>
         </div>
 
         <form class="navbar-form navbar-left" role="search">
@@ -65,7 +67,7 @@
               placeholder="Global Search">
           </div>
           <a href="#!/search/{{kw}}" type="submit" class="btn btn-default">
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <span class="fa fa-search"></span>
           </a>
         </form>
 
@@ -104,8 +106,8 @@
           <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
               <li>
-                <a href="#"><i class="fa fa-puzzle-piece fa-fw"></i>
-                  Strategy<span class="fa arrow"></span></a>
+                <a href="#"><span class="fa fa-puzzle-piece fa-fw"></span>&nbsp;
+                  Strategy<span class="fa fa-angle-down pull-right"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <!--                    <a href="#!/goals">2015 GSA IT Goals (Two-Letter Offices)</a>   -->
@@ -118,8 +120,8 @@
                 </ul>
               </li>
               <li>
-                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Business<span
-                    class="fa arrow"></span></a>
+                <a href="#"><span class="fa fa-sitemap fa-fw"></span>&nbsp;
+                  Business<span class="fa fa-angle-down pull-right"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <a href="#!/capabilities">GSA Capability List</a>
@@ -130,8 +132,8 @@
                 </ul>
               </li>
               <li>
-                <a href="#"><i class="fa fa-laptop fa-fw"></i> Business
-                  Applications<span class="fa arrow"></span></a>
+                <a href="#"><span class="fa fa-laptop fa-fw"></span>&nbsp; Business
+                  Applications<span class="fa fa-angle-down pull-right"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <a href="#!/systems">GSA Parent Systems</a>
@@ -145,8 +147,8 @@
                 </ul>
               </li>
               <li>
-                <a href="#"><i class="fa fa-lock fa-fw"></i> Security<span
-                    class="fa arrow"></span></a>
+                <a href="#"><span class="fa fa-shield-alt fa-fw"></span>&nbsp;
+                  Security<span class="fa fa-angle-down pull-right"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <a href="#!/FISMA">FISMA Systems Inventory</a>
@@ -159,8 +161,8 @@
                 </ul>
               </li>
               <li>
-                <a href="#"><i class="fa fa-gears fa-fw"></i> Technologies<span
-                    class="fa arrow"></span></a>
+                <a href="#"><span class="fa fa-microchip fa-fw"></span>&nbsp;
+                  Technologies<span class="fa fa-angle-down pull-right"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <a href="#!/itstandards">IT Standards List</a>
@@ -172,18 +174,12 @@
                 </ul>
               </li>
               <li>
-                <a href="#"><i class="fa fa-edit fa-fw"></i> Admin<span
-                    class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                  <li>
-                    <!-- <a href="#!/admin">Admin</a> -->
-                    <a href="#!/gear_manager">GEAR Manager</a>
-                  </li>
-                </ul>
+                <a href="#!/gear_manager"><span class="fa fa-sign-in-alt fa-fw"></span>&nbsp;
+                  GEAR Manager</a>
               </li>
               <li>
-                <a href="#!/accessforms"><i class="fa fa-archive fa-fw"></i>
-                  Access Forms & Glossary<span class="fa arrow"></span></a>
+                <a href="#!/accessforms"><span class="fa fa-archive fa-fw"></span>&nbsp;
+                  Access Forms & Glossary</a>
               </li>
             </ul>
           </div>
