@@ -1299,8 +1299,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         }
 
         $scope.search = function() {
-          var text = document.getElementById('searchField').value
-            .toUpperCase();
+          var text = $scope.searchKey.toUpperCase();
 
           //reset
           var selected = [];
@@ -1329,7 +1328,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
           function searchChildren(d) {
             d.selected = 0;
-            var patt = new RegExp("\\b" + this + "\\b", "i");
+            var patt = new RegExp(this, "i");
 
             paths.push(d); // we assume this path is the right one
 

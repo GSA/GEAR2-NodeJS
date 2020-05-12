@@ -12,18 +12,23 @@
       <div id="businessheader" class="panel-heading">
         <h3><i class="fa fa-sitemap fa-fw"></i>Business Capability Model</h3>
         <button style="position:absolute;right:30px; top:15px;" type="button"
-          class="btn btn-lg btn-info" data-toggle="popover" data-container="body" data-trigger="'outsideClick'"
+          class="btn btn-lg btn-info" data-toggle="popover"
+          data-container="body" data-trigger="'outsideClick'"
           data-placement="bottom" data-html="true" title="Model Help"
           data-content="
-        <b>Hover:</b> Hover over a circle next to a capability to see its description. In the pop-up window, click the <i class='fa fa-file-text-o'></i>  icon to see additional information about the capability or click the <i class='fa fa-close'></i> icon to close the window.<br>
-				<b>Click:</b> Left click on the circle next to a capability to see the next level of the capability. (Not all capabilities have another level).">Help
-          using this model</button>
+        <b>Hover:</b> Hover over a circle next to a capability to see its description. In the pop-up window, click the <i class='fa fa-file-text-o'></i>  icon to see additional information about the capability or click the <i class='fa fa-close'></i> icon to close the window.
+        <br>
+				<b>Click:</b> Left click on the circle next to a capability to see the next level of the capability. (Not all capabilities have another level).
+        <br>
+        <b>Search:</b> The search box below can search for any of the capability names and expand the chart to the nodes that match. Enter your desired term into the search bar and press <i>Enter<i> or click the magnifying glass. You will get an alert if no matching term is found.">
+          Help with this Chart</button>
       </div>
-      <div class="input-group pull-right col-lg-3" style="padding-top: 7px;">
-        <input type="text" class="form-control" placeholder="Search Names" id="searchField"/>
+      <div class="input-group pull-right col-lg-3" style="padding-top: 7px; padding-right: 7px;">
+        <input type="text" class="form-control" placeholder="Search Capability Names"
+          id="searchField" ng-model="searchKey" ng-keydown="$event.keyCode === 13 && search()"/>
         <div class="input-group-btn">
           <button class="btn btn-primary" ng-click="search()">
-            <span class="glyphicon glyphicon-search"></span>
+            <span class="fa fa-search"></span>
           </button>
         </div>
       </div>
