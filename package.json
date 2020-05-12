@@ -16,7 +16,7 @@
     "acorn": "^7.1.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
-    "concurrently": "4.1.0",
+    "concurrently": "^5.2.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "cors": "2.8.5",

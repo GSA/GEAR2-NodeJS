@@ -10,7 +10,7 @@
   <div class="col-md-12">
     <div id="application" class="panel panel-default" style="height: auto;">
       <div id="applicationheader" class="panel-heading">
-        <h3><i class="fa fa-laptop fa-fw"></i>&nbsp;{{ application.Name }}</h3>
+        <h3><span class="fa fa-laptop fa-fw"></span>&nbsp;{{ application.Name }}</h3>
         <button style="position:absolute;right:30px; top:15px;" type="button"
           class="btn btn-lg btn-info" data-toggle="popover" data-container="body" data-trigger="'outsideClick'"
           data-placement="bottom" data-html="true" title="Report Help"
@@ -18,7 +18,7 @@
                 <b>Business:</b> Contains an overview of business-related information as well as the related business capabilities for the business application.”<br>
                 <b>Technology:</b> Contains an overview of technical information as well as the related technologies/IT standards the business application uses.”<br>
                 <b>Interfaces:</b> The interface tab only appears if the business application has interfaces to other business applications. The model can be utilized by hovering over the arc to see the information of the business application, or by hovering over the chord to see the interfaces with other applications. Left click an arc to go to the detail page of that business application.
-                ">Help using this report</button>
+                ">Help Using this Report</button>
       </div>
       <div class="panel-body" style="margin : 20px">
         <!-- Nav tabs -->
@@ -83,16 +83,16 @@
                 <th>Value</th>
               </tr>
               <tr>
-                <td><i class="fa fa-sitemap"></i>&nbsp;SSO</td>
+                <td><span class="fa fa-sitemap"></span>&nbsp;SSO</td>
                 <td>{{ application.SSO }}</td>
               </tr>
               <tr>
-                <td><i class="fa fa-sitemap"></i>&nbsp;2 Letter Office</td>
+                <td><span class="fa fa-door-open"></span>&nbsp;2 Letter Office</td>
                 <td ng-hide="!application.Owner">{{ application.Owner }}</td>
                 <td ng-hide="application.Owner">None Provided</td>
               </tr>
               <tr>
-                <td><i class="fa fa-user"></i>&nbsp;Business POC</td>
+                <td><span class="fa fa-user-friends"></span>&nbsp;Business POC(s)</td>
                 <td>
                   <ul class="list-unstyled" style="margin-bottom: 0">
                     <li ng-repeat="p in pocs|filter:{Type: 'Business'}">
@@ -110,27 +110,27 @@
                 </td>
               </tr>
               <tr>
-                <td><i class="fa fa-money"></i>&nbsp;Related Investment</td>
+                <td><span class="fa fa-money-bill-wave"></span>&nbsp;Related Investment</td>
                 <td>{{ application.Investment||"None Provided" }}</td>
               </tr>
               <tr ng-show="!!application.IsRevenueGenerator">
-                <td><i class="fa fa-line-chart"></i>&nbsp;Revenue Generator</td>
+                <td><span class="fas fa-chart-line"></span>&nbsp;Revenue Generator</td>
                 <td>{{ application.IsRevenueGenerator }}</td>
               </tr>
               <tr ng-show="!!application.OMBUID">
-                <td><i class="fa fa-bookmark"></i>&nbsp;Application ID</td>
+                <td><span class="fa fa-fingerprint"></span>&nbsp;Application ID</td>
                 <td>{{ application.OMBUID }}</td>
               </tr>
               <tr>
-                <td><i class="fa fa-bookmark"></i>&nbsp;CUI Indicator</td>
+                <td><span class="fa fa-bookmark"></span>&nbsp;CUI Indicator</td>
                 <td>{{ application.CUI }}</td>
               </tr>
               <tr ng-show="!!application.OMBUID">
-                <td><i class="fa fa-bookmark"></i>&nbsp;Status</td>
+                <td><span class="fa fa-info-circle"></span>&nbsp;Status</td>
                 <td>{{ application.Status }}</td>
               </tr>
               <tr ng-show="!!application.OMBUID">
-                <td><i class="fa fa-bookmark"></i>&nbsp;Production Year</td>
+                <td><span class="fa fa-calendar-alt"></span>&nbsp;Production Year</td>
                 <td>{{ application.ProdYear }}</td>
               </tr>
             </table>
@@ -189,7 +189,27 @@
                 <th>Value</th>
               </tr>
               <tr>
-                <td><i class="fa fa-user"></i>&nbsp;Technical POC</td>
+                <td><span class="fa fa-cloud"></span>&nbsp;Cloud</td>
+                <td>{{ application.Cloud }}</td>
+              </tr>
+              <tr id="fismasysrow" ng-show="!!application.FISMASystem">
+                <td><span class="fa fa-server"></span>&nbsp;FISMA System</td>
+                <td>{{ application.FISMASystem }}</td>
+              </tr>
+              <tr>
+                <td><span class="fa fa-hand-holding-medical"></span>&nbsp;Help Desk</td>
+                <td>{{ application.HelpDesk }}</td>
+              </tr>
+              <tr>
+                <td><span class="fa fa-building"></span>&nbsp;Hosting Provider</td>
+                <td>{{ application.HostingProvider }}</td>
+              </tr>
+              <tr id="parentsysrow" ng-show="!!application.System">
+                <td><span class="fa fa-server"></span>&nbsp;Parent System</td>
+                <td>{{ application.System }}</td>
+              </tr>
+              <tr>
+                <td><span class="fa fa-user-friends"></span>&nbsp;Technical POC(s)</td>
                 <td>
                   <ul class="list-unstyled" style="margin-bottom: 0">
                     <li ng-repeat="p in pocs|filter:{Type: 'Technical'}">
@@ -207,32 +227,8 @@
                 </td>
               </tr>
               <tr>
-                <td><i class="fa fa-user"></i>&nbsp;Hosting Provider</td>
-                <td>{{ application.HostingProvider }}</td>
-              </tr>
-              <tr>
-                <td><i class="fa fa-cloud"></i>&nbsp;Cloud</td>
-                <td>{{ application.Cloud }}</td>
-              </tr>
-              <tr>
-                <td><i class="fa fa-cogs"></i>&nbsp;Technology Platform</td>
+                <td><span class="fa fa-desktop"></span>&nbsp;Technology Platform</td>
                 <td>{{ application.TechnologyPlatform }}</td>
-              </tr>
-              <tr id="parentsysrow" ng-show="!!application.System">
-                <td><i class="fa fa-cog"></i>&nbsp;Parent System</td>
-                <td>{{ application.System }}</td>
-              </tr>
-              <!-- <tr id="fismasysrow" ng-show="!!application.RelFISMASys.length"> -->
-              <tr id="fismasysrow" ng-show="!!application.FISMASystem">
-                <td><i class="fa fa-cog"></i>&nbsp;FISMA System</td>
-                <td>{{ application.FISMASystem }}</td>
-                <!-- <td> -->
-                <!-- <ul class="list-unstyled"> -->
-                <!-- <li ng-repeat="fs in application.FISMASystem">  -->
-                <!--  {{ fs.Name }} -->
-                <!-- </li> -->
-                <!-- </ul> -->
-                <!-- </td> -->
               </tr>
             </table>
             <br>

@@ -77,7 +77,7 @@ angular.module('dashboard').controller('GlossaryController', ['$route',
       $scope.hasUsedSearchForm = false;
 
       var applications = AccessFormsSrc.query();
-      let iconHtml = '<span class="fa fa-external-link"></span> ';
+      let iconHtml = '<span class="fa fa-external-link-alt"></span>';
 
       $scope.applications = applications;
       applications.$promise.then(function(populateData) {
@@ -98,7 +98,7 @@ angular.module('dashboard').controller('GlossaryController', ['$route',
           columns: [{
               field: 'Title',
               title: 'Title ' + iconHtml,
-              icon: 'fa fa-external-link',
+              icon: 'fa fa-external-link-alt',
               sortable: true
             },
             {
