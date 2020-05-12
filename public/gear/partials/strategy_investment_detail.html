@@ -9,7 +9,7 @@
   <div class="col-md-12">
     <div id="function" class="panel panel-default" style="height: auto;">
       <div id="functionheader" class="panel-heading">
-        <h3><i class="fa fa-money"></i>&nbsp;{{ investment.Name }}</h3>
+        <h3><span class="fa fa-money-bill-wave"></span>&nbsp;{{ investment.Name }}</h3>
         <button style="position:absolute;right:30px; top:15px;" type="button"
           class="btn btn-lg btn-info" title="Report Help" data-toggle="popover"
           data-placement="bottom" data-html="true" data-container="body"
@@ -17,7 +17,7 @@
                     <b>Overview:</b> Contains a general description of the business application.<br>
                     <b>Related Business Applications:</b> Lists all of the business applications that have been aligned to that investment.<br>
                 ">
-          <span>Help using this report</span>
+          <span>Help Using this Report</span>
         </button>
       </div>
       <div class="panel-body" style="margin : 20px">
@@ -45,7 +45,7 @@
                   <th>Value</th>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-user"></i>&nbsp;Investment Manager</td>
+                  <td><span class="fa fa-user"></span>&nbsp;Investment Manager</td>
                   <td>
                     <!--                                     <div ng-show="!!investment.POC" ng-repeat="p in pocs | filter: {Type:'Investment'}">
                                         <a href="mailto:{{ p.Email }}">{{ p.Name }}</a>
@@ -58,24 +58,24 @@
                   </td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-sitemap"></i>&nbsp;SSO</td>
+                  <td><span class="fa fa-door-open"></span>&nbsp;SSO</td>
                   <td>{{ investment.SSO }}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-folder"></i>&nbsp;Investment Type</td>
+                  <td><span class="fa fa-folder"></span>&nbsp;Investment Type</td>
                   <td>{{ investment.Type }}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-tag"></i>&nbsp;Investment UII</td>
+                  <td><span class="fa fa-tag"></span>&nbsp;Investment UII</td>
                   <td>{{ investment.UII }}</td>
                 </tr>
                 <tr>
-                  <td><i class="fa fa-th"></i>&nbsp;Primary Service Area</td>
+                  <td><span class="fa fa-th"></span>&nbsp;Primary Service Area</td>
                   <td>{{ investment.PSA }}</td>
                 </tr>
                 <tr ng-show="!!investment.SSA">
                   <!--investment.SecondarySA -->
-                  <td><i class="fa fa-th-large"></i>&nbsp;Secondary Service Area
+                  <td><span class="fa fa-th-large"></span>&nbsp;Secondary Service Area
                     #1</td>
                   <td>{{ investment.SSA }}</td>
                 </tr>

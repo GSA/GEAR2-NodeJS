@@ -371,7 +371,7 @@ angular.module('dashboard').controller('StrategyController', ['$route',
       var chartContainerSelector = '#investchart'; // used by d3
       var $chartContainer = $(chartContainerSelector); // used by jQuery
       var $spinner = $chartContainer.append(
-        '<i class="load-indicator fa fa-spinner fa-spin fa-2x"></i>');
+        '<span class="load-indicator fa fa-spinner fa-spin fa-2x"></span>');
 
       invests.$promise.then(function() {
           var count = _.countBy(invests, 'Type');
@@ -407,7 +407,7 @@ angular.module('dashboard').controller('StrategyController', ['$route',
         .catch(function error(msg) {
           console.error(msg);
           $chartContainer.html(
-            '<i class="load-warning fa fa-warning">System Architect services are unavailable at this time.</i>'
+            '<span class="load-warning fa fa-exclamation-triangle">System Architect services are unavailable at this time.</span>'
           );
         });
     }
