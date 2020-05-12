@@ -5,17 +5,21 @@
 
 // Create the 'business' controller
 angular.module('dashboard').controller('BusinessController', ['$route',
-  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce', '$window',
+  '$scope', '$http', '$routeParams', '$filter', '$location', '$sce',
+  '$window',
   // insert new here
-  'OrganizationsSrc', 'CapabilitiesSrc', 'CapabilitiesSSOSrc', 'CapApplicationsSrc',
+  'OrganizationsSrc', 'CapabilitiesSrc', 'CapabilitiesSSOSrc',
+  'CapApplicationsSrc',
   'CapAppCountsSrc', 'OrgAppsSrc', 'InterfacesSrc',
   // resume legacy
   'BusFunction', 'OrgAppMap', 'OrgGoalMap', 'OrgSysMap', 'System',
   'Application', 'Interface', 'FuncAppMap', 'Goal', 'TIME',
   'bstSearchUtils', 'Utils',
-  function($route, $scope, $http, $routeParams, $filter, $location, $sce, $window,
+  function($route, $scope, $http, $routeParams, $filter, $location, $sce,
+    $window,
     // insert new here
-    OrganizationsSrc, CapabilitiesSrc, CapabilitiesSSOSrc, CapApplicationsSrc, CapAppCountsSrc,
+    OrganizationsSrc, CapabilitiesSrc, CapabilitiesSSOSrc,
+    CapApplicationsSrc, CapAppCountsSrc,
     OrgAppsSrc, InterfacesSrc,
     // resume legacy
     BusFunction, OrgAppMap, OrgGoalMap, OrgSysMap, System, Application,
@@ -47,7 +51,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               var name = "<a href=\"" + val.Link +
                 "\" target=\"_blank\">" + val.Name + "</a>";
             } else {
-              var name =  val.Name;
+              var name = val.Name;
             }
             var displayName = val.DisplayName;
             var parent = val.Parent;
@@ -398,12 +402,6 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               sortable: true,
               visible: false
             },
-            // {
-            // field: 'Id',
-            // title: 'Id',
-            // sortable: true,
-            // visible: false
-            // },
             {
               field: 'Investment',
               title: 'Investment',
@@ -417,13 +415,6 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               sortable: true,
               visible: false
             }
-
-            // {
-            // field: 'Id',
-            // title: 'Id',
-            // sortable: true,
-            // visible: false
-            // }
           ],
           data: appmap //orgappnames
         });
@@ -458,29 +449,22 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
           columns: [{
-              field: 'ReferenceNum',
-              title: 'Ref Id',
-              sortable: true
-            }, {
-              field: 'Name',
-              title: 'Function Name',
-              sortable: true
-            }, {
-              field: 'Description',
-              title: 'Description',
-              sortable: true
-            }, {
-              field: 'Parent',
-              title: 'Parent',
-              sortable: true
-            }
-            // , {
-            // field: 'Id',
-            // title: 'Id',
-            // sortable: true,
-            // visible: false
-            // }
-          ],
+            field: 'ReferenceNum',
+            title: 'Ref Id',
+            sortable: true
+          }, {
+            field: 'Name',
+            title: 'Function Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'Parent',
+            title: 'Parent',
+            sortable: true
+          }],
           data: $scope.bstData
         };
         bstSearchUtils.updateConfig($scope);
@@ -517,7 +501,8 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         } else {
           // Grab capabilities that include SSO
           $.each(capSSOs, function(key, val) {
-            if (String(val.Organizations).includes($routeParams.name)) {
+            if (String(val.Organizations).includes($routeParams
+                .name)) {
               $scope.bstData.push({
                 "ReferenceNum": val.ReferenceNum,
                 "Name": val.Name,
@@ -533,31 +518,30 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
           columns: [{
-              field: 'ReferenceNum',
-              title: 'Ref Id',
-              sortable: true
-            }, {
-              field: 'Name',
-              title: 'Function Name',
-              sortable: true
-            }, {
-              field: 'Description',
-              title: 'Description',
-              sortable: true
-            }, {
-              field: 'ParentCap',
-              title: 'Parent',
-              sortable: true
-            }, {
-              field: 'Organizations',
-              title: 'SSO',
-              sortable: true
-            }, {
-              field: 'Applications',
-              title: 'Apps',
-              sortable: true
-            }
-          ],
+            field: 'ReferenceNum',
+            title: 'Ref Id',
+            sortable: true
+          }, {
+            field: 'Name',
+            title: 'Function Name',
+            sortable: true
+          }, {
+            field: 'Description',
+            title: 'Description',
+            sortable: true
+          }, {
+            field: 'ParentCap',
+            title: 'Parent',
+            sortable: true
+          }, {
+            field: 'Organizations',
+            title: 'SSO',
+            sortable: true
+          }, {
+            field: 'Applications',
+            title: 'Apps',
+            sortable: true
+          }],
           data: $scope.bstData
         };
         bstSearchUtils.updateConfig($scope);
@@ -625,7 +609,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                 name: org.Name,
                 identity: org.Id,
                 displayName: org.DisplayName,
-                parent: org.Parent,
+                parent: firstLevelOrg,
                 description: org.Description,
                 link: org.Link,
                 children: []
@@ -643,7 +627,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                   name: org.Name,
                   identity: org.Id,
                   displayName: org.DisplayName,
-                  parent: org.Parent,
+                  parent: secondLevelOrg,
                   description: org.Description,
                   link: org.Link,
                   children: []
@@ -659,12 +643,13 @@ angular.module('dashboard').controller('BusinessController', ['$route',
             $.each(secondLevelOrg.children, function(i,
               thirdLevelOrg) {
               $.each(orgs, function(i, org) {
-                if (org.Parent == thirdLevelOrg.name) {
+                if (org.Parent == thirdLevelOrg
+                  .name) {
                   thirdLevelOrg.children.push({
                     name: org.Name,
                     identity: org.Id,
                     displayName: org.DisplayName,
-                    parent: org.Parent,
+                    parent: thirdLevelOrg,
                     description: org.Description,
                     link: org.Link,
                     children: false
@@ -1012,12 +997,14 @@ angular.module('dashboard').controller('BusinessController', ['$route',
             $.each(secondLevelCap.children, function(i,
               thirdLevelCap) {
               $.each(caps, function(i, cap) {
-                if (cap.Parent == thirdLevelCap.name) {
+                if (cap.Parent == thirdLevelCap
+                  .name) {
                   thirdLevelCap.children.push({
                     identity: cap.Id,
                     name: cap.Name,
                     description: cap.Description,
-                    referenceNum: cap.ReferenceNum,
+                    referenceNum: cap
+                      .ReferenceNum,
                     parent: thirdLevelCap,
                     children: []
                   });
@@ -1035,12 +1022,15 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               $.each(thirdLevelCap.children, function(i,
                 fourthLevelCap) {
                 $.each(caps, function(i, cap) {
-                  if (cap.Parent == fourthLevelCap.name) {
+                  if (cap.Parent == fourthLevelCap
+                    .name) {
                     fourthLevelCap.children.push({
                       identity: cap.Id,
                       name: cap.Name,
-                      description: cap.Description,
-                      referenceNum: cap.ReferenceNum,
+                      description: cap
+                        .Description,
+                      referenceNum: cap
+                        .ReferenceNum,
                       parent: fourthLevelCap,
                       children: false
                     });
@@ -1192,29 +1182,27 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           nodeUpdate.select("circle")
             .attr("r", 4.5)
             .style("fill", function(d) {
-              if(d.selected){
-      					return highlightColor; //red
-      				}
-      				else if(d._children){
-      					return "lightsteelblue";
-      				}
-      				else{
-      					return "#fff";
-      				}
+              if (d.selected) {
+                return highlightColor;
+              } else if (d._children) {
+                return "lightsteelblue";
+              } else {
+                return "#fff";
+              }
             })
             .style("stroke", function(d) {
-      				if(d.selected){
-      					return highlightColor; //red
-      				}
-              });
+              if (d.selected) {
+                return highlightColor;
+              }
+            });
 
           nodeUpdate.select("text")
             .style("fill-opacity", 1)
             .style("fill", function(d) {
-      				if(d.selected){
-      					return highlightColor; //red
-      				}
-              });
+              if (d.selected) {
+                return highlightColor;
+              }
+            });
 
           // Transition exiting nodes to the parent's new position.
           var nodeExit = node.exit().transition()
@@ -1257,11 +1245,11 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           link.transition()
             .duration(duration)
             .attr("d", diagonal)
-            .style("stroke",function(d){
-      				if(d.target.selected){
-      					return highlightColor;
-      				}
-      			});
+            .style("stroke", function(d) {
+              if (d.target.selected) {
+                return highlightColor;
+              }
+            });
 
           // Transition exiting nodes to the parent's new position.
           link.exit().transition()
@@ -1287,7 +1275,8 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           var capclose = d3.select('#funcclose');
 
           capdetail.on("click", function() {
-            var cappath = '/#!/capabilities/' + $scope.selectedcap;
+            var cappath = '/#!/capabilities/' + $scope
+            .selectedcap;
             $window.open(cappath, "_blank");
           });
 
@@ -1310,14 +1299,17 @@ angular.module('dashboard').controller('BusinessController', ['$route',
         }
 
         $scope.search = function() {
-          var text = document.getElementById('searchField').value.toUpperCase();
+          var text = document.getElementById('searchField').value
+            .toUpperCase();
 
           //reset
           var selected = [];
           var selection = '';
           var scope = [];
           var paths = [];
-          vis.selectAll("text").attr("fill", "black").style("fill-opacity", 0.6);
+          vis.selectAll("text")
+            .attr("fill", "black")
+            .style("fill-opacity", 0.6);
           var filtered = true;
 
           // Collapse tree between each search
@@ -1326,15 +1318,14 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
           root._children.forEach(searchChildren, text);
 
-          // If paths is empty, nothing was found
-          if(paths.length != 0){ // if not empty
-      			openPaths(paths);
-      		}
-      		else{
+          // If 'paths' is empty, nothing was found
+          if (paths.length != 0) {
+            openPaths(paths);
+          } else {
             root._children.forEach(toggleFirst);
             update(root);
-      			alert(text + " not found!");
-      		}
+            alert(text + " not found!");
+          }
 
           function searchChildren(d) {
             d.selected = 0;
@@ -1345,7 +1336,9 @@ angular.module('dashboard').controller('BusinessController', ['$route',
             if (d.name.match(patt) != null) {
               var selection = '#textnode-' + d.identity;
               selected.push(selection);
-              if (!paths.includes(d)) {paths.push(d);}  // Avoid duplication
+              if (!paths.includes(d)) {
+                paths.push(d);
+              } // Avoid duplication
               d.selected = 1;
               addToScope(d);
             } else {
@@ -1360,37 +1353,40 @@ angular.module('dashboard').controller('BusinessController', ['$route',
           }
 
           function addToScope(d) {
-      			if (scope.indexOf(selection) >= 0) return;
-      			scope.push(selection);
-      			if (d.parent == null) return;
-      			addToScope(d.parent);
-      		}
+            if (scope.indexOf(selection) >= 0) return;
+            scope.push(selection);
+            if (d.parent == null) return;
+            addToScope(d.parent);
+          }
 
           function openPaths(paths) {
-        		for(var i = 0; i < paths.length; i++){
-      				paths[i].selected = 1;
-      				if (paths[i]._children) { //if children are hidden: open them, otherwise: don't do anything
-      					paths[i].children = paths[i]._children;
-      	    		paths[i]._children = null;
-      				}
-              if (paths[i].parent != null && !containsObject(paths[i].parent, paths)) {
+            for (var i = 0; i < paths.length; i++) {
+              paths[i].selected = 1;
+
+              //if children are hidden: open them, otherwise: don't do anything
+              if (paths[i]._children) {
+                paths[i].children = paths[i]._children;
+                paths[i]._children = null;
+              }
+              if (paths[i].parent != null &&
+                !containsObject(paths[i].parent, paths)) {
                 paths.push(paths[i].parent);
               }
-      				update(paths[i]);
-      			}
-        	}
+              update(paths[i]);
+            }
+          }
 
           function containsObject(obj, list) {
-              var i;
-              if (list != null) {
-                for (i = 0; i < list.length; i++) {
-                    if (list[i] === obj) {
-                        return true;
-                    }
+            var i;
+            if (list != null) {
+              for (i = 0; i < list.length; i++) {
+                if (list[i] === obj) {
+                  return true;
                 }
               }
+            }
 
-              return false;
+            return false;
           }
         }
       });
