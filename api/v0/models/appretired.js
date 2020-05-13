@@ -134,10 +134,6 @@ class ApplicationRetired extends Model {
                 type: 'string',
             },
             {
-                name: 'TechnologyPlatform',
-                type: 'string',
-            },
-            {
                 name: 'Status',
                 type: 'string',
             },
@@ -155,14 +151,6 @@ class ApplicationRetired extends Model {
             },
             {
                 name: 'FISMASystem',
-                type: 'string',
-            },
-            {
-                name: 'Investment',
-                type: 'string',
-            },
-            {
-                name: 'IsRevenueGenerator',
                 type: 'string',
             },
             {

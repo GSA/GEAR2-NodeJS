@@ -127,15 +127,15 @@ class Application extends Model {
         },
       },
       {
+        name: 'BusPOCOrg',
+        type: 'string',
+      },
+      {
         name: 'TechPOCOrg',
         type: 'string',
       },
       {
         name: 'Cloud',
-        type: 'string',
-      },
-      {
-        name: 'TechnologyPlatform',
         type: 'string',
       },
       {
@@ -159,11 +159,7 @@ class Application extends Model {
         type: 'string',
       },
       {
-        name: 'Investment',
-        type: 'string',
-      },
-      {
-        name: 'IsRevenueGenerator',
+        name: 'HelpDesk',
         type: 'string',
       },
       {
