@@ -139,10 +139,6 @@ class Application extends Model {
         type: 'string',
       },
       {
-        name: 'TechnologyPlatform',
-        type: 'string',
-      },
-      {
         name: 'Status',
         type: 'string',
       },
@@ -164,14 +160,6 @@ class Application extends Model {
       },
       {
         name: 'HelpDesk',
-        type: 'string',
-      },
-      {
-        name: 'Investment',
-        type: 'string',
-      },
-      {
-        name: 'IsRevenueGenerator',
         type: 'string',
       },
       {

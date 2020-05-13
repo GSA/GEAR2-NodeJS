@@ -70,7 +70,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "TechnicalPOCOrg": val.TechPOCOrg,
               "Cloud": val.Cloud,
               "CUI": val.CUI,
-              "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
               "DisplayName": val.DisplayName,
               "RegionClassification": val.RegionClassification,
@@ -78,8 +77,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "FismaSystem": val.FISMASystem,
               "HelpDesk": val.HelpDesk,
               "Id": val.Id,
-              "Investment": val.Investment,
-              "IsRevenueGenerator": val.IsRevenueGenerator,
               "DesktopComponent": val.DesktopComponent,
               "OMBUID": val.OMBUID,
               "ProdYear": val.ProdYear
@@ -152,16 +149,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               title: 'Parent System',
               sortable: true,
             }, {
-              field: 'RegionClassification',
-              title: 'Region Classification',
-              sortable: true,
-              visible: false
-            }, {
-              field: 'IsRevenueGenerator',
-              title: 'Revenue Generator',
-              sortable: true,
-              visible: false
-            }, {
               field: 'HostingProvider',
               title: 'Hosting Provider',
               sortable: true,
@@ -169,11 +156,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             }, {
               field: 'Cloud',
               title: 'Cloud',
-              sortable: true,
-              visible: false
-            }, {
-              field: 'TechnologyPlatform',
-              title: 'Platform',
               sortable: true,
               visible: false
             }, {
@@ -203,11 +185,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             // visible: false
             // },
             {
-              field: 'Investment',
-              title: 'Investment',
-              sortable: true,
-              visible: false
-            }, {
               field: 'OMBUID',
               title: 'Application ID',
               sortable: true,
@@ -262,15 +239,12 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               "TechnicalPOC": val.TechPOC,
               "Cloud": val.Cloud,
               "CUI": val.CUI,
-              "TechnologyPlatform": val.TechnologyPlatform,
               "Status": val.Status,
               "Alias": val.Alias,
               "RegionClassification": val.RegionClassification,
               "HostingProvider": val.HostingProvider,
               "FismaSystem": val.FISMASystem,
               "Id": val.Id,
-              "Investment": val.Investment,
-              "IsRevenueGenerator": val.IsRevenueGenerator,
               "DesktopComponent": val.DesktopComponent,
               "RetiredYear": val.RetiredYear,
               "OBMUID": val.OMBUID,
@@ -329,16 +303,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               title: 'Parent System',
               sortable: true,
             }, {
-              field: 'RegionClassification',
-              title: 'Region Classification',
-              sortable: true,
-              visible: false
-            }, {
-              field: 'IsRevenueGenerator',
-              title: 'Revenue Generator',
-              sortable: true,
-              visible: false
-            }, {
               field: 'HostingProvider',
               title: 'Hosting Provider',
               sortable: true,
@@ -346,11 +310,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             }, {
               field: 'Cloud',
               title: 'Cloud',
-              sortable: true,
-              visible: false
-            }, {
-              field: 'TechnologyPlatform',
-              title: 'Platform',
               sortable: true,
               visible: false
             }, {
@@ -375,12 +334,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
             // visible: false
             // },
             {
-              field: 'Investment',
-              title: 'Investment',
-              sortable: true,
-              visible: false
-
-            }, {
               field: 'RetiredYear',
               title: 'Retired Year (CY)',
               sortable: true
@@ -617,11 +570,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 visible: false,
                 sortable: true
               }, {
-                field: 'RegionClassification',
-                title: 'Region Classification',
-                visible: false,
-                sortable: true
-              }, {
                 field: 'OMBUID',
                 title: 'Application ID',
                 sortable: true,
@@ -822,16 +770,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 sortable: true,
                 visible: false
               }, {
-                field: 'RegionClassification',
-                title: 'Region Classification',
-                sortable: true,
-                visible: false
-              }, {
-                field: 'IsRevenueGenerator',
-                title: 'Revenue Generator',
-                sortable: true,
-                visible: false
-              }, {
                 field: 'HostingProvider',
                 title: 'Hosting Provider',
                 sortable: true,
@@ -839,11 +777,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               }, {
                 field: 'Cloud',
                 title: 'Cloud',
-                sortable: true,
-                visible: false
-              }, {
-                field: 'TechnologyPlatform',
-                title: 'Platform',
                 sortable: true,
                 visible: false
               }, {
@@ -929,11 +862,6 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               // visible: false
               // },
               {
-                field: 'Investment',
-                title: 'Investment',
-                sortable: true,
-                visible: false
-              }, {
                 field: 'OMBUID',
                 title: 'Application ID',
                 sortable: true,

@@ -109,14 +109,6 @@
                   </ul>
                 </td>
               </tr>
-              <tr>
-                <td><span class="fa fa-money-bill-wave"></span>&nbsp;Related Investment</td>
-                <td>{{ application.Investment||"None Provided" }}</td>
-              </tr>
-              <tr ng-show="!!application.IsRevenueGenerator">
-                <td><span class="fas fa-chart-line"></span>&nbsp;Revenue Generator</td>
-                <td>{{ application.IsRevenueGenerator }}</td>
-              </tr>
               <tr ng-show="!!application.OMBUID">
                 <td><span class="fa fa-fingerprint"></span>&nbsp;Application ID</td>
                 <td>{{ application.OMBUID }}</td>
@@ -225,10 +217,6 @@
                     </li>
                   </ul>
                 </td>
-              </tr>
-              <tr>
-                <td><span class="fa fa-desktop"></span>&nbsp;Technology Platform</td>
-                <td>{{ application.TechnologyPlatform }}</td>
               </tr>
             </table>
             <br>
