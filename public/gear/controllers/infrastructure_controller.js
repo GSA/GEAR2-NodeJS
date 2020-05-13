@@ -27,12 +27,7 @@ angular.module('dashboard').controller('InfrastructureController', ['$route',
 
       var itstandards = ITStandardsSrc.query();
       itstandards.$promise.then(function() {
-        $.each(itstandards, function(key, val) {
-          if (val.Status != "Denied" && val.Status !=
-            "Sunsetting") {
-            $scope.bstData.push(val);
-          }
-        });
+        $scope.bstData = itstandards;
 
         bstSearchUtils.checkFilterState($scope);
         $scope.bsTableConfig = {
