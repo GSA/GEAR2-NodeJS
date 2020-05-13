@@ -710,16 +710,6 @@ angular.module('dashboard').controller('SecurityController', ['$route',
               sortable: true,
               visible: false
             }, {
-              field: 'RegionClassification',
-              title: 'Region Classification',
-              sortable: true,
-              visible: false
-            }, {
-              field: 'IsRevenueGenerator',
-              title: 'Revenue Generator',
-              sortable: true,
-              visible: false
-            }, {
               field: 'HostingProvider',
               title: 'Hosting Provider',
               sortable: true,
@@ -727,11 +717,6 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             }, {
               field: 'Cloud',
               title: 'Cloud',
-              sortable: true,
-              visible: false
-            }, {
-              field: 'TechnologyPlatform',
-              title: 'Platform',
               sortable: true,
               visible: false
             }, {
@@ -793,11 +778,6 @@ angular.module('dashboard').controller('SecurityController', ['$route',
             // visible: false
             // },
             {
-              field: 'Investment',
-              title: 'Investment',
-              sortable: true,
-              visible: false
-            }, {
               field: 'OMBUID',
               title: 'Application ID',
               sortable: true,
