@@ -946,7 +946,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
           function searchChildren(d) {
             d.selected = 0;
-            var patt = new RegExp(this, "i");
+            var patt = new RegExp("\\b" + this, "i");
 
             paths.push(d); // we assume this path is the right one
 
@@ -1412,7 +1412,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
           function searchChildren(d) {
             d.selected = 0;
-            var patt = new RegExp(this, "i");
+            var patt = new RegExp("\\b" + this, "i");
 
             paths.push(d); // we assume this path is the right one
 
