@@ -378,12 +378,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               sortable: true,
               visible: false
             },
-            {
-              field: 'HelpDesk',
-              title: 'Help Desk',
-              sortable: true,
-              visible: false
-            },
+            // {
+            //   field: 'HelpDesk',
+            //   title: 'Help Desk',
+            //   sortable: true,
+            //   visible: false
+            // },
             {
               field: 'OMBUID',
               title: 'Application ID',
@@ -1668,12 +1668,12 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                     sortable: true,
                     visible: false
                   },
-                  {
-                    field: 'HelpDesk',
-                    title: 'Help Desk',
-                    sortable: true,
-                    visible: false
-                  },
+                  // {
+                  //   field: 'HelpDesk',
+                  //   title: 'Help Desk',
+                  //   sortable: true,
+                  //   visible: false
+                  // },
                   {
                     field: 'OMBUID',
                     title: 'Application ID',
