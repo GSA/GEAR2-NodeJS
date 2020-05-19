@@ -172,12 +172,12 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
               title: 'FISMA System',
               sortable: true,
               visible: false
-            }, {
-              field: 'HelpDesk',
-              title: 'Help Desk',
-              sortable: true,
-              visible: false
-            },
+            }, //{
+            //   field: 'HelpDesk',
+            //   title: 'Help Desk',
+            //   sortable: true,
+            //   visible: false
+            // },
             // {
             // field: 'Id',
             // title: 'Id',
@@ -849,12 +849,12 @@ angular.module('dashboard').controller('ApplicationController', ['$route',
                 title: 'FISMA System',
                 sortable: true,
                 visible: false
-              }, {
-                field: 'HelpDesk',
-                title: 'Help Desk',
-                sortable: true,
-                visible: false
-              },
+              }, //{
+              //   field: 'HelpDesk',
+              //   title: 'Help Desk',
+              //   sortable: true,
+              //   visible: false
+              // },
               // {
               // field: 'Id',
               // title: 'Id',
