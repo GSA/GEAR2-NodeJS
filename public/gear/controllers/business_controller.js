@@ -725,7 +725,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
               d3.select("#orgdetail").style("display", "block");
               d3.select("#orgdetailheader").text = "";
               d3.select("#orgdetailbody").text = "";
-              $scope.selectedapp = d.identity;
+              $scope.selectedorg = d.identity;
               var b = d3.select("#orgdetailbody")
                 .text("");
               var a = d3.select("#orgname")
@@ -894,7 +894,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
 
           orgdetail.on("click", function() {
             var orgpath = '/#!/organizations/' + $scope
-            .selectedcap;
+            .selectedorg;
             $window.open(orgpath, "_blank");
           });
 
@@ -1088,8 +1088,7 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                     identity: cap.Id,
                     name: cap.Name,
                     description: cap.Description,
-                    referenceNum: cap
-                      .ReferenceNum,
+                    referenceNum: cap.ReferenceNum,
                     parent: thirdLevelCap,
                     children: []
                   });
@@ -1112,10 +1111,8 @@ angular.module('dashboard').controller('BusinessController', ['$route',
                     fourthLevelCap.children.push({
                       identity: cap.Id,
                       name: cap.Name,
-                      description: cap
-                        .Description,
-                      referenceNum: cap
-                        .ReferenceNum,
+                      description: cap.Description,
+                      referenceNum: cap.ReferenceNum,
                       parent: fourthLevelCap,
                       children: false
                     });
