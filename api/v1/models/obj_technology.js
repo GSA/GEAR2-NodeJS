@@ -93,6 +93,15 @@ module.exports = function(sequelize, DataTypes) {
         key: 'Id'
       },
       field: 'obj_standard_type_Id'
+    },
+    obj508ComplianceStatusId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      references: {
+        model: 'obj_508_compliance_status',
+        key: 'Id'
+      },
+      field: 'obj_508_compliance_status_Id'
     }
   }, {
     name: {
