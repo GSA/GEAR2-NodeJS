@@ -68,6 +68,24 @@ module.exports = function(sequelize, DataTypes) {
       },
       field: 'obj_deployment_type_Id'
     },
+    objStandardTypeId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'obj_standard_type',
+        key: 'Id'
+      },
+      field: 'obj_standard_type_Id'
+    },
+    obj508ComplianceStatusId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      references: {
+        model: 'obj_508_compliance_status',
+        key: 'Id'
+      },
+      field: 'obj_508_compliance_status_Id'
+    },
     reference_documents: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -96,15 +114,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: "Admin",
       field: 'ChangeAudit'
-    },
-    objStandardTypeId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'obj_standard_type',
-        key: 'Id'
-      },
-      field: 'obj_standard_type_Id'
     }
   }, {
     name: {
