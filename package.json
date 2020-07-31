@@ -30,7 +30,7 @@
     "lodash": "^4.17.19",
     "mysql": "^2.18.1",
     "mysql2": "~1.6.5",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-saml": "^1.2.0",
