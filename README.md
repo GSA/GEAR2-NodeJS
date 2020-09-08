@@ -13,6 +13,13 @@ Assumes you have NodeJS (with NPM) installed and appropriate MS SQL configuratio
 3. [Configure the database connection](#3-configure-the-database-connection)
 4. [Start the server](#4-start-the-server)
 
+There are different branches for each environment:
+- Development - dev-server  
+- Staging - stage-server  
+- Production - master  
+
+This is to save separate server configurations for each server. Not the best solution but it's a workaround for now.
+
 
 ### Steps
 
