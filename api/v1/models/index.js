@@ -19,6 +19,13 @@ var config = {
   database: process.env.DB,
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT,
+  dialectOptions: {
+    ssl: {
+      ca: fs.readFileSync('./certs/ca.pem'),
+      key: fs.readFileSync('./certs/client-key.pem'),
+      cert: fs.readFileSync('./certs/client-cert.pem')
+    }
+  },
   // logging: false,
 };
 

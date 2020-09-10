@@ -13,6 +13,7 @@
     jsonwebtoken = require('jsonwebtoken'),
     jwt = require('express-jwt'),
     mysql = require('mysql2'),
+    fs = require('fs'),
     util = require('util'),
     models = require('./api/v1/models'),
     passportJWT = require("passport-jwt"),
@@ -138,6 +139,11 @@ app.post(samlConfig.path,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.ACL_DB,
+      ssl: {
+        ca: fs.readFileSync('./certs/ca.pem'),
+        key: fs.readFileSync('./certs/client-key.pem'),
+        cert: fs.readFileSync('./certs/client-cert.pem')
+      },
     });
     db.connect();
     db.query(`CALL acl.get_user_perms('${samlProfile.nameID}');`,
