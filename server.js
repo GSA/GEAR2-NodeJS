@@ -1,24 +1,24 @@
-var
-  dotenv = require('dotenv').config(),
-  finale = require('finale-rest'),
-  finaleMiddleware = require('./api/v1/finale-middleware'),
-  finaleVar = require('./api/v1/finale-var'),
-  http = require('http'),
-  fs = require('fs'),
-  express = require('express'),
-  path = require('path'),
-  bodyParser = require('body-parser'),
-  cors = require('cors'),
-  passport = require('passport'),
-  SAMLStrategy = require('passport-saml').Strategy,
-  jsonwebtoken = require('jsonwebtoken'),
-  jwt = require('express-jwt'),
-  mysql = require('mysql2'),
-  util = require('util'),
-  models = require('./api/v1/models'),
-  passportJWT = require("passport-jwt"),
-  // Legacy API
-  api_v0 = require('./api/v0/routes/api_v0.1/index');
+﻿﻿var
+    dotenv = require('dotenv').config(),
+    finale = require('finale-rest'),
+    finaleMiddleware = require('./api/v1/finale-middleware'),
+    finaleVar = require('./api/v1/finale-var'),
+    http = require('http'),
+    express = require('express'),
+    path = require('path'),
+    bodyParser = require('body-parser'),
+    cors = require('cors'),
+    passport = require('passport'),
+    SAMLStrategy = require('passport-saml').Strategy,
+    jsonwebtoken = require('jsonwebtoken'),
+    jwt = require('express-jwt'),
+    mysql = require('mysql2'),
+    fs = require('fs'),
+    util = require('util'),
+    models = require('./api/v1/models'),
+    passportJWT = require("passport-jwt"),
+    // Legacy API
+    api_v0 = require('./api/v0/routes/api_v0.1/index');
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
@@ -139,6 +139,11 @@ app.post(samlConfig.path,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.ACL_DB,
+      ssl: {
+        ca: fs.readFileSync('./certs/ca.pem'),
+        key: fs.readFileSync('./certs/client-key.pem'),
+        cert: fs.readFileSync('./certs/client-cert.pem')
+      },
     });
     console.log('Passport Authenticated!!')
     db.connect();

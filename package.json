@@ -30,7 +30,7 @@
     "kind-of": "^6.0.3",
     "lodash": "^4.17.19",
     "mysql": "^2.18.1",
-    "mysql2": "~1.6.5",
+    "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
