@@ -117,11 +117,15 @@
                 <td><span class="fa fa-bookmark"></span>&nbsp;CUI Indicator</td>
                 <td>{{ application.CUI }}</td>
               </tr>
-              <tr ng-show="!!application.OMBUID">
+              <tr>
                 <td><span class="fa fa-info-circle"></span>&nbsp;Status</td>
                 <td>{{ application.Status }}</td>
               </tr>
-              <tr ng-show="!!application.OMBUID">
+              <tr ng-show="!!application.RetiredYear">
+                <td><span class="fa fa-calendar-alt"></span>&nbsp;Retired Year</td>
+                <td>{{ application.RetiredYear }}</td>
+              </tr>
+              <tr>
                 <td><span class="fa fa-calendar-alt"></span>&nbsp;Production Year</td>
                 <td>{{ application.ProdYear }}</td>
               </tr>
