@@ -294,10 +294,6 @@ class FISMAModel extends Model {
         type: 'string'
       },
       {
-        name: 'Status',
-        type: 'string'
-      },
-      {
         name: 'PII',
         type: 'string'
       },
