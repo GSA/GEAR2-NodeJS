@@ -1,4 +1,4 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/docs/content/guide/migration.ngdoc?message=docs(guide%2FMigrating from Previous Versions)%3A%20describe%20your%20change...' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.8.x/docs/content/guide/migration.ngdoc?message=docs(guide%2FMigrating from Previous Versions)%3A%20describe%20your%20change...' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 <h1 id="migrating-an-app-to-a-newer-version">Migrating an App to a newer version</h1>
@@ -11,6 +11,22 @@ which drives many of these changes.</li>
 <li>Several new features, especially animations, would not be possible without a few changes.</li>
 <li>Finally, some outstanding bugs were best fixed by changing an existing API.</li>
 </ul>
+<h2 id="migrating-from-1-7-to-1-8">Migrating from 1.7 to 1.8</h2>
+<p>Generally updating to 1.8.0 from 1.7.x should be a straightforward process and is highly recommended.
+AngularJS 1.8 is a breaking change release from 1.7 to mitigate a security issue.</p>
+<p>JqLite no longer turns XHTML-like strings like <code>&lt;div /&gt;&lt;span /&gt;</code> to sibling elements when not in XHTML
+mode: <code>&lt;div&gt;&lt;/div&gt;&lt;span&gt;&lt;/span&gt;</code>.
+Instead it will leave the elements alone. In non-XHTML mode the browser will convert these to nested
+elements: <code>&lt;div&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;</code>.</p>
+<p>This is a security fix to avoid an XSS vulnerability if a new jqLite element is created from a
+user-controlled HTML string. If you must have this functionality and understand the risk involved
+then it is posible to restore the original behavior by calling</p>
+<pre><code class="lang-js">angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement();
+</code></pre>
+<p>But you should adjust your code for this change and remove your use of this function as soon as
+possible.</p>
+<p>Note that this only patches jqLite. If you use jQuery 3.5.0 or newer, please read the
+<a href="https://jquery.com/upgrade-guide/3.5/">jQuery 3.5 upgrade guide</a> for more details about the workarounds.</p>
 <h2 id="migrating-from-1-6-to-1-7">Migrating from 1.6 to 1.7</h2>
 <p>AngularJS 1.7 contains bug fixes and features to AngularJS core and its external modules, some of
 which contain breaking changes. However, most of these address internal behavior and not APIs, and
@@ -114,7 +130,7 @@ custom directive, as seen in the following example directive definition object:<
   link: function(scope, element, attrs, ctrl) {
     var maxValidator = ctrl.$validators.max;
 
-    ctrk.$validators.max = function(modelValue, viewValue) {
+    ctrl.$validators.max = function(modelValue, viewValue) {
       return maxValidator(modelValue, modelValue);
     };
   }
@@ -192,14 +208,15 @@ statement.</p>
 
 <p><strong>Due to <a href="https://github.com/angular/angular.js/commit/6ccbfa65d60a3dc396d0cf6da21b993ad74653fd">6ccbfa</a></strong>,
 the <code>xlink:href</code> security context for SVG&#39;s <code>a</code> and <code>image</code> elements has been lowered.</p>
-<p>In the unlikely case that an app relied on <code>RESOURCE_URL</code> whitelisting for the
+<p>In the unlikely case that an app relied on <code>RESOURCE_URL</code> trusted list for the
 purpose of binding to the <code>xlink:href</code> property of SVG&#39;s <code>&lt;a&gt;</code> or <code>&lt;image&gt;</code>
 elements and if the values do not pass the regular URL sanitization, they will
 break.</p>
 <p>To fix this you need to ensure that the values used for binding to the affected
-<code>xlink:href</code> contexts are considered safe URLs, e.g. by whitelisting them in
-<code>$compileProvider</code>&#39;s <code>aHrefSanitizationWhitelist</code> (for <code>&lt;a&gt;</code> elements) or
-<code>imgSrcSanitizationWhitelist</code> (for <code>&lt;image&gt;</code> elements).</p>
+<code>xlink:href</code> contexts are considered safe URLs, e.g. by trusting them in
+<code>$compileProvider</code>&#39;s <code>aHrefSanitizationWhitelist</code> (called <code>aHrefSanitizationTrustedUrlList</code> form
+1.8.1 onwards) (for <code>&lt;a&gt;</code> elements) or <code>imgSrcSanitizationWhitelist</code> (called
+<code>imgSrcSanitizationTrustedUrlList</code> from 1.8.1 onwards) (for <code>&lt;image&gt;</code> elements).</p>
 <hr />
 
 <p><strong>Due to <a href="https://github.com/angular/angular.js/commit/fd4f0111188b62773b99ab6eab38b4d2b5d8d727">fd4f01</a></strong>,
@@ -517,7 +534,7 @@ intuitive) sorting order.</p>
 //--&gt; &#39;a&#39;, &#39;o&#39;, &#39;z&#39;, null, undefined
 </code></pre>
 <p><a name="migrate1.6to1.7-ng-misc"></a></p>
-<h3 id="core-_misceallenous_">Core: <em>Misceallenous</em></h3>
+<h3 id="core-_miscellaneous_">Core: <em>Miscellaneous</em></h3>
 <h4 id="-jqlite-"><strong>jqLite</strong></h4>
 <p><strong>Due to <a href="https://github.com/angular/angular.js/commit/b7d396b8b6e8f27a1f4556d58fc903321e8d532a">b7d396</a></strong>,
 <code>removeData()</code> no longer removes event handlers.</p>
@@ -1102,7 +1119,7 @@ running at <code>https://docs.angularjs.org</code> then the following will fail:
 </code></pre>
 <p>By default, only URLs with the same domain and protocol as the application document are considered
 safe in the <code>RESOURCE_URL</code> context. To use URLs from other domains and/or protocols, you may either
-whitelist them or wrap them into a trusted value by calling <code>$sce.trustAsResourceUrl(url)</code>.</p>
+add them to the trusted source URL list or wrap them into a trusted value by calling <code>$sce.trustAsResourceUrl(url)</code>.</p>
 <p><hr /></p>
 <p><minor />
 <strong>Due to <a href="https://github.com/angular/angular.js/commit/97bbf86a1979d099802f0d631c17c54b87563b40">97bbf8</a></strong>,
@@ -1160,7 +1177,7 @@ $http.json(&#39;other/trusted/url&#39;, {jsonpCallbackParam: &#39;cb&#39;});
 all JSONP requests now require the URL to be trusted as a resource URL. There are two approaches to
 trust a URL:</p>
 <ol>
-<li><p><strong>Whitelisting with the <code>$sceDelegateProvider.resourceUrlWhitelist()</code> method.</strong>
+<li><p><strong>Setting trusted resource URLs with the <code>$sceDelegateProvider.resourceUrlWhitelist()</code> (called <code>trustedResourceUrlList()</code> from 1.8.1 onwards) method.</strong>
 You configure this list in a module configuration block:</p>
 <pre><code class="lang-js">appModule.config([&#39;$sceDelegateProvider&#39;, function($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
@@ -1800,7 +1817,7 @@ service does not have access to the resource in order to sanitize it.</p>
 <p>Similarly, due to <a href="https://github.com/angular/angular.js/commit/234053fc9ad90e0d05be7e8359c6af66be94c094">234053fc</a>,
 the <code>$sanitize</code> service will now also remove instances of the <code>usemap</code> attribute from any elements
 passed to it. This attribute is used to reference another element by <code>name</code> or <code>id</code>. Since the
-<code>name</code> and <code>id</code> attributes are already blacklisted, a sanitized <code>usemap</code> attribute could only
+<code>name</code> and <code>id</code> attributes are already banned, a sanitized <code>usemap</code> attribute could only
 reference unsanitized content, which is a security risk.</p>
 <p>Due to <a href="https://github.com/angular/angular.js/commit/98c2db7f9c2d078a408576e722407d518c7ee10a">98c2db7f</a>,
 passing a non-string value (other than <code>undefined</code> or <code>null</code>) through the <code>linky</code> filter will throw
@@ -2144,8 +2161,8 @@ expression that returns the result of <code>$sce.trustAsResourceUrl</code>. This
   return $sce.trustAsResourceUrl(templateName);
 };
 </code></pre>
-<p>To migrate, either cache the result of <code>trustAsResourceUrl()</code>, or put the template url in the resource
-whitelist in the <code>config()</code> function:</p>
+<p>To migrate, either cache the result of <code>trustAsResourceUrl()</code>, or put the template url in the trusted resource
+URL list in the <code>config()</code> function:</p>
 <p>After:</p>
 <pre><code class="lang-js">var templateCache = {};
 $scope.findTemplate = function(templateName) {
@@ -2156,7 +2173,8 @@ $scope.findTemplate = function(templateName) {
   return templateCache[templateName];
 };
 
-// Alternatively, use `$sceDelegateProvider.resourceUrlWhitelist()`, which means you don&#39;t
+// Alternatively, use `$sceDelegateProvider.resourceUrlWhitelist()` (called
+// `trustedResourceUrlList()` from 1.8.1 onwards), which means you don&#39;t
 // have to use `$sce.trustAsResourceUrl()` at all:
 
 angular.module(&#39;myApp&#39;, []).config(function($sceDelegateProvider) {
@@ -2715,7 +2733,7 @@ below should still apply, but you may want to consult the
   <li><a href="guide/migration#directive-priority">Directive priority</a></li>
   <li><a href="guide/migration#ngscenario">ngScenario</a></li>
   <li><a href="guide/migration#nginclude-and-ngview-replace-its-entire-element-on-update">ngInclude and ngView replace its entire element on update</a></li>
-  <li><a href="guide/migration#urls-are-now-sanitized-against-a-whitelist">URLs are now sanitized against a whitelist</a></li>
+  <li><a href="guide/migration#urls-are-now-sanitized-against-a-trusted-uri-matcher">URLs are now sanitized against a trusted URI matcher</a></li>
   <li><a href="guide/migration#isolate-scope-only-exposed-to-directives-with-scope-property">Isolate scope only exposed to directives with <code>scope</code> property</a></li>
   <li><a href="guide/migration#change-to-interpolation-priority">Change to interpolation priority</a></li>
   <li><a href="guide/migration#underscore-prefixed-suffixed-properties-are-non-bindable">Underscore-prefixed/suffixed properties are non-bindable</a></li>
@@ -3058,9 +3076,9 @@ recreate the element every time a new content is included.</p>
 definition of css styles for animations much easier.</p>
 <p>See <a href="https://github.com/angular/angular.js/commit/7d69d52acff8578e0f7d6fe57a6c45561a05b182">7d69d52a</a>,
 <a href="https://github.com/angular/angular.js/commit/aa2133ad818d2e5c27cbd3933061797096356c8a">aa2133ad</a>.</p>
-<h3 id="urls-are-now-sanitized-against-a-whitelist">URLs are now sanitized against a whitelist</h3>
-<p>A whitelist configured via <code>$compileProvider</code> can be used to configure what URLs are considered safe.
-By default all common protocol prefixes are whitelisted including <code>data:</code> URIs with mime types <code>image/*</code>.
+<h3 id="urls-are-now-sanitized-against-a-trusted-uri-matcher">URLs are now sanitized against a trusted URI matcher</h3>
+<p>A trusted URI matcher configured via <code>$compileProvider</code> can be used to configure what URLs are considered safe.
+By default all common protocol prefixes are trusted including <code>data:</code> URIs with mime types <code>image/*</code>.
 This change shouldn&#39;t impact apps that don&#39;t contain malicious image links.</p>
 <p>See <a href="https://github.com/angular/angular.js/commit/1adf29af13890d61286840177607edd552a9df97">1adf29af</a>,
 <a href="https://github.com/angular/angular.js/commit/3e39ac7e1b10d4812a44dad2f959a93361cd823b">3e39ac7e</a>.</p>

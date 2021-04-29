@@ -1,8 +1,8 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ng/compile.js?message=docs($compileProvider)%3A%20describe%20your%20change...#L1371' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.8.x/src/ng/compile.js?message=docs($compileProvider)%3A%20describe%20your%20change...#L1372' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 
-<a href='https://github.com/angular/angular.js/tree/v1.7.5/src/ng/compile.js#L1371' class='view-source pull-right btn btn-primary'>
+<a href='https://github.com/angular/angular.js/tree/v1.8.2/src/ng/compile.js#L1372' class='view-source pull-right btn btn-primary'>
   <i class="glyphicon glyphicon-zoom-in">&nbsp;</i>View Source
 </a>
 
@@ -75,9 +75,9 @@
         <a href="" class="label type-hint type-hint-string">string</a><a href="" class="label type-hint type-hint-object">Object</a>
       </td>
       <td>
-        <p>Name of the directive in camel-case (i.e. <code>ngBind</code> which
-   will match as <code>ng-bind</code>), or an object map of directives where the keys are the
-   names and the values are the factories.</p>
+        <p>Name of the directive in camel-case (i.e. <code>ngBind</code> which will match
+   as <code>ng-bind</code>), or an object map of directives where the keys are the names and the values
+   are the factories.</p>
 
         
       </td>
@@ -261,14 +261,14 @@ constructor function. (This is used by the component router to annotate)</li>
     </li>
   
   <li>
-    <h3 id="aHrefSanitizationWhitelist"><p><code>aHrefSanitizationWhitelist([regexp]);</code></p>
+    <h3 id="aHrefSanitizationTrustedUrlList"><p><code>aHrefSanitizationTrustedUrlList([regexp]);</code></p>
 
 </h3>
-    <div><p>Retrieves or overrides the default regular expression that is used for whitelisting of safe
+    <div><p>Retrieves or overrides the default regular expression that is used for determining trusted safe
 urls during a[href] sanitization.</p>
 <p>The sanitization is a security measure aimed at preventing XSS attacks via html links.</p>
 <p>Any url about to be assigned to a[href] via data-binding is first normalized and turned into
-an absolute url. Afterwards, the url is matched against the <code>aHrefSanitizationWhitelist</code>
+an absolute url. Afterwards, the url is matched against the <code>aHrefSanitizationTrustedUrlList</code>
 regular expression. If a match is found, the original url is written into the dom. Otherwise,
 the absolute url is prefixed with <code>&#39;unsafe:&#39;</code> string and only then is it written into the DOM.</p>
 </div>
@@ -298,7 +298,7 @@ the absolute url is prefixed with <code>&#39;unsafe:&#39;</code> string and only
         <a href="" class="label type-hint type-hint-regexp">RegExp</a>
       </td>
       <td>
-        <p>New regexp to whitelist urls with.</p>
+        <p>New regexp to trust urls with.</p>
 
         
       </td>
@@ -324,14 +324,37 @@ the absolute url is prefixed with <code>&#39;unsafe:&#39;</code> string and only
     </li>
   
   <li>
-    <h3 id="imgSrcSanitizationWhitelist"><p><code>imgSrcSanitizationWhitelist([regexp]);</code></p>
+    <h3 id="aHrefSanitizationWhitelist"><p><code>aHrefSanitizationWhitelist();</code></p>
 
 </h3>
-    <div><p>Retrieves or overrides the default regular expression that is used for whitelisting of safe
+    <div></div>
+
+    
+<div class="alert alert-danger deprecation">
+  <div class="title"><strong>Deprecated:</strong>
+    <span class="since">(since 1.8.1) </span>
+    
+  </div>
+  <p>This method is deprecated. Use <a href="api/ng/provider/$compileProvider#aHrefSanitizationTrustedUrlList">aHrefSanitizationTrustedUrlList</a> instead.</p>
+
+</div>
+
+
+    
+
+    
+
+    </li>
+  
+  <li>
+    <h3 id="imgSrcSanitizationTrustedUrlList"><p><code>imgSrcSanitizationTrustedUrlList([regexp]);</code></p>
+
+</h3>
+    <div><p>Retrieves or overrides the default regular expression that is used for determining trusted safe
 urls during img[src] sanitization.</p>
 <p>The sanitization is a security measure aimed at prevent XSS attacks via html links.</p>
 <p>Any url about to be assigned to img[src] via data-binding is first normalized and turned into
-an absolute url. Afterwards, the url is matched against the <code>imgSrcSanitizationWhitelist</code>
+an absolute url. Afterwards, the url is matched against the <code>imgSrcSanitizationTrustedUrlList</code>
 regular expression. If a match is found, the original url is written into the dom. Otherwise,
 the absolute url is prefixed with <code>&#39;unsafe:&#39;</code> string and only then is it written into the DOM.</p>
 </div>
@@ -361,7 +384,7 @@ the absolute url is prefixed with <code>&#39;unsafe:&#39;</code> string and only
         <a href="" class="label type-hint type-hint-regexp">RegExp</a>
       </td>
       <td>
-        <p>New regexp to whitelist urls with.</p>
+        <p>New regexp to trust urls with.</p>
 
         
       </td>
@@ -384,6 +407,29 @@ the absolute url is prefixed with <code>&#39;unsafe:&#39;</code> string and only
 </td>
   </tr>
 </table>
+    </li>
+  
+  <li>
+    <h3 id="imgSrcSanitizationWhitelist"><p><code>imgSrcSanitizationWhitelist();</code></p>
+
+</h3>
+    <div></div>
+
+    
+<div class="alert alert-danger deprecation">
+  <div class="title"><strong>Deprecated:</strong>
+    <span class="since">(since 1.8.1) </span>
+    
+  </div>
+  <p>This method is deprecated. Use <a href="api/ng/provider/$compileProvider#imgSrcSanitizationTrustedUrlList">imgSrcSanitizationTrustedUrlList</a> instead.</p>
+
+</div>
+
+
+    
+
+    
+
     </li>
   
   <li>

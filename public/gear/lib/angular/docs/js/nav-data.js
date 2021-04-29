@@ -18,6 +18,11 @@ angular.module('navData', [])
             "href": "api/ng/function"
           },
           {
+            "name": "angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement",
+            "href": "api/ng/function/angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement",
+            "type": "function"
+          },
+          {
             "name": "angular.bind",
             "href": "api/ng/function/angular.bind",
             "type": "function"
@@ -1407,6 +1412,11 @@ angular.module('navData', [])
         "href": "error",
         "navItems": [
           {
+            "name": "Error Reference",
+            "href": "error",
+            "type": "error"
+          },
+          {
             "name": "$animate",
             "href": "error/$animate",
             "type": "section"
@@ -2255,11 +2265,6 @@ angular.module('navData', [])
             "type": "page"
           },
           {
-            "name": "Security",
-            "href": "guide/security",
-            "type": "page"
-          },
-          {
             "name": "Accessibility",
             "href": "guide/accessibility",
             "type": "page"
@@ -2267,6 +2272,16 @@ angular.module('navData', [])
           {
             "name": "Internet Explorer Compatibility",
             "href": "guide/ie",
+            "type": "page"
+          },
+          {
+            "name": "Developer Guide",
+            "href": "guide",
+            "type": "page"
+          },
+          {
+            "name": "Security",
+            "href": "guide/security",
             "type": "page"
           },
           {
@@ -2292,6 +2307,11 @@ angular.module('navData', [])
         "type": "group",
         "href": "misc",
         "navItems": [
+          {
+            "name": "Miscellaneous",
+            "href": "misc",
+            "type": "page"
+          },
           {
             "name": "Develop",
             "href": "misc/contribute",
@@ -2330,6 +2350,12 @@ angular.module('navData', [])
         "type": "group",
         "href": "tutorial",
         "navItems": [
+          {
+            "name": "Tutorial",
+            "step": -1,
+            "href": "tutorial",
+            "type": "tutorial"
+          },
           {
             "name": "0 - Bootstrapping",
             "step": 0,
