@@ -1,4 +1,4 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/Angular.js?message=docs(ng)%3A%20describe%20your%20change...#L107' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.8.x/src/Angular.js?message=docs(ng)%3A%20describe%20your%20change...#L108' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 <h1>
@@ -32,6 +32,27 @@ components available within this core module.</p>
 <li><a href="https://developer.mozilla.org/docs/Web/API/MediaStream"><code>MediaStream</code></a></li>
 <li><a href="https://developer.mozilla.org/docs/Web/API/CanvasGradient"><code>CanvasGradient</code></a></li>
 <li>AngularJS <a href="api/ng/type/$rootScope.Scope">scopes</a>;</li>
+</ul>
+<p><code>angular.merge</code> also does not support merging objects with circular references.</p>
+ 
+    </td>
+  </tr>
+  <tr>
+    <td><a href="api/ng/function/angular.copy">angular.copy</a></td>
+    <td>
+    <p>This is a non-exhaustive list of object types / features that are not handled correctly by
+<code>angular.copy</code>. Note that since this functions is used by the change detection code, this
+means binding or watching objects of these types (or that include these types) might not work
+correctly.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/docs/Web/API/File"><code>File</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map"><code>Map</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/API/ImageData"><code>ImageData</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/API/MediaStream"><code>MediaStream</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set"><code>Set</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap"><code>WeakMap</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get"><code>getter</code></a>/
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set"><code>setter</code></a></li>
 </ul>
  
     </td>
@@ -98,7 +119,7 @@ Result: &lt;span ng-class=&quot;{&#39;something&#39;: something} {&#39;else&#39;
 <h4 id="directives-are-not-deduplicated-before-compilation">Directives are not deduplicated before compilation</h4>
 <p>When the original node and the replace template declare the same directive(s), they will be
 <a href="guide/compiler#double-compilation-and-how-to-avoid-it">compiled twice</a> because the compiler
-does not deduplicate them. In many cases, this is not noticable, but e.g. <a href="api/ng/directive/ngModel"><code>ngModel</code></a> will
+does not deduplicate them. In many cases, this is not noticeable, but e.g. <a href="api/ng/directive/ngModel"><code>ngModel</code></a> will
 attach <code>$formatters</code> and <code>$parsers</code> twice.</p>
 <p>See issue <a href="https://github.com/angular/angular.js/issues/2573">#2573</a>.</p>
 <h4 id="-transclude-element-in-the-replace-template-root-can-have-unexpected-effects"><code>transclude: element</code> in the replace template root can have unexpected effects</h4>
@@ -351,7 +372,9 @@ considered to be objects. Note that JavaScript arrays are objects.</p>
       
       <tr>
         <td><a href="api/ng/function/angular.copy">angular.copy</a></td>
-        <td><p>Creates a deep copy of <code>source</code>, which should be an object or an array.</p>
+        <td><p>Creates a deep copy of <code>source</code>, which should be an object or an array. This functions is used
+internally, mostly in the change-detection code. It is not intended as an all-purpose copy
+function, and has several limitations (see below).</p>
 </td>
       </tr>
       
@@ -394,6 +417,15 @@ stripped since AngularJS uses this notation internally.</p>
         <td><a href="api/ng/function/angular.reloadWithDebugInfo">angular.reloadWithDebugInfo</a></td>
         <td><p>Use this function to reload the current application with debug information turned on.
 This takes precedence over a call to <code>$compileProvider.debugInfoEnabled(false)</code>.</p>
+</td>
+      </tr>
+      
+      <tr>
+        <td><a href="api/ng/function/angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement">angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement</a></td>
+        <td><p>Restores the pre-1.8 behavior of jqLite that turns XHTML-like strings like
+<code>&lt;div /&gt;&lt;span /&gt;</code> to <code>&lt;div&gt;&lt;/div&gt;&lt;span&gt;&lt;/span&gt;</code> instead of <code>&lt;div&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;</code>.
+The new behavior is a security fix. Thus, if you need to call this function, please try to adjust
+your code for this change and remove your use of this function as soon as possible.</p>
 </td>
       </tr>
       

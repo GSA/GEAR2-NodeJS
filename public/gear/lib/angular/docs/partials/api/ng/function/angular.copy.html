@@ -1,8 +1,8 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/Angular.js?message=docs(angular.copy)%3A%20describe%20your%20change...#L779' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.8.x/src/Angular.js?message=docs(angular.copy)%3A%20describe%20your%20change...#L784' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 
-<a href='https://github.com/angular/angular.js/tree/v1.7.5/src/Angular.js#L779' class='view-source pull-right btn btn-primary'>
+<a href='https://github.com/angular/angular.js/tree/v1.8.2/src/Angular.js#L784' class='view-source pull-right btn btn-primary'>
   <i class="glyphicon glyphicon-zoom-in">&nbsp;</i>View Source
 </a>
 
@@ -23,7 +23,9 @@
 
 <div class="api-profile-description">
   <h2 id="overview">Overview</h2>
-  <p>Creates a deep copy of <code>source</code>, which should be an object or an array.</p>
+  <p>Creates a deep copy of <code>source</code>, which should be an object or an array. This functions is used
+internally, mostly in the change-detection code. It is not intended as an all-purpose copy
+function, and has several limitations (see below).</p>
 <ul>
 <li>If no destination is supplied, a copy of the object or array is created.</li>
 <li>If a destination is provided, all of its elements (for arrays) or properties (for objects)
@@ -36,9 +38,33 @@ are deleted and then all elements/properties from the source are copied to it.</
   Only enumerable properties are taken into account. Non-enumerable properties (both on <code>source</code>
   and on <code>destination</code>) will be ignored.
 </div>
+
+<div class="alert alert-warning">
+  <code>angular.copy</code> does not check if destination and source are of the same type. It&#39;s the
+  developer&#39;s responsibility to make sure they are compatible.
+</div>
 </div>
 
 
+
+<h2 id="known-issues">Known Issues</h2>
+<div class="known-issue">
+  <p>This is a non-exhaustive list of object types / features that are not handled correctly by
+<code>angular.copy</code>. Note that since this functions is used by the change detection code, this
+means binding or watching objects of these types (or that include these types) might not work
+correctly.</p>
+<ul>
+<li><a href="https://developer.mozilla.org/docs/Web/API/File"><code>File</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map"><code>Map</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/API/ImageData"><code>ImageData</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/API/MediaStream"><code>MediaStream</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set"><code>Set</code></a></li>
+<li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakMap"><code>WeakMap</code></a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get"><code>getter</code></a>/
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set"><code>setter</code></a></li>
+</ul>
+
+</div>
 
 
 <div>
@@ -106,6 +132,7 @@ are deleted and then all elements/properties from the source are copied to it.</
 
 </section>
     
+
     <h3 id="angular.copy-returns">Returns</h3>
 <table class="variables-matrix return-arguments">
   <tr>

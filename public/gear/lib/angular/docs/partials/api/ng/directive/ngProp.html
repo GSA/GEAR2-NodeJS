@@ -1,8 +1,8 @@
-<a href='https://github.com/angular/angular.js/edit/v1.7.x/src/ng/compile.js?message=docs(ngProp)%3A%20describe%20your%20change...#L1047' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
+<a href='https://github.com/angular/angular.js/edit/v1.8.x/src/ng/compile.js?message=docs(ngProp)%3A%20describe%20your%20change...#L1048' class='improve-docs btn btn-primary'><i class="glyphicon glyphicon-edit">&nbsp;</i>Improve this Doc</a>
 
 
 
-<a href='https://github.com/angular/angular.js/tree/v1.7.5/src/ng/compile.js#L1047' class='view-source pull-right btn btn-primary'>
+<a href='https://github.com/angular/angular.js/tree/v1.8.2/src/ng/compile.js#L1048' class='view-source pull-right btn btn-primary'>
   <i class="glyphicon glyphicon-zoom-in">&nbsp;</i>View Source
 </a>
 
@@ -52,14 +52,14 @@ each context type in the form of <a href="api/ng/service/$sce#trustAsResourceUrl
 <p>In some cases you can also rely upon automatic sanitization of untrusted values - see below.</p>
 <p>Based on the context, other options may exist to mark a value as trusted / configure the behavior
 of <a href="api/ng/service/$sce"><code>$sce</code></a>. For example, to restrict the <code>RESOURCE_URL</code> context to specific origins, use
-the <a href="api/ng/provider/$sceDelegateProvider#resourceUrlWhitelist">resourceUrlWhitelist()</a>
-and <a href="api/ng/provider/$sceDelegateProvider#resourceUrlBlacklist">resourceUrlBlacklist()</a>.</p>
+the <a href="api/ng/provider/$sceDelegateProvider#trustedResourceUrlList">trustedResourceUrlList()</a>
+and <a href="api/ng/provider/$sceDelegateProvider#bannedResourceUrlList">bannedResourceUrlList()</a>.</p>
 <p><a href="api/ng/service/$sce#what-trusted-context-types-are-supported-">Find out more about the different context types</a>.</p>
 <h3 id="html-sanitization">HTML Sanitization</h3>
 <p>By default, <code>$sce</code> will throw an error if it detects untrusted HTML content, and will not bind the
 content.
 However, if you include the <a href="api/ngSanitize">ngSanitize module</a>, it will try to sanitize the
-potentially dangerous HTML, e.g. strip non-whitelisted tags and attributes when binding to
+potentially dangerous HTML, e.g. strip non-trusted tags and attributes when binding to
 <code>innerHTML</code>.</p>
 
 </div>

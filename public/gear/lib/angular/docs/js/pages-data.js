@@ -968,6 +968,11 @@ angular.module('pagesData', [])
     "area": "api",
     "path": "api/ng/function/angular.reloadWithDebugInfo"
   },
+  "api/ng/function/angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement": {
+    "name": "angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement",
+    "area": "api",
+    "path": "api/ng/function/angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement"
+  },
   "api/ng/object/angular.version": {
     "name": "angular.version",
     "area": "api",
