@@ -41,7 +41,7 @@
     "pug-code-gen": "^3.0.2",
     "sequelize": "^5.22.3",
     "tedious": "^9.2.3",
-    "underscore": "^1.12.0",
+    "underscore": "^1.12.1",
     "xml-crypto": "^2.0.0",
     "y18n": "^4.0.1"
   }
