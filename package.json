@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@xmldom/xmldom": "^0.7.7",
     "acorn": "^7.4.1",
     "async": "^3.2.2",
     "axios": "^0.21.2",
@@ -29,7 +30,9 @@
     "express-jwt": "^6.0.0",
     "finale-rest": "1.0.6",
     "follow-redirects": "^1.14.7",
+    "json-schema": "^0.4.0",
     "jsonwebtoken": "^8.5.1",
+    "jsprim": "^1.4.2",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.20",
     "minimist": "^1.2.6",
