@@ -15,6 +15,7 @@
   "dependencies": {
     "@xmldom/xmldom": "^0.7.7",
     "acorn": "^7.4.1",
+    "adal-node": "^0.2.4",
     "async": "^3.2.2",
     "axios": "^0.21.2",
     "bcrypt-nodejs": "0.0.3",
