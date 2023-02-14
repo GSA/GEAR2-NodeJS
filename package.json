@@ -48,6 +48,7 @@
     "passport-saml": "^3.2.2",
     "pug": "^3.0.1",
     "pug-code-gen": "^3.0.2",
+    "qs": "^6.7.3",
     "sequelize": "^5.22.3",
     "tedious": "^9.2.3",
     "underscore": "^1.12.1",
