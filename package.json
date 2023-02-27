@@ -50,7 +50,7 @@
     "pug": "^3.0.1",
     "pug-code-gen": "^3.0.2",
     "qs": "^6.11.0",
-    "sequelize": "^5.22.3",
+    "sequelize": "^6.29.0",
     "tedious": "^9.2.3",
     "underscore": "^1.12.1",
     "xml-crypto": "^2.0.0",
