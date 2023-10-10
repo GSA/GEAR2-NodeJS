@@ -9,7 +9,7 @@
     bodyParser = require('body-parser'),
     cors = require('cors'),
     passport = require('passport'),
-    SAMLStrategy = require('passport-saml').Strategy,
+    SAMLStrategy = require('@node-saml/passport-saml').Strategy,
     jsonwebtoken = require('jsonwebtoken'),
     jwt = require('express-jwt'),
     mysql = require('mysql2'),

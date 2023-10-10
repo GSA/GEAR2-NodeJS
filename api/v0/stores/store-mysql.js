@@ -1,5 +1,5 @@
 /* eslint no-console: ["error", { allow: ["error"] }] */
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const dbconfig = require('../../../.securables/gear-config');
 
 console.log('\n\nHEY:')
