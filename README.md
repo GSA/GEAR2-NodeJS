@@ -1,6 +1,6 @@
 # GEAR2-NodeJS
 
-This repository has been archived and will no longer be updated. The newest version of GEAR can be found here: https://github.com/GSA/GEAR3
+**This repository has been archived and will no longer be updated.** The newest version of GEAR can be found here: https://github.com/GSA/GEAR3
 
 ## Installation
 
